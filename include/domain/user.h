@@ -9,8 +9,6 @@ class user{
     string role;
     string active;
     public:
-    user(string, string, string, string, string);
-    ~user();
-    void getinline(user&);
-    void getoutline(const user&);
+        user(string, string, string, string, string);
+        ~user();
 };
