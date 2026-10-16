@@ -11,5 +11,9 @@ class vocabulary{
     string example;
     public:
         vocabulary(string, string, string, string, string, string);
-        ~vocabulary();
+        string getId();
+        string getWord();
+        string getMeaning();
+        string getType();
+        string getExample();
 };
