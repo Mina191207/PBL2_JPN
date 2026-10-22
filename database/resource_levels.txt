@@ -1,1 +1,2 @@
-L005|General|JLPT N5|5|Beginner
+L004|JLPT|JLPT N4|4|Elementary
+L005|JLPT|JLPT N5|5|Beginner
