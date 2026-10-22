@@ -1,9 +1,8 @@
-#include "vocabulary.h"
 #include <iostream>
 #include <string>
-using namespace std;
+#include <fstream>
+#include "../include/domain/vocabulary.h"
 int main() {
-    vocabulary ob1("1", "こんにちは", "konnichiwa", "Hello", "greeting", "こんにちは、元気ですか？");
-    cout << ob1.getWord() << endl;
-    return 0;
+   vocabulary vocab("", "こんにちは", "konnichiwa", "Hello", PartOfSpeech::Other, "こんにちは、元気ですか？");
+
 };

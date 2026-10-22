@@ -1,19 +1,28 @@
-#include <iostream>
+#pragma once // include guard: giúp tránh include file trùng lặp.
+#include "PartOfSpeech.h"
 #include <string>
-using namespace std;
-
+#include <stdexcept>
+#include <cctype>
 class vocabulary{
-    string id;
-    string word;
-    string reading;
-    string meaning;
-    string type;
-    string example;
+    std::string id;
+    std::string word;
+    std::string reading;
+    std::string meaning;
+    PartOfSpeech partofspeech;
+    std::string example;
     public:
-        vocabulary(string, string, string, string, string, string);
-        string getId();
-        string getWord();
-        string getMeaning();
-        string getType();
-        string getExample();
+        vocabulary(
+            std::string, 
+            std::string, 
+            std::string, 
+            std::string, 
+            PartOfSpeech, 
+            std::string
+        );
+        std::string getId() const;
+        std::string getWord() const;
+        std::string getReading() const;
+        std::string getMeaning() const;
+        PartOfSpeech getPartOfSpeech() const noexcept;
+        std::string getExample() const;
 };
