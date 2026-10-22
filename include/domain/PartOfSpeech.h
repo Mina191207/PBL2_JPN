@@ -1,10 +1,10 @@
 #pragma once
 
 enum class PartOfSpeech {
-    Noun,
-    Verb,
-    IAdjective,
-    NaAdjective,
-    Adverb,
-    Other,
+    NOUN,
+    VERB,
+    IADJECTIVE,
+    NAADJECTIVE,
+    ADVERB,
+    OTHER,
 };
