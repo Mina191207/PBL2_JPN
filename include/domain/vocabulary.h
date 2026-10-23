@@ -1,10 +1,11 @@
 #pragma once // include guard: giúp tránh include file trùng lặp.
 #include "PartOfSpeech.h"
+#include "EntityId.h"
 #include <string>
 #include <stdexcept>
 #include <cctype>
 class vocabulary{
-    std::string id;
+    ResourceId id;
     std::string word;
     std::string reading;
     std::string meaning;
@@ -12,14 +13,14 @@ class vocabulary{
     std::string example;
     public:
         vocabulary(
-            std::string, 
+            ResourceId, 
             std::string, 
             std::string, 
             std::string, 
             PartOfSpeech, 
             std::string
         );
-        std::string getId() const;
+        ResourceId getId() const;
         std::string getWord() const;
         std::string getReading() const;
         std::string getMeaning() const;

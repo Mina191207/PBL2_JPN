@@ -21,14 +21,14 @@ bool isValidResourceId(const std::string& id) {
         return id[1] != '0';
 }
 vocabulary::vocabulary(
-    std::string id, 
+    ResourceId id, 
     std::string word, 
     std::string reading, 
     std::string meaning, 
     PartOfSpeech type,
     std::string example
 )
-: id(std::move(id)),
+: //dang bi id,
   word(std::move(word)),
   reading(std::move(reading)),
   meaning(std::move(meaning)),
