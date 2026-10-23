@@ -9,35 +9,21 @@ bool isBlank(const std::string& s){
     return true;
 }
 }
-bool isValidResourceId(const std::string& id) {
-        if (id.size() < 4 || id[0] != 'R')
-            return false;
-        for (std::size_t i = 1; i < id.size(); ++i) {
-            if (id[i] < '0' || id[i] > '9')
-                return false;
-        }
-        if (id.size() == 4)
-            return id != "R000";
-        return id[1] != '0';
-}
 vocabulary::vocabulary(
-    ResourceId id, 
+    const ResourceId& resourceId, 
     std::string word, 
     std::string reading, 
     std::string meaning, 
     PartOfSpeech type,
     std::string example
 )
-: //dang bi id,
+: id(resourceId),
   word(std::move(word)),
   reading(std::move(reading)),
   meaning(std::move(meaning)),
   partofspeech(type),
   example(std::move(example))
 {
-    if(!isValidResourceId(this->id)) {
-        throw std::invalid_argument("Invalid resource ID: " + this->id);
-    }
     if(isBlank(this->word)) {
         throw std::invalid_argument("Word cannot be blank");
     }
@@ -45,7 +31,7 @@ vocabulary::vocabulary(
         throw std::invalid_argument("Meaning cannot be blank");
     }
 }
-std::string vocabulary::getId() const{
+const ResourceId& vocabulary::getId() const noexcept{
     return this->id;
 }
 std::string vocabulary::getWord() const{

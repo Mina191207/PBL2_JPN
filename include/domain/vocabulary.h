@@ -13,14 +13,14 @@ class vocabulary{
     std::string example;
     public:
         vocabulary(
-            ResourceId, 
+            const ResourceId&, 
             std::string, 
             std::string, 
             std::string, 
             PartOfSpeech, 
             std::string
         );
-        ResourceId getId() const;
+        const ResourceId& getId() const noexcept;
         std::string getWord() const;
         std::string getReading() const;
         std::string getMeaning() const;

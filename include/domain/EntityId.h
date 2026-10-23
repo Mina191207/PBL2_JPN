@@ -31,7 +31,7 @@ bool EntityId<prefix>::isValid(const std::string& id) {
 
 template<char prefix>
 EntityId<prefix>::EntityId(std::string value) : value_(std::move(value)){
-    if(!isValid(value)) throw std::invalid_argument("Invalid entity ID format");
+    if(!isValid(this->value_)) throw std::invalid_argument("Invalid entity ID format");
 }
 template<char prefix>
 const std::string& EntityId<prefix>::getId() const noexcept{
