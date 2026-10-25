@@ -9,6 +9,17 @@ bool isBlank(const std::string& s){
     return true;
 }
 }
+bool isValidResourceId(const std::string& id) {
+        if (id.size() < 4 || id[0] != 'R')
+            return false;
+        for (std::size_t i = 1; i < id.size(); ++i) {
+            if (id[i] < '0' || id[i] > '9')
+                return false;
+        }
+        if (id.size() == 4)
+            return id != "R000";
+        return id[1] != '0';
+}
 vocabulary::vocabulary(
     const ResourceId& resourceId, 
     std::string word, 
