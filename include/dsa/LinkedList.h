@@ -21,7 +21,7 @@ class LinkedList{
                 fast= fast->next->next;
             }
             Node* right = slow->next;
-            slow->next = nullprt;
+            slow->next = nullptr;
             return right;
         }
         Node* merge(Node* left, Node* right, bool (*less)(const T&, const T&)){
@@ -50,7 +50,7 @@ class LinkedList{
         }
         Node* mergeSortNodes(Node* start, bool (*less)(const T&, const T&)){
             if(start == nullptr || start->next == nullptr) return start;
-            Node* right = slipt(start);
+            Node* right = split(start);
             Node* leftSorted = mergeSortNodes(start, less);
             Node* rightSorted = mergeSortNodes(right, less);
             return merge(leftSorted, rightSorted, less);
@@ -65,26 +65,26 @@ class LinkedList{
                     current = current->next;
                 }
             }
-            catch{
+            catch(...){
                 clear();
                 throw;
             }
         };
         LinkedList& operator=(const LinkedList& other){
-            if(this=other&) return this*;
+            if(this==other&) return this*;
             clear();
             Node* current = other.head;
             while(current != nullptr){
-                pushBack(current->data)
+                pushBack(current->data);
                 current = current->next;
             }
-            return this*;
+            return *this;
         }
         ~LinkedList(){
             clear();
         }
         void pushBack(const T& data){
-            Node* node = new Node(value);
+            Node* node = new Node(data);
             if(this->head == nullptr) this->head=this->tail=node;
             else{
                 tail->next=node;
@@ -105,6 +105,7 @@ class LinkedList{
             if(index==0){
                 removed = this->head;
                 this->head = this->head->next;
+                this->tail=nullptr;
             }
             else{
                 Node* previous = this->head;
@@ -112,11 +113,11 @@ class LinkedList{
                     previous = previous->next;
                 }
                 removed = previous->next;
-                previouus->next=removed->next;
+                previous->next=removed->next;
                 if(tail==removed) tail = previous;
             }
             delete removed;
-            cout--;
+            count--;
             return true;
         }
         T& at(int index){
@@ -126,7 +127,7 @@ class LinkedList{
             return current->data;
         }
         const T& at(int index) const{
-            if(index < 0 || index >= cout) throw std::out_of_range("Invalid index");
+            if(index < 0 || index >= count) throw std::out_of_range("Invalid index");
             const Node* current = this->head;
             for(int i = 0; i < index; i++) current = current->next;
             return current->data;
