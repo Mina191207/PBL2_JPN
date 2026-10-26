@@ -9,10 +9,52 @@ class LinkedList{
             Node* next;
 
             Node(const T& value) : data(value), next(nullptr) {}
-        }
+        };
         Node* head;
         Node* tail;
         int count;
+        Node* split(Node* start){
+            Node* slow = start;
+            Node* fast = start->next;
+            while(fast != nullptr && fast->next!=nullptr){
+                slow = slow->next;
+                fast= fast->next->next;
+            }
+            Node* right = slow->next;
+            slow->next = nullprt;
+            return right;
+        }
+        Node* merge(Node* left, Node* right, bool (*less)(const T&, const T&)){
+            Node* result = nullptr;
+            Node* last = nullptr;
+            while(left!= nullptr && right != nullptr){
+                Node* chosen;
+                if(!less(right->data,left->data)){
+                    chosen = left;
+                    left = left->next;
+                }
+                else{
+                    chosen = right;
+                    right = right->next;
+                }
+                if(result == nullptr) result = last = chosen;
+                else{
+                    last->next = chosen;
+                    last = chosen;
+                }
+            }
+            if(last != nullptr){ //van hoi kho hieu
+                last->next = (left!=nullptr) ? left : right;
+            }
+            return result;
+        }
+        Node* mergeSortNodes(Node* start, bool (*less)(const T&, const T&)){
+            if(start == nullptr || start->next == nullptr) return start;
+            Node* right = slipt(start);
+            Node* leftSorted = mergeSortNodes(start, less);
+            Node* rightSorted = mergeSortNodes(right, less);
+            return merge(leftSorted, rightSorted, less);
+        }
     public:
         LinkedList() : head(nullptr), tail(nullptr), count(0) {};
         LinkedList(const LinkedList& other) : LinkedList(){
@@ -103,5 +145,13 @@ class LinkedList{
             }
             tail = nullptr;
             count = 0;
+        }
+        void mergeSort(bool (*less)(const T&, const T&)){
+            if(count < 2) return;
+            head=mergeSortNodes(head,less);
+            tail = head;
+            while(tail->next!=nullptr){
+                tail=tail->next;
+            } 
         }
 };
