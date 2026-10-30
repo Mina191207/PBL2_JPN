@@ -12,7 +12,7 @@ namespace{
         return text.substr(first, last - first +1);
     };
 
-    int sliptFields(
+    int sliptField(
         const std::string& line,
         std::string fields[],
         int capacity
@@ -58,12 +58,12 @@ namespace{
 namespace storage{
     vocabulary parseVocabularyLine(const std::string& line){
         std::string fields[6];
-        int count = sliptFields(line,fields, 6);
+        int count = sliptField(line,fields, 6);
         if(count == -1){
             throw std::invalid_argument("thua cot (can dung 6 truong)");
         }
         if(count != 6){
-            throw std::invalid_argument("can 6 turong, nhan" + std::to_string(count));
+            throw std::invalid_argument("Can 6 turong, nhan " + std::to_string(count));
         }
         PartOfSpeech pos = PartOfSpeech::OTHER;
         if(!parsePartOfSpeech(fields[4],pos)){
@@ -77,7 +77,7 @@ namespace storage{
         std::ifstream file(path);
         
         if(!file){
-            error = "Khong mo duoc file" + path;
+            error = "Khong mo duoc file " + path;
             return false;
         }
         LinkedList<vocabulary> loaded;
@@ -86,7 +86,7 @@ namespace storage{
         while(std::getline(file,line)){
             ++lineNumber;
             // moi file txt duoc gan san dau dong la BOM 
-            if(lineNumber == 1 && line.compare(0,3," \xEF\xBB\xBF") == 0) line.erase(0,3);
+            if(lineNumber == 1 && line.compare(0,3,"\xEF\xBB\xBF") == 0) line.erase(0,3);
 
             if(!line.empty() && line.back()=='\r') line.pop_back();
             if(trim(line).empty()) continue;
@@ -97,7 +97,7 @@ namespace storage{
             }
 
             catch(const std::exception& e){
-                error = path +  ", doing " + std::to_string(lineNumber) + ": " + e.what();
+                error = path +  ", dong " + std::to_string(lineNumber) + ": " + e.what();
                 return false;
             }
         }

@@ -67,4 +67,36 @@ if(BUILD_TESTING)
         NAME domain.vocabulary
         COMMAND test_vocabulary
     )
+        # Kiem thu LinkedList
+    add_executable(test_linked_list
+        tests/test_linked_list.cpp
+    )
+
+    target_link_libraries(test_linked_list
+        PRIVATE pbl2_domain
+    )
+
+    enable_project_warnings(test_linked_list)
+
+    add_test(
+        NAME dsa.linked_list
+        COMMAND test_linked_list
+    )
+
+    # Kiem thu B2: doc Vocabulary tu TXT
+    add_executable(test_B2
+        tests/test_B2.cpp
+        src/storage/FileStorage.cpp
+    )
+
+    target_link_libraries(test_B2
+        PRIVATE pbl2_domain
+    )
+
+    enable_project_warnings(test_B2)
+
+    add_test(
+        NAME storage.B2
+        COMMAND test_B2
+    )
 endif()
