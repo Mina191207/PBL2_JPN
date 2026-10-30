@@ -71,7 +71,7 @@ class LinkedList{
             }
         };
         LinkedList& operator=(const LinkedList& other){
-            if(this==other&) return this*;
+            if(this==&other) return *this;
             clear();
             Node* current = other.head;
             while(current != nullptr){
@@ -105,7 +105,7 @@ class LinkedList{
             if(index==0){
                 removed = this->head;
                 this->head = this->head->next;
-                this->tail=nullptr;
+                if(this->head == nullptr) this->tail=nullptr;
             }
             else{
                 Node* previous = this->head;

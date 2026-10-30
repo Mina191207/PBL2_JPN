@@ -40,6 +40,7 @@ enable_project_warnings(pbl2_domain)
 # CLI application
 add_executable(pbl2_app
     src/main.cpp
+    src/storage/FileStorage.cpp
 )
 
 target_link_libraries(pbl2_app

@@ -1,8 +1,32 @@
 #include <iostream>
 #include <string>
-#include <fstream>
-#include "../include/domain/vocabulary.h"
+
+#include "../include/storage/FileStorage.h"
 int main() {
-   vocabulary vocab(ResourceId("R001"), "こんにちは", "konnichiwa", "Hello", PartOfSpeech::OTHER, "こんにちは、元気ですか？");
+       LinkedList<vocabulary> words;
+    std::string error;
+
+    if (!storage::loadVocabularyFile(
+        "database/vocabulary.txt",
+        words,
+        error
+    )) {
+        std::cerr << error << '\n';
+        return 1;
+    }
+
+    std::cout << "So ban ghi: " << words.size() << '\n';
+
+    for (int i = 0; i < words.size(); ++i) {
+        const vocabulary& item = words.at(i);
+
+        std::cout
+            << item.getId().getId() << " | "
+            << item.getWord() << " | "
+            << item.getMeaning() << " | "
+            << item.getExample() << '\n';
+    }
+
+    return 0;
 
 };
