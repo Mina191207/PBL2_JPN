@@ -1,15 +1,11 @@
 #pragma once
-
+#include "DataStore.h"
 #include <string>
-#include "../domain/vocabulary.h"
-#include "../dsa/LinkedList.h"
 
-namespace storage{
-    vocabulary parseVocabularyLine(const std::string& line);
-    
-    bool loadVocabularyFile(
-        const std::string& path,
-        LinkedList<vocabulary>& output,
-        std::string& error
-    );
-}
+class FileStorage {
+  public:
+    bool loadAll(const std::string& folder, DataStore& out, std::string& error) const;
+    bool saveAll(const std::string& folder, const DataStore& data, std::string& error) const;
+    bool loadPackage(const std::string& folder, DataStore& out, std::string& error) const;
+    bool savePackage(const std::string& folder, const DataStore& data, std::string& error) const;
+};

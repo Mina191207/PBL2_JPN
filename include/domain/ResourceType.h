@@ -1,6 +1,6 @@
 #pragma once
 
-enum class ResourceType{
+enum class ResourceType {
     VOCABULARY,
     GRAMMAR,
     KANJI

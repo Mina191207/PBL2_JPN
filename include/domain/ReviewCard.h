@@ -4,7 +4,7 @@
 #include "ResourceType.h"
 #include <string>
 
-struct ReviewCard{
+struct ReviewCard {
     ResourceId resourceId;
     LevelId levelId;
     ResourceType type;

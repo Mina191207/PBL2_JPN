@@ -1,12 +1,14 @@
-#include <iostream>
-#include <string>
-using namespace std;
+#pragma once
+#include "EntityId.h"
 
-class favorite{
-    string id;
-    string user_id;
-    string resource_id;
-    public:
-        favorite(string, string, string);
-        ~favorite();
+class Favorite {
+    FavoriteId id_;
+    UserId userId_;
+    ResourceId resourceId_;
+
+  public:
+    Favorite(FavoriteId id, UserId userId, ResourceId resourceId);
+    const FavoriteId& getId() const noexcept;
+    const UserId& getUserId() const noexcept;
+    const ResourceId& getResourceId() const noexcept;
 };
