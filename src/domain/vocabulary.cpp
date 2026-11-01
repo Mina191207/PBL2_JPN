@@ -1,62 +1,51 @@
 #include "../../include/domain/vocabulary.h"
-namespace {
-bool isBlank(const std::string& s){
-    for (unsigned char c : s){ // dùng unsigned để tránh lỗi khi so sánh với std::isspace
-        if(!std::isspace(c)){
-            return false;
-        }
+#include "../../include/domain/ReviewCard.h"
+#include "../../include/domain/Validation.h"
+#include "../../include/algorithms/KmpMatcher.h"
+
+Vocabulary::Vocabulary(const ResourceId& id, const LevelId& levelId, std::string word, std::string reading, std::string meaning, PartOfSpeech partOfSpeech, std::string example)
+    : Resource(id, levelId, meaning), word_(std::move(word)), reading_(std::move(reading)), partOfSpeech_(partOfSpeech), example_(std::move(example)) {
+       validateTxtField(word_, "word");
+       validateTxtField(reading_, "reading", false);
+       validateTxtField(example_, "example", false);
     }
-    return true;
+const std::string& Vocabulary::getWord() const noexcept {
+    return word_;
 }
+
+const std::string& Vocabulary::getReading() const noexcept {
+    return reading_;
 }
-bool isValidResourceId(const std::string& id) {
-        if (id.size() < 4 || id[0] != 'R')
-            return false;
-        for (std::size_t i = 1; i < id.size(); ++i) {
-            if (id[i] < '0' || id[i] > '9')
-                return false;
-        }
-        if (id.size() == 4)
-            return id != "R000";
-        return id[1] != '0';
+
+PartOfSpeech Vocabulary::getPartOfSpeech() const noexcept {
+    return partOfSpeech_;
 }
-vocabulary::vocabulary(
-    const ResourceId& resourceId, 
-    std::string word, 
-    std::string reading, 
-    std::string meaning, 
-    PartOfSpeech type,
-    std::string example
-)
-: id(resourceId),
-  word(std::move(word)),
-  reading(std::move(reading)),
-  meaning(std::move(meaning)),
-  partofspeech(type),
-  example(std::move(example))
-{
-    if(isBlank(this->word)) {
-        throw std::invalid_argument("Word cannot be blank");
+
+const std::string& Vocabulary::getExample() const noexcept {
+    return example_;
+}
+ResourceType Vocabulary::getType() const noexcept{
+    return ResourceType::VOCABULARY;
+}
+std::string Vocabulary::getTerm() const{
+    return word_;
+}
+int Vocabulary::matchScore(const KmpMatcher& matcher) const{
+    const std::string& query = matcher.pattern();
+    if(query.empty()) return 0;
+    if(word_==query) return 4;
+    if(matcher.findFirst(word_) == 0) return 3;
+    if(matcher.findFirst(word_) != std::string::npos || matcher.findFirst(reading_) != std::string::npos) return 2;
+    if(matcher.findFirst(getMeaning()) != std::string::npos) return 1;
+    return 0;
+}
+ReviewCard Vocabulary::makeReviewCard() const{
+    std::string back = getMeaning();
+    if(!reading_.empty()){
+        back += "\nReading: " + reading_;
     }
-    if(isBlank(this->meaning)) {
-        throw std::invalid_argument("Meaning cannot be blank");
+    if(!example_.empty()){
+        back += "\nExample: " + example_;
     }
-}
-const ResourceId& vocabulary::getId() const noexcept{
-    return this->id;
-}
-std::string vocabulary::getWord() const{
-    return this->word;
-}
-std::string vocabulary::getReading() const{
-    return this->reading;
-}
-std::string vocabulary::getMeaning() const{
-    return this->meaning;
-}
-PartOfSpeech vocabulary::getPartOfSpeech() const noexcept {
-    return this->partofspeech;
-}
-std::string vocabulary::getExample() const{
-    return this->example;
+    return{getId(), getLevelId(), getType(), word_, std::move(back)};
 }

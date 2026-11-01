@@ -18,6 +18,8 @@ endfunction()
 
 # Domain library
 add_library(pbl2_domain STATIC
+    src/domain/resource.cpp
+    src/domain/level.cpp
     src/domain/vocabulary.cpp
 )
 
@@ -40,7 +42,6 @@ enable_project_warnings(pbl2_domain)
 # CLI application
 add_executable(pbl2_app
     src/main.cpp
-    src/storage/FileStorage.cpp
 )
 
 target_link_libraries(pbl2_app
@@ -55,10 +56,6 @@ include(CTest)
 if(BUILD_TESTING)
     add_executable(test_vocabulary
         tests/test_vocabulary.cpp
-    )
-
-    target_link_libraries(test_vocabulary
-        PRIVATE pbl2_domain
     )
 
     enable_project_warnings(test_vocabulary)
@@ -89,9 +86,6 @@ if(BUILD_TESTING)
         src/storage/FileStorage.cpp
     )
 
-    target_link_libraries(test_B2
-        PRIVATE pbl2_domain
-    )
 
     enable_project_warnings(test_B2)
 
@@ -99,4 +93,18 @@ if(BUILD_TESTING)
         NAME storage.B2
         COMMAND test_B2
     )
+    add_executable(test_step1
+    tests/test_step1.cpp
+)
+
+target_link_libraries(test_step1
+    PRIVATE pbl2_domain
+)
+
+enable_project_warnings(test_step1)
+
+add_test(
+    NAME domain.step1
+    COMMAND test_step1
+)
 endif()

@@ -1,32 +1,38 @@
 #include <iostream>
-#include <string>
-
-#include "../include/storage/FileStorage.h"
+#include "../include/domain/vocabulary.h"
+#include "../include/domain/level.h"
 int main() {
-       LinkedList<vocabulary> words;
-    std::string error;
+    Level level(
+        LevelId("L005"),
+        "JLPT",
+        "JLPT N5",
+        5,
+        "Beginner"
+    );
 
-    if (!storage::loadVocabularyFile(
-        "database/vocabulary.txt",
-        words,
-        error
-    )) {
-        std::cerr << error << '\n';
-        return 1;
-    }
+    Vocabulary vocab(
+        ResourceId("R001"),
+        level.getId(),
+        "学校",
+        "がっこう",
+        "trường học",
+        PartOfSpeech::NOUN,
+        "学校へ行きます。"
+    );
 
-    std::cout << "So ban ghi: " << words.size() << '\n';
+    const Resource& resource = vocab;
 
-    for (int i = 0; i < words.size(); ++i) {
-        const vocabulary& item = words.at(i);
+    std::cout << "ID: "
+              << resource.getId().getId() << '\n';
 
-        std::cout
-            << item.getId().getId() << " | "
-            << item.getWord() << " | "
-            << item.getMeaning() << " | "
-            << item.getExample() << '\n';
-    }
+    std::cout << "Level: "
+              << resource.getLevelId().getId() << '\n';
+
+    std::cout << "Term: "
+              << resource.getTerm() << '\n';
+
+    std::cout << "Meaning: "
+              << resource.getMeaning() << '\n';
 
     return 0;
-
 };
