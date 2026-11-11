@@ -1,2 +1,5 @@
+L001|JLPT|JLPT N1|1|Advanced
+L002|JLPT|JLPT N2|2|Upper-Intermediate
+L003|JLPT|JLPT N3|3|Intermediate
 L004|JLPT|JLPT N4|4|Elementary
 L005|JLPT|JLPT N5|5|Beginner

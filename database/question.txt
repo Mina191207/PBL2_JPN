@@ -1,0 +1,6 @@
+Q001|L005|R001|食べる có nghĩa là gì?|Ăn|Uống|Xem|Đi|A|食べる（たべる）có nghĩa là ăn.|ACTIVE
+Q002|L005|R004|学校 đọc như thế nào?|がっこう|がくせい|せんせい|にほん|A|学校（がっこう）đọc là がっこう, có nghĩa là trường học.|ACTIVE
+Q003|L005|R001|Chọn nghĩa đúng của câu 毎日朝ご飯を食べます。|Tôi ăn sáng mỗi ngày.|Tôi uống nước mỗi ngày.|Tôi đi học mỗi ngày.|Tôi xem tivi mỗi ngày.|A|毎日 là mỗi ngày, 朝ご飯 là bữa sáng, 食べます là ăn.|ACTIVE
+Q004|L005|R005|Từ 見る có cách đọc nào?|たべる|みる|のむ|いく|B|見る（みる）có nghĩa là xem hoặc nhìn.|ACTIVE
+Q005|L005|R020|Từ nào có nghĩa là uống?|飲む|食べる|見る|行く|A|飲む（のむ）có nghĩa là uống.|ACTIVE
+Q006|L005|R003|Kanji 日 có nghĩa là gì?|Ngày|Nước|Học|Người|A|日 mang nghĩa ngày hoặc mặt trời, ví dụ 日本 và 日曜日.|ACTIVE

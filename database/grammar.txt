@@ -1,2 +1,15 @@
-R002|～ながら|vừa...vừa...|Vます bỏ ます + ながら|Hai hành động xảy ra đồng thời|音楽を聞きながら勉強します。|Hai hành động thường có cùng chủ thể
-R006|～たい|muốn làm...|Vます bỏ ます + たい|Biểu thị mong muốn của người nói|日本へ行きたいです。|
+R002|〜は〜です|A là B|N1 は N2 です|Giới thiệu hoặc xác định sự vật, con người|私は学生です。|Câu khẳng định lịch sự.
+R035|〜は〜じゃありません|A không phải là B|N1 は N2 じゃありません|Phủ định danh từ|私は先生じゃありません。|Dạng lịch sự phủ định.
+R036|〜か|Trợ từ nghi vấn|Câu hỏi + か|Đặt câu hỏi dạng lịch sự|田中さんは学生ですか。|Thường dùng dấu ? trong văn phong hiện đại.
+R037|〜の|Của; bổ nghĩa danh từ|N1 の N2|Thể hiện sở hữu hoặc quan hệ|これは私の本です。|N の N.
+R038|〜も|Cũng|N1 も|Diễn tả đối tượng có đặc điểm tương tự|私も学生です。|Thay は bằng も trong trường hợp phù hợp.
+R039|〜を|Trợ từ chỉ đối tượng tác động|N を V|Đánh dấu đối tượng của ngoại động từ|水を飲みます。|Đọc là お.
+R040|〜に行きます|Đi để làm gì|Vます bỏ ます + に行きます|Nêu mục đích đi|本を買いに行きます。|Động từ chỉ mục đích dùng dạng bỏ ます.
+R041|〜ません|Không làm|Vます → Vません|Diễn tả hành động không xảy ra|今日は学校へ行きません。|Phủ định lịch sự hiện tại/tương lai.
+R042|〜ました|Đã làm|Vます → Vました|Diễn tả hành động đã xảy ra|昨日、映画を見ました。|Quá khứ lịch sự.
+R043|〜てください|Xin hãy làm|Vて + ください|Yêu cầu hoặc nhờ vả lịch sự|ここに名前を書いてください。|Dùng với động từ thể て.
+R044|〜と思います|Tôi nghĩ rằng|普通形 + と思います|Nêu suy nghĩ hoặc ý kiến|明日は雨が降ると思います。|Trước と思います dùng thể thông thường.
+R045|〜たことがあります|Đã từng|Vた + ことがあります|Nói về trải nghiệm đã có|日本へ行ったことがあります。|Không dùng để kể một thời điểm cụ thể.
+R046|〜ながら|Vừa... vừa...|Vます bỏ ます + ながら|Hai hành động do cùng chủ thể thực hiện|音楽を聞きながら勉強します。|Hành động sau ながら là trọng tâm.
+R047|〜なければなりません|Phải làm|Vない bỏ い + ければなりません|Diễn tả nghĩa vụ|薬を飲まなければなりません。|Có thể gặp dạng rút gọn trong hội thoại.
+R048|〜でしょう|Có lẽ; chắc là|普通形 + でしょう|Dự đoán hoặc xác nhận nhẹ|明日は晴れるでしょう。|Mức độ chắc chắn tùy ngữ cảnh.
