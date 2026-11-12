@@ -3,8 +3,6 @@
 #include "EntityId.h"
 #include "resource.h"
 #include <string>
-#include <stdexcept>
-#include <cctype>
 class Vocabulary final : public Resource {
     std::string word_;
     std::string reading_;

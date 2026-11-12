@@ -18,6 +18,7 @@ class ReviewSession {
     explicit ReviewSession(const std::vector<ReviewCard>& cards);
     const ReviewCard* current() const noexcept;
     bool reveal() noexcept;
+    bool revealed() const noexcept;
     bool rate(bool remembered);
     bool finished() const noexcept;
     std::size_t remaining() const noexcept;

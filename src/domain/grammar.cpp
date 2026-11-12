@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "domain/grammar.h"
 #include "domain/ReviewCard.h"
 #include "domain/Validation.h"
@@ -23,6 +24,7 @@ Grammar::Grammar(const ResourceId& id,
     validateTxtField(usage_, "usage", false);
     validateTxtField(example_, "example", false);
     validateTxtField(note_, "note", false);
+    validateTxtRecord({getId().getId(), pattern_, getMeaning(), structure_, usage_, example_, note_});
 }
 const std::string& Grammar::getPattern() const noexcept {
     return pattern_;

@@ -60,6 +60,10 @@ bool UserManager::setStatus(const UserId& id, UserStatus status, std::string& er
         error = "user not found";
         return false;
     }
+    if (status != UserStatus::ACTIVE && status != UserStatus::LOCKED) {
+        error = "invalid status";
+        return false;
+    }
     User& user = data_.users[it->second];
     if (status == UserStatus::LOCKED) {
         if (currentUser()->getId() == id) {

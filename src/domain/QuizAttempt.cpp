@@ -1,3 +1,4 @@
+#include "domain/Time.h"
 #include "domain/QuizAttempt.h"
 #include "domain/Validation.h"
 #include <stdexcept>
@@ -19,6 +20,9 @@ QuizAttempt::QuizAttempt(
         throw std::invalid_argument("invalid score");
     }
     validateTxtField(submittedAt_, "submitted_at");
+    validateTxtRecord({id_.getId(), userId_.getId(), levelId_.getId(), std::to_string(totalQuestions_), std::to_string(correctAnswers_), submittedAt_});
+    if (!validUtcTimestamp(submittedAt_))
+        throw std::invalid_argument("invalid UTC timestamp");
 }
 
 const AttemptId& QuizAttempt::getId() const noexcept {

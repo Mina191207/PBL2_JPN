@@ -27,6 +27,7 @@ Kanji::Kanji(const ResourceId& id,
     validateTxtField(onyomi_, "onyomi", false);
     validateTxtField(kunyomi_, "kunyomi", false);
     validateTxtField(examples_, "examples", false);
+    validateTxtRecord({getId().getId(), character_, getMeaning(), std::to_string(strokeCount_), onyomi_, kunyomi_, examples_});
 }
 const std::string& Kanji::getCharacter() const noexcept {
     return character_;

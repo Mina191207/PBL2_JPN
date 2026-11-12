@@ -1,5 +1,6 @@
 #include "ApplicationService.h"
 #include "domain/Validation.h"
+#include "storage/Paths.h"
 #include <algorithm>
 #include <filesystem>
 
@@ -115,11 +116,16 @@ std::vector<SearchRow> ApplicationService::search(const SearchOptions& options,
     }
     return result;
 }
-bool ApplicationService::load(const std::string& folder, std::string& error) {
+bool ApplicationService::load(const std::string& folder, std::string& error, bool discardUnsaved) {
+    if (data_.dirty && !discardUnsaved) {
+        error = "unsaved changes; save or explicitly discard before loading";
+        return false;
+    }
+    std::string nextFolder = folder;
     if (!storage_.loadAll(folder, data_, error))
         return false;
     logout();
-    activeFolder_ = folder;
+    activeFolder_.swap(nextFolder);
     data_.dirty = false;
     return true;
 }
@@ -191,8 +197,8 @@ bool ApplicationService::exportPackage(const std::string& folder, std::string& e
         error = "admin required";
         return false;
     }
-    if (!activeFolder_.empty() &&
-        std::filesystem::absolute(folder) == std::filesystem::absolute(activeFolder_)) {
+    const bool same = !activeFolder_.empty() && sameDirectory(folder, activeFolder_);
+    if (same) {
         error = "export folder is active data folder";
         return false;
     }

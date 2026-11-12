@@ -37,4 +37,4 @@ template <class T> class DoublyLinkedList {
     void clear() noexcept;
 };
 
-#include "../../src/dsa/LinkedList.h"
+#include "LinkedList.tpp"

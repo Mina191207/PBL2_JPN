@@ -3,9 +3,14 @@
 #include "domain/ReviewSession.h"
 #include "managers/PersonalManagers.h"
 #include "managers/ResourceManager.h"
-#include "managers/StudyManagers.h"
+#include "managers/AlphabetManager.h"
+#include "managers/QuestionManager.h"
+#include "managers/QuizManager.h"
 #include "storage/FileStorage.h"
 #include <optional>
+#include <cstddef>
+#include <string>
+#include <vector>
 
 class ApplicationService {
     DataStore& data_;
@@ -32,7 +37,7 @@ class ApplicationService {
     ReviewSession* review() noexcept;
     void logout() noexcept;
     std::vector<SearchRow> search(const SearchOptions& options, std::string& historyError);
-    bool load(const std::string& folder, std::string& error);
+    bool load(const std::string& folder, std::string& error, bool discardUnsaved = false);
     bool save(const std::string& folder, std::string& error);
     bool importPackage(const std::string& folder, std::string& error);
     bool exportPackage(const std::string& folder, std::string& error) const;

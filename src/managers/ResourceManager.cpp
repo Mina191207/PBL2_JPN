@@ -50,12 +50,7 @@ ResourceId ResourceManager::nextResourceId() const {
     for (const auto& item : data_.kanjis)
         if (item.getId().number() > maxValue)
             maxValue = item.getId().number();
-    if (maxValue == std::numeric_limits<std::uint64_t>::max())
-        throw std::overflow_error("id space exhausted");
-    std::string digits = std::to_string(maxValue + 1);
-    if (digits.size() < 3)
-        digits.insert(0, 3 - digits.size(), '0');
-    return ResourceId("R" + digits);
+    return idAfter<ResourceId>(maxValue);
 }
 bool ResourceManager::addVocabulary(const Vocabulary& item, std::string& error) {
     if (!canChange(item, false, error))
@@ -118,14 +113,15 @@ std::vector<SearchRow> ResourceManager::search(const SearchOptions& options) con
                         level ? level->getOrder() : 0,
                         score});
     };
-    if (options.exactId) {
+    if (options.exactId && !options.query.empty()) {
         if (ResourceId::isValid(options.query)) {
             const Resource* item = data_.findResource(ResourceId(options.query));
             if (item)
                 include(*item, 4);
         }
     } else {
-        KmpMatcher matcher(options.query);
+        std::optional<KmpMatcher> matcher;
+        if (!options.query.empty()) matcher.emplace(options.query);
         std::vector<const Resource*> view;
         for (const auto& item : data_.vocabularies)
             view.push_back(&item);
@@ -138,7 +134,7 @@ std::vector<SearchRow> ResourceManager::search(const SearchOptions& options) con
                 continue;
             if (options.levelId && item->getLevelId() != *options.levelId)
                 continue;
-            int score = options.query.empty() ? 0 : item->matchScore(matcher);
+            int score = options.query.empty() ? 0 : item->matchScore(*matcher);
             if (options.query.empty() || score > 0)
                 include(*item, score);
         }
