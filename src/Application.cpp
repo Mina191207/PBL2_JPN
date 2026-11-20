@@ -4,6 +4,7 @@
 #include "domain/Validation.h"
 #include "managers/LevelManager.h"
 #include "algorithms/MergeSort.h"
+#include <algorithm>
 #include <filesystem>
 #include <random>
 #include <stdexcept>
@@ -304,6 +305,18 @@ Result<std::vector<Question>> Application::questions(std::optional<LevelId> leve
     for (const auto& q : impl_->data.questions)
         if ((!level || q.getLevelId() == *level) && (!state || q.getStatus() == *state)) rows.push_back(q);
     return {{}, std::move(rows)};
+}
+Result<std::size_t> Application::activeQuestionCount(const LevelId& level) const {
+    auto status = impl_->guard();
+    if (!status.ok()) return {status, std::nullopt};
+    const auto levelExists = std::any_of(impl_->data.levels.begin(), impl_->data.levels.end(),
+        [&](const Level& candidate) { return candidate.getId() == level; });
+    if (!levelExists) return {failure(BackendError::NOT_FOUND, "level missing"), std::nullopt};
+    const auto count = static_cast<std::size_t>(std::count_if(impl_->data.questions.begin(), impl_->data.questions.end(),
+        [&](const Question& question) {
+            return question.getLevelId() == level && question.getStatus() == QuestionStatus::ACTIVE;
+        }));
+    return {{}, std::optional<std::size_t>{count}};
 }
 Result<Question> Application::question(const QuestionId& id) const {
     auto status = impl_->guard(true);

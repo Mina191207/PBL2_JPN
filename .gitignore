@@ -9,6 +9,42 @@
 build/
 build-mingw/
 cmake-build-*/
+/build-raylib/
+
+# Local snapshots and generated resource packages
+/database copy/
+/outputs/resource-package/
+
+# Local Codex/tool state and personal databases
+/outputs/.deeptutor/
+*.db
+*.sqlite3
 
 # Temporary files
 *.tmp
+
+# Additional CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.txt
+CTestTestfile.cmake
+Testing/
+
+# Additional compiled artifacts
+*.a
+*.lib
+*.dll
+*.so
+*.dylib
+*.pdb
+*.ilk
+*.exp
+*.idb
+*.pch
+
+# IDE and local environment files
+.vs/
+.idea/
+*.user
+*.suo

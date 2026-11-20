@@ -70,3 +70,43 @@ if(PBL2_BUILD_EXAMPLE)
         target_compile_options(backend_example PRIVATE /utf-8)
     endif()
 endif()
+
+# ==========================================
+# Raylib Frontend
+# ==========================================
+
+option(PBL2_BUILD_RAYLIB "Build Raylib frontend" ON)
+
+if(PBL2_BUILD_RAYLIB)
+    find_package(raylib CONFIG REQUIRED)
+
+    add_executable(pbl2_app
+        UI/main.cpp
+        UI/UiText.cpp
+        UI/UITheme.cpp
+        UI/app/AppController.cpp
+        UI/screens/StartupScreen.cpp
+        UI/screens/LoginScreen.cpp
+        UI/screens/MainScreen.cpp
+        UI/screens/ResourcesScreen.cpp
+        UI/screens/BackendScreen.cpp
+    )
+
+    target_link_libraries(pbl2_app PRIVATE
+        pbl2_backend
+        raylib
+    )
+
+    add_custom_command(TARGET pbl2_app POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            "${CMAKE_CURRENT_SOURCE_DIR}/assets"
+            "$<TARGET_FILE_DIR:pbl2_app>/assets"
+        COMMENT "Copying UI font assets beside pbl2_app"
+    )
+
+    if(MSVC)
+        target_compile_options(pbl2_app PRIVATE /W4 /utf-8)
+    else()
+        target_compile_options(pbl2_app PRIVATE -Wall -Wextra -Wpedantic)
+    endif()
+endif()

@@ -2,6 +2,7 @@
 #include "Fixture.h"
 #include "managers/ResourceManager.h"
 #include "managers/LevelManager.h"
+#include <algorithm>
 #include <limits>
 
 void searchTests() {
@@ -56,6 +57,42 @@ void searchTests() {
     CHECK(app.search(options).value->size() == 6 && app.history().value->size() == before);
     options.query = "cat"; options.exactId = false; options.sort = static_cast<SearchSort>(99);
     CHECK(!app.search(options).ok() && app.history().value->size() == before);
+
+    // Kanji search can match each CJK codepoint in a multi-kanji query.
+    data.kanjis.emplace_back(ResourceId("R1000001"),LevelId("L001"),"日","day",4,"ニチ","ひ","");
+    data.kanjis.emplace_back(ResourceId("R1000002"),LevelId("L002"),"本","book",5,"ホン","もと","");
+    data.rebuildIndexes();
+    saveFixture(temp.path,data);
+    CHECK(app.load(temp.path.string()).ok() && app.login("admin","demo123").ok());
+    SearchOptions kanjiOptions; kanjiOptions.type = ResourceType::KANJI;
+    kanjiOptions.query = "日";
+    rows = app.search(kanjiOptions);
+    CHECK(rows.ok() && rows.value->size() == 1 && rows.value->front().term == "日");
+    kanjiOptions.query = "本";
+    rows = app.search(kanjiOptions);
+    CHECK(rows.ok() && rows.value->size() == 1 && rows.value->front().term == "本");
+    kanjiOptions.query = "日本";
+    rows = app.search(kanjiOptions);
+    CHECK(rows.ok() && rows.value->size() == 2);
+    CHECK(std::count_if(rows.value->begin(), rows.value->end(), [](const SearchRow& row) { return row.term == "日"; }) == 1);
+    CHECK(std::count_if(rows.value->begin(), rows.value->end(), [](const SearchRow& row) { return row.term == "本"; }) == 1);
+    kanjiOptions.query = "ホン";
+    CHECK(app.search(kanjiOptions).value->front().term == "本");
+    kanjiOptions.query = "もと";
+    CHECK(app.search(kanjiOptions).value->front().term == "本");
+    kanjiOptions.query = "book";
+    CHECK(app.search(kanjiOptions).value->front().term == "本");
+    kanjiOptions.query = "日本"; kanjiOptions.levelId = LevelId("L001");
+    rows = app.search(kanjiOptions);
+    CHECK(rows.ok() && rows.value->size() == 1 && rows.value->front().term == "日");
+    kanjiOptions.levelId.reset(); kanjiOptions.query = "日日日本";
+    rows = app.search(kanjiOptions);
+    CHECK(rows.ok() && rows.value->size() == 2);
+    kanjiOptions.query = "無関係";
+    CHECK(app.search(kanjiOptions).value->empty());
+    SearchOptions unchangedSearch; unchangedSearch.query = "cat";
+    unchangedSearch.type = ResourceType::VOCABULARY;
+    CHECK(app.search(unchangedSearch).value->size() == 3);
 
     // Exhausted history ID warns without losing search results or adding a duplicate.
     data.histories.pushBack(SearchHistory(HistoryId("H18446744073709551615"),UserId("U001"),"cat","2026-11-12T01:00:00Z"));

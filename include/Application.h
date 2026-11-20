@@ -155,6 +155,7 @@ class Application {
     Status removeAlphabet(const AlphabetId&);
     Result<std::vector<Question>> questions(std::optional<LevelId> level = {},
                                             std::optional<QuestionStatus> status = {}) const;
+    Result<std::size_t> activeQuestionCount(const LevelId& level) const;
     Result<Question> question(const QuestionId&) const;
     Result<QuestionId> createQuestion(const QuestionInput&);
     Status updateQuestion(const QuestionId&, const QuestionInput&);

@@ -73,6 +73,9 @@ void apiFlow() {
     auto mismatch = questionInput(*n4.value, *word.value);
     CHECK(!app.createQuestion(mismatch).ok());
     CHECK(app.questions(*n5.value, QuestionStatus::ACTIVE).value->size() == 2);
+    CHECK(app.activeQuestionCount(*n5.value).ok() && app.activeQuestionCount(*n5.value).value == 2);
+    CHECK(app.activeQuestionCount(*n4.value).ok() && app.activeQuestionCount(*n4.value).value == 0);
+    CHECK(app.activeQuestionCount(LevelId("L999")).status.error == BackendError::NOT_FOUND);
     CHECK(app.question(*q1.value).value->getCorrectOption() == 'A');
     CHECK(!app.removeResource(*word.value).ok());
     auto moved = vocab; moved.levelId = *n4.value;
@@ -128,6 +131,8 @@ void apiFlow() {
     CHECK(!app.load((temp.path / "missing").string()).ok());
     CHECK(app.review().ok() && app.quiz().ok() && app.currentAccount().ok());
     CHECK(app.login("learner1", "demo123").ok());
+    const auto learnerQuestionCount = app.activeQuestionCount(*n5.value);
+    CHECK(learnerQuestionCount.ok() && learnerQuestionCount.value == 2);
     CHECK(!app.review().ok() && !app.quiz().ok());
     // Call administration methods directly as a learner; UI visibility is irrelevant.
     const std::vector<Status> forbidden = {
@@ -151,7 +156,9 @@ void apiFlow() {
     requireSaved(app.addFavorite(*word.value));
     SearchOptions schoolSearch;
     schoolSearch.query = "学校";
-    CHECK(app.search(schoolSearch).value->size() == 1);
+    const auto schoolResults = app.search(schoolSearch);
+    CHECK(schoolResults.ok() && schoolResults.value->size() == 2);
+    CHECK((*schoolResults.value)[0].id == *word.value && (*schoolResults.value)[1].id == *kanji.value);
     auto personalHistory = app.history(); CHECK(personalHistory.value->size() == 1);
     const auto historyId = personalHistory.value->front().getId();
     CHECK(app.searchAgain(historyId).ok() && app.history().value->size() == 2);
@@ -181,7 +188,7 @@ void apiFlow() {
     CHECK(app.load(folder.string()).error == BackendError::UNSAVED_CHANGES);
     CHECK(!app.load((temp.path / "missing").string(),UnsavedPolicy::DISCARD).ok() && app.dirty());
     auto search = app.search(schoolSearch);
-    CHECK(search.ok() && search.value->size() == 1 && search.status.save == SaveState::PENDING);
+    CHECK(search.ok() && search.value->size() == 2 && search.status.save == SaveState::PENDING);
     CHECK(app.history().value->size() == 1);
     std::filesystem::remove(folder / "user.txt.tmp");
     requireSaved(app.retrySave()); CHECK(!app.dirty());
