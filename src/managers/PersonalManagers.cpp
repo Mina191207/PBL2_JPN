@@ -1,25 +1,6 @@
 #include "managers/PersonalManagers.h"
 #include "domain/Validation.h"
-#include <ctime>
-#include <iomanip>
-#include <limits>
-#include <sstream>
-
-namespace {
-std::string utcNow() {
-    const std::time_t now = std::time(nullptr);
-    std::tm value{};
-#ifdef _WIN32
-    gmtime_s(&value, &now);
-#else
-    gmtime_r(&now, &value);
-#endif
-    std::ostringstream out;
-    out << std::put_time(&value, "%Y-%m-%dT%H:%M:%SZ");
-    return out.str();
-}
-
-}
+#include "domain/Time.h"
 
 FavoriteManager::FavoriteManager(DataStore& data, const UserManager& users)
     : data_(data),
@@ -87,16 +68,9 @@ bool HistoryManager::record(const std::string& query, std::string& error) {
         if (item.getId().number() > maxValue)
             maxValue = item.getId().number();
     });
-    if (maxValue == std::numeric_limits<std::uint64_t>::max()) {
-        error = "id space exhausted";
-        return false;
-    }
-    std::string digits = std::to_string(maxValue + 1);
-    if (digits.size() < 3)
-        digits.insert(0, 3 - digits.size(), '0');
     try {
         data_.histories.pushBack(
-            SearchHistory(HistoryId("H" + digits), user->getId(), query, utcNow()));
+            SearchHistory(idAfter<HistoryId>(maxValue), user->getId(), query, utcNow()));
         data_.dirty = true;
     } catch (const std::exception& e) {
         error = e.what();

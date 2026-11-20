@@ -25,7 +25,7 @@ class User {
     UserRole getRole() const noexcept;
     UserStatus getStatus() const noexcept;
     bool checkPassword(const std::string& password) const noexcept;
-    void setStatus(UserStatus status) noexcept;
+    void setStatus(UserStatus status);
     void resetPassword(std::string password);
     friend class FileStorage;
 };

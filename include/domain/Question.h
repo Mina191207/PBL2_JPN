@@ -37,5 +37,5 @@ class Question {
     const std::string& getExplanation() const noexcept;
     QuestionStatus getStatus() const noexcept;
     bool isCorrect(char answer) const noexcept;
-    void setStatus(QuestionStatus status) noexcept;
+    void setStatus(QuestionStatus status);
 };

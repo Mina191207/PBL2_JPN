@@ -1,7 +1,21 @@
-#include "../../include/domain/vocabulary.h"
-#include "../../include/domain/ReviewCard.h"
-#include "../../include/domain/Validation.h"
-#include "../../include/algorithms/KmpMatcher.h"
+#include <stdexcept>
+#include <utility>
+#include "domain/vocabulary.h"
+#include "domain/ReviewCard.h"
+#include "domain/Validation.h"
+#include "algorithms/KmpMatcher.h"
+
+const char* partOfSpeechToken(PartOfSpeech value) {
+    switch (value) {
+    case PartOfSpeech::NOUN: return "NOUN";
+    case PartOfSpeech::VERB: return "VERB";
+    case PartOfSpeech::IADJECTIVE: return "I_ADJ";
+    case PartOfSpeech::NAADJECTIVE: return "NA_ADJ";
+    case PartOfSpeech::ADVERB: return "ADV";
+    case PartOfSpeech::OTHER: return "OTHER";
+    }
+    throw std::invalid_argument("invalid part of speech");
+}
 
 Vocabulary::Vocabulary(const ResourceId& id,
                        const LevelId& levelId,
@@ -18,6 +32,7 @@ Vocabulary::Vocabulary(const ResourceId& id,
     validateTxtField(word_, "word");
     validateTxtField(reading_, "reading", false);
     validateTxtField(example_, "example", false);
+    validateTxtRecord({getId().getId(), word_, reading_, getMeaning(), partOfSpeechToken(partOfSpeech_), example_});
 }
 const std::string& Vocabulary::getWord() const noexcept {
     return word_;

@@ -26,9 +26,7 @@ Question::Question(QuestionId id,
     }
     std::set<std::string> uniqueOptions;
     for (const auto& option : options_) {
-        const auto first = option.find_first_not_of(" \t");
-        const auto last = option.find_last_not_of(" \t");
-        uniqueOptions.insert(option.substr(first, last - first + 1));
+        uniqueOptions.insert(trimBasic(option));
     }
     if (uniqueOptions.size() != options_.size()) {
         throw std::invalid_argument("duplicate option");
@@ -37,6 +35,14 @@ Question::Question(QuestionId id,
     if (correctOption_ < 'A' || correctOption_ > 'D') {
         throw std::invalid_argument("invalid correct option");
     }
+    // Reserve the longer status token so a later ACTIVE -> INACTIVE remains writable.
+    validateTxtRecord({id_.getId(),
+                       levelId_.getId(),
+                       resourceId_ ? resourceId_->getId() : "",
+                       prompt_, options_[0], options_[1], options_[2], options_[3],
+                       std::string(1, correctOption_), explanation_, "INACTIVE"});
+    if (status_ != QuestionStatus::ACTIVE && status_ != QuestionStatus::INACTIVE)
+        throw std::invalid_argument("invalid question status");
 }
 
 const QuestionId& Question::getId() const noexcept {
@@ -66,6 +72,8 @@ QuestionStatus Question::getStatus() const noexcept {
 bool Question::isCorrect(char answer) const noexcept {
     return answer == correctOption_;
 }
-void Question::setStatus(QuestionStatus status) noexcept {
+void Question::setStatus(QuestionStatus status) {
+    if (status != QuestionStatus::ACTIVE && status != QuestionStatus::INACTIVE)
+        throw std::invalid_argument("invalid status");
     status_ = status;
 }

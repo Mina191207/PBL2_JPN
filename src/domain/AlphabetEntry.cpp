@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "domain/AlphabetEntry.h"
 #include "domain/Validation.h"
 #include <utility>
@@ -21,6 +22,9 @@ AlphabetEntry::AlphabetEntry(AlphabetId id,
     validateTxtField(groupName_, "group_name");
     validateTxtField(note_, "note", false);
     validatePositive(displayOrder_, "display_order");
+    validateTxtRecord({id_.getId(), "KATAKANA", glyph_, romaji_, groupName_, std::to_string(displayOrder_), note_});
+    if (script_ != Script::HIRAGANA && script_ != Script::KATAKANA)
+        throw std::invalid_argument("invalid script");
 }
 
 const AlphabetId& AlphabetEntry::getId() const noexcept {

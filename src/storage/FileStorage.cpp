@@ -1,12 +1,11 @@
 #include "storage/FileStorage.h"
+#include "domain/Validation.h"
+#include "domain/Time.h"
 #include <array>
 #include <filesystem>
 #include <fstream>
-#include <functional>
 #include <limits>
 #include <map>
-#include <set>
-#include <sstream>
 #include <stdexcept>
 #include <vector>
 #ifdef _WIN32
@@ -18,34 +17,6 @@ namespace fs = std::filesystem;
 using Fields = std::vector<std::string>;
 using Rows = std::map<std::string, std::string>;
 
-bool validUtf8(const std::string& text) {
-    for (std::size_t i = 0; i < text.size();) {
-        const unsigned char first = static_cast<unsigned char>(text[i]);
-        if (first < 0x80) {
-            ++i;
-            continue;
-        }
-        int extra = first >= 0xC2 && first <= 0xDF   ? 1
-                    : first >= 0xE0 && first <= 0xEF ? 2
-                    : first >= 0xF0 && first <= 0xF4 ? 3
-                                                     : -1;
-        if (extra < 0 || i + static_cast<std::size_t>(extra) >= text.size())
-            return false;
-        unsigned code = first & (extra == 1 ? 0x1F : extra == 2 ? 0x0F : 0x07);
-        for (int j = 1; j <= extra; ++j) {
-            unsigned char c = static_cast<unsigned char>(text[i + static_cast<std::size_t>(j)]);
-            if ((c & 0xC0) != 0x80)
-                return false;
-            code = (code << 6) | (c & 0x3F);
-        }
-        if ((extra == 1 && code < 0x80) || (extra == 2 && code < 0x800) ||
-            (extra == 3 && code < 0x10000) || (code >= 0xD800 && code <= 0xDFFF) ||
-            code > 0x10FFFF || code == 0xFEFF)
-            return false;
-        i += static_cast<std::size_t>(extra + 1);
-    }
-    return true;
-}
 Fields split(const std::string& line) {
     Fields fields;
     std::size_t begin = 0;
@@ -73,23 +44,6 @@ int integer(const std::string& text, int min, int max) {
         throw std::invalid_argument("integer out of range");
     return value;
 }
-bool timestamp(const std::string& text) {
-    if (text.size() != 20 || text[4] != '-' || text[7] != '-' || text[10] != 'T' ||
-        text[13] != ':' || text[16] != ':' || text[19] != 'Z')
-        return false;
-    for (std::size_t i = 0; i < 19; ++i)
-        if (i != 4 && i != 7 && i != 10 && i != 13 && i != 16 && (text[i] < '0' || text[i] > '9'))
-            return false;
-    int year = std::stoi(text.substr(0, 4)), month = std::stoi(text.substr(5, 2)),
-        day = std::stoi(text.substr(8, 2));
-    if (year < 1 || month < 1 || month > 12)
-        return false;
-    int days[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    if (month == 2 && (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)))
-        days[1] = 29;
-    return day >= 1 && day <= days[month - 1] && std::stoi(text.substr(11, 2)) < 24 &&
-           std::stoi(text.substr(14, 2)) < 60 && std::stoi(text.substr(17, 2)) < 60;
-}
 template <class F>
 void readRows(const fs::path& folder, const char* name, std::size_t columns, F consume) {
     const fs::path path = folder / name;
@@ -107,7 +61,7 @@ void readRows(const fs::path& folder, const char* name, std::size_t columns, F c
         try {
             if (number == 1 && line.compare(0, 3, "\xEF\xBB\xBF") == 0)
                 line.erase(0, 3);
-            if (!line.empty() && line.back() == '\r')
+            if (!file.eof() && !line.empty() && line.back() == '\r')
                 line.pop_back();
             if (line.empty())
                 continue;
@@ -164,27 +118,10 @@ PartOfSpeech partOfSpeech(const std::string& value) {
         return PartOfSpeech::OTHER;
     throw std::invalid_argument("invalid part of speech");
 }
-const char* token(PartOfSpeech value) {
-    switch (value) {
-    case PartOfSpeech::NOUN:
-        return "NOUN";
-    case PartOfSpeech::VERB:
-        return "VERB";
-    case PartOfSpeech::IADJECTIVE:
-        return "I_ADJ";
-    case PartOfSpeech::NAADJECTIVE:
-        return "NA_ADJ";
-    case PartOfSpeech::ADVERB:
-        return "ADV";
-    case PartOfSpeech::OTHER:
-        return "OTHER";
-    }
-    return "";
-}
 void append(Rows& rows, const char* name, const Fields& fields) {
     std::string line;
     for (std::size_t i = 0; i < fields.size(); ++i) {
-        if (fields[i].find_first_of("|\r\n") != std::string::npos ||
+        if (fields[i].size() > 8192 || fields[i].find_first_of("|\r\n") != std::string::npos ||
             fields[i].find('\0') != std::string::npos || !validUtf8(fields[i]))
             throw std::invalid_argument(std::string(name) + ": invalid field");
         if (i)
@@ -193,6 +130,8 @@ void append(Rows& rows, const char* name, const Fields& fields) {
     }
     if (line.size() > 16384)
         throw std::invalid_argument(std::string(name) + ": line too long");
+    if (rows[name].size() + line.size() + 1 > 32 * 1024 * 1024)
+        throw std::invalid_argument(std::string(name) + ": file too large");
     rows[name] += line + '\n';
 }
 bool replaceFile(const fs::path& from, const fs::path& to) {
@@ -257,7 +196,7 @@ void fillPackageRows(const DataStore& data, Rows& rows) {
                 item.getWord(),
                 item.getReading(),
                 item.getMeaning(),
-                token(item.getPartOfSpeech()),
+                partOfSpeechToken(item.getPartOfSpeech()),
                 item.getExample()});
     }
     for (const auto& item : data.grammars) {
@@ -297,7 +236,7 @@ bool FileStorage::loadPackage(const std::string& folder, DataStore& out, std::st
         DataStore staged;
         const fs::path root(folder);
         readRows(root, "resource_levels.txt", 5, [&](const Fields& f) {
-            staged.levels.emplace_back(LevelId(f[0]), f[1], f[2], integer(f[3], 1, 1000000), f[4]);
+            staged.levels.emplace_back(LevelId(f[0]), f[1], f[2], integer(f[3], 1, (std::numeric_limits<int>::max)()), f[4]);
         });
         struct Header {
             ResourceType type;
@@ -379,7 +318,7 @@ bool FileStorage::loadAll(const std::string& folder, DataStore& out, std::string
             else
                 throw std::invalid_argument("invalid script");
             staged.alphabet.emplace_back(
-                AlphabetId(f[0]), script, f[2], f[3], f[4], integer(f[5], 1, 1000000), f[6]);
+                AlphabetId(f[0]), script, f[2], f[3], f[4], integer(f[5], 1, (std::numeric_limits<int>::max)()), f[6]);
         });
         readRows(root, "question.txt", 11, [&](const Fields& f) {
             std::optional<ResourceId> resource;
@@ -407,12 +346,12 @@ bool FileStorage::loadAll(const std::string& folder, DataStore& out, std::string
             staged.favorites.emplace_back(FavoriteId(f[0]), UserId(f[1]), ResourceId(f[2]));
         });
         readRows(root, "search_history.txt", 4, [&](const Fields& f) {
-            if (!timestamp(f[3]))
+            if (!validUtcTimestamp(f[3]))
                 throw std::invalid_argument("invalid timestamp");
             staged.histories.pushBack(SearchHistory(HistoryId(f[0]), UserId(f[1]), f[2], f[3]));
         });
         readRows(root, "quiz_attempt.txt", 6, [&](const Fields& f) {
-            if (!timestamp(f[5]))
+            if (!validUtcTimestamp(f[5]))
                 throw std::invalid_argument("invalid timestamp");
             staged.attempts.emplace_back(AttemptId(f[0]),
                                          UserId(f[1]),
@@ -436,6 +375,9 @@ bool FileStorage::savePackage(const std::string& folder,
                               std::string& error) const {
     error.clear();
     try {
+        DataStore checked(data);
+        checked.rebuildIndexes();
+        checked.validateRelations();
         Rows rows;
         fillPackageRows(data, rows);
         return writeRows(fs::path(folder), rows, error);
@@ -450,7 +392,9 @@ bool FileStorage::saveAll(const std::string& folder,
                           std::string& error) const {
     error.clear();
     try {
-        data.validateRelations(true);
+        DataStore checked(data);
+        checked.rebuildIndexes();
+        checked.validateRelations(true);
         Rows rows;
         fillPackageRows(data, rows);
         for (const char* name : {"user.txt",

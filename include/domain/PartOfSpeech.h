@@ -8,3 +8,5 @@ enum class PartOfSpeech {
     ADVERB,
     OTHER,
 };
+
+const char* partOfSpeechToken(PartOfSpeech value);

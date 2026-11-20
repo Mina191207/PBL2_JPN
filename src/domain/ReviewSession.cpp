@@ -29,6 +29,10 @@ bool ReviewSession::reveal() noexcept {
     return true;
 }
 
+bool ReviewSession::revealed() const noexcept {
+    return revealed_;
+}
+
 bool ReviewSession::rate(bool remembered) {
     if (!current_ || !revealed_) {
         return false;

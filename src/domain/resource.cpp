@@ -1,5 +1,5 @@
-#include "../../include/domain/resource.h"
-#include "../../include/domain/Validation.h"
+#include "domain/resource.h"
+#include "domain/Validation.h"
 
 Resource::Resource(const ResourceId& id, const LevelId& levelId, const std::string& meaning)
     : id_(id),

@@ -71,7 +71,7 @@ const User* DataStore::findUser(const UserId& id) const noexcept {
 void DataStore::validateRelations(bool requireAdmin) const {
     std::unordered_set<std::string> levelNames;
     for (const auto& level : levels) {
-        if (!levelNames.insert(level.getCategory() + ":" + level.getName()).second) {
+        if (!levelNames.insert(level.getCategory() + "|" + level.getName()).second) {
             throw std::invalid_argument("duplicate level name");
         }
     }

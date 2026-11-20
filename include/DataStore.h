@@ -46,6 +46,4 @@ class DataStore {
     static std::string lowerAscii(std::string value);
 };
 
-template <class Id, class Container> Id nextId(const Container& values);
-
-#include "../src/IdGenerator.h"
+#include "IdGenerator.h"

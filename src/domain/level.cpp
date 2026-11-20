@@ -1,5 +1,5 @@
-#include "../../include/domain/level.h"
-#include "../../include/domain/Validation.h"
+#include "domain/level.h"
+#include "domain/Validation.h"
 
 #include <stdexcept>
 #include <utility>
@@ -21,6 +21,7 @@ Level::Level(
         if (c >= 'a' && c <= 'z')
             c = static_cast<char>(c - 'a' + 'A');
     }
+    validateTxtRecord({id_.getId(), category_, name_, std::to_string(order_), description_});
 }
 const LevelId& Level::getId() const noexcept {
     return id_;

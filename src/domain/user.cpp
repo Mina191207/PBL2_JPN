@@ -26,6 +26,10 @@ User::User(UserId id, std::string username, std::string password, UserRole role,
         password_.back() == ' ' || password_.back() == '\t') {
         throw std::invalid_argument("invalid password");
     }
+    validateTxtRecord({id_.getId(), username_, password_, "LEARNER", "LOCKED"});
+    if ((role_ != UserRole::ADMIN && role_ != UserRole::LEARNER) ||
+        (status_ != UserStatus::ACTIVE && status_ != UserStatus::LOCKED))
+        throw std::invalid_argument("invalid user role or status");
 }
 
 const UserId& User::getId() const noexcept {
@@ -45,7 +49,9 @@ bool User::checkPassword(const std::string& password) const noexcept {
     return password_ == password;
 }
 
-void User::setStatus(UserStatus status) noexcept {
+void User::setStatus(UserStatus status) {
+    if (status != UserStatus::ACTIVE && status != UserStatus::LOCKED)
+        throw std::invalid_argument("invalid status");
     status_ = status;
 }
 

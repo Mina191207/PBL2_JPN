@@ -1,4 +1,4 @@
-#include "Application.h"
+#include "InternalApplication.h"
 #include "algorithms/KmpMatcher.h"
 #include "algorithms/MergeSort.h"
 #include <cassert>
@@ -52,7 +52,7 @@ int main() {
     copy.clear();
     assert(assigned.size() == 3 && assigned.back() == 2);
 
-    Application app;
+    InternalApplication app;
     std::string error;
     assert(app.users().create(
         User(UserId("U001"), "admin", "demo123", UserRole::ADMIN, UserStatus::ACTIVE), error));
