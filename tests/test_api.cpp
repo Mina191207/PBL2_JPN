@@ -1,7 +1,87 @@
 #include "Application.h"
 #include "TestSupport.h"
+#include "storage/Paths.h"
+#include <algorithm>
+#include <cstddef>
 #include <set>
+#include <system_error>
 #include <type_traits>
+#ifdef _WIN32
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#ifndef _WIN32_WINNT
+#define _WIN32_WINNT 0x0600
+#endif
+#include <windows.h>
+#include <winioctl.h>
+#endif
+
+#ifdef _WIN32
+namespace {
+bool createDirectoryJunction(const std::filesystem::path& link,
+                             const std::filesystem::path& target,
+                             std::error_code& error) {
+    struct MountPointData {
+        DWORD tag;
+        WORD dataLength;
+        WORD reserved;
+        WORD substituteOffset;
+        WORD substituteLength;
+        WORD printOffset;
+        WORD printLength;
+        wchar_t pathBuffer[1];
+    };
+
+    const auto absoluteTarget = std::filesystem::absolute(target).native();
+    const std::wstring substitute = L"\\??\\" + absoluteTarget;
+    const std::wstring print = absoluteTarget;
+    constexpr auto pathOffset = offsetof(MountPointData, pathBuffer);
+    const auto stringBytes = (substitute.size() + 1 + print.size() + 1) * sizeof(wchar_t);
+    if (stringBytes > MAXIMUM_REPARSE_DATA_BUFFER_SIZE - pathOffset) {
+        error = std::make_error_code(std::errc::filename_too_long);
+        return false;
+    }
+
+    if (!CreateDirectoryW(link.c_str(), nullptr)) {
+        error = {static_cast<int>(GetLastError()), std::system_category()};
+        return false;
+    }
+    HANDLE handle = CreateFileW(link.c_str(), GENERIC_WRITE, 0, nullptr, OPEN_EXISTING,
+                                FILE_FLAG_OPEN_REPARSE_POINT | FILE_FLAG_BACKUP_SEMANTICS,
+                                nullptr);
+    if (handle == INVALID_HANDLE_VALUE) {
+        error = {static_cast<int>(GetLastError()), std::system_category()};
+        RemoveDirectoryW(link.c_str());
+        return false;
+    }
+
+    std::vector<unsigned char> buffer(pathOffset + stringBytes, 0);
+    auto* data = reinterpret_cast<MountPointData*>(buffer.data());
+    data->tag = IO_REPARSE_TAG_MOUNT_POINT;
+    data->dataLength = static_cast<WORD>(8 + stringBytes);
+    data->substituteOffset = 0;
+    data->substituteLength = static_cast<WORD>(substitute.size() * sizeof(wchar_t));
+    data->printOffset = static_cast<WORD>((substitute.size() + 1) * sizeof(wchar_t));
+    data->printLength = static_cast<WORD>(print.size() * sizeof(wchar_t));
+    auto* strings = reinterpret_cast<wchar_t*>(data->pathBuffer);
+    std::copy(substitute.begin(), substitute.end(), strings);
+    std::copy(print.begin(), print.end(), strings + substitute.size() + 1);
+
+    DWORD bytesReturned = 0;
+    const BOOL created = DeviceIoControl(handle, FSCTL_SET_REPARSE_POINT, data,
+                                         static_cast<DWORD>(8 + data->dataLength),
+                                         nullptr, 0, &bytesReturned, nullptr);
+    const auto result = created ? std::error_code{}
+                                : std::error_code(static_cast<int>(GetLastError()),
+                                                  std::system_category());
+    CloseHandle(handle);
+    if (!created) RemoveDirectoryW(link.c_str());
+    error = result;
+    return created != FALSE;
+}
+}
+#endif
 
 static_assert(!std::is_copy_constructible_v<Application>);
 static_assert(!std::is_move_constructible_v<Application>);
@@ -11,6 +91,10 @@ QuestionInput questionInput(const LevelId& level, std::optional<ResourceId> reso
 }
 void requireSaved(const Status& status) {
     CHECK(status.ok() && status.save == SaveState::SAVED);
+}
+template<class Char, std::size_t N>
+std::string utf8Literal(const Char (&value)[N]) {
+    return {reinterpret_cast<const char*>(value), N - 1};
 }
 
 void apiFlow() {
@@ -208,15 +292,139 @@ void apiFlow() {
     CHECK(app.login("admin", "demo123").ok());
     CHECK(app.history().value->size() == savedHistories);
 
-    CHECK(!app.exportPackage((folder / ".").string()).ok());
-    CHECK(!app.exportPackage((folder / ".." / "data").string()).ok());
+    CHECK(app.exportPackage(folder.string()).error == BackendError::REJECTED);
+    CHECK(app.exportPackage((folder / ".").string()).error == BackendError::REJECTED);
+    CHECK(app.exportPackage((folder / ".." / "data").string()).error == BackendError::REJECTED);
+    const auto relativeFolder = folder.lexically_relative(std::filesystem::current_path());
+    if (!relativeFolder.empty())
+        CHECK(app.exportPackage(relativeFolder.string()).error == BackendError::REJECTED);
+    CHECK(app.exportPackage(temp.path.string()).error == BackendError::REJECTED);
+
+    const auto existingChild = folder / "nested";
+    CHECK(std::filesystem::create_directory(existingChild));
+    CHECK(app.exportPackage(existingChild.string()).error == BackendError::REJECTED);
+    CHECK(!std::filesystem::exists(existingChild / "learning_resource.txt"));
+    const auto missingChild = folder / "not-created" / "nested";
+    CHECK(app.exportPackage(missingChild.string()).error == BackendError::REJECTED);
+    CHECK(!std::filesystem::exists(folder / "not-created"));
+
+    // A non-directory path component makes the relationship unverifiable and
+    // must fail closed before savePackage creates anything.
+    const auto blocker = temp.path / "blocker.txt";
+    { std::ofstream out(blocker); out << "block"; }
+    const auto blockedDestination = blocker / "package";
+    CHECK(app.exportPackage(blockedDestination.string()).error == BackendError::IO_ERROR);
+    CHECK(!std::filesystem::exists(blockedDestination));
+
 #ifdef _WIN32
     auto caseAlias = folder.string();
     for (char& c : caseAlias) if (c >= 'a' && c <= 'z') c = static_cast<char>(c - 'a' + 'A');
-    CHECK(!app.exportPackage(caseAlias).ok());
+    CHECK(app.exportPackage(caseAlias).error == BackendError::REJECTED);
 #endif
     const auto exported = app.exportPackage((temp.path / "package").string());
     if (!exported.ok()) throw std::runtime_error("export failed: " + exported.message);
+    const auto siblingPackage = temp.path / "other-package";
+    CHECK(std::filesystem::create_directory(siblingPackage));
+    CHECK(app.exportPackage(siblingPackage.string()).ok());
+    const auto prefixLookalike = temp.path / "data-copy";
+    CHECK(app.exportPackage(prefixLookalike.string()).ok());
+    const auto anotherNewSibling = temp.path / "independent-new-package";
+    CHECK(app.exportPackage(anotherNewSibling.string()).ok());
+    CHECK(std::filesystem::is_directory(anotherNewSibling));
+
+    const auto unicodeBase = temp.path / pathFromUtf8(utf8Literal(u8"H\u1ECDc li\u1EC7u ti\u1EBFng Nh\u1EADt")) /
+                             pathFromUtf8(utf8Literal(u8"\u65E5\u672C\u8A9E\u6559\u6750"));
+    const auto unicodeNewPackage = unicodeBase / "package-new";
+    const auto unicodeNewStatus = app.exportPackage(pathToUtf8(unicodeNewPackage));
+    if (!unicodeNewStatus.ok())
+        throw std::runtime_error("Unicode new package export failed: " + unicodeNewStatus.message);
+    CHECK(std::filesystem::exists(unicodeNewPackage / "learning_resource.txt"));
+    const auto unicodeExistingPackage = unicodeBase / "package-existing";
+    CHECK(std::filesystem::create_directories(unicodeExistingPackage));
+    const auto unicodeExistingStatus = app.exportPackage(pathToUtf8(unicodeExistingPackage));
+    if (!unicodeExistingStatus.ok())
+        throw std::runtime_error("Unicode existing package export failed: " + unicodeExistingStatus.message);
+    CHECK(std::filesystem::exists(unicodeExistingPackage / "learning_resource.txt"));
+
+    // Exercise Unicode in the active data path as well as in export destinations.
+    const auto unicodeDatabaseParent = temp.path / pathFromUtf8(utf8Literal(u8"H\u1ECDc li\u1EC7u ti\u1EBFng Nh\u1EADt"));
+    const auto unicodeDatabase = unicodeDatabaseParent / pathFromUtf8(utf8Literal(u8"\u65E5\u672C\u8A9E\u6559\u6750")) /
+                                 "database";
+    Application unicodeApp(43);
+    const auto initialized = unicodeApp.initialize(pathToUtf8(unicodeDatabase), "unicode-admin", "pass");
+    if (!initialized.ok())
+        throw std::runtime_error("Unicode database initialization failed: " + initialized.message);
+    CHECK(unicodeApp.login("unicode-admin", "pass").ok());
+    CHECK(unicodeApp.exportPackage(pathToUtf8(unicodeDatabaseParent)).error == BackendError::REJECTED);
+
+    const auto unicodeExistingChild = unicodeDatabase / pathFromUtf8(utf8Literal(u8"\u5B50\u8CC7\u6599"));
+    CHECK(std::filesystem::create_directory(unicodeExistingChild));
+    CHECK(unicodeApp.exportPackage(pathToUtf8(unicodeExistingChild)).error == BackendError::REJECTED);
+    CHECK(!std::filesystem::exists(unicodeExistingChild / "learning_resource.txt"));
+    const auto unicodeMissingChild = unicodeDatabase / pathFromUtf8(utf8Literal(u8"\u672A\u4F5C\u6210")) /
+                                     pathFromUtf8(utf8Literal(u8"\u6559\u6750"));
+    CHECK(unicodeApp.exportPackage(pathToUtf8(unicodeMissingChild)).error == BackendError::REJECTED);
+    CHECK(!std::filesystem::exists(unicodeDatabase / pathFromUtf8(utf8Literal(u8"\u672A\u4F5C\u6210"))));
+
+    const auto unicodeDatabaseAlias = temp.path / pathFromUtf8(utf8Literal(u8"\u65E5\u672C\u8A9E-alias"));
+    std::error_code unicodeAliasError;
+    std::filesystem::create_directory_symlink(unicodeDatabase, unicodeDatabaseAlias, unicodeAliasError);
+#ifdef _WIN32
+    if (unicodeAliasError) {
+        unicodeAliasError.clear();
+        if (!createDirectoryJunction(unicodeDatabaseAlias, unicodeDatabase, unicodeAliasError)) {
+            constexpr DWORD allowUnprivilegedCreate = 0x2;
+            if (CreateSymbolicLinkW(unicodeDatabaseAlias.c_str(), unicodeDatabase.c_str(),
+                                    SYMBOLIC_LINK_FLAG_DIRECTORY | allowUnprivilegedCreate))
+                unicodeAliasError.clear();
+            else
+                unicodeAliasError = {static_cast<int>(GetLastError()), std::system_category()};
+        }
+    }
+#endif
+    if (!unicodeAliasError) {
+        CHECK(unicodeApp.exportPackage(pathToUtf8(unicodeDatabaseAlias)).error == BackendError::REJECTED);
+        std::filesystem::remove(unicodeDatabaseAlias, unicodeAliasError);
+    } else {
+        std::cout << "SKIP: Unicode database alias test unavailable: "
+                  << unicodeAliasError.message() << '\n';
+    }
+    CHECK(unicodeApp.close().ok());
+    Application unicodeReloaded(44);
+    CHECK(unicodeReloaded.load(pathToUtf8(unicodeDatabase)).ok());
+    CHECK(unicodeReloaded.login("unicode-admin", "pass").ok());
+    CHECK(unicodeReloaded.exportPackage(pathToUtf8(unicodeDatabaseParent)).error == BackendError::REJECTED);
+    CHECK(unicodeReloaded.close().ok());
+
+    const auto databaseAlias = temp.path / "database-alias";
+    std::error_code symlinkError;
+    std::filesystem::create_directory_symlink(folder, databaseAlias, symlinkError);
+#ifdef _WIN32
+    if (symlinkError) {
+        // A directory symlink needs a Windows privilege in this environment;
+        // junctions do not, so use one as the supported alias case.
+        symlinkError.clear();
+        if (createDirectoryJunction(databaseAlias, folder, symlinkError))
+            symlinkError.clear();
+    }
+    if (symlinkError) {
+        // Fall back to the Windows symbolic-link API on systems where junctions
+        // are unavailable but unprivileged symbolic links are enabled.
+        constexpr DWORD allowUnprivilegedCreate = 0x2;
+        if (CreateSymbolicLinkW(databaseAlias.c_str(), folder.c_str(),
+                                SYMBOLIC_LINK_FLAG_DIRECTORY | allowUnprivilegedCreate))
+            symlinkError.clear();
+        else
+            symlinkError = {static_cast<int>(GetLastError()), std::system_category()};
+    }
+#endif
+    if (!symlinkError) {
+        CHECK(app.exportPackage(databaseAlias.string()).error == BackendError::REJECTED);
+        std::filesystem::remove(databaseAlias, symlinkError);
+    } else {
+        std::cout << "SKIP: directory symlink export guard test unavailable: "
+                  << symlinkError.message() << '\n';
+    }
     CHECK(!app.importPackage((temp.path / "package").string()).ok());
     // Deleting Question during a session is allowed, deleting its Level prevents submit.
     auto ephemeral = app.createLevel({"JLPT","temporary",9,""}); CHECK(ephemeral.ok());

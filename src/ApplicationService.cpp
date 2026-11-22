@@ -197,9 +197,9 @@ bool ApplicationService::exportPackage(const std::string& folder, std::string& e
         error = "admin required";
         return false;
     }
-    const bool same = !activeFolder_.empty() && sameDirectory(folder, activeFolder_);
-    if (same) {
-        error = "export folder is active data folder";
+    const bool overlaps = !activeFolder_.empty() && pathsOverlap(folder, activeFolder_);
+    if (overlaps) {
+        error = "export folder overlaps active data directory";
         return false;
     }
     return storage_.savePackage(folder, data_, error);

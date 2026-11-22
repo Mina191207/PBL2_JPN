@@ -1,4 +1,5 @@
 #include "storage/FileStorage.h"
+#include "storage/Paths.h"
 #include "domain/Validation.h"
 #include "domain/Time.h"
 #include <array>
@@ -151,14 +152,14 @@ bool writeRows(const fs::path& folder, const Rows& rows, std::string& error) {
             const fs::path temp = folder / (entry.first + ".tmp");
             std::ofstream file(temp, std::ios::binary | std::ios::trunc);
             if (!file)
-                throw std::runtime_error("cannot open " + temp.string());
+                throw std::runtime_error("cannot open " + pathToUtf8(temp));
             file.write(entry.second.data(), static_cast<std::streamsize>(entry.second.size()));
             file.flush();
             if (!file)
-                throw std::runtime_error("cannot write " + temp.string());
+                throw std::runtime_error("cannot write " + pathToUtf8(temp));
             file.close();
             if (!file)
-                throw std::runtime_error("cannot close " + temp.string());
+                throw std::runtime_error("cannot close " + pathToUtf8(temp));
         }
         for (const auto& entry : rows) {
             const fs::path temp = folder / (entry.first + ".tmp");
@@ -234,7 +235,7 @@ bool FileStorage::loadPackage(const std::string& folder, DataStore& out, std::st
     error.clear();
     try {
         DataStore staged;
-        const fs::path root(folder);
+        const fs::path root = pathFromUtf8(folder);
         readRows(root, "resource_levels.txt", 5, [&](const Fields& f) {
             staged.levels.emplace_back(LevelId(f[0]), f[1], f[2], integer(f[3], 1, (std::numeric_limits<int>::max)()), f[4]);
         });
@@ -291,7 +292,7 @@ bool FileStorage::loadAll(const std::string& folder, DataStore& out, std::string
     if (!loadPackage(folder, staged, error))
         return false;
     try {
-        const fs::path root(folder);
+        const fs::path root = pathFromUtf8(folder);
         readRows(root, "user.txt", 5, [&](const Fields& f) {
             UserRole role;
             UserStatus status;
@@ -380,7 +381,7 @@ bool FileStorage::savePackage(const std::string& folder,
         checked.validateRelations();
         Rows rows;
         fillPackageRows(data, rows);
-        return writeRows(fs::path(folder), rows, error);
+        return writeRows(pathFromUtf8(folder), rows, error);
     } catch (const std::exception& e) {
         error = e.what();
         return false;
@@ -459,7 +460,7 @@ bool FileStorage::saveAll(const std::string& folder,
                     std::to_string(item.getTotalQuestions()),
                     std::to_string(item.getCorrectAnswers()),
                     item.getSubmittedAt()});
-        return writeRows(fs::path(folder), rows, error);
+        return writeRows(pathFromUtf8(folder), rows, error);
     } catch (const std::exception& e) {
         error = e.what();
         return false;

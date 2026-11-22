@@ -4,6 +4,8 @@ Thư viện quản lý học liệu tiếng Nhật theo backend 3.0: tài khoả
 
 ## Build và test
 
+Mặc định CMake chỉ build Backend và các bài kiểm thử; Raylib không phải dependency để build Backend. Để build giao diện Raylib, cài Raylib tương thích với compiler/generator đang dùng rồi bật `PBL2_BUILD_RAYLIB`.
+
 Windows với MinGW trong PATH:
 
 ```powershell
@@ -15,6 +17,22 @@ cmake -S . -B build/release -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
 cmake --build build/release -j 4
 ctest --test-dir build/release --output-on-failure
 ```
+
+### Build ứng dụng Raylib (tùy chọn)
+
+Trong MSYS2 UCRT64, cài Raylib bằng `pacman -S mingw-w64-ucrt-x86_64-raylib`. Sau đó, trong PowerShell với MinGW UCRT64 (điều chỉnh đường dẫn MSYS2 nếu cài ở vị trí khác):
+
+```powershell
+cmake -S . -B build-raylib -G "MinGW Makefiles" `
+  -DCMAKE_MAKE_PROGRAM=C:/msys64/ucrt64/bin/mingw32-make.exe `
+  -DCMAKE_CXX_COMPILER=C:/msys64/ucrt64/bin/g++.exe `
+  -DCMAKE_PREFIX_PATH=C:/msys64/ucrt64 `
+  -DPBL2_BUILD_RAYLIB=ON
+cmake --build build-raylib -j 4
+ctest --test-dir build-raylib --output-on-failure
+```
+
+Chạy `build-raylib/pbl2_app.exe` từ thư mục gốc dự án để ứng dụng tìm thấy thư mục `database/`.
 
 Visual Studio 2022:
 

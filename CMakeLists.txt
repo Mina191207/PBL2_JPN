@@ -75,7 +75,7 @@ endif()
 # Raylib Frontend
 # ==========================================
 
-option(PBL2_BUILD_RAYLIB "Build Raylib frontend" ON)
+option(PBL2_BUILD_RAYLIB "Build Raylib frontend" OFF)
 
 if(PBL2_BUILD_RAYLIB)
     find_package(raylib CONFIG REQUIRED)

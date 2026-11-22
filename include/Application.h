@@ -107,6 +107,7 @@ class Application {
     Application& operator=(const Application&) = delete;
     Application(Application&&) = delete;
     Application& operator=(Application&&) = delete;
+    // Filesystem path arguments are UTF-8 encoded on every platform.
     Status initialize(const std::string& emptyFolder, const std::string& adminName,
                       const std::string& demoPassword);
     Status load(const std::string& folder, UnsavedPolicy unsaved = UnsavedPolicy::REJECT);

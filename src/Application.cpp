@@ -101,12 +101,13 @@ Status Application::initialize(const std::string& folder, const std::string& nam
     if (loaded()) return failure(BackendError::INVALID_STATE, "backend already loaded");
     try {
         if (folder.empty()) return failure(BackendError::INVALID_INPUT, "empty folder");
-        if (std::filesystem::exists(folder) && !std::filesystem::is_empty(folder))
+        const auto inputFolder = pathFromUtf8(folder);
+        if (std::filesystem::exists(inputFolder) && !std::filesystem::is_empty(inputFolder))
             return failure(BackendError::REJECTED, "initialize requires an empty directory");
         DataStore staged;
         staged.users.emplace_back(UserId("U001"), name, password, UserRole::ADMIN, UserStatus::ACTIVE);
         staged.rebuildIndexes();
-        impl_->folder = std::filesystem::absolute(folder).string();
+        impl_->folder = pathToUtf8(std::filesystem::absolute(inputFolder));
         staged.dirty = true;
         impl_->data.swap(staged);
         impl_->ready = true;
@@ -123,7 +124,7 @@ Status Application::load(const std::string& folder, UnsavedPolicy unsaved) {
     if (folder.empty() || (unsaved != UnsavedPolicy::REJECT && unsaved != UnsavedPolicy::DISCARD))
         return failure(BackendError::INVALID_INPUT, "invalid load arguments");
     try {
-        std::string resolved = std::filesystem::absolute(folder).string();
+        std::string resolved = pathToUtf8(std::filesystem::absolute(pathFromUtf8(folder)));
         std::string error;
         if (!impl_->service.load(resolved, error, unsaved == UnsavedPolicy::DISCARD))
             return failure(BackendError::IO_ERROR, std::move(error));
@@ -392,7 +393,7 @@ Status Application::exportPackage(const std::string& folder) const {
     if (!status.ok()) return status;
     try {
         if (folder.empty()) return failure(BackendError::INVALID_INPUT, "empty export folder");
-        if (sameDirectory(folder, impl_->folder)) return failure(BackendError::REJECTED, "export folder is active data folder");
+        if (pathsOverlap(folder, impl_->folder)) return failure(BackendError::REJECTED, "export folder overlaps active data directory");
         std::string error;
         if (!impl_->service.exportPackage(folder, error)) return failure(BackendError::IO_ERROR, std::move(error));
         return {};
