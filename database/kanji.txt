@@ -13,3 +13,2371 @@ R059|社|công ty; đền|7|シャ|やしろ|会社、社会
 R060|電|điện|13|デン||電話、電車
 R061|駅|nhà ga|14|エキ||駅前、駅員
 R062|語|ngôn ngữ; từ|14|ゴ|かた.る|日本語、物語
+R717|一|one；one radical (no.1)|1|イチ；イツ|ひと-；ひと.つ|一；一日；一緒；一つ；一月；一人；一昨日；一昨年
+R718|国|country|8|コク|くに|国；外国；外国人；国際；国語；国民；国家；国会
+R719|年|year；counter for years|6|ネン|とし|年；去年；今年；毎年；来年；一昨年；再来年；万年筆
+R720|大|large；big|3|ダイ；タイ|おお-；おお.きい；-おお.いに|大勢；大人；大学；大切；大きい；大きな；大使館；大丈夫
+R721|十|ten|2|ジュウ；ジッ；ジュッ|とお；と；そ|十；十日；二十歳；二十日；十分；五十音；十字路
+R722|二|two；two radical (no. 7)|2|ニ；ジ|ふた；ふた.つ；ふたたび|二；二つ；二人；二日；二十歳；二十日；二階建て；真っ二つ
+R723|本|book；present；main；origin；true；real；counter for long cylindrical things|5|ホン|もと|本；本棚；基本；資本；日本；本人；本物；標本
+R724|中|in；inside；middle；mean；center|4|チュウ|なか；うち；あた.る|中；背中；途中；中々；中学校；真ん中；最中；集中
+R725|長|long；leader；superior；senior|8|チョウ|なが.い；おさ|長い；課長；校長；社長；部長；議長；身長；成長
+R726|出|exit；leave；go out；come out；put out；protrude|5|シュツ；スイ|で.る；-で；だ.す；-だ.す；い.でる；い.だす|出す；出口；出る；出かける；出席；出発；輸出；思い出す
+R727|三|three|3|サン；ゾウ|み；み.つ；みっ.つ|三；三日；三つ；再三；三角；三日月；三味線
+R728|時|time；hour|10|ジ|とき；-どき|時間；時々；時計；時代；時；一時；時期；時刻
+R729|行|going；journey；carry out；conduct；act；line；row；bank|6|コウ；ギョウ；アン|い.く；ゆ.く；-ゆ.き；-ゆき；-い.き；-いき；おこな.う；おこ.なう|行く；銀行；旅行；飛行機；行う；急行；飛行場；行き
+R730|見|see；hopes；chances；idea；opinion；look at；visible|7|ケン|み.る；み.える；み.せる|見る；見せる；意見；見物；拝見；花見；見える；お見舞い
+R731|分|part；minute of time；segment；share；degree；one's lot；duty；understand；know；rate；1%；chances；shaku/100|4|ブン；フン；ブ|わ.ける；わ.け；わ.かれる；わ.かる；わ.かつ|自分；半分；分かる；気分；十分；大分；分；部分
+R732|後|behind；back；later|9|ゴ；コウ|のち；うし.ろ；うしろ；あと；おく.れる|後；後ろ；午後；最後；後者；今後；明後日；以後
+R733|前|in front；before|9|ゼン|まえ；-まえ|前；午前；名前；以前；前者；前進；前後；直前
+R734|生|life；genuine；birth|5|セイ；ショウ|い.きる；い.かす；い.ける；う.まれる；うま.れる；う.まれ；うまれ；う.む；お.う；は.える；は.やす；き；なま；なま-；な.る；な.す；む.す；-う|学生；生徒；先生；誕生日；留学生；生まれる；生活；生産
+R735|五|five|4|ゴ|いつ；いつ.つ|五；五日；五つ；五十音；四捨五入；五月蝿い
+R736|間|interval；space|12|カン；ケン|あいだ；ま；あい|時間；間；昼間；間違える；間に合う；居間；期間；週間
+R737|上|above；up|3|ジョウ；ショウ；シャン|うえ；-うえ；うわ-；かみ；あ.げる；-あ.げる；あ.がる；-あ.がる；あ.がり；-あ.がり；のぼ.る；のぼ.り；のぼ.せる；のぼ.す；たてまつ.る|上；上着；上手；上げる；以上；屋上；上がる；差し上げる
+R738|東|east|8|トウ|ひがし|東；関東；東西；東洋
+R739|四|four|5|シ|よ；よ.つ；よっ.つ；よん|四；四日；四つ；四角；四季；四角い；四つ角；四捨五入
+R740|今|now|4|コン；キン|いま|今；今日；今朝；今年；今月；今週；今晩；今度
+R741|九|nine|2|キュウ；ク|ここの；ここの.つ|九；九日；九つ
+R742|入|enter；insert|2|ニュウ；ジュ|い.る；-い.る；-い.り；い.れる；-い.れ；はい.る|入口；入る；入れる；入院；入学；輸入；押し入れ；記入
+R743|学|study；learning；science|8|ガク|まな.ぶ|学生；学校；大学；留学生；医学；科学；数学；入学
+R744|高|tall；high；expensive|10|コウ|たか.い；たか；-だか；たか.まる；たか.める|高い；高校；高校生；高等学校；高価；高速；最高；高級
+R745|円|circle；yen；round|4|エン|まる.い；まる；まど；まど.か；まろ.やか|円；円周；楕円；円い；円滑；円満
+R746|子|child；sign of the rat；11PM-1AM；first sign of Chinese zodiac|3|シ；ス；ツ|こ；-こ；ね|子供；帽子；お菓子；男の子；女の子；子；息子；王子
+R747|外|outside|5|ガイ；ゲ|そと；ほか；はず.す；はず.れる；と-|外；外国；外国人；以外；郊外；意外；海外；外交
+R748|八|eight；eight radical (no. 12)|2|ハチ；ハツ|や；や.つ；やっ.つ；よう|八；八つ；八日；八百屋
+R749|六|six|4|ロク；リク|む；む.つ；むっ.つ；むい|六；六日；六つ
+R750|下|below；down；descend；give；low；inferior|3|カ；ゲ|した；しも；もと；さ.げる；さ.がる；くだ.る；くだ.り；くだ.す；-くだ.す；くだ.さる；お.ろす；お.りる|下；靴下；下手；廊下；地下鉄；以下；下宿；下着
+R751|来|come；due；next；cause；become|7|ライ；タイ|く.る；きた.る；きた.す；き.たす；き.たる；き；こ|来る；来月；来週；来年；再来年；将来；再来月；再来週
+R752|気|spirit；mind；air；atmosphere；mood|6|キ；ケ|いき；き|元気；天気；電気；病気；気；気分；空気；気持ち
+R753|小|little；small|3|ショウ|ちい.さい；こ-；お-；さ-|小さい；小さな；小鳥；小説；小学校；小；小包；小麦
+R754|七|seven|2|シチ|なな；なな.つ；なの|七；七つ；七日
+R755|話|tale；talk|13|ワ|はな.す；はなし|話；電話；話す；会話；世話；話題；話し合う；神話
+R756|女|woman；female|3|ジョ；ニョ；ニョウ|おんな；め|女；女の子；彼女；女性；少女；女王；女子；女優
+R757|北|north|5|ホク|きた|北；南北；北極
+R758|午|noon；sign of the horse；11AM-1PM；seventh sign of Chinese zodiac|4|ゴ|うま|午後；午前；正午
+R759|百|hundred|6|ヒャク；ビャク|もも|百；八百屋
+R760|書|write|10|ショ|か.く；-が.き；-がき|書く；辞書；葉書；図書館；書斎；書物；書類；読書
+R761|先|before；ahead；previous；future；precedence|6|セン|さき；ま.ず|先；先月；先週；先生；先輩；先日；先程；先祖
+R762|名|name；noted；distinguished；reputation|6|メイ；ミョウ|な；-な|名前；有名；名；署名；名人；宛名；仮名；氏名
+R763|千|thousand|3|セン|ち|千
+R764|半|half；middle；odd number；semi-；part-|5|ハン|なか.ば|半；半分；大半；半ば；半径；半島；過半数；半端
+R765|男|male|7|ダン；ナン|おとこ；お|男；男の子；男性；男子；男の人；長男
+R766|西|west；Spain|6|セイ；サイ；ス|にし|西；西洋；関西；西暦；東西；西日
+R767|無|nothingness；none；ain't；nothing；nil；not|12|ム；ブ|な.い|無くす；無理；無くなる；無；無し；無事；無視；無駄
+R768|校|exam；school；printing；proof；correction|10|コウ；キョウ||学校；高校；校長；高校生；小学校；中学校；高等学校；校舎
+R769|聞|hear；ask；listen|14|ブン；モン|き.く；き.こえる|聞く；新聞；新聞社；聞こえる；聞き取り
+R770|食|eat；food|9|ショク；ジキ|く.う；く.らう；た.べる；は.む|食堂；食べ物；食べる；食事；食料品；食う；食卓；食品
+R771|車|car|7|シャ|くるま|車；電車；自転車；自動車；汽車；駐車場；駐車；発車
+R772|何|what|7|カ|なに；なん；なに-；なん-|何；何か；何で；何でも；何とか；何々；何分；何卒
+R773|南|south|9|ナン；ナ|みなみ|南；南極；南米；南北
+R774|万|ten thousand；10,000|3|マン；バン|よろず|万；万年筆；万一；万歳；万人；万能
+R775|毎|every|6|マイ|ごと；-ごと.に|毎朝；毎月；毎週；毎日；毎年；毎晩；毎度；毎
+R776|白|white|5|ハク；ビャク|しろ；しら-；しろ.い|白；白い；白髪；青白い；真っ白；告白；白状；明白
+R777|天|heavens；sky；imperial|4|テン|あまつ；あめ；あま-|天気；天気予報；天候；天然；天皇；天津；雨天；晴天
+R778|母|mother|5|ボ|はは；も|お母さん；伯母さん；祖母；母親；父母；叔母さん；分母；母校
+R779|右|right|5|ウ；ユウ|みぎ|右；左右
+R780|読|read|14|ドク；トク；トウ|よ.む；-よ.み|読む；読書；読み；句読点；講読；購読；読者；朗読
+R781|友|friend|4|ユウ|とも|友達；友；親友；友情；友人；友好
+R782|左|left|5|サ；シャ|ひだり|左；左右；左利き
+R783|休|rest；day off；retire；sleep|6|キュウ|やす.む；やす.まる；やす.める|休み；休む；夏休み；昼休み；休暇；休憩；休業；休講
+R784|父|father|4|フ|ちち|お父さん；お祖父さん；祖父；父親；父母；叔父さん；小父さん；伯父さん
+R785|雨|rain|8|ウ|あめ；あま-；-さめ|雨；梅雨；雨戸；雨具；雨天
+R786|丈|length；ten shaku；measure；Mr.；Ms.；height；stature；all (one has)；only；that's all；merely|3|ジョウ|たけ；だけ|丈夫；大丈夫；丈；頑丈
+R787|誰|who；someone；somebody|15|スイ|だれ；たれ；た|誰；誰か
+R788|貼|stick；paste；apply|12|テン；チョウ|は.る；つ.く|貼る
+R1478|同|same；agree；equal|6|ドウ|おな.じ|同じ；共同；同一；同時；同様；同僚；合同；同格
+R1479|事|matter；thing；fact；business；reason；possibly|8|ジ；ズ|こと；つか.う；つか.える|仕事；火事；事故；食事；大事；返事；用事；事務所
+R1480|自|oneself|6|ジ；シ|みずか.ら；おの.ずから；おの.ずと|自分；自転車；自動車；自由；自殺；自身；自然；自動
+R1481|発|departure；discharge；publish；emit；start from；disclose；counter for gunshots|9|ハツ；ホツ|た.つ；あば.く；おこ.る；つか.わす；はな.つ|出発；発音；爆発；発見；発行；発車；発達；発展
+R1482|者|someone；person|8|シャ|もの|医者；歯医者；者；学者；患者；記者；後者；前者
+R1483|地|ground；earth|6|チ；ジ||地図；地下鉄；地震；地理；地；生地；地位；地域
+R1484|業|business；vocation；arts；performance|13|ギョウ；ゴウ|わざ|授業；工業；産業；卒業；営業；企業；作業；失業
+R1485|方|direction；person；alternative|4|ホウ|かた；-かた；-がた|方；夕方；仕方；両方；泳ぎ方；一方；方々；地方
+R1486|新|new|13|シン|あたら.しい；あら.た；あら-；にい-|新聞；新しい；新聞社；新た；新鮮；新幹線；新；革新
+R1487|場|location；place|12|ジョウ；チョウ|ば|会場；工場；場合；場所；売り場；駐車場；飛行場；場
+R1488|員|employee；member；number；the one in charge|10|イン||店員；公務員；委員；会員；議員；全員；工員；定員
+R1489|立|stand up；rise；set up；erect|5|リツ；リュウ；リットル|た.つ；-た.つ；た.ち-；た.てる；-た.てる；た.て-；たて-；-た.て；-だ.て；-だ.てる|立つ；立てる；役に立つ；立場；独立；立ち上がる；国立；献立
+R1490|開|open；unfold；unseal|12|カイ|ひら.く；ひら.き；-びら.き；ひら.ける；あ.く；あ.ける|開く；開ける；開始；開会；開通；開放；展開；開催
+R1491|手|hand|4|シュ；ズ|て；て-；-て；た-|手；切手；上手；手紙；下手；お手洗い；手袋；運転手
+R1492|力|power；strength；strong；strain；bear up；exert|2|リョク；リキ；リイ|ちから|力；協力；強力；努力；能力；魅力；引力；学力
+R1493|問|question；ask；problem|11|モン|と.う；と.い；とん|質問；問題；学問；疑問；問い；訪問；問答；問い合わせ
+R1494|代|substitute；change；convert；replace；period；age；counter for decades of ages, eras, etc.；generation；charge；rate；fee|5|ダイ；タイ|か.わる；かわ.る；かわ.り；か.わり；-がわ.り；-が.わり；か.える；よ；しろ|時代；代わり；近代；現代；代金；代表；代理；年代
+R1495|明|bright；light|8|メイ；ミョウ；ミン|あ.かり；あか.るい；あか.るむ；あか.らむ；あき.らか；あ.ける；-あ.け；あ.く；あ.くる；あ.かす|明日；明るい；説明；証明；発明；文明；明確；明かり
+R1496|動|move；motion；change；confusion；shift；shake|11|ドウ|うご.く；うご.かす|動物；自動車；動く；運動；動物園；移動；活動；感動
+R1497|京|capital；10**16|8|キョウ；ケイ；キン|みやこ|上京；帰京
+R1498|目|eye；class；look；insight；experience；care；favor|5|モク；ボク|め；-め；ま-|目；科目；注目；目的；目標；お目に掛かる；項目；目上
+R1499|通|traffic；pass through；avenue；commute；counter for letters, notes, documents, etc.|10|ツウ；ツ|とお.る；とお.り；-とお.り；-どお.り；とお.す；とお.し；-どお.し；かよ.う|通う；交通；通る；普通；共通；通過；通学；通行
+R1500|言|say；word|7|ゲン；ゴン|い.う；こと|言う；言葉；言語；一言；言わば；方言；独り言；言い出す
+R1501|理|logic；arrangement；reason；justice；truth|11|リ|ことわり|料理；地理；無理；理由；管理；修理；処理；心理
+R1502|体|body；substance；object；reality；counter for images|7|タイ；テイ|からだ；かたち|体；大体；一体；具体；身体；全体；体育；体温
+R1503|田|rice field；rice paddy|5|デン|た|田舎；田；田植え；田んぼ；水田；田園
+R1504|主|lord；chief；master；main thing；principal|5|シュ；ス；シュウ|ぬし；おも；あるじ|御主人；主に；主義；主張；主婦；主要；主語；主役
+R1505|題|topic；subject|18|ダイ||宿題；問題；題；話題；題名；課題；議題；主題
+R1506|意|idea；mind；heart；taste；thought；desire；care；liking|13|イ||意味；意見；注意；用意；意外；意志；意思；意識
+R1507|不|negative；non-；bad；ugly；clumsy|4|フ；ブ||不便；不；不安；不可；不幸；不正；不足；不平
+R1508|作|make；production；prepare；build|7|サク；サ|つく.る；つく.り；-づく.り|作文；作る；作業；作品；作物；作家；作曲；作法
+R1509|用|utilize；business；service；use；employ|5|ヨウ|もち.いる|用；用意；用事；利用；引用；活用；器用；使用
+R1510|度|degrees；occurrence；time；counter for occurrences；consider；attitude|9|ド；ト；タク|たび；-た.い|もう一度；一度；今度；支度；度；温度；制度；速度
+R1511|強|strong|11|キョウ；ゴウ|つよ.い；つよ.まる；つよ.める；し.いる；こわ.い|強い；勉強；強調；強力；強盗；強化；強引；強気
+R1512|公|public；prince；official；governmental|4|コウ；ク|おおやけ|公園；公務員；公平；公害；公共；公式；公衆；公正
+R1513|持|hold；have|9|ジ|も.つ；-も.ち；も.てる|持つ；気持ち；お金持ち；維持；金持ち；持ち上げる；持参；受け持つ
+R1514|野|plains；field；rustic；civilian life|11|ヤ；ショ|の；の-|野菜；野；分野；平野；視野；野外；野心；野生
+R1515|以|by means of；because；in view of；compared with|5|イ|もっ.て|以下；以外；以上；以内；以前；以来；以後；以降
+R1516|思|think|9|シ|おも.う；おもえら.く；おぼ.す|思う；思い出す；意思；思想；思い出；思わず；不思議；思い込む
+R1517|家|house；home；family；professional；expert；performer|10|カ；ケ|いえ；や；うち|家；家族；家庭；家内；一家；大家；画家；家具
+R1518|世|generation；world；society；public|5|セイ；セ；ソウ|よ|世界；世話；世紀；世間；世の中；中世；世；出世
+R1519|多|many；frequent；much|6|タ|おお.い；まさ.に；まさ.る|多い；多少；滅多に；幾多；過多；多忙；多様；多数決
+R1520|正|correct；justice；righteous；10**40|5|セイ；ショウ|ただ.しい；ただ.す；まさ；まさ.に|正しい；正；修正；正午；正直；正確；正式；不正
+R1521|安|relax；cheap；low；quiet；rested；contented；peaceful|6|アン|やす.い；やす.まる；やす；やす.らか|安い；安心；安全；安定；不安；安易；目安；安静
+R1522|院|Inst.；institution；temple；mansion；school|10|イン||病院；退院；入院；寺院；大学院；参議院；衆議院
+R1523|心|heart；mind；spirit；heart radical (no. 61)|4|シン|こころ；-ごころ|心；安心；心配；感心；関心；決心；心臓；心理
+R1524|界|world；boundary|9|カイ||世界；限界；境界
+R1525|教|teach；faith；doctrine|11|キョウ|おし.える；おそ.わる|教室；教える；教育；教会；教師；教授；宗教；教科書
+R1526|文|sentence；literature；style；art；decoration；figures；plan；literary radical (no. 67)|4|ブン；モン|ふみ；あや|作文；文章；文化；文学；文法；文；注文；文明
+R1527|元|beginning；former time；origin|4|ゲン；ガン|もと|元気；元；元々；還元；元年；元来；元首；元素
+R1528|重|heavy；important；esteem；respect；heap up；pile up；nest of boxes；-fold|9|ジュウ；チョウ|え；おも.い；おも.り；おも.なう；かさ.ねる；かさ.なる；おも|重い；貴重；重視；重大；重要；慎重；尊重；厳重
+R1529|近|near；early；akin；tantamount|7|キン；コン|ちか.い|近い；近く；近所；最近；近代；近頃；接近；近々
+R1530|考|consider；think over|6|コウ|かんが.える；かんが.え|考える；考え；考慮；参考；思考；選考；考古学
+R1531|画|brush-stroke；picture|8|ガ；カク；エ；カイ|えが.く；かく.する；かぎ.る；はかりごと；はか.る|映画；映画館；計画；漫画；絵画；画家；画；画期
+R1532|海|sea；ocean|9|カイ|うみ|海；海岸；海外；海洋；海水浴；海運；海峡；海抜
+R1533|売|sell|7|バイ|う.る；う.れる|売る；売り場；商売；販売；売れる；売上；特売；売店
+R1534|知|know；wisdom|8|チ|し.る；し.らせる|知る；承知；知らせる；知恵；知事；知識；知能；知らせ
+R1535|道|road-way；street；district；journey；course；moral；teachings|12|ドウ；トウ|みち；いう|道；柔道；水道；道具；鉄道；道徳；道路；歩道
+R1536|集|gather；meet；congregate；swarm；flock|12|シュウ|あつ.まる；あつ.める；つど.う|集まる；集める；集団；集中；集まり；集会；集金；集合
+R1537|別|separate；branch off；diverge；fork；another；extra；specially|7|ベツ|わか.れる；わ.ける|別；特別；別れる；区別；差別；別に；別れ；格別
+R1538|物|thing；object；matter|8|ブツ；モツ|もの；もの-|物；果物；建物；動物；荷物；買い物；食べ物；飲み物
+R1539|使|use；send on a mission；order；messenger；envoy；ambassador；cause|8|シ|つか.う；つか.い；-つか.い；-づか.い|使う；大使館；使用；大使；使命；お使い；使用人；使い道
+R1540|品|goods；refinement；dignity；article；counter for meal courses|9|ヒン；ホン|しな|品物；食料品；品；作品；商品；食品；製品；手品
+R1541|計|plot；plan；scheme；measure|9|ケイ|はか.る；はか.らう|時計；計画；計；会計；計算；合計；設計；計る
+R1542|死|death；die|6|シ|し.ぬ；し.に-|死ぬ；死亡；必死；死体；死；死刑；生死
+R1543|特|special|10|トク||特に；特別；特急；特徴；独特；特殊；特色；特長
+R1544|私|private；I；me|7|シ|わたくし；わたし|私；私鉄；私立；私物；私有；私用
+R1545|始|commence；begin|8|シ|はじ.める；-はじ.める；はじ.まる|始まる；始める；開始；始まり；原始；始終；始めに；始発
+R1546|朝|morning；dynasty；regime；epoch；period；(North) Korea|12|チョウ|あさ|朝；今朝；毎朝；朝ごはん；朝寝坊
+R1547|運|carry；luck；destiny；fate；lot；transport；progress；advance|12|ウン|はこ.ぶ|運転；運動；運ぶ；運転手；運；幸運；運河；不運
+R1548|終|end；finish|11|シュウ|お.わる；-お.わる；おわ.る；お.える；つい；つい.に|終る；終わり；最終；終える；始終；終点；終了；終始
+R1549|台|pedestal；a stand；counter for machines and vehicles|5|ダイ；タイ|うてな；われ；つかさ|台所；台風；台；舞台；寝台；灯台；台本；土台
+R1550|広|wide；broad；spacious|5|コウ|ひろ.い；ひろ.まる；ひろ.める；ひろ.がる；ひろ.げる|背広；広い；広告；広がる；広さ；広場；広々；広げる
+R1551|住|dwell；reside；live；inhabit|7|ジュウ；ヂュウ；チュウ|す.む；す.まう；-ず.まい|住む；住所；住宅；住民；住居；衣食住；住まい；住
+R1552|真|true；reality；Buddhist sect|10|シン|ま；ま-；まこと|写真；真ん中；真剣；真似；真っ赤；真空；真っ暗；真っ黒
+R1553|有|possess；have；exist；happen；occur；approx|6|ユウ；ウ|あ.る|有名；有効；有能；有利；有無；有料；有難い；有様
+R1554|口|mouth|3|コウ；ク|くち|口；入口；出口；人口；利口；悪口；裏口；火口
+R1555|少|few；little|4|ショウ|すく.ない；すこ.し|少し；少ない；少女；少々；少年；多少；少しも；青少年
+R1556|町|town；village；block；street|7|チョウ|まち|町；下町
+R1557|料|fee；materials|10|リョウ||料理；食料品；給料；材料；食料；無料；料金；原料
+R1558|工|craft；construction；katakana e radical (no. 48)|3|コウ；ク；グ||工業；工場；人工；工夫；工員；工芸；工事；大工
+R1559|建|build|9|ケン；コン|た.てる；た.て；-だ.て；た.つ|建物；建てる；二階建て；建設；建築；建つ；再建；建前
+R1560|空|empty；sky；void；vacant；vacuum|8|クウ|そら；あ.く；あ.き；あ.ける；から；す.く；す.かす；むな.しい|空；空く；空気；空港；空き；航空；架空；空想
+R1561|急|hurry；emergency；sudden；steep|9|キュウ|いそ.ぐ；いそ.ぎ；せ.く|急；急ぐ；急行；特急；急激；急速；急に；至急
+R1562|止|stop；halt|4|シ|と.まる；-ど.まり；と.める；-と.める；-ど.め；とど.める；とど.め；とど.まる；や.める；や.む；-や.む；よ.す；-さ.す；-さ.し|止まる；止む；止める；禁止；中止；止す；停止；防止
+R1563|送|escort；send|9|ソウ|おく.る|送る；放送；見送り；送別；送料；郵送；輸送；見送る
+R1564|切|cut；cutoff；be sharp|4|セツ；サイ|き.る；-き.る；き.り；-き.り；-ぎ.り；き.れる；-き.れる；き.れ；-き.れ；-ぎ.れ|切手；切符；切る；大切；親切；切れ；適切；裏切る
+R1565|転|revolve；turn around；change|11|テン|ころ.がる；ころ.げる；ころ.がす；ころ.ぶ；まろ.ぶ；うたた；うつ.る；くる.めく|自転車；運転；運転手；転ぶ；移転；回転；転々；転がす
+R1566|研|polish；study of；sharpen|9|ケン|と.ぐ|研究；研究室；研修；研ぐ
+R1567|足|leg；foot；be sufficient；counter for pairs of footwear|7|ソク|あし；た.りる；た.る；た.す|足；足す；足りる；不足；満足；足跡；遠足；足袋
+R1568|究|research；study|7|キュウ；ク|きわ.める|研究；研究室；究極
+R1569|楽|music；comfort；ease|13|ガク；ラク；ゴウ|たの.しい；たの.しむ；この.む|音楽；楽しい；楽しみ；楽しむ；楽；楽器；娯楽；楽譜
+R1570|起|rouse；wake up；get up|10|キ|お.きる；お.こる；お.こす；おこ.す；た.つ|起きる；起す；起こる；起床；起源；起点；起伏；引き起こす
+R1571|着|don；arrive；wear；counter for suits of clothing|12|チャク；ジャク|き.る；き.せる；つ.く；つ.ける|上着；着る；着く；着物；下着；到着；着々；肌着
+R1572|店|store；shop|8|テン|みせ；たな|店；喫茶店；店員；支店；商店；書店；売店；店屋
+R1573|病|ill；sick|10|ビョウ；ヘイ|や.む；-や.み；やまい|病院；病気；看病；病；臆病；発病；病む
+R1574|質|substance；quality；matter；temperament|15|シツ；シチ；チ|たち；ただ.す；もと；わりふ|質問；質；物質；性質；素質；地質；気質；質疑
+R1575|待|wait；depend on|9|タイ|ま.つ；-ま.ち|待つ；招待；期待；待合室；待ち合わせる；待遇；待望；待ち望む
+R1576|試|test；try；attempt；experiment；ordeal|13|シ|こころ.みる；ため.す|試合；試験；試し；試す；試み；試みる
+R1577|族|tribe；family|11|ゾク||家族；貴族；民族
+R1578|銀|silver|14|ギン|しろがね|銀行；銀
+R1579|早|early；fast|6|ソウ；サッ|はや.い；はや；はや-；はや.まる；はや.める；さ-|早い；早速；早口；早急；最早；素早い；早める
+R1580|映|reflect；reflection；projection|9|エイ|うつ.る；うつ.す；は.える；-ば.え|映画；映画館；映す；映る；反映；映写；映像；映える
+R1581|親|parent；intimacy；relative；familiarity；dealer (cards)|16|シン|おや；おや-；した.しい；した.しむ|両親；親；親切；親戚；親友；父親；母親；親しい
+R1582|験|verification；effect；testing|18|ケン；ゲン|あかし；しるし；ため.す；ためし|経験；試験；実験；受験；体験
+R1583|英|England；English；hero；outstanding；calyx|8|エイ|はなぶさ|英語；英文；英和；和英；英字；英雄
+R1584|医|doctor；medicine|7|イ|い.やす；い.する；くすし|医者；医学；歯医者；医師；医療
+R1585|仕|attend；doing；official；serve|5|シ；ジ|つか.える|仕事；仕方；仕上がる；給仕；仕舞；仕様；奉仕；仕上げ
+R1586|去|gone；past；quit；leave；elapse；eliminate；divorce|5|キョ；コ|さ.る；-さ.る|去年；過去；去る；消去
+R1587|味|flavor；taste|8|ミ|あじ；あじ.わう|意味；味；興味；趣味；味噌；気味；味方；地味
+R1588|写|copy；be photographed；describe|5|シャ；ジャ|うつ.す；うつ.る；うつ-；うつ.し|写真；写す；写る；写生；複写；写し；映写；描写
+R1589|字|character；letter；word；section of village|6|ジ|あざ；あざな；-な|漢字；字引；字；数字；文字；活字；習字；名字
+R1590|答|solution；answer|12|トウ|こた.える；こた.え|答える；答；答案；解答；回答；問答；返答
+R1591|夜|night；evening|8|ヤ|よ；よる|夜；昨夜；今夜；徹夜；夜中；夜明け；深夜；夜間
+R1592|音|sound；noise|9|オン；イン；-ノン|おと；ね|音楽；音；発音；騒音；物音；雑音；録音；五十音
+R1593|注|pour；irrigate；shed (tears)；flow into；concentrate on；notes；comment；annotate|8|チュウ|そそ.ぐ；さ.す；つ.ぐ|注意；注射；注；注ぐ；注目；注文；注す
+R1594|帰|homecoming；arrive at；lead to；result in|10|キ|かえ.る；かえ.す；おく.る；とつ.ぐ|帰る；帰り；帰宅；帰す；お帰り；日帰り；帰京
+R1595|古|old|5|コ|ふる.い；ふる-；-ふる.す|古い；中古；稽古；古典；古；古代；考古学
+R1596|歌|song；sing|14|カ|うた；うた.う|歌；歌う；歌手；歌謡；短歌
+R1597|買|buy|12|バイ|か.う|買う；買い物；売買；購買
+R1598|悪|bad；vice；rascal；false；evil；wrong|11|アク；オ|わる.い；わる-；あ.し；にく.い；-にく.い；ああ；いずくに；いずくんぞ；にく.む|悪い；悪魔；悪口；意地悪；悪；悪日；悪化；改悪
+R1599|図|map；drawing；plan；extraordinary；audacious|7|ズ；ト|え；はか.る|地図；図書館；図；合図；図書；図鑑；図形；図表
+R1600|週|week|11|シュウ||今週；先週；毎週；来週；再来週；週；週間；先々週
+R1601|室|room；apartment；chamber；greenhouse；cellar|9|シツ|むろ|教室；会議室；研究室；温室；待合室；室；控室；浴室
+R1602|歩|walk；counter for steps|8|ホ；ブ；フ|ある.く；あゆ.む|歩く；散歩；進歩；歩道；歩；歩み；歩む；譲歩
+R1603|風|wind；air；style；manner|9|フウ；フ|かぜ；かざ-|風；風邪；お風呂；台風；風景；風船；扇風機；風呂敷
+R1604|紙|paper|10|シ|かみ|紙；手紙；紙屑；紙幣；塵紙；表紙；用紙；張り紙
+R1605|黒|black|11|コク|くろ；くろ.ずむ；くろ.い|黒；黒い；黒板；真っ黒；黒字
+R1606|花|flower|7|カ；ケ|はな|花；花瓶；花見；花火；花嫁；生け花；花壇；花粉
+R1607|春|springtime；spring (season)|9|シュン|はる|春；青春
+R1608|赤|red|7|セキ；シャク|あか；あか-；あか.い；あか.らむ；あか.らめる|赤；赤い；赤ん坊；真っ赤；赤道；赤字；赤らむ
+R1609|青|blue；green|8|セイ；ショウ|あお；あお-；あお.い|青；青い；青年；青白い；青少年；真っ青；青春
+R1610|館|building；mansion；large building；palace|16|カン|やかた；たて|映画館；大使館；図書館；旅館；美術館；博物館；会館；館
+R1611|屋|roof；house；shop；dealer；seller|9|オク|や|部屋；八百屋；屋上；小屋；屋根；屋外；家屋；店屋
+R1612|色|color|6|ショク；シキ|いろ|色；黄色；茶色；黄色い；景色；特色；灰色；茶色い
+R1613|走|run|7|ソウ|はし.る|走る；走行；逃走
+R1614|秋|autumn|9|シュウ|あき；とき|秋
+R1615|夏|summer|10|カ；ガ；ゲ|なつ|夏；夏休み
+R1616|習|learn|11|シュウ；ジュ|なら.う；なら.い|習う；練習；習慣；復習；予習；学習；自習；実習
+R1617|洋|ocean；sea；foreign；Western style|9|ヨウ||洋服；西洋；海洋；東洋；洋品店；洋風
+R1618|旅|trip；travel|10|リョ|たび|旅行；旅館；旅；旅客；旅券
+R1619|服|clothing；admit；obey；discharge|8|フク||服；洋服；衣服；克服；服装；和服；軍服；制服
+R1620|夕|evening|3|セキ|ゆう|夕方；夕飯；夕べ；夕刊；夕立；夕日；夕暮れ；夕焼け
+R1621|借|borrow；rent|10|シャク|か.りる|借りる；借金；借り；拝借
+R1622|曜|weekday|18|ヨウ||火曜日；金曜日；月曜日；水曜日；土曜日；日曜日；木曜日；火曜
+R1623|飲|drink；smoke；take|12|イン；オン|の.む；-の.み|飲む；飲み物；湯飲み；飲み込む
+R1624|肉|meat|6|ニク|しし|肉；牛肉；鶏肉；豚肉；筋肉；皮肉；肉親；肉体
+R1625|貸|lend|12|タイ|か.す；か.し-；かし-|貸す；貸し；貸間；貸家；貸し出し
+R1626|堂|public chamber；hall|11|ドウ||食堂；講堂；堂々；議事堂
+R1627|鳥|bird；chicken|11|チョウ|とり|鳥；小鳥；鳥居；渡り鳥
+R1628|飯|meal；boiled rice|12|ハン|めし|御飯；夕飯；晩御飯；昼御飯；飯；昼飯
+R1629|勉|exertion；endeavour；encourage；strive；make effort；diligent|10|ベン|つと.める|勉強；勤勉
+R1630|冬|winter|5|トウ|ふゆ|冬；冬眠
+R1631|昼|daytime；noon|9|チュウ|ひる|昼；昼御飯；昼間；昼休み；お昼；昼食；昼寝；昼飯
+R1632|茶|tea|9|チャ；サ||お茶；紅茶；茶色；喫茶店；茶；茶色い；喫茶；無茶
+R1633|弟|younger brother；faithful service to elders|7|テイ；ダイ；デ|おとうと|弟；兄弟；従兄弟
+R1634|牛|cow|4|ギュウ|うし|牛肉；牛乳；牛
+R1635|魚|fish|11|ギョ|うお；さかな；-ざかな|魚；金魚
+R1636|兄|elder brother；big brother|5|ケイ；キョウ|あに|兄；兄弟；お兄さん；従兄弟
+R1637|犬|dog|4|ケン|いぬ；いぬ-|犬
+R1638|妹|younger sister|8|マイ|いもうと|妹；従姉妹
+R1639|姉|elder sister|8|シ|あね；はは|姉；お姉さん；従姉妹
+R1640|漢|Sino-；China|13|カン||漢字；漢和；漢語
+R1641|坊|boy；priest's residence；priest|7|ボウ；ボッ||寝坊；赤ん坊；坊や；坊さん；坊っちゃん；朝寝坊
+R1642|凄|uncanny；weird；threatening；horrible|10|セイ；サイ|さむ.い；すご.い；すさ.まじい|凄い；物凄い
+R1643|痩|get thin|12|ソウ；チュウ；シュウ；シュ|や.せる|痩せる
+R3399|政|politics；government|9|セイ；ショウ|まつりごと；まん|政治；政府；政党；行政；財政；政権；政策
+R3400|議|deliberation；consultation；debate；consideration|20|ギ||会議；会議室；議員；議会；議長；議論；不思議；異議
+R3401|民|people；nation；subjects|5|ミン|たみ|市民；国民；住民；農民；民間；民謡；移民；庶民
+R3402|連|take along；lead；join；connect；party；gang；clique|10|レン|つら.なる；つら.ねる；つ.れる；-づ.れ|連絡；連れる；関連；連れ；連想；連続；連合；一連
+R3403|対|vis-a-vis；opposite；even；equal；versus；anti-；compare|7|タイ；ツイ|あいて；こた.える；そろ.い；つれあ.い；なら.ぶ；むか.う|反対；対；絶対；対象；対する；応対；対策；対照
+R3404|部|section；bureau；dept；class；copy；part；portion；counter for copies of a newspaper or magazine|11|ブ|-べ|全部；部屋；部長；部分；大部分；外部；学部；部首
+R3405|合|fit；suit；join；0.1|6|ゴウ；ガッ；カッ|あ.う；-あ.う；あ.い；あい-；-あ.い；-あい；あ.わす；あ.わせる；-あ.わせる|合う；具合；試合；都合；場合；割合；間に合う；合図
+R3406|市|market；city；town|5|シ|いち|市；市民；市場；都市；市街
+R3407|内|inside；within；between；among；house；home|4|ナイ；ダイ|うち|案内；以内；家内；内容；内科；内線；内訳；内閣
+R3408|相|inter-；mutual；together；each other；minister of state；councillor；aspect；phase；physiognomy|9|ソウ；ショウ|あい-|相談；相手；首相；相続；相当；相撲；相違；相互
+R3409|定|determine；fix；establish；decide|8|テイ；ジョウ|さだ.める；さだ.まる；さだ.か|予定；安定；勘定；決定；定期；否定；一定；仮定
+R3410|回|-times；round；game；revolve；counter for occurrences|6|カイ；エ|まわ.る；-まわ.る；-まわ.り；まわ.す；-まわ.す；まわ.し-；-まわ.し；もとお.る；か.える|回る；回；回復；今回；回す；回り；回数；回転
+R3411|選|elect；select；choose；prefer|15|セン|えら.ぶ；え.る；よ.る|選ぶ；選手；選択；選挙；選考；抽選；当選
+R3412|米|rice；USA；metre|6|ベイ；マイ；メエトル|こめ；よね|米；欧米；南米
+R3413|実|reality；truth；seed；fruit；nut|8|ジツ；シツ|み；みの.る；まこと；みの；みち.る|実；確実；現実；事実；実験；実現；実行；実際
+R3414|関|connection；barrier；gateway；involve；concerning|14|カン|せき；-ぜき；かか.わる；からくり；かんぬき|玄関；関係；関心；関連；機関；関する；関西；関東
+R3415|決|decide；fix；agree upon；appoint|7|ケツ|き.める；-ぎ.め；き.まる；さ.く|決まる；決める；決して；解決；決心；決定；決まり；可決
+R3416|全|whole；entire；all；complete；fulfill|6|ゼン|まった.く；すべ.て|全部；安全；全；完全；全て；全員；全国；全体
+R3417|表|surface；table；chart；diagram|8|ヒョウ|おもて；-おもて；あらわ.す；あらわ.れる；あら.わす|表；表す；代表；発表；表現；表情；表面；公表
+R3418|戦|war；battle；match|13|セン|いくさ；たたか.う；おのの.く；そよ.ぐ；わなな.く|戦争；大戦；戦い；戦う；戦；休戦；作戦；戦災
+R3419|経|sutra；longitude；pass thru；expire；warp|11|ケイ；キョウ；キン|へ.る；た.つ；たていと；はか.る；のり|経験；経済；経営；経由；神経；経つ；経度；経緯
+R3420|最|utmost；most；extreme|12|サイ；シュ|もっと.も；つま|最近；最後；最初；最高；最終；最中；最低；最善
+R3421|現|present；existing；actual|11|ゲン|あらわ.れる；あらわ.す；うつつ；うつ.つ|現す；現れ；現金；現在；現実；現象；現状；現代
+R3422|調|tune；tone；meter；key (music)；writing style；prepare；exorcise；investigate；harmonize；mediate|15|チョウ|しら.べる；しら.べ；ととの.う；ととの.える|調べる；強調；順調；調査；調子；調整；調節；調味料
+R3423|化|change；take the form of；influence；enchant；delude；-ization|4|カ；ケ|ば.ける；ば.かす；ふ.ける；け.する|文化；化学；化粧；変化；強化；消化；悪化；化合
+R3424|当|hit；right；appropriate；himself|6|トウ|あ.たる；あ.たり；あ.てる；あ.て；まさ.に；まさ.にべし|お弁当；適当；見当；相当；担当；当時；弁当；当たる
+R3425|約|promise；approximately；shrink|9|ヤク|つづ.まる；つづ.める；つづま.やか|約束；予約；約；契約；婚約；節約；規約；倹約
+R3426|首|neck；counter for songs and poems|9|シュ|くび|首；首相；首都；手首；部首；首輪；元首；自首
+R3427|法|method；law；rule；principle；model；system|8|ホウ；ハッ；ホッ；フラン|のり|文法；法律；法；憲法；作法；方法；寸法；法則
+R3428|性|sex；gender；nature|8|セイ；ショウ|さが|女性；男性；性；性格；酸性；性質；性能；性別
+R3429|的|bull's eye；mark；target；object；adjective ending|8|テキ|まと|目的；積極的；的確；消極的；比較的；的；静的；知的
+R3430|要|need；main point；essence；pivot；key to|9|ヨウ|い.る；かなめ|要る；必要；重要；主要；需要；要求；要素；要点
+R3431|制|system；law；rule|8|セイ||制限；制度；制作；専制；体制；制；規制；強制
+R3432|治|reign；be at peace；calm down；subdue；quell；govt；cure；heal；rule；conserve|8|ジ；チ|おさ.める；おさ.まる；なお.る；なお.す|政治；治る；自治；治す；治める；退治；治安；治療
+R3433|務|task；duties|11|ム|つと.める|公務員；事務所；義務；事務；務め；公務；務める；業務
+R3434|成|turn into；become；get；grow；elapse；reach|6|セイ；ジョウ|な.る；な.す；-な.す|完成；構成；賛成；成功；成人；成績；成長；作成
+R3435|期|period；time；date；term|12|キ；ゴ||延期；学期；期間；期待；時期；長期；定期；予期
+R3436|取|take；fetch；take up|8|シュ|と.る；と.り；と.り-；とり；-ど.り|取る；取り替える；取れる；受け取る；取り上げる；受取；書取；取り消す
+R3437|都|metropolis；capital；all；everything|11|ト；ツ|みやこ|都；都合；首都；都会；都市；都心
+R3438|和|harmony；Japanese style；peace；soften；Japan|8|ワ；オ；カ|やわ.らぐ；やわ.らげる；なご.む；なご.やか；あ.える|平和；英和；漢和；和英；和服；和；温和；緩和
+R3439|機|loom；mechanism；machine；airplane；opportunity；potency；efficacy；occasion|16|キ|はた|飛行機；機会；機械；機関；機嫌；機能；ジェット機；機関車
+R3440|平|even；flat；peace|5|ヘイ；ビョウ；ヒョウ|たい.ら；たい.らげる；ひら|公平；平ら；平等；不平；平均；平和；地平線；水平
+R3441|加|add；addition；increase；join；include；Canada|5|カ|くわ.える；くわ.わる|加減；参加；増加；加える；加わる；加速；加熱；追加
+R3442|受|accept；undergo；answer (phone)；take；get；catch；receive|8|ジュ|う.ける；-う.け；う.かる|受付；受ける；受け取る；受取；受験；受話器；受け持つ；引き受ける
+R3443|続|continue；series；sequel|13|ゾク；ショク；コウ；キョウ|つづ.く；つづ.ける；つぐ.ない|続く；続ける；相続；続き；連続；継続；接続；続々
+R3444|進|advance；proceed；progress；promote|11|シン|すす.む；すす.める|進む；進学；進歩；前進；進める；行進；昇進；進化
+R3445|数|number；strength；fate；law；figures|13|スウ；ス；サク；ソク；シュ|かず；かぞ.える；しばしば；せ.める；わずらわ.しい|数学；数；数字；数える；回数；偶数；算数；小数
+R3446|記|scribe；account；narrative|10|キ|しる.す|日記；暗記；記憶；記事；記者；記入；記念；記録
+R3447|初|first time；beginning|7|ショ|はじ.め；はじ.めて；はつ；はつ-；うい-；-そ.める；-ぞ.め|初め；初めて；最初；初級；初旬；初めに；初；初版
+R3448|指|finger；point to；indicate；put into；play (chess)；measure (ruler)|9|シ|ゆび；さ.す；-さ.し|指；指輪；指す；指導；親指；薬指；小指；指定
+R3449|権|authority；power；rights|15|ケン；ゴン|おもり；かり；はか.る|権利；権；棄権；権威；権限；権力；主権；政権
+R3450|支|branch；support；sustain；branch radical (no. 65)|4|シ|ささ.える；つか.える；か.う|支度；支給；支出；支店；支配；支払；支える；支払う
+R3451|産|products；bear；give birth；yield；childbirth；native；property|11|サン|う.む；う.まれる；うぶ-；む.す|産業；生産；お土産；財産；破産；土産；原産；産地
+R3452|点|spot；point；mark；speck；decimal point|9|テン|つ.ける；つ.く；た.てる；さ.す；とぼ.す；とも.す；ぼち|交差点；点；欠点；要点；採点；弱点；終点；重点
+R3453|報|report；news；reward；retribution|12|ホウ|むく.いる|電報；天気予報；情報；報告；予報；報酬；報道；報じる
+R3454|済|settle (debt, etc.)；relieve (burden)；finish；come to an end；excusable；need not|11|サイ；セイ|す.む；-ず.み；-ずみ；す.まない；す.ます；-す.ます；すく.う；な.す；わたし；わた.る|経済；済む；済ませる；救済；返済；済ます
+R3455|活|lively；resuscitation；being helped；living|9|カツ|い.きる；い.かす；い.ける|生活；活気；活動；活用；活字；活躍；活力；活発
+R3456|原|meadow；original；primitive；field；plain；prairie；tundra；wilderness|10|ゲン|はら|原因；原；原稿；原産；原始；原理；原料；原形
+R3457|共|together；both；neither；all；and；alike；with|6|キョウ|とも；とも.に；-ども|共通；共同；共に；公共；共；共学；共感；共産
+R3458|得|gain；get；find；earn；acquire；can；may；able to；profit；advantage；benefit|11|トク|え.る；う.る|得る；得意；納得；損得；心得る；獲得；心得；所得
+R3459|解|unravel；notes；key；explanation；understanding；untie；undo；solve；answer；cancel；absolve；explain；minute|13|カイ；ゲ|と.く；と.かす；と.ける；ほど.く；ほぐ.す；わか.る；さと.る|解決；解釈；見解；誤解；解く；理解；解ける；解散
+R3460|交|mingle；mixing；association；coming & going|6|コウ|まじ.わる；まじ.える；ま.じる；まじ.る；ま.ざる；ま.ぜる；-か.う；か.わす；かわ.す；こもごも|交番；交差点；交通；外交；交換；交際；交差；交替
+R3461|資|assets；resources；capital；funds；data；be conducive to；contribute to|13|シ||資源；資本；資料；資格；資金；資産；投資；物資
+R3462|予|beforehand；previous；myself；I|4|ヨ；シャ|あらかじ.め|予習；予定；予約；天気予報；予期；予算；予測；予報
+R3463|向|yonder；facing；beyond；confront；defy；tend toward；approach|6|コウ|む.く；む.い；-む.き；む.ける；-む.け；む.かう；む.かい；む.こう；む.こう-；むこ；むか.い|向こう；向かう；傾向；方向；向く；向かい；向ける；意向
+R3464|際|occasion；side；edge；verge；dangerous；adventurous；indecent；time；when|14|サイ|きわ；-ぎわ|国際；際；交際；実際；手際
+R3465|勝|victory；win；prevail；excel|12|ショウ|か.つ；-が.ち；まさ.る；すぐ.れる；かつ|勝つ；勝ち；優勝；勝敗；勝負；決勝；勝利；勝る
+R3466|面|mask；face；features；surface|9|メン；ベン|おも；おもて；つら|面；場面；表面；面倒；正面；方面；面積；面接
+R3467|告|revelation；tell；inform；announce|7|コク|つ.げる|警告；広告；報告；勧告；告白；申告；忠告；布告
+R3468|反|anti-|4|ハン；ホン；タン；ホ|そ.る；そ.らす；かえ.す；かえ.る；-かえ.る|反対；違反；反抗；反る；反映；反省；反；反り
+R3469|判|judgement；judgment；signature；stamp；seal|7|ハン；バン|わか.る|裁判；審判；判断；批判；評判；判子；判事；判
+R3470|認|acknowledge；witness；discern；recognize；appreciate；believe|14|ニン|みと.める；したた.める|確認；承認；認める；公認；認識
+R3471|参|nonplussed；three (in documents)；going；coming；visiting；visit；be defeated；die；be madly in love；participate；take part in|8|サン；シン|まい.る；まい-；まじわる；みつ|参る；参加；参考；持参；お参り；参照；参上；参議院
+R3472|利|profit；advantage；benefit|7|リ|き.く|便利；利用；権利；不利；有利；利益；利口；利害
+R3473|組|association；braid；plait；construct；assemble；unite；cooperate；grapple|11|ソ|く.む；くみ；-ぐみ|番組；組；組合；組む；組織；組合せ；組み立てる；仕組み
+R3474|信|faith；truth；fidelity；trust|9|シン||信仰；信号；信用；信頼；通信；信じる；迷信；信ずる
+R3475|在|exist；outskirts；suburbs；located in|6|ザイ|あ.る|現在；存在；滞在；在学；健在；在庫；自在；所在
+R3476|件|affair；case；matter；item|6|ケン|くだん|事件；条件；件；用件
+R3477|側|side；lean；oppose；regret|11|ソク|かわ；がわ；そば|両側；側；縁側；側面
+R3478|任|responsibility；duty；term；entrust to；appoint|6|ニン|まか.せる；まか.す|責任；任せる；就任；主任；信任；転任；任務；任命
+R3479|引|pull；tug；jerk；admit；install；quote；refer to|4|イン|ひ.く；ひ.ける|字引；引く；引き出し；引き出す；引っ越す；引退；引用；引っ張る
+R3480|求|request；want；wish for；require；demand|7|キュウ；グ|もと.める|請求；要求；求める
+R3481|所|place；extent|8|ショ|ところ；-ところ；どころ；とこ|所；台所；近所；住所；場所；事務所；停留所；個所
+R3482|次|next；order；sequence|6|ジ；シ|つ.ぐ；つぎ|次；次第；次々；次ぐ；目次；次いで；取り次ぐ
+R3483|昨|yesterday；previous|9|サク||昨日；昨夜；一昨日；一昨年；昨
+R3484|論|argument；discourse|15|ロン|あげつら.う|議論；結論；論争；論文；論じる；概論；評論；論ずる
+R3485|官|bureaucrat；the government；organ|8|カン||警官；官庁；官僚；器官；長官
+R3486|増|increase；add；augment；gain；promote|14|ゾウ|ま.す；ま.し；ふ.える；ふ.やす|増える；増加；増す；激増；増減；増大；増やす；増強
+R3487|係|person in charge；connection；duty；concern oneself|9|ケイ|かか.る；かかり；-がかり；かか.わる|関係；係；係わる
+R3488|感|emotion；feeling；sensation|13|カン||感覚；感じ；感謝；感情；感心；感動；感じる；感激
+R3489|情|feelings；emotion；passion；sympathy；circumstances；facts|11|ジョウ；セイ|なさ.け|愛情；感情；事情；情報；表情；友情；苦情；純情
+R3490|投|throw；discard；abandon；launch into；join；invest in；hurl；give up；sell at a loss|7|トウ|な.げる；-な.げ|投げる；投票；投書；投資；投入；投げ出す
+R3491|示|show；indicate；point out；express；display|5|ジ；シ|しめ.す|掲示；示す；暗示；指示；提示；展示
+R3492|変|unusual；change；strange|9|ヘン|か.わる；か.わり；か.える|変；変える；変わる；変化；変更；一変；変革；変遷
+R3493|打|strike；hit；knock；pound；dozen|5|ダ；ダース|う.つ；う.ち-；ぶ.つ|打つ；打合せ；打ち消す；打開；打撃；値打ち；打ち切る；打ち消し
+R3494|直|straightaway；honesty；frankness；fix；repair|8|チョク；ジキ；ジカ|ただ.ちに；なお.す；-なお.す；なお.る；なお.き；す.ぐ|直す；直る；直；直に；正直；直接；直ちに；垂直
+R3495|両|both；old Japanese coin；counter for carriages (e.g., in a train)；two|6|リョウ|てる；ふたつ|両親；両方；両替；両側；両極；両立
+R3496|式|style；ceremony；rite；function；method；system；form；expression|6|シキ||式；正式；儀式；形式；公式；葬式；方程式；株式
+R3497|確|assurance；firm；tight；hard；solid；confirm；clear；evident|15|カク；コウ|たし.か；たし.かめる|確か；確実；確認；正確；明確；確かめる；確率；的確
+R3498|果|fruit；reward；carry out；achieve；complete；end；finish；succeed|8|カ|は.たす；はた.す；-は.たす；は.てる；-は.てる；は.て|果物；結果；効果；果実；果して；成果；果て；果たす
+R3499|容|contain；form；looks|10|ヨウ|い.れる|内容；容易；美容；容器；容積；形容詞；形容動詞；寛容
+R3500|必|invariably；certain；inevitable|5|ヒツ|かなら.ず|必ず；必要；必死；必ずしも；必需品；必修；必然
+R3501|演|performance；act；play；render；stage|14|エン||演技；演説；演奏；講演；演劇；演習；演出；公演
+R3502|歳|year-end；age；occasion；opportunity|13|サイ；セイ|とし；とせ；よわい|二十歳；万歳；歳
+R3503|争|contend；dispute；argue|6|ソウ|あらそ.う；いか.でか|競争；戦争；論争；争う；争い；抗争；紛争
+R3504|談|discuss；talk|15|ダン||相談；冗談；縁談；会談；雑談；対談；座談会
+R3505|能|ability；talent；skill；capacity|10|ノウ|よ.く；あた.う|能；可能；機能；才能；知能；能力；有能；芸能
+R3506|位|rank；grade；throne；crown；about；some|7|イ|くらい；ぐらい|位；位置；単位；地位；下位；上位；優位
+R3507|置|placement；put；set；deposit；leave behind；keep；employ；pawn|13|チ|お.く；-お.き|置く；位置；装置；物置；処置；設置；措置；配置
+R3508|流|current；a sink；flow；forfeit|10|リュウ；ル|なが.れる；なが.れ；なが.す；-なが.す|流す；流れ；流行；流れる；一流；交流；合流；流石
+R3509|格|status；rank；capacity；character；case (law, grammar)|10|カク；コウ；キャク；ゴウ||価格；合格；性格；格別；同格；格；格差；規格
+R3510|疑|doubt；distrust；be suspicious；question|14|ギ|うたが.う|疑う；疑問；疑惑；質疑
+R3511|過|overdo；exceed；go beyond；error|12|カ|す.ぎる；す.ごす；あやま.ち；あやま.つ；よぎ.る；よ.ぎる|過ぎる；過去；通過；過ごす；通り過ぎる；過失；過剰；過程
+R3512|局|bureau；board；office；affair；conclusion；court lady；lady-in-waiting；her apartment|7|キョク|つぼね|郵便局；局；結局；薬局；局限
+R3513|放|set free；release；fire；shoot；emit；banish；liberate|8|ホウ|はな.す；-っぱな.し；はな.つ；はな.れる；こ.く；ほう.る|放送；放す；解放；開放；放る；放れる；追放；放棄
+R3514|常|usual；ordinary；normal；common；regular；continually；always；long-lasting|11|ジョウ|つね；とこ-|非常に；異常；常識；常に；日常；非常；正常；通常
+R3515|状|status quo；conditions；circumstances；form；appearance|7|ジョウ||現状；状況；症状；状態；状；白状
+R3516|球|ball；sphere|11|キュウ|たま|球；地球；電球；眼球；球根
+R3517|職|post；employment；work|18|ショク；ソク||職；就職；職業；職人；教職；辞職；職員；職務
+R3518|与|bestow；participate in；give；award；impart；provide；cause；gift；godsend|3|ヨ|あた.える；あずか.る；くみ.する；ともに|与える；給与；関与；寄与；与党
+R3519|供|submit；offer；present；serve (meal)；accompany|8|キョウ；ク；クウ；グ|そな.える；とも；-ども|子供；供給；お供；提供
+R3520|可|can；passable；approval|5|カ；コク|-べ.き；-べ.し|可；可能；許可；不可；可決；不可欠
+R3521|役|duty；war；campaign；drafted labor；office；service；role|7|ヤク；エキ||役に立つ；役；役割；重役；主役；役者；役所；役人
+R3522|構|posture；stance；appearance；build；set up|14|コウ|かま.える；かま.う|結構；構成；構造；構え；機構；構想；構える
+R3523|割|proportion；comparatively；divide；cut；separate；split|12|カツ|わ.る；わり；わ.り；わ.れる；さ.く|割合；割れる；役割；割る；割算；割と；割引；時間割
+R3524|身|somebody；person；one's station in life|7|シン|み|身；自身；出身；身体；身長；独身；刺身；心身
+R3525|費|expense；cost；spend；consume；waste|12|ヒ|つい.やす；つい.える|消費；費用；費；経費；実費；出費；浪費；光熱費
+R3526|付|adhere；attach；refer to；append|5|フ|つ.ける；-つ.ける；-づ.ける；つ.け；つ.け-；-つ.け；-づ.け；-づけ；つ.く；-づ.く；つ.き；-つ.き；-つき；-づ.き；-づき|受付；付く；片付ける；寄付；日付；気付く；付ける；追い付く
+R3527|由|wherefore；a reason|5|ユ；ユウ；ユイ|よし；よ.る|自由；理由；経由；不自由
+R3528|説|opinion；theory；explanation；rumor|14|セツ；ゼイ|と.く|小説；説明；説；演説；解説；社説；概説；学説
+R3529|難|difficult；impossible；trouble；accident；defect|18|ナン|かた.い；-がた.い；むずか.しい；むづか.しい；むつか.しい；-にく.い|難しい；困難；災難；盗難；有難い；難；難い；遭難
+R3530|優|tenderness；excel；surpass；actor；superiority；gentleness|17|ユウ；ウ|やさ.しい；すぐ.れる；まさ.る|優しい；女優；俳優；優秀；優勝；優れる；優；優位
+R3531|夫|husband；man|4|フ；フウ；ブ|おっと；それ|丈夫；大丈夫；夫；夫婦；夫人；工夫；夫妻
+R3532|収|income；obtain；reap；pay；supply；store|4|シュウ|おさ.める；おさ.まる|吸収；収穫；収入；収める；領収；回収；収益；収支
+R3533|断|severance；decline；refuse；apologize；warn；dismiss；prohibit；decision；judgement；cutting|11|ダン|た.つ；ことわ.る；さだ.める|横断；断る；判断；診断；断水；断定；油断；決断
+R3534|石|stone|5|セキ；シャク；コク|いし|石；石炭；石油；宝石；流石；磁石；石鹸；化石
+R3535|違|difference；differ|13|イ|ちが.う；ちが.い；ちが.える；-ちが.える；たが.う；たが.える|違う；間違える；違反；違い；間違い；違いない；相違；勘違い
+R3536|消|extinguish；blow out；turn off；neutralize；cancel|10|ショウ|き.える；け.す|消す；消える；消しゴム；消費；消防；消化；消毒；消耗
+R3537|神|gods；mind；soul|9|シン；ジン|かみ；かん-；こう-|神社；神；神経；精神；神様；神話；神聖；神殿
+R3538|番|turn；number in a series|12|バン|つが.い|交番；番号；番組；番；順番；当番；番地；留守番
+R3539|規|standard；measure|11|キ||規則；規準；規律；定規；不規則；規格；規制；規定
+R3540|術|art；technique；skill；means；trick；resources；magic|11|ジュツ|すべ|技術；美術館；芸術；手術；学術；戦術；美術
+R3541|備|equip；provision；preparation|12|ビ|そな.える；そな.わる；つぶさ.に|準備；設備；備える；警備；整備；予備；軍備；守備
+R3542|宅|home；house；residence；our house；my husband|6|タク||お宅；宅；帰宅；住宅；社宅；邸宅
+R3543|害|harm；injury|10|ガイ||害；障害；損害；被害；公害；利害；危害；災害
+R3544|配|distribute；spouse；exile；rationing|10|ハイ|くば.る|心配；支配；配達；配る；気配；手配；配給；配置
+R3545|警|admonish；commandment|19|ケイ|いまし.める|警官；警察；警告；警備；警戒；警部
+R3546|育|bring up；grow up；raise；rear|8|イク|そだ.つ；そだ.ち；そだ.てる；はぐく.む|教育；育てる；育つ；体育；育児；育成；飼育；生育
+R3547|席|seat；mat；occasion；place|10|セキ|むしろ|席；出席；欠席；座席；客席；着席
+R3548|訪|call on；visit；look up；offer sympathy|11|ホウ|おとず.れる；たず.ねる；と.う|訪ねる；訪問；訪れる
+R3549|乗|ride；power；multiplication；record；counter for vehicles；board；mount；join|9|ジョウ；ショウ|の.る；-の.り；の.せる|乗る；乗り物；乗り換える；乗客；乗せる；乗車；乗換；乗っ取る
+R3550|残|remainder；leftover；balance|10|ザン；サン|のこ.る；のこ.す；そこな.う；のこ.り|残念；残る；残す；残り；残らず；残金；残酷；残高
+R3551|想|idea；thought；conception；think|13|ソウ；ソ|おも.う|思想；想像；理想；連想；感想；空想；発想；愛想
+R3552|声|voice|7|セイ；ショウ|こえ；こわ-|声；歓声；声明
+R3553|念|wish；sense；idea；thought；feeling；desire；attention|8|ネン||残念；記念；観念；念；概念；無念
+R3554|助|help；rescue；assist|7|ジョ|たす.ける；たす.かる；す.ける；すけ|援助；救助；助手；助ける；助教授；助かる；助；助言
+R3555|労|labor；thank for；reward for；toil；trouble|7|ロウ|ろう.する；いたわ.る；いた.ずき；ねぎら；つか.れる；ねぎら.う|苦労；労働；労る；過労；勤労；疲労；労力
+R3556|例|example；custom；usage；precedent|8|レイ|たと.える|例えば；例；実例；例外；例える；慣例；前例；比例
+R3557|然|sort of thing；so；if so；in that case；well|12|ゼン；ネン|しか；しか.り；しか.し；さ|偶然；自然；天然；突然；自然科学；依然；公然；然も
+R3558|限|limit；restrict；to best of ability|9|ゲン|かぎ.る；かぎ.り；-かぎ.り|限る；限界；制限；期限；限度；無限；局限；権限
+R3559|追|chase；drive away；follow；pursue；meanwhile|9|ツイ|お.う|追う；追い付く；追加；追い越す；追い掛ける；追及；追跡；追放
+R3560|商|make a deal；selling；dealing in；merchant|11|ショウ|あきな.う|商人；商売；商品；商業；商社；商店；商
+R3561|葉|leaf；plane；lobe；needle；blade；spear；counter for flat things；fragment；piece|12|ヨウ|は|言葉；葉書；葉；紅葉；言葉遣い；落ち葉
+R3562|伝|transmit；go along；walk along；follow；report；communicate；legend；tradition|6|デン；テン|つた.わる；つた.える；つた.う；つだ.う；-づた.い；つて|伝える；手伝う；伝統；手伝い；宣伝；伝記；伝染；伝わる
+R3563|働|work；(kokuji)|13|ドウ|はたら.く|働く；働き；労働；共働き
+R3564|形|shape；form；style|7|ケイ；ギョウ|かた；-がた；かたち；なり|形；人形；形式；図形；形容詞；正方形；長方形；形容動詞
+R3565|景|scenery；view|12|ケイ||景色；景気；光景；風景；背景；不景気
+R3566|落|fall；drop；come down；village；hamlet|12|ラク|お.ちる；お.ち；お.とす|落す；落ちる；洒落；落第；落着く；落し物；墜落；転落
+R3567|好|fond；pleasing；like something|6|コウ|この.む；す.く；よ.い；い.い|好き；大好き；好み；好む；友好；好き嫌い；好き好き；好意
+R3568|退|retreat；withdraw；retire；resign；repel；expel；reject|9|タイ|しりぞ.く；しりぞ.ける；ひ.く；の.く；の.ける；ど.く|退院；引退；退屈；退く；退ける；後退；辞退；退化
+R3569|頭|head；counter for large animals|16|トウ；ズ；ト|あたま；かしら；-がしら；かぶり|頭；頭痛；頭脳；先頭；街頭；口頭；冒頭
+R3570|負|defeat；negative；-；minus；bear；owe；assume a responsibility|9|フ|ま.ける；ま.かす；お.う|負ける；負け；勝負；背負う；負う；負債；負傷；負担
+R3571|渡|transit；ford；ferry；cross；import；deliver；diameter；migrate|12|ト|わた.る；-わた.る；わた.す|渡す；渡る；橋渡し；見渡す；渡り鳥
+R3572|失|lose；error；fault；disadvantage；loss|5|シツ|うしな.う；う.せる|失敗；失う；失業；失望；過失；失恋；失格；失調
+R3573|差|distinction；difference；variation；discrepancy；margin；balance|10|サ|さ.す；さ.し|差す；交差点；差し上げる；差；差別；交差；日差し；物差し
+R3574|末|end；close；tip；powder；posterity|5|マツ；バツ|すえ；うら；うれ|末；粗末；月末；末っ子；期末；始末；粉末；末期
+R3575|守|guard；protect；defend；obey|6|シュ；ス|まも.る；まも.り；もり；-もり；かみ|留守；守る；留守番；守衛；守備；保守
+R3576|若|young；if；perhaps；possibly；low number；immature|8|ジャク；ニャク；ニャ|わか.い；わか-；も.しくわ；も.し；も.しくは；ごと.し|若い；若々しい；若干；若しくは
+R3577|種|species；kind；class；variety；seed|14|シュ|たね；-ぐさ|種；一種；種類；人種；各種；種々；品種
+R3578|美|beauty；beautiful|9|ビ；ミ|うつく.しい|美しい；美術館；美人；美容；美；華美；賛美；美術
+R3579|命|fate；command；decree；destiny；life；appoint|8|メイ；ミョウ|いのち|一生懸命；命；生命；命令；命じる；寿命；人命；命ずる
+R3580|福|blessing；fortune；luck；wealth|13|フク||幸福；福；福祉
+R3581|望|ambition；full moon；hope；desire；aspire to；expect|11|ボウ；モウ|のぞ.む；もち|希望；失望；望み；望む；望遠鏡；志望；絶望；待望
+R3582|非|un-；mistake；negative；injustice；non-|8|ヒ|あら.ず|非常に；非常；非；非行；非難
+R3583|観|outlook；look；appearance；condition；view|18|カン|み.る；しめ.す|観客；観光；観察；観測；観念；観；外観；観衆
+R3584|察|guess；presume；surmise；judge；understand|14|サツ||警察；観察；診察；視察；察する
+R3585|段|grade；steps；stairs|9|ダン；タン||階段；段；手段；普段；段階；一段と
+R3586|横|sideways；side；horizontal；width；woof；unreasonable；perverse|15|オウ|よこ|横；横断；横切る；横綱
+R3587|深|deep；heighten；intensify；strengthen|11|シン|ふか.い；-ぶか.い；ふか.まる；ふか.める；み-|深い；深刻；深夜；深まる；深める；欲深い；情け深い
+R3588|申|have the honor to；sign of the monkey；3-5PM；ninth sign of Chinese zodiac|5|シン|もう.す；もう.し-；さる|申す；申し上げる；申し訳；申し込む；申請；申し訳ない；申告；申出
+R3589|様|Esq.；way；manner；situation；polite suffix|14|ヨウ；ショウ|さま；さん|様；王様；様々；同様；模様；様子；神様；有様
+R3590|財|property；money；wealth；assets|10|ザイ；サイ；ゾク|たから|財布；財産；財；財源；財政；文化財
+R3591|港|harbor|12|コウ|みなと|港；空港
+R3592|識|discriminating；know；write|19|シキ|し.る；しる.す|意識；常識；知識；標識；認識；良識
+R3593|呼|call；call out to；invite|8|コ|よ.ぶ|呼ぶ；呼吸；呼び出す；呼び掛ける；嗚呼；呼び止める
+R3594|達|accomplished；reach；arrive；attain|12|タツ；ダ|-たち|友達；上達；配達；発達；達する；速達；達者；達成
+R3595|良|good；pleasing；skilled|7|リョウ|よ.い；-よ.い；い.い；-い.い|仲良し；改良；善良；不良；良好；良識；良質；良心
+R3596|候|climate；season；weather；wait for；expect|10|コウ|そうろう|気候；候補；天候
+R3597|程|extent；degree；law；formula；distance；limits；amount|12|テイ|ほど；-ほど|程度；課程；過程；先程；日程；方程式；中程
+R3598|満|full；fullness；enough；satisfy|12|マン；バン|み.ちる；み.つ；み.たす|不満；満足；満ちる；満員；満点；未満；円満；満月
+R3599|敗|failure；defeat；reversal|11|ハイ|やぶ.れる|失敗；勝敗；一敗；敗戦；腐敗
+R3600|値|price；cost；value|10|チ|ね；あたい|価値；値；値する；値打ち；値引き
+R3601|突|stab；protruding；thrust；pierce；prick；collision；sudden|8|トツ；カ|つ.く|衝突；突然；煙突；突く；突っ込む；突き当たり；突き当たる；突如
+R3602|光|ray；light|6|コウ|ひか.る；ひかり|光；光る；観光；光景；日光；光線；蛍光灯；稲光
+R3603|路|path；route；road；distance|13|ロ；ル|-じ；みち|道路；針路；線路；通路；回路；海路；経路；進路
+R3604|科|department；course；section|9|カ||科学；科目；教科書；学科；外科；内科；理科；自然科学
+R3605|積|volume；product (x*y)；acreage；contents；pile up；stack；load；amass|16|セキ|つ.む；-づ.み；つ.もる；つ.もり|積極的；積もる；体積；積む；面積；容積；蓄積；見積り
+R3606|他|other；another；the others|5|タ|ほか|他；他人；他意；他方；他動詞
+R3607|処|dispose；manage；deal with；sentence；condemn；act；behave；place|5|ショ|ところ；-こ；お.る|処理；処置；処罰；処分；対処
+R3608|太|plump；thick；big around|4|タイ；タ|ふと.い；ふと.る|太い；太る；太陽；太鼓
+R3609|客|guest；visitor；customer；client|9|キャク；カク||客；観客；乗客；客席；客間；客観；旅客
+R3610|否|negate；no；noes；refuse；decline；deny|7|ヒ|いな；いや|否；否定；拒否；否決
+R3611|師|expert；teacher；master；model；exemplar；army (incl. counter)；war|10|シ|いくさ|医師；技師；教師；講師；漁師；牧師
+R3612|登|ascend；climb up|12|トウ；ト；ドウ；ショウ；チョウ|のぼ.る；あ.がる|登る；登山；登場；登校；登録
+R3613|易|easy；ready to；simple；fortune-telling；divination|8|エキ；イ|やさ.しい；やす.い|易しい；貿易；容易；安易；簡易；交易；辟易；易い
+R3614|速|quick；fast|10|ソク|はや.い；はや-；はや.める；すみ.やか|速い；急速；高速；速度；加速；早速；時速；速達
+R3615|存|exist；suppose；be aware of；believe；feel|6|ソン；ゾン|ながら.える；あ.る；たも.つ；と.う|ご存じ；存在；保存；生存；存じる；存ずる；依存；共存
+R3616|飛|fly；skip (pages)；scatter|9|ヒ|と.ぶ；と.ばす；-と.ばす|飛ぶ；飛行機；飛行場；飛行；飛ばす；飛び出す；飛び込む；蹴飛ばす
+R3617|殺|kill；murder；butcher；slice off；split；diminish；reduce；spoil|10|サツ；サイ；セツ|ころ.す；-ごろ.し；そ.ぐ；あや.める|殺す；自殺；暗殺；殺人
+R3618|号|nickname；number；item；title；pseudonym；name；call|5|ゴウ|さけ.ぶ；よびな|番号；信号；記号；符号；号；年号
+R3619|単|simple；one；single；merely|9|タン|ひとえ|簡単；単位；単語；単純；単に；単なる；単数；単
+R3620|座|squat；seat；cushion；gathering；sit|10|ザ|すわ.る|座る；座席；座敷；座布団；座標；星座；座談会；即座に
+R3621|破|rend；rip；tear；break；destroy；defeat；frustrate|10|ハ|やぶ.る；やぶ.れる；わ.れる|破産；破る；破片；破く；破れる；突破；破壊；破棄
+R3622|除|exclude；division (x/3)；remove；abolish；cancel；except|10|ジョ；ジ|のぞ.く；-よ.け|掃除；除く；削除；解除；控除；除外；排除；免除
+R3623|完|perfect；completion；end|7|カン||完成；完全；完了；完璧
+R3624|降|descend；precipitate；fall；surrender|10|コウ；ゴ|お.りる；お.ろす；ふ.る；ふ.り；くだ.る；くだ.す|降る；降りる；降り出す；降ろす；以降；下降；降水；降伏
+R3625|責|blame；condemn；censure|11|セキ|せ.める|責任；責める；責務
+R3626|捕|catch；capture|10|ホ|と.らえる；と.らわれる；と.る；とら.える；とら.われる；つか.まえる；つか.まる|捕まえる；逮捕；捕まる；捕る；捕える；捕獲；捕鯨；捕吏
+R3627|危|dangerous；fear；uneasy|6|キ|あぶ.ない；あや.うい；あや.ぶむ|危ない；危険；危うい；危害；危機；危ぶむ
+R3628|給|salary；wage；gift；allow；grant；bestow on|12|キュウ|たま.う；たも.う；-たま.え|給料；供給；支給；給与；月給；給仕；給食；給う
+R3629|苦|suffering；trial；worry；hardship；feel bitter；scowl|8|ク|くる.しい；-ぐる.しい；くる.しむ；くる.しめる；にが.い；にが.る|苦い；苦痛；苦労；苦手；苦しい；苦しむ；苦情；苦心
+R3630|迎|welcome；meet；greet|7|ゲイ|むか.える|迎える；歓迎；迎え；出迎え；出迎える
+R3631|園|park；garden；yard；farm|13|エン|その|公園；動物園；園芸；遊園地；幼稚園；園；田園
+R3632|具|tool；utensil；means；possess；ingredients；counter for armor, suits, sets of furniture|8|グ|そな.える；つぶさ.に|具合；道具；家具；具体；器具；絵の具；文房具；雨具
+R3633|辞|resign；word；term；expression|13|ジ|や.める；いな.む|辞書；辞典；辞める；御辞儀；辞職；辞退；世辞；お世辞
+R3634|因|cause；factor；be associated with；depend on；be limited to|6|イン|よ.る；ちな.む|原因；要因
+R3635|馬|horse|10|バ；メ；マ；ボ；モ|うま；ま|馬；馬鹿；競馬；馬鹿馬鹿しい
+R3636|愛|love；affection；favourite|13|アイ|いと.しい；かな.しい；め.でる；お.しむ；まな|愛；愛情；愛する；愛想；愛憎；恋愛
+R3637|富|wealth；enrich；abundant|12|フ；フウ|と.む；とみ|豊富；富；富む；富豪
+R3638|彼|he；that；the|8|ヒ|かれ；かの；か.の|彼；彼女；彼ら
+R3639|未|un-；not yet；hitherto；still；even now；sign of the ram；1-3PM；eighth sign of Chinese zodiac|5|ミ；ビ|いま.だ；ま.だ；ひつじ|未来；未満；未；未だ；未開；未婚；未熟；未知
+R3640|舞|dance；flit；circle；wheel|15|ブ|ま.う；-ま.う；まい|お見舞い；舞台；見舞い；振舞う；見舞う；仕舞；舞う
+R3641|亡|deceased；the late；dying；perish|3|ボウ；モウ|な.い；な.き-；ほろ.びる；ほろ.ぶ；ほろ.ぼす|亡くなる；死亡；亡くす；逃亡；滅亡
+R3642|冷|cool；cold (beer, person)；chill|7|レイ|つめ.たい；ひ.える；ひ.や；ひ.ややか；ひ.やす；ひ.やかす；さ.める；さ.ます|冷たい；冷蔵庫；冷房；冷える；冷静；冷凍；冷ます；冷める
+R3643|適|suitable；occasional；rare；qualified；capable|14|テキ|かな.う|適当；快適；適切；適度；適用；適する；適確；適応
+R3644|婦|lady；woman；wife；bride|11|フ|よめ|看護婦；主婦；夫婦；婦人；産婦人科
+R3645|寄|draw near；stop in；bring near；gather；collect；send；forward|11|キ|よ.る；-よ.り；よ.せる|寄る；寄付；年寄；片寄る；近寄る；寄せる；寄贈；寄与
+R3646|込|crowded；mixture；in bulk；included；(kokuji)|5||-こ.む；こ.む；こ.み；-こ.み；こ.める|込む；人込み；申し込む；思い込む；突っ込む；溶け込む；飛び込む；払い込む
+R3647|顔|face；expression|18|ガン|かお|笑顔；顔付き
+R3648|類|sort；kind；variety；class；genus|18|ルイ|たぐ.い|種類；書類；人類；親類；分類；類；衣類；類似
+R3649|余|too much；myself；surplus；other；remainder|7|ヨ|あま.る；あま.り；あま.す；あんま.り|余分；余裕；余る；余計；余所；余暇；余興；余地
+R3650|王|king；rule；magnate|4|オウ；-ノウ||王；王様；王子；女王；王女；国王
+R3651|返|return；answer；fade；repay|7|ヘン|かえ.す；-かえ.す；かえ.る；-かえ.る|返す；返事；繰り返す；裏返す；引き返す；ひっくり返す；引っ繰り返る；返る
+R3652|妻|wife；spouse|8|サイ|つま|妻；夫妻
+R3653|背|stature；height；back；behind；disobey；defy；go back on；rebel|9|ハイ|せ；せい；そむ.く；そむ.ける|背；背広；背中；背負う；背く；背景；背後
+R3654|熱|heat；temperature；fever；mania；passion|15|ネツ|あつ.い|熱い；熱；熱帯；熱中；加熱；熱する；情熱；熱意
+R3655|宿|inn；lodging；relay station；dwell；lodge；be pregnant；home；dwelling|11|シュク|やど；やど.る；やど.す|宿題；下宿；宿；宿泊；宿命；民宿
+R3656|薬|medicine；chemical；enamel；gunpowder；benefit|16|ヤク|くすり|薬；薬指；農薬；薬缶；薬品；薬局
+R3657|険|precipitous；inaccessible place；impregnable position；steep place；sharp eyes|11|ケン|けわ.しい|危険；冒険；険しい；保険
+R3658|頼|trust；request|16|ライ|たの.む；たの.もしい；たよ.る|頼む；依頼；信頼；頼る；頼もしい；頼み
+R3659|覚|memorize；learn；remember；awake；sober up|12|カク|おぼ.える；さ.ます；さ.める；さと.る|覚える；覚悟；感覚；覚ます；覚める；目覚し；覚え；錯覚
+R3660|船|ship；boat|11|セン|ふね；ふな-|船；造船；風船；船便；汽船；漁船；船舶
+R3661|途|route；way；road|10|ト|みち|途中；途端；中途；用途；前途；途上；途絶える
+R3662|許|permit；approve|11|キョ|ゆる.す；もと|許可；免許；許す；許容；特許
+R3663|抜|slip out；extract；pull out；pilfer；quote；remove；omit|7|バツ；ハツ；ハイ|ぬ.く；-ぬ.く；ぬ.き；ぬ.ける；ぬ.かす；ぬ.かる|抜く；抜ける；海抜；抜かす；抜け出す
+R3664|便|convenience；facility；excrement；feces；letter；chance|9|ベン；ビン|たよ.り|便利；郵便局；不便；便；便り；郵便；小便；便箋
+R3665|留|detain；fasten；halt；stop|10|リュウ；ル|と.める；と.まる；とど.める；とど.まる；るうぶる|留学生；留守；留学；停留所；留める；書留；留まる；留守番
+R3666|罪|guilt；sin；crime；fault；blame；offense|13|ザイ|つみ|罪；犯罪
+R3667|努|toil；diligent；as much as possible|7|ド|つと.める|努力；努める；努めて
+R3668|精|refined；ghost；fairy；energy；vitality；semen；excellence；purity；skill|14|セイ；ショウ|しら.げる；くわ.しい|精神；精々；精巧；精密
+R3669|散|scatter；disperse；spend；squander|12|サン|ち.る；ち.らす；-ち.らす；ち.らかす；ち.らかる；ち.らばる；ばら；ばら.ける|散歩；解散；散る；散らす；散らかす；散らかる；拡散；分散
+R3670|静|quiet|14|セイ；ジョウ|しず-；しず.か；しず.まる；しず.める|静か；冷静；静まる；安静；静止；静的
+R3671|婚|marriage|11|コン||結婚；婚約；離婚；既婚；新婚；未婚
+R3672|喜|rejoice；take pleasure in|12|キ|よろこ.ぶ；よろこ.ばす|喜ぶ；喜び；喜劇
+R3673|浮|floating；float；rise to surface|10|フ|う.く；う.かれる；う.かぶ；う.かべる|浮く；浮かぶ；浮かべる；浮気；浮力
+R3674|絶|discontinue；sever；cut off；abstain；interrupt；suppress；be beyond；without match；peerless；unparalleled|12|ゼツ|た.える；た.やす；た.つ|絶対；絶滅；絶えず；拒絶；謝絶；絶版；絶望；絶つ
+R3675|幸|happiness；blessing；fortune|8|コウ|さいわ.い；さち；しあわ.せ|幸運；幸福；幸い；幸せ；不幸
+R3676|押|push；stop；check；subdue；attach；seize；weight；shove；press；seal；do in spite of|8|オウ|お.す；お.し-；お.っ-；お.さえる；おさ.える|押す；押し入れ；押える；押し込む；押し寄せる
+R3677|倒|overthrow；fall；collapse；drop；break down|10|トウ|たお.れる；-だお.れ；たお.す；さかさま；さかさ；さかしま|倒れる；倒す；面倒；面倒臭い；倒産
+R3678|等|etc.；and so forth；class (first)；quality；equal；similar|12|トウ|ひと.しい；など；-ら|高等学校；上等；平等；等しい；高等；等分；等；対等
+R3679|老|old man；old age；grow old|6|ロウ|お.いる；ふ.ける|老い；老人；老衰；老いる；老ける
+R3680|曲|bend；music；melody；composition；pleasure；injustice；fault；curve；crooked；perverse；lean|6|キョク|ま.がる；ま.げる；くま|曲る；作曲；曲線；曲げる；曲；婉曲；戯曲
+R3681|払|pay；clear out；prune；banish；dispose of|5|フツ；ヒツ；ホツ|はら.う；-はら.い；-ばら.い|払う；支払；支払う；払い込む；払い戻す；酔っ払い
+R3682|庭|courtyard；garden；yard|10|テイ|にわ|庭；家庭；校庭
+R3683|徒|on foot；junior；emptiness；vanity；futility；uselessness；ephemeral thing；gang；set；party；people|10|ト|いたずら；あだ|生徒；徒歩
+R3684|勤|diligence；become employed；serve|12|キン；ゴン|つと.める；-づと.め；つと.まる；いそ.しむ|勤める；勤め；出勤；通勤；勤勉；勤務；勤労；転勤
+R3685|遅|slow；late；back；later|12|チ|おく.れる；おく.らす；おそ.い|遅い；遅れる；遅刻；遅れ；遅らす；手遅れ；遅くとも
+R3686|居|reside；to be；exist；live with|8|キョ；コ|い.る；-い；お.る|居間；居る；芝居；居眠り；住居；隠居；居住；皇居
+R3687|雑|miscellaneous|14|ザツ；ゾウ|まじ.える；まじ.る|雑誌；複雑；混雑；雑音；雑巾；雑；雑貨；雑談
+R3688|招|beckon；invite；summon；engage|8|ショウ|まね.く|招待；招く；招き
+R3689|困|quandary；become distressed；annoyed|7|コン|こま.る|困る；困難；貧困
+R3690|欠|lack；gap；fail；yawning radical (no. 76)|4|ケツ；ケン|か.ける；か.く|欠陥；欠席；欠点；欠ける；欠く；欠乏；不可欠
+R3691|更|grow late；night watch；sit up late；of course；renew；renovate；again；more and more；further|7|コウ|さら；さら.に；ふ.ける；ふ.かす|更に；変更；更ける；今更；尚更；夜更け；夜更かし
+R3692|刻|engrave；cut fine；chop；hash；mince；time；carving|8|コク|きざ.む；きざ.み|時刻；深刻；遅刻；刻む；彫刻；時刻表
+R3693|賛|approve；praise；title or inscription on picture；assist；agree with|15|サン|たす.ける；たた.える|賛成；賛美
+R3694|抱|embrace；hug；hold in arms|8|ホウ|だ.く；いだ.く；かか.える|抱く；抱える；介抱；辛抱
+R3695|犯|crime；sin；offense|5|ハン；ボン|おか.す|犯罪；犯人；防犯；犯す
+R3696|恐|fear；dread；awe|10|キョウ|おそ.れる；おそ.る；おそ.ろしい；こわ.い；こわ.がる|恐怖；恐れる；恐ろしい；恐縮；恐れ；恐れ入る
+R3697|息|breath；respiration；son；interest (on money)；rest；coming to an end|10|ソク|いき|息子；息；休息；溜息；子息；消息；窒息；一息
+R3698|遠|distant；far|13|エン；オン|とお.い|遠い；遠慮；遠く；永遠；遠足；望遠鏡；遠方；遠回り
+R3699|戻|re-；return；revert；resume；restore；go backwards|7|レイ|もど.す；もど.る|戻る；戻す；払い戻す；取り戻す
+R3700|願|petition；request；vow；wish；hope|19|ガン|ねが.う；-ねがい|お願いします；願い；願う；願書
+R3701|絵|picture；drawing；painting；sketch|12|カイ；エ||絵；絵画；絵の具；油絵
+R3702|越|surpass；cross over；move to；exceed；Vietnam|12|エツ；オツ|こ.す；-こ.す；-ご.し；こ.える；-ご.え|引っ越す；越す；越える；引越し；追い越す；優越
+R3703|欲|longing；covetousness；greed；passion；desire；craving|11|ヨク|ほっ.する；ほ.しい|欲しい；食欲；欲張り；意欲；欲望；欲深い
+R3704|痛|pain；hurt；damage；bruise|12|ツウ|いた.い；いた.む；いた.ましい；いた.める|痛い；痛み；苦痛；頭痛；痛む；痛感；痛切；痛める
+R3705|笑|laugh|10|ショウ|わら.う；え.む|笑う；笑顔；笑い；微笑む；微笑；あざ笑う
+R3706|互|mutually；reciprocally；together|4|ゴ|たが.い；かたみ.に|互い；お互い；相互；交互
+R3707|束|bundle；sheaf；ream；tie in bundles；govern；manage；control|7|ソク|たば；たば.ねる；つか；つか.ねる|約束；束；結束；拘束；束縛；束の間
+R3708|似|becoming；resemble；counterfeit；imitate；suitable|7|ジ|に.る；ひ.る|似る；真似；似合う；真似る；類似；似通う
+R3709|列|file；row；rank；tier；column|6|レツ；レ||列；列車；行列；列島；整列；陳列；配列；並列
+R3710|探|grope；search；look for|11|タン|さぐ.る；さが.す|探す；探る；探検
+R3711|逃|escape；flee；shirk；evade；set free|9|トウ|に.げる；に.がす；のが.す；のが.れる|逃げる；逃がす；逃走；逃亡；逃す；逃れる；見逃す；逃げ出す
+R3712|遊|play|12|ユウ；ユ|あそ.ぶ；あそ.ばす|遊ぶ；遊び；遊園地；遊牧
+R3713|迷|astray；be perplexed；in doubt；lost；err；illusion|9|メイ|まよ.う|迷子；迷惑；迷信
+R3714|夢|dream；vision；illusion|13|ム；ボウ|ゆめ；ゆめ.みる；くら.い|夢；夢中
+R3715|君|mister；you；ruler；male name suffix|7|クン|きみ；-ぎみ|君；君主；諸君
+R3716|閉|closed；shut|11|ヘイ|と.じる；と.ざす；し.める；し.まる；た.てる|閉まる；閉める；閉じる；閉会；閉口；閉鎖
+R3717|緒|thong；beginning；inception；end；cord；strap；mental or emotional state|14|ショ；チョ|お；いとぐち|一緒；情緒
+R3718|折|fold；break；fracture；bend；yield；submit|7|セツ；シャク|お.る；おり；お.り；-お.り；お.れる|折る；折れる；骨折；折角；屈折；折衷；時折；折り返す
+R3719|草|grass；weeds；herbs；pasture；write；draft|9|ソウ|くさ；くさ-；-ぐさ|草；草履
+R3720|暮|evening；twilight；season's end；livelihood；make a living；spend time|14|ボ|く.れる；く.らす|暮れる；暮れ；暮らし；暮らす；夕暮れ
+R3721|酒|sake；alcohol|10|シュ|さけ；さか-|お酒；酒；酒場
+R3722|悲|grieve；sad；deplore；regret|12|ヒ|かな.しい；かな.しむ|悲しい；悲劇；悲しむ；悲観；悲惨；悲鳴
+R3723|晴|clear up|12|セイ|は.れる；は.れ；は.れ-；-ば.れ；は.らす|晴れ；晴れる；快晴；晴天；見晴らし
+R3724|掛|hang；suspend；depend；arrive at；tax；pour|11|カイ；ケイ|か.ける；-か.ける；か.け；-か.け；-が.け；か.かる；-か.かる；-が.かる；か.かり；-が.かり；かかり；-がかり|お目に掛かる；掛け算；腰掛け；見掛け；お出掛け；腰掛ける；追い掛ける；通り掛かる
+R3725|到|arrival；proceed；reach；attain；result in|8|トウ|いた.る|到着；到達；到底
+R3726|寝|lie down；sleep；rest；bed；remain unsold|13|シン|ね.る；ね.かす；い.ぬ；みたまや；や.める|寝る；寝坊；寝台；寝巻；昼寝；寝間着；朝寝坊；寝かせる
+R3727|暗|darkness；disappear；shade；informal；grow dark；be blinded|13|アン|くら.い；くら.む；くれ.る|暗い；暗記；薄暗い；真っ暗；暗殺；暗算；暗示
+R3728|盗|steal；rob；pilfer|11|トウ|ぬす.む；ぬす.み|盗む；強盗；盗難；盗み
+R3729|吸|suck；imbibe；inhale；sip|6|キュウ|す.う|吸う；吸収；呼吸
+R3730|陽|sunshine；yang principle；positive；male；heaven；daytime|12|ヨウ|ひ|太陽；陽気
+R3731|御|honorable；manipulate；govern|12|ギョ；ゴ|おん-；お-；み-|御飯；晩御飯；昼御飯；御主人；御；御中；御免；御覧
+R3732|歯|tooth；cog|12|シ|よわい；は；よわ.い；よわい.する|歯；歯医者；虫歯；歯車；歯磨き；歯科
+R3733|忘|forget|7|ボウ|わす.れる|忘れる；忘れ物；度忘れ
+R3734|雪|snow|11|セツ|ゆき|雪；吹雪；雪崩
+R3735|吹|blow；breathe；puff；emit；smoke|7|スイ|ふ.く|吹く；吹雪；吹奏
+R3736|娘|daughter；girl|10|ジョウ|むすめ；こ|娘
+R3737|誤|mistake；err；do wrong；mislead|14|ゴ|あやま.る；-あやま.る|誤り；誤解；誤る；誤差；錯誤；誤魔化す
+R3738|洗|wash；inquire into；probe|9|セン|あら.う|洗う；洗濯；お手洗い；洗剤；手洗い；水洗
+R3739|畑|farm；field；garden；one's specialty；(kokuji)|9||はた；はたけ；-ばたけ|畑
+R3740|慣|accustomed；get used to；become experienced|14|カン|な.れる；な.らす|習慣；慣れる；見慣れる；慣行；慣習；慣用；慣例；慣れ
+R3741|礼|salute；bow；ceremony；thanks；remuneration|5|レイ；ライ||お礼；礼；礼儀；無礼
+R3742|窓|window；pane|11|ソウ；ス|まど；てんまど；けむだし|窓；窓口
+R3743|昔|once upon a time；antiquity；old times|8|セキ；シャク|むかし|昔
+R3744|貧|poverty；poor|11|ヒン；ビン|まず.しい|貧しい；貧困；貧弱；貧乏
+R3745|怒|angry；be offended|9|ド；ヌ|いか.る；おこ.る|怒る；怒り
+R3746|泳|swim|8|エイ|およ.ぐ|泳ぐ；水泳；泳ぎ方；泳ぎ
+R3747|祖|ancestor；pioneer；founder|9|ソ||お祖父さん；祖父；祖母；先祖；祖先
+R3748|杯|counter for cupfuls；wine glass；glass；toast|8|ハイ|さかずき|乾杯；杯
+R3749|疲|exhausted；tire；weary|10|ヒ|つか.れる；-づか.れ；つか.らす|疲れる；疲れ；疲労
+R3750|皆|all；everything|9|カイ|みな；みんな|皆さん；皆
+R3751|鳴|chirp；cry；bark；sound；ring；echo；honk|14|メイ|な.く；な.る；な.らす|鳴く；鳴る；鳴らす；共鳴；悲鳴
+R3752|腹|abdomen；belly；stomach|13|フク|はら|腹；空腹；山腹；中腹；腹立ち
+R3753|煙|smoke|13|エン|けむ.る；けむり；けむ.い|煙；禁煙；煙突；煙い；煙る；煙たい
+R3754|眠|sleep；die；sleepy|10|ミン|ねむ.る；ねむ.い|眠い；眠る；睡眠；居眠り；冬眠；眠たい
+R3755|怖|dreadful；be frightened；fearful|8|フ；ホ|こわ.い；こわ.がる；お.じる；おそ.れる|怖い；恐怖
+R3756|耳|ear|6|ジ|みみ|耳；初耳；耳鼻科
+R3757|頂|place on the head；receive；top of head；top；summit；peak|11|チョウ|いただ.く；いただき|頂上；頂点；頂
+R3758|箱|box；chest；case；bin；railway car|15|ソウ|はこ|箱
+R3759|晩|nightfall；night|12|バン||晩；今晩；毎晩；晩御飯
+R3760|寒|cold|12|カン|さむ.い|寒い；寒帯；寒気
+R3761|髪|hair of the head|14|ハツ|かみ|髪；髪の毛；白髪
+R3762|忙|busy；occupied；restless|6|ボウ；モウ|いそが.しい；せわ.しい；おそ.れる；うれえるさま|忙しい；多忙
+R3763|才|genius；years old；cubic shaku|3|サイ||才能；天才
+R3764|粧|cosmetics；adorn (one's person)|12|ショウ||化粧
+R3765|靴|shoes|13|カ|くつ|靴；靴下
+R3766|恥|shame；dishonor|10|チ|は.じる；はじ；は.じらう；は.ずかしい|恥ずかしい；恥；恥じる；恥じらう
+R3767|偶|accidentally；even number；couple；man & wife；same kind|11|グウ|たま|偶；偶然；偶数；配偶者
+R3768|偉|admirable；greatness；remarkable；conceited；famous；excellent|12|イ|えら.い|偉大；偉い
+R3769|尻|buttocks；hips；butt；rear|5|コウ|しり|尻
+R3770|猫|cat|11|ビョウ|ねこ|猫
+R3771|幾|how many；how much；how far；how long；some；several|12|キ|いく-；いく.つ；いく.ら|幾分；幾多
+R3772|脇|armpit；the other way；another place；flank；supporting role|10|キョウ|わき；わけ|脇
+R3773|鍋|pot；pan；kettle|17|カ|なべ|鍋
+R3774|袖|sleeve；wing (building)；extension；give cold shoulder|10|シュウ|そで|袖
+R3775|頃|time；about；toward|11|ケイ；キョウ|ころ；ごろ；しばら.く|頃；近頃；手頃；年頃；日頃；一頃
+R3776|謎|riddle；puzzle；enigma；hint；tip|16|メイ；ベイ|なぞ|謎；謎謎
+R3777|挨|approach；draw near；push open|10|アイ|ひら.く|挨拶
+R3778|餌|food；bait；prey；tempting profit|14|ジ；ニ|え；えば；えさ；もち|餌
+R3779|膝|knee；lap|15|シツ|ひざ|膝
+R3780|諦|truth；clarity；abandon；give up|16|テイ；タイ|あきら.める；つまびらか；まこと|諦める；諦め
+R3781|僅|a wee bit|12|キン；ゴン|わず.か|僅か
+R3782|戚|grieve；relatives|11|ソク；セキ|いた.む；うれ.える；みうち|親戚
+R3783|拶|be imminent；draw close|9|サツ|せま.る|挨拶
+R3784|溺|drown；indulge|13|デキ；ジョウ；ニョウ|いばり；おぼ.れる|溺れる
+R3785|籠|basket；devote oneself；seclude oneself；cage；coop；implied|22|ロウ；ル|かご；こ.める；こも.る；こ.む|籠
+R5665|党|party；faction；clique|10|トウ|なかま；むら|党；政党；野党；与党
+R5666|協|co-；cooperation|8|キョウ||協力；協会；協議；協調；協定；妥協
+R5667|総|general；whole；all；full；total|14|ソウ|す.べて；すべ.て；ふさ|総理大臣；総；総会；総合
+R5668|区|ward；district|4|ク；オウ；コウ||区別；地区；区域；区分；区切る；区；区画；区間
+R5669|領|jurisdiction；dominion；territory；fief；reign|14|リョウ|えり|大統領；要領；領事；領収；占領；領域；領海；領地
+R5670|県|prefecture|9|ケン|か.ける|県；県庁
+R5671|設|establishment；provision；prepare|11|セツ|もう.ける|建設；設計；設備；施設；設置；設定；設立；設ける
+R5672|改|reformation；change；modify；mend；renew；examine；inspect；search|7|カイ|あらた.める；あらた.まる|改善；改札；改正；改造；改めて；改める；改悪；改革
+R5673|府|borough；urban prefecture；govt office；representative body；storehouse|8|フ||政府
+R5674|査|investigate|9|サ||検査；調査；巡査；審査；捜査
+R5675|委|committee；entrust to；leave to；devote；discard|8|イ|ゆだ.ねる|委員；委託
+R5676|軍|army；force；troops；war；battle|9|グン|いくさ|軍；軍隊；軍艦；軍事；軍備；軍服
+R5677|団|group；association|6|ダン；トン|かたまり；まる.い|布団；集団；団体；団地；座布団；団扇；劇団；公団
+R5678|各|each；every；either|6|カク|おのおの|各々；各自；各地；各種
+R5679|島|island|10|トウ|しま|島；半島；列島
+R5680|革|leather；skin；reform；become serious|9|カク|かわ|革；改革；革新；革命；変革；吊り革
+R5681|村|village；town|7|ソン|むら|村；農村；漁村
+R5682|勢|forces；energy；military strength|13|セイ；ゼイ|いきお.い；はずみ|大勢；勢い；姿勢；形勢；情勢；勢力；態勢；優勢
+R5683|減|dwindle；decrease；reduce；decline；curtail；get hungry|12|ゲン|へ.る；へ.らす|加減；減る；減らす；増減；軽減；減少；減点；削減
+R5684|再|again；twice；second time|6|サイ；サ|ふたた.び|再来年；再来月；再来週；再び；再三；再；再会；再建
+R5685|税|tax；duty|12|ゼイ||税；税金；課税；税関；免税；関税；税務署
+R5686|営|camp；perform；build；conduct (business)|12|エイ|いとな.む；いとな.み|営業；経営；営む；運営
+R5687|比|compare；race；ratio；Philippines|4|ヒ|くら.べる|比べる；比較；比較的；対比；比重；比率；比例
+R5688|防|ward off；defend；protect；resist|7|ボウ|ふせ.ぐ|消防；防ぐ；予防；防止；防犯；消防署；国防；堤防
+R5689|補|supplement；supply；make good；offset；compensate；assistant；learner|12|ホ|おぎな.う|候補；補う；補給；補強；補充；補助；補償；補足
+R5690|境|boundary；border；region|14|キョウ；ケイ|さかい|境；環境；国境；境界；境遇
+R5691|導|guidance；leading；conduct；usher|15|ドウ|みちび.く|指導；主導；導入；導く；誘導
+R5692|副|vice-；assistant；aide；duplicate；copy|11|フク||副詞
+R5693|算|calculate；divining；number；abacus；probability|14|サン|そろ|計算；予算；算数；算盤；引算；割算；掛け算；暗算
+R5694|輸|transport；send；be inferior|16|ユ；シュ||輸出；輸入；輸血；輸送；運輸
+R5695|述|mention；state；speak；relate|8|ジュツ|の.べる|述べる；述語；記述；口述
+R5696|線|line；track|15|セン|すじ|線；地平線；下線；曲線；光線；線路；脱線；直線
+R5697|農|agriculture；farmers|13|ノウ||農家；農業；農民；農村；農薬；農産物；農耕；農場
+R5698|州|state；province|6|シュウ；ス|す|州
+R5699|武|warrior；military；chivalry；arms|8|ブ；ム|たけ；たけ.し|武器；武士；武装；武力
+R5700|象|elephant；pattern after；imitate；image；shape；sign (of the times)|12|ショウ；ゾウ|かたど.る|象；印象；現象；対象；抽象；気象；象徴
+R5701|域|range；region；limits；stage；level|11|イキ||地域；区域；流域；域外；領域
+R5702|額|forehead；tablet；plaque；framed picture；sum；amount；volume|18|ガク|ひたい|額；金額；差額
+R5703|欧|Europe|8|オウ|うた.う；は.く|欧米
+R5704|担|shouldering；carry；raise；bear|8|タン|かつ.ぐ；にな.う|担当；担ぐ；担架；担う；負担；分担
+R5705|準|semi-；correspond to；proportionate to；conform；imitate|13|ジュン|じゅん.じる；じゅん.ずる；なぞら.える；のり；ひと.しい；みずもり|準備；水準；基準；規準；標準；準急；準じる；準ずる
+R5706|賞|prize；reward；praise|15|ショウ|ほ.める|賞；鑑賞；賞金；賞品；懸賞；入賞
+R5707|辺|environs；boundary；border；vicinity|5|ヘン|あた.り；ほと.り；-べ|辺；辺り；周辺；対辺；浜辺
+R5708|造|create；make；structure；physique|10|ゾウ|つく.る；つく.り；-づく.り|製造；改造；構造；人造；造船；偽造；創造；造り
+R5709|被|incur；cover；veil；brood over；shelter；wear；put on；be exposed (film)；receiving|10|ヒ|こうむ.る；おお.う；かぶ.る；かぶ.せる|被る；被害；被せる
+R5710|技|skill；art；craft；ability；feat；performance；vocation；arts|7|ギ|わざ|技術；演技；技師；競技；技；技能；特技
+R5711|低|lower；short；humble|7|テイ|ひく.い；ひく.める；ひく.まる|低い；最低；低下
+R5712|復|restore；return to；revert；resume|12|フク|また|復習；回復；往復；復活；復旧；復興
+R5713|移|shift；move；change；drift；catch (cold, fire)；pass into|11|イ|うつ.る；うつ.す|移る；移動；移す；移転；移行；移住；移民
+R5714|個|individual；counter for articles|10|コ；カ||個人；個所；個体；個；個々；個性；個別
+R5715|門|gate；counter for cannons|8|モン|かど；と|門；正門；部門
+R5716|課|chapter；lesson；section；department；division；counter for chapters (of a book)|15|カ||課長；課；課税；課程；日課；課外；課題
+R5717|脳|brain；memory|11|ノウ；ドウ|のうずる|頭脳；脳；首脳
+R5718|極|extreme；pole；extremely；very；highly；most；end；settlement；conclusion；highest rank|12|キョク；ゴク|きわ.める；きわ.まる；きわ.まり；きわ.み；き.める；-ぎ.め；き.まる|極；積極的；南極；北極；消極的；究極；極端；極楽
+R5719|含|contain；include；hold in the mouth；bear in mind；understand；cherish|7|ガン|ふく.む；ふく.める|含む；含める；含嗽
+R5720|蔵|storehouse；hide；own；have；possess|15|ゾウ；ソウ|くら；おさ.める；かく.れる|冷蔵庫；貯蔵；蔵；蔵相；埋蔵；冷蔵
+R5721|量|quantity；measure；weight；amount；consider；estimate；surmise|12|リョウ|はか.る|量；重量；測量；量る；分量；熱量；微量；感無量
+R5722|型|mould；type；model|9|ケイ|かた；-がた|型；典型；模型
+R5723|況|condition；situation|8|キョウ|まし.て；いわ.んや；おもむき|状況；好況；不況
+R5724|針|needle；pin；staple；stinger|10|シン|はり|針；針路；針金；方針
+R5725|専|specialty；exclusive；mainly；solely|9|セン|もっぱ.ら|専攻；専制；専修；専用；専ら
+R5726|谷|valley|7|コク|たに；きわ.まる|谷
+R5727|史|history；chronicle|5|シ||歴史；女史
+R5728|階|storey；stair；counter for storeys of a building|12|カイ|きざはし|階段；二階建て；段階；階；階級；階層
+R5729|管|pipe；tube；wind instrument；drunken talk；control；jurisdiction|14|カン|くだ|管；管理；血管；保管
+R5730|兵|soldier；private；troops；army；warfare；strategy；tactics|7|ヘイ；ヒョウ|つわもの|兵隊；兵器；兵士
+R5731|接|touch；contact；adjoin；piece together|11|セツ；ショウ|つ.ぐ|直接；応接；間接；接近；接続；面接；接する；接触
+R5732|細|dainty；get thin；taper；slender；narrow；detailed；precise|11|サイ|ほそ.い；ほそ.る；こま.か；こま.かい|細い；細かい；細菌；細工；細胞；詳細；心細い；細やか
+R5733|効|merit；efficacy；efficiency；benefit|8|コウ|き.く；ききめ；なら.う|効く；効果；有効；効力；効率；無効；効き目
+R5734|丸|round；full (month)；perfection；-ship；pills；make round；roll up；curl up；seduce；explain away|3|ガン|まる；まる.める；まる.い|丸い；丸；丸々；日の丸；丸ごと；丸める；丸っきり；真ん丸い
+R5735|湾|gulf；bay；inlet|12|ワン|いりえ|湾
+R5736|録|record|16|ロク|しる.す；と.る|記録；録音；登録；付録；目録
+R5737|省|government ministry；conserve；omit|9|セイ；ショウ|かえり.みる；はぶ.く|省く；省略；反省；省みる
+R5738|旧|old times；old things；old friend；former；ex-|5|キュウ|ふる.い；もと|旧；旧知；旧事；復旧
+R5739|橋|bridge|16|キョウ|はし|橋；鉄橋；桟橋；橋渡し
+R5740|岸|beach|8|ガン|きし|海岸；岸；沿岸
+R5741|周|circumference；circuit；lap|8|シュウ|まわ.り|周り；周囲；円周；周辺；周；周期
+R5742|材|lumber；log；timber；wood；materials；ingredients；talent|7|ザイ||材料；材木；木材；教材；取材；人材；素材
+R5743|戸|door；counter for houses；door radical (no. 63)|4|コ|と|戸；雨戸；井戸；戸棚；瀬戸物；戸籍；戸締り
+R5744|央|center；middle|5|オウ||中央
+R5745|券|ticket|8|ケン||券；回数券；定期券；旅券
+R5746|編|compilation；knit；plait；braid；twist；editing；completed poem；part of a book|15|ヘン|あ.む；-あ.み|編物；編む；短編；編集；編；長編
+R5747|捜|search；look for；locate|10|ソウ；シュ；シュウ|さが.す|捜す；捜査；捜索
+R5748|竹|bamboo|6|チク|たけ|竹
+R5749|超|transcend；super-；ultra-|12|チョウ|こ.える；こ.す|超す；超過；超える；超
+R5750|並|row；and；besides；as well as；line up；rank with；rival；equal|8|ヘイ；ホウ|な.み；なみ；なら.べる；なら.ぶ；なら.びに|並ぶ；並べる；並木；並行；並み；並列；月並み；並びに
+R5751|療|heal；cure|17|リョウ||医療；診療；治療
+R5752|採|pick；take；fetch；take up|11|サイ|と.る|採点；採る；採掘；採決；採算；採集；採択；採用
+R5753|森|forest；woods|12|シン|もり|森；森林
+R5754|競|emulate；compete with；bid；sell at auction；bout；contest；race|20|キョウ；ケイ|きそ.う；せ.る；くら.べる|競争；競技；競馬
+R5755|介|jammed in；shellfish；mediate；concern oneself with|4|カイ||紹介；厄介；介護；介入；介抱
+R5756|根|root；radical；head (pimple)|10|コン|ね；-ね|根；屋根；垣根；球根；根気；根拠；根底；根本
+R5757|販|marketing；sell；trade|11|ハン||販売
+R5758|歴|curriculum；continuation；passage of time|14|レキ；レッキ||歴史；学歴；経歴；履歴
+R5759|将|leader；commander；general；admiral；or；and again；soon；from now on；just about|10|ショウ；ソウ|まさ.に；はた；まさ；ひきい.る；もって|将来；将棋
+R5760|幅|hanging scroll；width|12|フク|はば|幅；大幅
+R5761|般|carrier；carry；all；general；sort；kind|10|ハン||一般；全般
+R5762|貿|trade；exchange|12|ボウ||貿易
+R5763|講|lecture；club；association|17|コウ||講義；講堂；講演；休講；講師；講習；講読；聴講
+R5764|林|grove；forest|8|リン|はやし|林；山林；森林；林業
+R5765|装|attire；dress；pretend；disguise；profess|12|ソウ；ショウ|よそお.う；よそお.い|装置；服装；包装；衣装；盛装；装飾；装備；武装
+R5766|諸|various；many；several；together|15|ショ|もろ|諸；諸君
+R5767|劇|drama；play|15|ゲキ||劇；劇場；悲劇；演劇；喜劇；劇団
+R5768|河|river|8|カ|かわ|河；運河；河川
+R5769|航|navigate；sail；cruise；fly|10|コウ||航空；航海
+R5770|鉄|iron|13|テツ|くろがね|地下鉄；鉄；鉄道；私鉄；鉄橋；鉄砲；製鉄；鉄鋼
+R5771|児|newborn babe；child；young of animals|7|ジ；ニ；ゲイ|こ；-こ；-っこ|育児；児童；幼児；児；孤児；小児科
+R5772|禁|prohibition；ban；forbid|13|キン||禁煙；禁止；禁物；禁じる；禁ずる
+R5773|印|stamp；seal；mark；imprint；symbol；emblem；trademark；evidence；souvenir；India|6|イン|しるし；-じるし；しる.す|印；印刷；印象；目印；矢印；印鑑；調印
+R5774|逆|inverted；reverse；opposite；wicked|9|ギャク；ゲキ|さか；さか.さ；さか.らう|逆；逆らう；逆さ；逆さま；逆転；逆立ち
+R5775|換|interchange；period；change；convert；replace；renew|12|カン|か.える；-か.える；か.わる|乗り換える；交換；換える；換気；乗換；換算；転換
+R5776|久|long time；old story|3|キュウ；ク|ひさ.しい|久しぶり；永久；久しい
+R5777|短|short；brevity；fault；defect；weak point|12|タン|みじか.い|短い；短期；短所；短編；長短；短歌；短気；短縮
+R5778|油|oil；fat|8|ユ；ユウ|あぶら|油；石油；灯油；油断；油絵；原油
+R5779|暴|outburst；rave；fret；force；violence；cruelty；outrage|15|ボウ；バク|あば.く；あば.れる|乱暴；暴れる；暴露；暴動；暴風；暴力
+R5780|輪|wheel；ring；circle；link；loop；counter for wheels and flowers|15|リン|わ|指輪；輪；車輪；首輪；年輪
+R5781|占|fortune-telling；divining；forecasting；occupy；hold；have；get；take|5|セン|し.める；うらな.う|占める；占う；占領；独占
+R5782|植|plant|12|ショク|う.える；う.わる|植える；植物；植木；田植え；植わる；植民地
+R5783|清|pure；purify；cleanse；exorcise；Manchu dynasty|11|セイ；ショウ；シン|きよ.い；きよ.まる；きよ.める|清潔；清い；清む；清書；清掃；清算；清純；清濁
+R5784|倍|double；twice；times；fold|10|バイ||倍；倍率
+R5785|均|level；average|7|キン|なら.す|平均；均衡
+R5786|億|hundred million；10**8|15|オク||億
+R5787|圧|pressure；push；overwhelm；oppress；dominate|5|アツ；エン；オウ|お.す；へ.す；おさ.える；お.さえる|圧縮；気圧；血圧；圧迫；圧力；抑圧
+R5788|芸|technique；art；craft；performance；acting；trick；stunt|7|ゲイ；ウン|う.える；のり；わざ|芸術；園芸；芸能；工芸；文芸；学芸；手芸
+R5789|署|signature；govt office；police station|13|ショ||署名；消防署；税務署
+R5790|伸|expand；stretch；extend；lengthen；increase|7|シン|の.びる；の.ばす；の.べる；の.す|伸ばす；伸びる
+R5791|停|halt；stopping|11|テイ|と.める；と.まる|停留所；停止；停車；停電；調停；停滞
+R5792|爆|bomb；burst open；pop；split|19|バク|は.ぜる|爆発；原爆；爆弾；爆破
+R5793|陸|land；six|11|リク；ロク|おか|陸；大陸；上陸；着陸；内陸
+R5794|玉|jewel；ball|5|ギョク|たま；たま-；-だま|玉
+R5795|波|waves；billows；Poland|8|ハ|なみ|波；電波；短波；津波
+R5796|狙|aim at；sight；shadow；stalk|8|ソ；ショ|ねら.う；ねら.い|狙い；狙う
+R5797|帯|sash；belt；obi；zone；region|10|タイ|お.びる；おび|帯；熱帯；温帯；寒帯；地帯；包帯；一帯；携帯
+R5798|延|prolong；stretching|8|エン|の.びる；の.べる；の.べ；の.ばす|延期；延長；延ばす；延びる；延べ；延いては
+R5799|羽|feathers；counter for birds, rabbits|6|ウ|は；わ；はね|羽
+R5800|固|harden；set；clot；curdle|8|コ|かた.める；かた.まる；かた.まり；かた.い|固い；固まる；頑固；固体；固定；固有；固める
+R5801|則|rule；law；follow；based on；model after|9|ソク|のっと.る；のり；すなわち|規則；法則；不規則；原則
+R5802|乱|riot；war；disorder；disturb|7|ラン；ロン|みだ.れる；みだ.る；みだ.す；みだ；おさ.める；わた.る|混乱；乱暴；内乱；反乱；乱す；乱れる
+R5803|普|universal；wide(ly)；generally；Prussia|12|フ|あまね.く；あまねし|普通；普段；普及；普遍
+R5804|測|fathom；plan；scheme；measure|12|ソク|はか.る|予測；観測；測定；測量；測る；推測
+R5805|豊|bountiful；excellent；rich|13|ホウ；ブ|ゆた.か；とよ|豊富；豊か；豊作
+R5806|厚|thick；heavy；rich；kind；cordial；brazen；shameless|9|コウ|あつ.い；あか|厚い；厚かましい
+R5807|齢|age|17|レイ|よわい；とし|年齢
+R5808|囲|surround；besiege；store；paling；enclosure；encircle；preserve；keep|7|イ|かこ.む；かこ.う；かこ.い|囲む；周囲；範囲；雰囲気
+R5809|卒|graduate；soldier；private；die|8|ソツ；シュツ|そっ.する；お.える；お.わる；ついに；にわか|卒業；何卒
+R5810|略|abbreviation；omission；outline；shorten；capture；plunder|11|リャク|ほぼ；はぶ.く；おか.す；おさ.める；はかりごと；はか.る|省略；略す；概略；侵略；略語；略奪
+R5811|承|acquiesce；hear；listen to；be informed；receive|8|ショウ；ジョウ|うけたまわ.る；う.ける|承知；承認；承る；承諾；了承
+R5812|順|obey；order；turn；right；docility；occasion|12|ジュン||順；順調；順番；順々；順序；道順；手順；不順
+R5813|岩|boulder；rock；cliff|8|ガン|いわ|岩；溶岩；岩石
+R5814|練|practice；gloss；train；drill；polish；refine|14|レン|ね.る；ね.り|練習；訓練；練る；未練
+R5815|軽|lightly；trifling；unimportant|12|ケイ；キョウ；キン|かる.い；かろ.やか；かろ.んじる|軽い；気軽；軽快；軽減；軽率；軽蔑；手軽
+R5816|了|complete；finish|2|リョウ||完了；終了；了；修了；了解；了承
+R5817|庁|government office|5|チョウ；テイ|やくしょ|官庁；県庁；庁
+R5818|城|castle|9|ジョウ；セイ|しろ|城；城下
+R5819|患|afflicted；disease；suffer from；be ill|11|カン|わずら.う|患者
+R5820|層|stratum；social class；layer；story；floor|14|ソウ||一層；高層；大層；階層
+R5821|版|printing block；printing plate；edition；impression；label|8|ハン||出版；版；初版；絶版；版画
+R5822|令|orders；laws；command；decree；good|5|レイ||命令；指令；仮令
+R5823|角|angle；corner；square；horn；antlers|7|カク|かど；つの|角；角度；三角；四角；折角；直角；方角；街角
+R5824|絡|entwine；coil around；get caught in|12|ラク|から.む；から.まる|連絡；絡む
+R5825|損|damage；loss；disadvantage；hurt；injure|13|ソン|そこ.なう；そこな.う；-そこ.なう；そこ.ねる；-そこ.ねる|損；損害；損得；損失；破損；損なう
+R5826|募|recruit；campaign；gather (contributions)；enlist；grow violent|12|ボ|つの.る|募集；応募；公募；募る；募金
+R5827|裏|back；amidst；in；reverse；inside；palm；sole；rear；lining；wrong side|13|リ|うら|裏；裏切る；裏口；裏返す；裏返し
+R5828|仏|Buddha；the dead；France|4|ブツ；フツ|ほとけ|仏；仏像
+R5829|績|exploits；achievements；unreeling cocoons|17|セキ||成績；功績；実績；業績；紡績
+R5830|築|fabricate；build；construct|16|チク|きず.く|建築；築く；新築
+R5831|貨|freight；goods；property|11|カ|たから|硬貨；貨物；通貨；外貨；貨幣；雑貨
+R5832|混|mix；blend；confuse|11|コン|ま.じる；-ま.じり；ま.ざる；ま.ぜる；こ.む|混雑；混乱；混合；混ざる；混じる；混ぜる；混む；混血
+R5833|昇|rise up|8|ショウ|のぼ.る|昇る；上昇；昇進
+R5834|池|pond；cistern；pool；reservoir|6|チ|いけ|池；電池；乾電池
+R5835|血|blood|6|ケツ|ち|血；血圧；血液；輸血；血管；混血；出血
+R5836|温|warm|12|オン|あたた.か；あたた.かい；あたた.まる；あたた.める；ぬく|温い；温暖；温度；気温；体温；温室；温泉；温帯
+R5837|季|seasons|8|キ||季節；四季；季刊
+R5838|星|star；spot；dot；mark|9|セイ；ショウ|ほし；-ぼし|星；衛星；火星；星座；惑星
+R5839|永|eternity；long；lengthy|5|エイ|なが.い|永遠；永久；永い
+R5840|著|renowned；publish；write；remarkable；phenomenal；put on；don；wear；arrival；finish (race)；counter for suits of clothing；literary work|11|チョ；チャク|あらわ.す；いちじる.しい|著者；著す；著書；著名；著しい
+R5841|誌|document；records|14|シ||雑誌
+R5842|庫|warehouse；storehouse|10|コ；ク|くら|冷蔵庫；金庫；車庫；倉庫；在庫
+R5843|刊|publish；carve；engrave|5|カン||夕刊；刊行；季刊；創刊
+R5844|像|statue；picture；image；figure；portrait|14|ゾウ||想像；像；映像；現像；仏像
+R5845|香|incense；smell；perfume|9|コウ；キョウ|か；かお.り；かお.る|香り；香水；香辛料
+R5846|坂|slope；incline；hill|7|ハン|さか|坂
+R5847|底|bottom；sole；depth；bottom price；base；kind；sort|8|テイ|そこ|底；徹底；根底；到底
+R5848|布|linen；cloth；spread；distribute|5|フ；ホ|ぬの；し.く；きれ|財布；布団；布；毛布；分布；座布団；配布；布巾
+R5849|寺|Buddhist temple|6|ジ|てら|寺；寺院
+R5850|宇|eaves；roof；house；heaven|6|ウ||宇宙
+R5851|巨|gigantic；big；large；great|5|キョ||巨大
+R5852|震|quake；shake；tremble；quiver；shiver|15|シン|ふる.う；ふる.える；ふる.わせる；ふる.わす|地震；震える；震わせる
+R5853|希|hope；beg；request；pray；beseech；Greece；dilute (acid)；rare；few；phenomenal|7|キ；ケ|まれ；こいねが.う|希望
+R5854|触|contact；touch；feel；hit；proclaim；announce；conflict|13|ショク|ふ.れる；さわ.る；さわ|触る；触れる；感触；接触
+R5855|依|reliant；depend on；consequently；therefore；due to|8|イ；エ|よ.る|依頼；依然；依存
+R5856|籍|enroll；domiciliary register；membership|20|セキ||国籍；書籍；戸籍
+R5857|汚|dirty；pollute；disgrace；rape；defile|6|オ|けが.す；けが.れる；けが.らわしい；よご.す；よご.れる；きたな.い|汚い；汚れる；汚染；汚す；汚れ；汚らわしい
+R5858|枚|sheet of...；counter for flat thin objects or sheets|8|マイ；バイ||枚数；枚
+R5859|複|duplicate；double；compound；multiple|14|フク||複雑；複写；複数；重複；複合
+R5860|郵|mail；stagecoach stop|11|ユウ||郵便局；郵便；郵送
+R5861|仲|go-between；relationship|6|チュウ|なか|仲；仲間；仲直り；仲良し；仲人
+R5862|栄|flourish；prosperity；honor；glory；splendor|9|エイ；ヨウ|さか.える；は.え；-ば.え；は.える；え|栄養；繁栄；栄える
+R5863|札|tag；paper money；counter for bonds；placard；bid|5|サツ|ふだ|札；改札；名札
+R5864|板|plank；board；plate；stage|8|ハン；バン|いた|板；黒板；看板
+R5865|骨|skeleton；bone；remains；frame|10|コツ|ほね|骨；骨折；露骨；骨董品
+R5866|傾|lean；incline；tilt；trend；wane；sink；ruin；bias|13|ケイ|かたむ.く；かたむ.ける；かたぶ.く；かた.げる；かし.げる|傾向；傾く；傾斜；傾ける
+R5867|届|deliver；reach；arrive；report；notify；forward|8|カイ|とど.ける；-とど.け；とど.く|届ける；届く；届け
+R5868|巻|scroll；volume；book；part；roll up；wind up；tie；coil；counter for texts (or book scrolls)|9|カン；ケン|ま.く；まき；ま.き|寝巻；巻く；巻；取り巻く
+R5869|燃|burn；blaze；glow|16|ネン|も.える；も.やす；も.す|燃える；燃やす；燃焼；燃料
+R5870|跡|tracks；mark；print；impression|13|セキ|あと|足跡；遺跡；追跡；跡継ぎ；跡切れる
+R5871|包|wrap；pack up；cover；conceal|5|ホウ|つつ.む；くる.む|包む；小包；包み；包装；包帯
+R5872|駐|stop-over；reside in；resident|15|チュウ||駐車場；駐車
+R5873|弱|weak；frail|10|ジャク|よわ.い；よわ.る；よわ.まる；よわ.める|弱い；弱点；弱；薄弱；貧弱；弱る；弱まる；弱める
+R5874|紹|introduce；inherit；help|11|ショウ||紹介
+R5875|雇|employ；hire|12|コ|やと.う|雇う；雇用
+R5876|替|exchange；spare；substitute；per-|12|タイ|か.える；か.え-；か.わる|取り替える；両替；替える；為替；交替；着替え；取り替え；切り替える
+R5877|預|deposit；custody；leave with；entrust to|13|ヨ|あず.ける；あず.かる|預ける；預かる；預金
+R5878|焼|bake；burning|12|ショウ|や.く；や.き；や.き-；-や.き；や.ける|焼く；焼ける；燃焼；日焼け；夕焼け
+R5879|簡|simplicity；brevity|18|カン；ケン|えら.ぶ；ふだ|簡単；簡易；簡潔；簡素
+R5880|章|badge；chapter；composition；poem；design|11|ショウ||文章；章
+R5881|臓|entrails；viscera；bowels|19|ゾウ|はらわた|心臓；内臓
+R5882|律|rhythm；law；regulation；gauge；control|9|リツ；リチ；レツ||法律；規律；一律
+R5883|贈|presents；send；give to；award to；confer on；presenting something|18|ゾウ；ソウ|おく.る|贈り物；贈る；寄贈
+R5884|照|illuminate；shine；compare；bashful|13|ショウ|て.る；て.らす；て.れる|対照；照る；照らす；参照；照合；照明；照り返す
+R5885|薄|dilute；thin；weak (tea)；pampas grass|16|ハク|うす.い；うす-；-うす；うす.める；うす.まる；うす.らぐ；うす.ら-；うす.れる；すすき|薄い；薄暗い；薄める；薄弱
+R5886|群|flock；group；crowd；herd；swarm；cluster|13|グン|む.れる；む.れ；むら；むら.がる|群れ；群；群集；群がる
+R5887|秒|second (1/60 minute)|9|ビョウ||秒
+R5888|奥|heart；interior|12|オウ|おく；おく.まる；くま|奥さん；奥
+R5889|詰|packed；close；pressed；reprove；rebuke；blame|13|キツ；キチ|つ.める；つ.め；-づ.め；つ.まる；つ.む|詰める；缶詰；瓶詰；詰まる；詰る
+R5890|双|pair；set；comparison；counter for pairs|4|ソウ|ふた；たぐい；ならぶ；ふたつ|双子
+R5891|孝|filial piety；child's respect|7|コウ；キョウ||孝行
+R5892|刺|thorn；pierce；stab；prick；sting；calling card|8|シ|さ.す；さ.さる；さ.し；さし；とげ|刺激；刺身；刺す；名刺；刺さる；刺；刺繍
+R5893|純|genuine；purity；innocence；net (profit)|10|ジュン||単純；純情；純粋；清純
+R5894|翌|the following；next|11|ヨク||
+R5895|快|cheerful；pleasant；agreeable；comfortable|7|カイ|こころよ.い|快適；愉快；快晴；軽快；快い；全快
+R5896|片|one-sided；leaf；sheet；right-side kata radical (no. 91)|4|ヘン|かた-；かた|片付ける；片道；破片；片仮名；片付く；片寄る；片言；鉄片
+R5897|敬|awe；respect；honor；revere|12|ケイ；キョウ|うやま.う|敬意；尊敬；敬う；敬語；敬具
+R5898|悩|trouble；worry；in pain；distress；illness|10|ノウ|なや.む；なや.ます；なや.ましい；なやみ|悩む；悩み；悩ます；悩ましい
+R5899|泉|spring；fountain|9|セン|いずみ|泉；温泉
+R5900|皮|pelt；skin；hide；leather；skin radical (no. 107)|5|ヒ|かわ|皮；毛皮；皮肉；皮膚
+R5901|漁|fishing；fishery|14|ギョ；リョウ|あさ.る|漁業；漁師；漁船；漁村
+R5902|荒|laid waste；rough；rude；wild|9|コウ|あ.らす；あ.れる；あら.い；すさ.ぶ；すさ.む；あ.らし|荒い；荒廃；荒らす；荒っぽい
+R5903|貯|savings；store；lay in；keep；wear mustache|12|チョ|た.める；たくわ.える|貯金；貯蔵；貯蓄
+R5904|硬|stiff；hard|12|コウ|かた.い|硬い；硬貨；強硬
+R5905|埋|bury；be filled up；embedded|10|マイ|う.める；う.まる；う.もれる；うず.める；うず.まる；い.ける|埋める；埋蔵；埋まる；埋め込む
+R5906|柱|pillar；post；cylinder；support|9|チュウ|はしら|電柱；柱
+R5907|祭|ritual；offer prayers；celebrate；deify；enshrine；worship|11|サイ|まつ.る；まつ.り；まつり|お祭り；祭；祭日；祭る
+R5908|袋|sack；bag；pouch|11|タイ；ダイ|ふくろ|手袋；袋；足袋
+R5909|筆|writing brush；writing；painting brush；handwriting|12|ヒツ|ふで|鉛筆；万年筆；筆；執筆；随筆；筆記；筆者
+R5910|訓|instruction；Japanese character reading；explanation；read|10|クン；キン|おし.える；よ.む；くん.ずる|訓；訓練；教訓
+R5911|浴|bathe；be favored with；bask in|10|ヨク|あ.びる；あ.びせる|浴衣；海水浴；入浴；浴室
+R5912|童|juvenile；child|12|ドウ|わらべ|児童；童話
+R5913|宝|treasure；wealth；valuables|8|ホウ|たから|宝；宝石；重宝；宝器
+R5914|封|seal；closing|9|フウ；ホウ||封筒；封；同封；封鎖；封建
+R5915|胸|bosom；breast；chest；heart；feelings|10|キョウ|むね；むな-|胸
+R5916|砂|sand|9|サ；シャ|すな|砂糖；砂；砂漠；砂利
+R5917|塩|salt|13|エン|しお|塩；食塩；塩辛い
+R5918|賢|intelligent；wise；wisdom；cleverness|16|ケン|かしこ.い|賢い；賢明
+R5919|腕|arm；ability；talent|12|ワン|うで|腕；腕前
+R5920|兆|portent；10**12；trillion；sign；omen；symptoms|6|チョウ|きざ.す；きざ.し|兆し
+R5921|床|bed；counter for beds；floor；padding；tatami|7|ショウ|とこ；ゆか|床；起床；床の間
+R5922|毛|fur；hair；feather；down|4|モウ|け|毛；毛布；髪の毛；毛糸；毛皮；羊毛
+R5923|緑|green|14|リョク；ロク|みどり|緑
+R5924|尊|revered；valuable；precious；noble；exalted|12|ソン|たっと.い；とうと.い；たっと.ぶ；とうと.ぶ|尊敬；尊重；尊い；尊ぶ；自尊心
+R5925|祝|celebrate；congratulate|9|シュク；シュウ|いわ.う|お祝い；祝い；祝う；祝日；祝賀
+R5926|柔|tender；weakness；gentleness；softness|9|ジュウ；ニュウ|やわ.らか；やわ.らかい；やわ；やわ.ら|柔道；柔らかい；柔軟
+R5927|殿|Mr.；hall；mansion；palace；temple；lord|13|デン；テン|との；-どの|殿；宮殿；神殿；沈殿；殿様
+R5928|濃|concentrated；thick；dark；undiluted|16|ノウ|こ.い|濃い；濃度
+R5929|液|fluid；liquid；juice；sap；secretion|11|エキ||液体；血液；液；溶液
+R5930|衣|garment；clothes；dressing|6|イ；エ|ころも；きぬ；-ぎ|衣服；浴衣；衣食住；衣装；衣料；衣類
+R5931|肩|shoulder|8|ケン|かた|肩
+R5932|零|zero；spill；overflow；nothing；cipher|13|レイ|ぜろ；こぼ.す；こぼ.れる|零；零点
+R5933|幼|infancy；childhood|5|ヨウ|おさな.い|幼い；幼児；幼稚；幼稚園
+R5934|荷|baggage；shoulder-pole load；bear (a burden)；shoulder (a gun)；load；cargo；freight|10|カ|に|荷物；荷；荷造り
+R5935|泊|overnight stay；put up at；ride at anchor|8|ハク|と.まる；と.める|泊まる；宿泊；泊める；泊
+R5936|黄|yellow|11|コウ；オウ|き；こ-|黄色；黄色い；黄金
+R5937|寿|longevity；congratulations；one's natural life|7|ジュ；ス；シュウ|ことぶき；ことぶ.く；ことほ.ぐ|寿命
+R5938|甘|sweet；coax；pamper；be content；sugary|5|カン|あま.い；あま.える；あま.やかす；うま.い|甘い；甘やかす；甘口；甘える
+R5939|臣|retainer；subject|7|シン；ジン||大臣；総理大臣
+R5940|浅|shallow；superficial；frivolous；wretched；shameful|9|セン|あさ.い|浅い；浅ましい
+R5941|掃|sweep；brush|11|ソウ；シュ|は.く|掃除；清掃；掃く
+R5942|雲|cloud|12|ウン|くも；-ぐも|雲
+R5943|掘|dig；delve；excavate|11|クツ|ほ.る|掘る；採掘；発掘
+R5944|捨|discard；throw away；abandon；resign；reject；sacrifice|11|シャ|す.てる|捨てる；四捨五入
+R5945|軟|soft|11|ナン|やわ.らか；やわ.らかい|軟らかい；柔軟
+R5946|沈|sink；be submerged；subside；be depressed；aloes|7|チン；ジン|しず.む；しず.める|沈む；沈殿；沈没；沈黙；沈める
+R5947|凍|frozen；congeal；refrigerate|10|トウ|こお.る；こご.える；こご.る；い.てる；し.みる|凍る；冷凍；凍える
+R5948|乳|milk；breasts|8|ニュウ|ちち；ち|牛乳；乳
+R5949|恋|romance；in love；yearn for；miss；darling|10|レン|こ.う；こい；こい.しい|恋；恋人；失恋；恋しい；恋愛；恋する
+R5950|紅|crimson；deep red|9|コウ；ク|べに；くれない；あか.い|紅茶；口紅；紅葉
+R5951|郊|outskirts；suburbs；rural area|9|コウ||郊外；近郊
+R5952|腰|loins；hips；waist；low wainscoting|13|ヨウ|こし|腰；腰掛け；腰掛ける
+R5953|炭|charcoal；coal|9|タン|すみ|石炭；炭鉱；炭素
+R5954|踊|jump；dance；leap；skip|14|ヨウ|おど.る|踊り；踊る
+R5955|冊|tome；counter for books；volume|5|サツ；サク|ふみ|冊
+R5956|勇|courage；cheer up；be in high spirits；bravery；heroism|9|ユウ|いさ.む|勇気；勇ましい；勇敢
+R5957|械|contraption；fetter；machine；instrument|11|カイ|かせ|機械；器械
+R5958|菜|vegetable；side dish；greens|11|サイ|な|野菜
+R5959|珍|rare；curious；strange|9|チン|めずら.しい；たから|珍しい
+R5960|卵|egg；ovum；spawn；roe|7|ラン|たまご|卵
+R5961|湖|lake|12|コ|みずうみ|湖
+R5962|喫|consume；eat；drink；smoke；receive (a blow)|12|キツ|の.む|喫茶店；喫茶
+R5963|干|dry；parch；ebb；recede；interfere；intercede|3|カン|ほ.す；ほ.し-；-ぼ.し；ひ.る|干す；梅干；干渉；若干；干し物
+R5964|虫|insect；bug；temper|6|チュウ；キ|むし|虫；虫歯；昆虫
+R5965|刷|printing；print；brush|8|サツ|す.る；-ず.り；-ずり；は.く|印刷；刷る；刷り
+R5966|湯|hot water；bath；hot spring|12|トウ|ゆ|湯；湯気；湯飲み；熱湯；茶の湯
+R5967|溶|melt；dissolve；thaw|13|ヨウ|と.ける；と.かす；と.く|溶く；溶岩；溶かす；溶ける；溶け込む；溶液
+R5968|鉱|mineral；ore|13|コウ|あらがね|鉱物；炭鉱；鉱業；鉱山
+R5969|涙|tears；sympathy|10|ルイ；レイ|なみだ|涙
+R5970|匹|equal；head；counter for small animals；roll of cloth|4|ヒツ|ひき|匹；匹敵
+R5971|孫|grandchild；descendants|10|ソン|まご|孫；子孫
+R5972|鋭|pointed；sharpness；edge；weapon；sharp；violent|15|エイ|するど.い|鋭い
+R5973|枝|bough；branch；twig；limb；counter for branches|8|シ|えだ|枝
+R5974|塗|paint；plaster；daub；smear；coating|13|ト|ぬ.る；ぬ.り；まみ.れる|塗る
+R5975|軒|flats；counter for houses；eaves|10|ケン|のき|軒；軒並み
+R5976|毒|poison；virus；venom；germ；harm；injury；spite|8|ドク||毒；気の毒；消毒；中毒
+R5977|叫|shout；exclaim；yell|6|キョウ|さけ.ぶ|叫ぶ；叫び
+R5978|拝|worship；adore；pray to|8|ハイ|おが.む；おろが.む|拝見；拝む；崇拝；拝啓；拝借
+R5979|氷|icicle；ice；hail；freeze；congeal|5|ヒョウ|こおり；ひ；こお.る|氷
+R5980|乾|drought；dry；desiccate；drink up；heaven；emperor|11|カン；ケン|かわ.く；かわ.かす；ほ.す；ひ.る；いぬい|乾く；乾燥；乾杯；乾かす；乾電池；乾
+R5981|棒|rod；stick；cane；pole；club；line|12|ボウ||泥棒；棒；鉄棒
+R5982|祈|pray；wish|8|キ|いの.る|祈る；祈り
+R5983|拾|pick up；gather；find；go on foot；ten|9|シュウ；ジュウ|ひろ.う|拾う
+R5984|粉|flour；powder；dust|10|フン|デシメートル；こ；こな|粉；花粉；粉々；粉末
+R5985|糸|thread|6|シ|いと|糸；毛糸
+R5986|綿|cotton|14|メン|わた|木綿；綿
+R5987|汗|sweat；perspire|6|カン|あせ|汗
+R5988|銅|copper|14|ドウ|あかがね|銅
+R5989|湿|damp；wet；moist|12|シツ；シュウ|しめ.る；しめ.す；うるお.う；うるお.す|湿気；湿度；湿る；湿気る
+R5990|瓶|bottle；vial；jar；jug；vat；urn|11|ビン；ヘイ|かめ|花瓶；瓶；瓶詰
+R5991|咲|blossom；bloom|9|ショウ|さ.く；-ざき|咲く
+R5992|召|seduce；call；send for；wear；put on；ride in；buy；eat；drink；catch (cold)|5|ショウ|め.す|召し上がる；召す
+R5993|缶|tin can；container；jar radical (no. 121)|6|カン|かま|缶；缶詰；薬缶
+R5994|隻|vessels；counter for ships；fish；birds；arrows；one of a pair|10|セキ||
+R5995|脂|fat；grease；tallow；lard；rosin；gum；tar|10|シ|あぶら|脂；脂肪
+R5996|蒸|steam；heat；sultry；foment；get musty|13|ジョウ；セイ|む.す；む.れる；む.らす|蒸気；蒸発；蒸す；水蒸気；蒸し暑い；蒸留
+R5997|肌|texture；skin；body；grain|6|キ|はだ|肌；肌着
+R5998|耕|till；plow；cultivate|10|コウ|たがや.す|耕地；耕す；耕作；農耕
+R5999|鈍|dull；slow；foolish；blunt|12|ドン|にぶ.い；にぶ.る；にぶ-；なま.る；なまく.ら|鈍い；鈍感；鈍る
+R6000|泥|mud；mire；adhere to；be attached to|8|デイ；ナイ；デ；ニ|どろ；なず.む|泥棒；泥
+R6001|隅|corner；nook|12|グウ|すみ|隅
+R6002|灯|lamp；a light；light；counter for lights|6|トウ|ひ；ほ-；ともしび；とも.す；あかり|電灯；灯；灯台；灯油；蛍光灯
+R6003|辛|spicy；bitter；hot；acrid|7|シン|から.い；つら.い；-づら.い；かのと|辛い；塩辛い；辛抱；香辛料；辛うじて
+R6004|磨|grind；polish；scour；improve；brush (teeth)|16|マ|みが.く；す.る|磨く；歯磨き
+R6005|麦|barley；wheat|7|バク|むぎ|小麦；蕎麦
+R6006|姓|surname|8|セイ；ショウ||姓；姓名
+R6007|筒|cylinder；pipe；tube；gun barrel；sleeve|12|トウ|つつ|封筒；水筒；筒
+R6008|鼻|nose；snout|14|ビ|はな|鼻；耳鼻科
+R6009|粒|grains；drop；counter for tiny particles|11|リュウ|つぶ|粒
+R6010|詞|part of speech；words；poetry|12|シ|ことば|動詞；副詞；名詞；形容詞；代名詞；形容動詞；助詞；数詞
+R6011|胃|stomach；paunch；crop；craw|9|イ||胃
+R6012|畳|tatami mat；counter for tatami mats；fold；shut up；do away with|12|ジョウ；チョウ|たた.む；たたみ；かさ.なる|畳；畳む
+R6013|机|desk；table|6|キ|つくえ|机
+R6014|膚|skin；body；grain；texture；disposition|15|フ|はだ|皮膚
+R6015|濯|laundry；wash；pour on；rinse|17|タク|すす.ぐ；ゆす.ぐ|洗濯；濯ぐ
+R6016|塔|pagoda；tower；steeple|12|トウ||塔
+R6017|沸|seethe；boil；ferment；uproar；breed|8|フツ|わ.く；わ.かす|沸く；沸かす；沸騰
+R6018|灰|ashes；puckery juice；cremate|6|カイ|はい|灰皿；灰；灰色
+R6019|菓|candy；cakes；fruit|11|カ||お菓子；菓子
+R6020|帽|cap；headgear|12|ボウ；モウ|ずきん；おお.う|帽子
+R6021|枯|wither；die；dry up；be seasoned|9|コ|か.れる；か.らす|枯れる
+R6022|釜|kettle；cauldron；iron pot|10|フ|かま|釜
+R6023|涼|refreshing；nice and cool|11|リョウ|すず.しい；すず.む；すず.やか；うす.い；ひや.す；まことに|涼しい；涼む
+R6024|舟|boat；ship|6|シュウ|ふね；ふな-；-ぶね|舟
+R6025|貝|shellfish|7|バイ|かい|貝；貝殻
+R6026|符|token；sign；mark；tally；charm|11|フ||切符；符号
+R6027|憎|hate；detest|14|ゾウ|にく.む；にく.い；にく.らしい；にく.しみ|憎い；憎む；憎らしい；愛憎；憎しみ
+R6028|皿|dish；a helping；plate|5|ベイ|さら|お皿；灰皿；皿
+R6029|肯|agreement；consent；comply with|8|コウ|がえんじ.る|肯定
+R6030|燥|parch；dry up|17|ソウ|はしゃ.ぐ|乾燥
+R6031|畜|livestock；domestic fowl and animals|10|チク||牧畜；家畜；畜産；畜生
+R6032|瓦|tile；gram|5|ガ|かわら；ぐらむ|瓦；煉瓦
+R6033|挟|pinch；between|9|キョウ；ショウ|はさ.む；はさ.まる；わきばさ.む；さしはさ.む|挟む；挟まる
+R6034|曇|cloudy weather；cloud up|16|ドン|くも.る|曇り；曇る
+R6035|滴|drip；drop|14|テキ|しずく；したた.る|水滴
+R6036|爪|claw；nail；talon|4|ソウ|つめ；つま-|爪
+R6037|枕|pillow|8|チン；シン|まくら|枕
+R6038|丼|bowl；bowl of food|5|トン；タン；ショウ；セイ|どんぶり|丼
+R6039|斬|beheading；kill；murder|11|ザン；サン；セン；ゼン|き.る|斬る
+R6040|餅|mochi rice cake|14|ヘイ；ヒョウ|もち；もちい|餅
+R6041|芯|wick|7|シン||芯
+R6042|伺|pay respects；visit；ask；inquire；question；implore|7|シ|うかが.う|
+R6043|匂|fragrant；stink；glow；insinuate；(kokuji)|4||にお.う；にお.い；にお.わせる|匂う
+R6044|麓|foot of a mountain|19|ロク|ふもと|麓
+R6045|稽|think；consider|15|ケイ|かんが.える；とど.める|稽古；滑稽
+R6046|蹴|kick|19|シュク；シュウ|け.る|蹴る；蹴飛ばす
+R6047|蓋|cover；lid；flap|13|ガイ；カイ；コウ|ふた；けだ.し；おお.う；かさ；かこう|蓋
+R6048|拭|wipe；mop；swab|9|ショク；シキ|ぬぐ.う；ふ.く|拭く；手拭い
+R6049|煎|broil；parch；roast；boil|13|セン|せん.じる；い.る；に.る|煎る
+R6050|嗅|smell；sniff；scent|13|キュウ|か.ぐ|嗅ぐ
+R6051|塞|close；shut；cover；block；obstruct|13|ソク；サイ|ふさ.ぐ；とりで；み.ちる|塞ぐ；塞がる
+R6052|宛|address；just like；fortunately|8|エン|あ.てる；-あて；-づつ；あたか.も|宛名；宛；宛てる
+R6053|巾|towel；hanging scroll；width；cloth radical (no. 50)|3|キン；フク|おお.い；ちきり；きれ|雑巾；布巾
+R6054|捻|twirl；twist；play with|11|ネン；ジョウ|ね.じる；ねじ.る；ひね.くる；ひね.る|捻る；捻じれる
+R6055|桁|beam；girder；spar；unit or column (accounting)|10|コウ|けた|桁
+R6056|潰|crush；smash；break；dissipate|15|カイ；エ|つぶ.す；つぶ.れる；つい.える|潰す；潰れる
+R6057|箋|paper；label；letter；composition|14|セン|ふだ|便箋
+R6058|羨|envious；be jealous；covet|13|セン；エン|うらや.む；あまり|羨む；羨ましい
+R6059|肘|elbow；arm|7|チュウ|ひじ|肘
+R6060|遜|humble；modest|13|ソン|したが.う；へりくだ.る；ゆず.る|謙遜
+R6061|遡|go upstream；retrace the past|13|ソ；サク|さかのぼ.る|遡る
+R6062|隙|crevice；fissure；discord；opportunity；leisure|13|ゲキ；キャク；ケキ|すき；す.く；す.かす；ひま|隙間
+R9255|氏|family name；surname；clan|4|シ|うじ；-うじ|氏；氏名
+R9256|統|overall；relationship；ruling；governing|12|トウ|す.べる|伝統；大統領；系統；統一；統計；統合；統制；統率
+R9257|保|protect；guarantee；keep；preserve；sustain；support|9|ホ；ホウ|たも.つ|保証；保存；保健；確保；保つ；保育；保温；保管
+R9258|第|No.；residence|11|ダイ；テイ||次第；落第；第
+R9259|結|tie；bind；contract；join；organize；do up hair；fasten|12|ケツ；ケチ|むす.ぶ；ゆ.う；ゆ.わえる|結構；結婚；結果；結局；結論；結ぶ；結核；結合
+R9260|派|faction；group；party；clique；sect；school|9|ハ||派手；派；特派；派遣
+R9261|案|plan；suggestion；draft；ponder；fear；proposition；idea；expectation；worry；table；bench|10|アン|つくえ|案内；案；提案；答案；案外；議案；法案；案じる
+R9262|策|scheme；plan；policy；step；means|12|サク||対策；策；政策；方策
+R9263|基|fundamentals；radical (chem)；counter for machines；foundation|11|キ|もと；もとい|基；基本；基づく；基準；基礎；基地；基盤；基金
+R9264|価|value；price|8|カ；ケ|あたい|価格；価値；高価；評価；物価；定価
+R9265|提|propose；take along；carry in hand|12|テイ；チョウ；ダイ|さ.げる|提案；提出；前提；提供；提携；提示
+R9266|挙|raise；plan；project；behavior；actions|10|キョ|あ.げる；あ.がる；こぞ.る|挙げる；選挙；一挙に
+R9267|応|apply；answer；yes；OK；reply；accept|7|オウ；ヨウ；-ノウ|あた.る；まさに；こた.える|応じる；一応；応援；応接；応対；応用；応ずる；応急
+R9268|企|undertake；scheme；design；attempt；plan|6|キ|くわだ.てる；たくら.む|企業；企画
+R9269|検|examination；investigate|12|ケン|しら.べる|検査；検討；検事；探検；点検
+R9270|藤|wisteria|18|トウ；ドウ|ふじ|
+R9271|沢|swamp；marsh；brilliance；grace|7|タク|さわ；うるお.い；うるお.す；つや|贅沢；光沢
+R9272|裁|tailor；judge；decision；cut out (pattern)|12|サイ|た.つ；さば.く|裁判；裁縫；裁く；制裁；体裁；独裁
+R9273|証|evidence；proof；certificate|12|ショウ|あかし|証明；保証；証；証言；証拠；証人
+R9274|援|abet；help；save|12|エン||援助；応援；救援
+R9275|施|give；bestow；perform；alms|9|シ；セ|ほどこ.す|実施；施行；施設；施す
+R9276|井|well；well crib；town；community|4|セイ；ショウ|い|井戸；天井
+R9277|護|safeguard；protect|20|ゴ|まも.る|看護婦；介護；看護；護衛；弁護；保護；養護
+R9278|展|unfold；expand|10|テン||展覧会；発展；展開；進展；展示；展望
+R9279|態|attitude；condition；figure；appearance；voice (of verbs)|14|タイ|わざ.と|事態；状態；態度；形態；実態；態勢
+R9280|鮮|fresh；vivid；clear；brilliant；Korea|17|セン|あざ.やか|新鮮；鮮やか
+R9281|視|inspection；regard as；see；look at|11|シ|み.る|重視；無視；監視；近視；視覚；視察；視点；視野
+R9282|条|article；clause；counter for articles, clauses, paragraphs, etc.；twig；item；stripe；streak|7|ジョウ；チョウ；デキ|えだ；すじ|条件；条約；箇条書き
+R9283|幹|tree trunk；main part；talent；capability|13|カン|みき|新幹線；幹；幹線；幹部
+R9284|独|single；alone；spontaneously；Germany|9|ドク；トク|ひと.り|独身；独特；独立；独り；独り言；孤独；単独；独裁
+R9285|宮|Shinto shrine；constellations；palace；princess|10|キュウ；グウ；ク；クウ|みや|お宮；宮殿
+R9286|率|ratio；rate；proportion；%；factor；lead；spearhead；command|11|ソツ；リツ；シュツ|ひき.いる|率；確率；率直；能率；軽率；効率；統率；倍率
+R9287|衛|defense；protection|16|エイ；エ||衛星；自衛；衛生；護衛；守衛；防衛
+R9288|張|counter for bows & stringed instruments；stretch；spread；put up (tent)|11|チョウ|は.る；-は.り；-ば.り|緊張；主張；張る；引っ張る；拡張；出張；威張る；欲張り
+R9289|監|oversee；official；govt office；rule；administer|15|カン||監督；監視
+R9290|環|ring；circle；loop|17|カン|わ|環境；循環
+R9291|審|hearing；judge；trial|15|シン|つまび.らか；つぶさ.に|審判；審議；審査；不審
+R9292|義|righteousness；justice；morality；honor；loyalty；meaning|13|ギ||講義；義務；主義；意義；義理；正義；定義
+R9293|訴|accusation；sue；complain of pain；appeal to|12|ソ|うった.える|訴える；訴え；訴訟
+R9294|株|stocks；stump；shares；stock；counter for small plants|10|シュ|かぶ|株；株式
+R9295|姿|figure；form；shape|9|シ|すがた|姿；姿勢
+R9296|閣|tower；tall building；palace|14|カク||内閣
+R9297|韓|Korea|18|カン|から；いげた|
+R9298|衆|masses；great numbers；multitude；populace|12|シュウ；シュ|おお.い|公衆；衆；観衆；大衆；衆議院
+R9299|評|evaluate；criticism；comment|12|ヒョウ||批評；評価；評判；評論；好評；書評；不評
+R9300|岡|mount；hill；knoll|8|コウ|おか|
+R9301|影|shadow；silhouette；phantom|15|エイ|かげ|影；影響；撮影
+R9302|松|pine tree|8|ショウ|まつ|松
+R9303|撃|beat；attack；defeat；conquer|15|ゲキ|う.つ|撃つ；攻撃；襲撃；衝撃；打撃；反撃
+R9304|佐|assistant；help|7|サ||
+R9305|核|nucleus；core；kernel|10|カク||核；結核
+R9306|整|organize；arranging；tune；tone；meter；key (music)|16|セイ|ととの.える；ととの.う|整理；整数；整備；調整；整う；整然；整列；整える
+R9307|融|dissolve；melt|16|ユウ|と.ける；と.かす|金融；融資；融通
+R9308|製|made in...；manufacture|14|セイ||製造；製品；作製；製作；製；製鉄；製法
+R9309|票|ballot；label；ticket；sign|11|ヒョウ||投票；票
+R9310|渉|ford；go cross；transit；ferry；import；involve|11|ショウ|わた.る|干渉；交渉
+R9311|響|echo；sound；resound；ring；vibrate|20|キョウ|ひび.く|影響；響き；響く；反響
+R9312|阪|heights；slope|7|ハン|さか|
+R9313|推|conjecture；infer；guess；suppose；support；push (for)|11|スイ|お.す|推薦；推定；推進；推測；推理；類推
+R9314|請|solicit；invite；ask|15|セイ；シン；ショウ|こ.う；う.ける|請求；請う；申請；要請；強請る
+R9315|器|utensil；vessel；receptacle；implement；instrument；ability；container；tool；set|15|キ|うつわ|器用；武器；楽器；器械；器具；食器；容器；受話器
+R9316|士|gentleman；scholar；samurai；samurai radical (no. 33)|3|シ|さむらい|博士；武士；学士；修士；紳士；同士；兵士
+R9317|討|chastise；attack；defeat；destroy；conquer|10|トウ|う.つ|検討；討つ；討議；討論
+R9318|攻|aggression；attack；criticize；polish|7|コウ|せ.める|攻撃；専攻；攻める；攻め
+R9319|崎|promontory；cape；spit|11|キ|さき；さい；みさき|
+R9320|督|coach；command；urge；lead；supervise|13|トク||監督
+R9321|授|impart；instruct；grant；confer|11|ジュ|さず.ける；さず.かる|授業；教授；助教授；授ける
+R9322|催|sponsor；hold (a meeting)；give (a dinner)|13|サイ|もよう.す；もよお.す|催促；催し；開催；主催；催す
+R9323|及|reach out；exert；exercise；cause|3|キュウ|およ.ぶ；およ.び；および；およ.ぼす|及ぼす；普及；及び；及ぶ；追及
+R9324|憲|constitution；law|16|ケン||憲法
+R9325|離|detach；separation；disjoin；digress|19|リ|はな.れる；はな.す|離す；離婚；離れる；距離；分離
+R9326|激|violent；get excited；enraged；chafe；incite|16|ゲキ|はげ.しい|急激；刺激；激しい；感激；激増；激励
+R9327|摘|pinch；pick；pluck；trim；clip；summarize|14|テキ|つ.む|指摘；摘む
+R9328|系|lineage；system|7|ケイ||系統；体系；系
+R9329|批|criticism；strike|7|ヒ||批判；批評
+R9330|郎|son；counter for sons|9|ロウ；リョウ|おとこ|
+R9331|健|healthy；health；strength；persistence|11|ケン|すこ.やか|健康；保健；健在；健全；健やか
+R9332|盟|alliance；oath|13|メイ||同盟；連盟
+R9333|従|accompany；obey；submit to；comply；follow；secondary；incidental；subordinate|10|ジュウ；ショウ；ジュ|したが.う；したが.える；より|従う；従兄弟；従姉妹；従事；従来；従業員
+R9334|修|discipline；conduct oneself well；study；master|10|シュウ；シュ|おさ.める；おさ.まる|修正；修理；研修；修繕；改修；修学；修業；修士
+R9335|隊|regiment；party；company；squad|12|タイ||軍隊；兵隊
+R9336|織|weave；fabric|18|ショク；シキ|お.る；お.り；おり；-おり；-お.り|組織；織；織物；織る
+R9337|拡|broaden；extend；expand；enlarge|8|カク；コウ|ひろ.がる；ひろ.げる；ひろ.める|拡大；拡充；拡張；拡散
+R9338|故|happenstance；especially；intentionally；reason；cause；circumstances；the late；therefore；consequently|9|コ|ゆえ；ふる.い；もと|故障；事故；故郷；故；故人；其れ故
+R9339|振|shake；wave；wag；swing|10|シン|ふ.る；ふ.れる；ふ.るう|振る；振舞う；振り仮名；振興；振動；不振；振り；身振り
+R9340|弁|valve；petal；braid；speech；dialect；discrimination；dispose of；distinguish；conical cap|5|ベン；ヘン|かんむり；わきま.える；わ.ける；はなびら；あらそ.う|お弁当；弁当；勘弁；代弁；弁解；弁護；弁償；弁論
+R9341|就|concerning；settle；take position；depart；study；per|12|シュウ；ジュ|つ.く；つ.ける|就職；就く；就任；就業
+R9342|異|uncommon；different；queerness；strangeness；wonderful；curious；unusual|11|イ|こと；こと.なる；け|異常；異なる；異議；異見；異性；異動；異論；驚異
+R9343|献|offering；counter for drinks；present；offer|13|ケン；コン|たてまつ.る|貢献；献立；文献
+R9344|厳|stern；strictness；severity；rigidity|17|ゲン；ゴン|おごそ.か；きび.しい；いか.めしい；いつくし|厳しい；厳重；厳か；厳密
+R9345|維|fiber；tie；rope|14|イ||維持；繊維
+R9346|浜|seacoast；beach；seashore|10|ヒン|はま|浜；浜辺
+R9347|遺|bequeath；leave behind；reserve|15|イ；ユイ|のこ.す|遺跡
+R9348|塁|bases；fort；rampart；walls；base(ball)|12|ルイ；ライ；スイ|とりで|
+R9349|邦|home country；country；Japan|7|ホウ|くに|連邦
+R9350|素|elementary；principle；naked；uncovered|10|ソ；ス|もと|素；酸素；要素；素人；水素；素直；素質；簡素
+R9351|遣|dispatch；despatch；send；give；donate；do；undertake|13|ケン|つか.う；-つか.い；-づか.い；つか.わす；や.る|小遣い；仮名遣い；言葉遣い；遣い；派遣；無駄遣い；遣り通す
+R9352|抗|confront；resist；defy；oppose|7|コウ|あらが.う|抵抗；反抗；抗議；抗争；対抗
+R9353|模|imitation；copy；mock|14|モ；ボ||模様；規模；模型；模索；模範；模倣
+R9354|雄|masculine；male；hero；leader；superiority；excellence|12|ユウ|お-；おす；おん|雄；英雄
+R9355|益|benefit；gain；profit；advantage|10|エキ；ヤク|ま.す|利益；収益；有益
+R9356|緊|tense；solid；hard；reliable；tight|15|キン|し.める；し.まる|緊張；緊急
+R9357|標|signpost；seal；mark；stamp；imprint；symbol；emblem；trademark；evidence；souvenir；target|15|ヒョウ|しるべ；しるし|目標；標識；標準；標本；座標；標語
+R9358|宣|proclaim；say；announce|9|セン|のたま.う|宣伝；宣教；宣言
+R9359|昭|shining；bright|9|ショウ||
+R9360|廃|abolish；obsolete；cessation；discarding；abandon|12|ハイ|すた.れる；すた.る|荒廃；廃棄；廃止；廃れる
+R9361|伊|Italy；that one|6|イ|かれ|
+R9362|江|creek；inlet；bay|6|コウ|え|
+R9363|僚|colleague；official；companion|14|リョウ||同僚；官僚
+R9364|吉|good luck；joy；congratulations|6|キチ；キツ|よし|不吉
+R9365|盛|boom；prosper；copulate|11|セイ；ジョウ|も.る；さか.る；さか.ん|盛ん；盛り；盛る；盛装；盛大；全盛；繁盛；目盛
+R9366|皇|emperor|9|コウ；オウ||天皇；皇居
+R9367|臨|look to；face；meet；confront；attend；call on|18|リン|のぞ.む|臨時；臨む
+R9368|踏|step；trample；carry through；appraise；evade payment|15|トウ|ふ.む；ふ.まえる|踏む；踏切；踏まえる
+R9369|壊|demolition；break；destroy|16|カイ；エ|こわ.す；こわ.れる；やぶ.る|壊す；壊れる；破壊；崩壊
+R9370|債|bond；loan；debt|13|サイ||負債
+R9371|興|entertain；revive；retrieve；interest；pleasure|16|コウ；キョウ|おこ.る；おこ.す|興味；興業；興奮；振興；新興；復興；余興；興じる
+R9372|源|source；origin|13|ゲン|みなもと|資源；源；起源；語源；財源；水源；電源
+R9373|儀|ceremony；rule；affair；case；a matter|15|ギ||行儀；礼儀；儀式；御辞儀
+R9374|創|genesis；wound；injury；hurt；start；originate|12|ソウ；ショウ|つく.る；はじ.める；きず；けず.しける|創作；創刊；創造；創立；独創
+R9375|障|hinder；hurt；harm|14|ショウ|さわ.る|故障；障害；障子；気障；障る；保障
+R9376|継|inherit；succeed；continue；patch；graft (tree)|13|ケイ|つ.ぐ；まま-|継続；中継；継ぐ；跡継ぎ；継ぎ目；受け継ぐ
+R9377|筋|muscle；sinew；tendon；fiber；plot；plan；descent|12|キン|すじ|筋；筋肉；大筋；一筋
+R9378|闘|fight；war|18|トウ|たたか.う；あらそ.う|戦闘；奮闘
+R9379|葬|interment；bury；shelve|12|ソウ|ほうむ.る|葬式；葬る
+R9380|避|evade；avoid；avert；ward off；shirk；shun|16|ヒ|さ.ける；よ.ける|避ける；避難
+R9381|司|director；official；govt office；rule；administer|5|シ|つかさど.る|司会；司法；上司；司る
+R9382|康|ease；peace|11|コウ||健康
+R9383|善|virtuous；good；goodness|12|ゼン|よ.い；い.い；よ.く；よし.とする|善；改善；最善；親善；善良；善し悪し
+R9384|逮|apprehend；chase|11|タイ||逮捕
+R9385|迫|urge；force；imminent；spur on|8|ハク|せま.る|迫る；圧迫；脅迫；迫害
+R9386|惑|beguile；delusion；perplexity|12|ワク|まど.う|迷惑；疑惑；誘惑；惑星
+R9387|崩|crumble；die；demolish；level|11|ホウ|くず.れる；-くず.れ；くず.す|崩す；崩れる；雪崩；崩壊
+R9388|紀|chronicle；account；narrative；history；annals；geologic period|9|キ||世紀
+R9389|聴|listen；headstrong；naughty；careful inquiry|17|チョウ；テイ|き.く；ゆる.す|聴覚；聴講；聴診器
+R9390|脱|undress；removing；escape from；get rid of；be left out；take off|11|ダツ|ぬ.ぐ；ぬ.げる|脱ぐ；脱線；脱出；脱退；脱する
+R9391|級|class；rank；grade|9|キュウ||級；学級；高級；上級；初級；階級；等級；同級
+R9392|博|Dr.；command；esteem；win acclaim；Ph.D.；exposition；fair|12|ハク；バク||博士；博物館
+R9393|締|tighten；tie；shut；lock；fasten|15|テイ|し.まる；し.まり；し.める；-し.め；-じ.め|締める；締切；締め切る；戸締り；取り締まり；取り締まる
+R9394|救|salvation；save；help；rescue；reclaim|11|キュウ|すく.う|救助；救う；救援；救済；救い
+R9395|執|tenacious；take hold；grasp；take to heart|11|シツ；シュウ|と.る|執筆；執着
+R9396|房|tassel；tuft；fringe；bunch；lock (hair)；segment (orange)；house；room|8|ボウ|ふさ|暖房；冷房；女房；文房具
+R9397|撤|remove；withdraw；disarm；dismantle；reject；exclude|15|テツ||
+R9398|削|plane；sharpen；whittle；pare；shave|9|サク|けず.る；はつ.る；そ.ぐ|削る；削除；削減
+R9399|密|secrecy；density (pop)；minuteness；carefulness|11|ミツ|ひそ.か|密；秘密；過密；厳密；精密；密か；密集；密接
+R9400|措|set aside；give up；suspend；discontinue；lay aside；except|11|ソ|お.く|措置
+R9401|志|intention；plan；resolve；aspire；motive；hopes；shilling|7|シ|シリング；こころざ.す；こころざし|意志；志；志す；志向；志望；同志
+R9402|載|ride；board；get on；place；spread；10**44；record；publish|13|サイ|の.せる；の.る|載る；載せる；記載；掲載
+R9403|陣|camp；battle array；ranks；position；sudden；brief time|10|ジン||
+R9404|我|ego；I；selfish；our；oneself|7|ガ|われ；わ；わ.が-；わが-|我慢；怪我；我々；自我
+R9405|為|do；change；make；benefit；welfare；be of use；reach to；try；practice；cost；serve as；good；advantage；as a result of|9|イ|ため；な.る；な.す；す.る；たり；つく.る；なり|為；為替；為す；行為
+R9406|抑|repress；well；now；in the first place；push；shove；press；seal；do in spite of|7|ヨク|おさ.える|抑圧；抑制
+R9407|幕|curtain；bunting；act of play|13|マク；バク|とばり|幕
+R9408|染|dye；color；paint；stain；print|9|セン|そ.める；そ.まる；し.みる；し.み|汚染；伝染；感染；染みる；染まる；染める
+R9409|奈|Nara；what?|8|ナ；ナイ；ダイ|いかん；からなし|
+R9410|傷|wound；hurt；injure；impair；pain；injury；cut；gash；scar；weak point|13|ショウ|きず；いた.む；いた.める|傷；火傷；中傷；負傷；傷付く
+R9411|択|choose；select；elect；prefer|7|タク|えら.ぶ|選択；採択
+R9412|秀|excel；excellence；beauty；surpass|7|シュウ|ひい.でる|優秀
+R9413|徴|indications；sign；omen；symptom；collect；seek；refer to；question|14|チョウ；チ|しるし|特徴；象徴；徴収
+R9414|弾|bullet；twang；flip；snap|12|ダン；タン|ひ.く；-ひ.き；はず.む；たま；はじ.く；はじ.ける；ただ.す；はじ.きゆみ|弾く；弾；弾力；爆弾；弾む
+R9415|償|reparation；make up for；recompense；redeem|17|ショウ|つぐな.う|賠償；弁償；補償
+R9416|功|achievement；merits；success；honor；credit|5|コウ；ク|いさお|成功；功績
+R9417|拠|foothold；based on；follow；therefore|8|キョ；コ|よ.る|根拠；証拠
+R9418|秘|secret；conceal|10|ヒ|ひ.める；ひそ.か；かく.す|秘密；神秘；秘書
+R9419|拒|repel；refuse；reject；decline|8|キョ；ゴ|こば.む|拒絶；拒否
+R9420|刑|punish；penalty；sentence；punishment|6|ケイ||刑事；刑；刑罰；死刑
+R9421|塚|hillock；mound|12|チョウ|つか；-づか|
+R9422|致|doth；do；send；forward；cause；exert；incur；engage|10|チ|いた.す|致す；一致；雅致；合致
+R9423|繰|winding；reel；spin；turn (pages)；look up；refer to|19|ソウ|く.る|繰り返す；引っ繰り返る
+R9424|尾|tail；end；counter for fish；lower slope of mountain|7|ビ|お|尾
+R9425|描|sketch；compose；write；draw；paint|11|ビョウ|えが.く；か.く|描く；描写
+R9426|鈴|small bell；buzzer|13|レイ；リン|すず|鈴
+R9427|盤|tray；shallow bowl；platter；tub；board；phonograph record|15|バン||基盤；地盤；算盤；碁盤
+R9428|項|paragraph；nape of neck；clause；item；term (expression)|12|コウ|うなじ|項目；事項
+R9429|喪|miss；mourning|12|ソウ|も|
+R9430|伴|consort；accompany；bring with；companion|7|ハン；バン|ともな.う|伴う
+R9431|養|foster；bring up；rear；develop；nurture|15|ヨウ；リョウ|やしな.う|栄養；休養；教養；養分；扶養；保養；養う；養護
+R9432|懸|state of suspension；hang；depend；consult；distant；far apart|20|ケン；ケ|か.ける；か.かる|一生懸命；懸賞
+R9433|街|boulevard；street；town|12|ガイ；カイ|まち|街；街角；街道；街頭；市街
+R9434|契|pledge；promise；vow|9|ケイ|ちぎ.る|契約；契機；契る
+R9435|掲|put up (a notice)；put up；hoist；display；hang out；publish；describe|11|ケイ|かか.げる|掲示；掲載；掲げる
+R9436|躍|leap；dance；skip|21|ヤク|おど.る|活躍
+R9437|棄|abandon；throw away；discard；resign；reject；sacrifice|13|キ|す.てる|棄権；廃棄；破棄；放棄
+R9438|邸|residence；mansion|8|テイ|やしき|邸宅
+R9439|縮|shrink；contract；shrivel；wrinkle；reduce|17|シュク|ちぢ.む；ちぢ.まる；ちぢ.める；ちぢ.れる；ちぢ.らす|圧縮；恐縮；縮小；縮む；縮める；縮れる；短縮；縮まる
+R9440|還|send back；return|16|カン|かえ.る|還元；還暦；返還
+R9441|属|belong；genus；subordinate official；affiliated|12|ゾク；ショク|さかん；つく；やから|金属；附属；属する；所属；付属
+R9442|慮|prudence；thought；concern；consider；deliberate；fear|15|リョ|おもんぱく.る；おもんぱか.る|遠慮；考慮；配慮
+R9443|枠|frame；framework；spindle；spool；bounding-box；(kokuji)|8||わく|枠
+R9444|恵|favor；blessing；grace；kindness|10|ケイ；エ|めぐ.む；めぐ.み|知恵；恩恵；恵まれる；恵み；恵む
+R9445|露|dew；tears；expose；Russia|21|ロ；ロウ|つゆ|露；暴露；露骨
+R9446|沖|open sea；offing；rise high into sky|7|チュウ|おき；おきつ；ちゅう.する；わく|沖
+R9447|緩|slacken；loosen；relax；lessen；be moderate；ease|15|カン|ゆる.い；ゆる.やか；ゆる.む；ゆる.める|緩い；緩和；緩む；緩める；緩やか
+R9448|節|node；season；period；occasion；verse；clause；stanza；honor；joint；knuckle；knob；knot；tune；melody|13|セツ；セチ|ふし；-ぶし；のっと|季節；節；節約；調節
+R9449|需|demand；request；need|14|ジュ||需要；必需品
+R9450|射|shoot；shine into；onto；archery|10|シャ|い.る；さ.す；う.つ|注射；射す；発射；反射；放射；放射能
+R9451|購|subscription；buy|17|コウ||購読；購入；購買
+R9452|揮|brandish；wave；wag；swing；shake|12|キ|ふる.う|発揮；指揮
+R9453|充|allot；fill|6|ジュウ|あ.てる；み.たす|拡充；充実；補充
+R9454|貢|tribute；support；finance|10|コウ；ク|みつ.ぐ|貢献
+R9455|鹿|deer|11|ロク|しか；か|馬鹿；馬鹿馬鹿しい
+R9456|却|instead；on the contrary；rather；step back；withdraw；retreat|7|キャク|かえ.って；しりぞ.く；しりぞ.ける|却って
+R9457|端|edge；origin；end；point；border；verge；cape|14|タン|はし；は；はた；-ばた；はな|端；途端；先端；極端；半端
+R9458|賃|fare；fee；hire；rent；wages；charge|13|チン||家賃；運賃；賃金
+R9459|獲|seize；get；find；earn；acquire；can；may；able to|16|カク|え.る|獲物；獲得；捕獲
+R9460|郡|county；district|10|グン|こおり|郡
+R9461|併|join；get together；unite；collective|8|ヘイ|あわ.せる|合併
+R9462|徹|penetrate；clear；pierce；strike home；sit up (all night)|15|テツ||徹底；徹夜；徹する
+R9463|貴|precious；value；prize；esteem；honor|12|キ|たっと.い；とうと.い；たっと.ぶ；とうと.ぶ|貴重；貴族；貴い
+R9464|埼|cape；spit；promontory|11|キ|さき；さい；みさき|
+R9465|衝|collide；brunt；highway；opposition (astronomy)；thrust；pierce；stab；prick|15|ショウ|つ.く|衝突；衝撃
+R9466|焦|char；hurry；impatient；irritate；burn；scorch；singe|12|ショウ|こ.げる；こ.がす；こ.がれる；あせ.る；じ.れる；じ.らす|焦点；焦がす；焦げる；焦る；焦げ茶
+R9467|奪|rob；take by force；snatch away；dispossess；plunder；usurp|14|ダツ|うば.う|奪う；略奪
+R9468|災|disaster；calamity；woe；curse；evil|7|サイ|わざわ.い|火災；災難；災害；戦災；天災
+R9469|浦|bay；creek；inlet；gulf；beach；seacoast|10|ホ|うら|
+R9470|析|chop；divide；tear；analyze|8|セキ||分析
+R9471|譲|defer；turnover；transfer；convey|20|ジョウ|ゆず.る|譲る；譲歩
+R9472|称|appellation；praise；admire；name；title；fame|10|ショウ|たた.える；とな.える；あ.げる；かな.う；はか.り；はか.る；ほめ.る|名称；称する
+R9473|納|settlement；obtain；reap；pay；supply；store|10|ノウ；ナッ；ナ；ナン；トウ|おさ.める；-おさ.める；おさ.まる|納得；納める；滞納；納入；納まる
+R9474|樹|timber；trees；wood；establish；set up|16|ジュ|き|樹木；樹立
+R9475|挑|challenge；contend for；make love to|9|チョウ|いど.む|挑む；挑戦
+R9476|誘|entice；lead；tempt；invite；ask；call for；seduce；allure|14|ユウ|さそ.う；いざな.う|誘う；勧誘；誘導；誘惑
+R9477|紛|distract；be mistaken for；go astray；divert|10|フン|まぎ.れる；-まぎ.れ；まぎ.らす；まぎ.らわす；まぎ.らわしい|紛失；紛争；紛れる；紛らわしい
+R9478|至|climax；arrive；proceed；reach；attain；result in|6|シ|いた.る|至る；至急；乃至；至って
+R9479|宗|religion；sect；denomination；main point；origin；essence|8|シュウ；ソウ|むね|宗教
+R9480|促|stimulate；urge；press；demand；incite|9|ソク|うなが.す|催促；促す；促進
+R9481|慎|humility；be careful；discreet；prudent|13|シン|つつし.む；つつ.ましい；つつし；つつし.み|慎重；慎む
+R9482|控|withdraw；draw in；hold back；refrain from；be moderate|11|コウ|ひか.える；ひか.え|控除；控室；控える
+R9483|智|wisdom；intellect；reason|12|チ||
+R9484|握|grip；hold；mould sushi；bribe|12|アク|にぎ.る|握手；握る；把握
+R9485|宙|mid-air；air；space；sky；memorization；interval of time|8|チュウ||宇宙；宙返り
+R9486|俊|sagacious；genius；excellence|9|シュン||
+R9487|銭|coin；.01 yen；money|14|セン；ゼン|ぜに；すき|金銭；小銭
+R9488|渋|astringent；hesitate；reluctant；have diarrhea|11|ジュウ；シュウ|しぶ；しぶ.い；しぶ.る|渋滞；渋い
+R9489|銃|gun；arms|14|ジュウ|つつ|銃
+R9490|操|maneuver；manipulate；operate；steer；chastity；virginity；fidelity|16|ソウ；サン|みさお；あやつ.る|操作；体操；操る；操縦
+R9491|携|portable；carry (in hand)；armed with；bring along|13|ケイ|たずさ.える；たずさ.わる|携帯；提携；携わる
+R9492|診|checkup；seeing；diagnose；examine|12|シン|み.る|診察；診断；診る；診療；聴診器
+R9493|託|consign；requesting；entrusting with；pretend；hint|10|タク|かこつ.ける；かこ.つ；かこ.つける|委託
+R9494|撮|snapshot；take pictures|15|サツ|と.る；つま.む；-ど.り|撮る；撮影
+R9495|誕|nativity；be born；declension；lie；be arbitrary|15|タン||誕生日；誕生
+R9496|侵|encroach；invade；raid；trespass；violate|9|シン|おか.す|侵入；侵す；侵略
+R9497|括|fasten；tie up；arrest；constrict|9|カツ|くく.る|括弧；一括
+R9498|謝|apologize；thank；refuse|17|シャ|あやま.る|謝る；感謝；月謝；謝絶
+R9499|駆|drive；run；gallop；advance；inspire；impel|14|ク|か.ける；か.る|駆け足；駆ける；駆けっこ
+R9500|透|transparent；permeate；filter；penetrate|10|トウ|す.く；す.かす；す.ける；とう.る；とう.す|透明；透き通る
+R9501|津|haven；port；harbor；ferry|9|シン|つ|天津；津波
+R9502|壁|wall；lining (stomach)；fence|16|ヘキ|かべ|壁
+R9503|稲|rice plant|14|トウ；テ|いね；いな-|稲；稲光
+R9504|仮|sham；temporary；interim；assumed (name)；informal|6|カ；ケ|かり；かり-|仮定；仮名；片仮名；平仮名；送り仮名；仮名遣い；振り仮名；仮
+R9505|裂|split；rend；tear|12|レツ|さ.く；さ.ける；-ぎ.れ|裂く；破裂；分裂；裂ける
+R9506|敏|cleverness；agile；alert|10|ビン|さとい|敏感
+R9507|是|just so；this；right；justice|9|ゼ；シ|これ；この；ここ|是正
+R9508|排|repudiate；exclude；expel；reject；line up；arrange|11|ハイ||排除；排水
+R9509|裕|abundant；rich；fertile|12|ユウ||余裕
+R9510|堅|strict；hard；solid；tough；tight；reliable|12|ケン|かた.い；-がた.い|堅い
+R9511|訳|translate；reason；circumstance；case|11|ヤク|わけ|訳；翻訳；申し訳；通訳；訳す；申し訳ない；内訳；言い訳
+R9512|芝|turf；lawn|6|シ|しば|芝居；芝生；芝
+R9513|綱|hawser；class (genus)；rope；cord；cable|14|コウ|つな|綱；横綱
+R9514|典|code；ceremony；law；rule|8|テン；デン|ふみ；のり|辞典；典型；古典；原典
+R9515|賀|congratulations；joy|12|ガ||祝賀
+R9516|扱|handle；entertain；thresh；strip|6|ソウ；キュウ|あつか.い；あつか.う；あつか.る；こ.く|扱う；扱い；取り扱い；取り扱う
+R9517|顧|look back；review；examine oneself；turn around|21|コ|かえり.みる|顧みる
+R9518|弘|vast；broad；wide|5|コウ；グ|ひろ.い|
+R9519|看|watch over；see|9|カン|み.る|看護婦；看板；看病；看護
+R9520|訟|sue；accuse|11|ショウ||訴訟
+R9521|戒|commandment|7|カイ|いまし.める|警戒
+R9522|祉|welfare；happiness|8|シ||福祉
+R9523|誉|reputation；praise；honor；glory|13|ヨ|ほま.れ；ほ.める|名誉
+R9524|歓|delight；joy|15|カン|よろこ.ぶ|歓迎；歓声
+R9525|奏|play music；speak to a ruler；complete|9|ソウ|かな.でる|演奏；吹奏
+R9526|勧|persuade；recommend；advise；encourage；offer|13|カン；ケン|すす.める|勧める；勧告；勧誘；勧め
+R9527|騒|boisterous；make noise；clamor；disturb；excite|18|ソウ|さわ.ぐ；うれい；さわ.がしい|騒ぐ；騒ぎ；騒音；物騒；騒がしい；騒々しい；騒動
+R9528|閥|clique；lineage；pedigree；faction；clan|14|バツ||
+R9529|甲|armor；high (voice)；A grade；first class；former；instep；carapace|5|コウ；カン|きのえ|甲
+R9530|縄|straw rope；cord|15|ジョウ|なわ；ただ.す|縄
+R9531|郷|home town；village；native place；district|11|キョウ；ゴウ|さと|故郷；郷愁；郷里
+R9532|揺|swing；shake；sway；rock；tremble；vibrate|12|ヨウ|ゆ.れる；ゆ.る；ゆ.らぐ；ゆ.るぐ；ゆ.する；ゆ.さぶる；ゆ.すぶる；うご.く|揺れる；動揺；揺らぐ；揺さぶる
+R9533|免|excuse；dismissal|8|メン|まぬか.れる；まぬが.れる|免許；御免；免税；免除；免れる
+R9534|既|previously；already；long ago|10|キ|すで.に|既に；既婚
+R9535|薦|recommend；mat；advise；encourage；offer|16|セン|すす.める|推薦
+R9536|隣|neighboring|16|リン|とな.る；となり|隣
+R9537|華|splendor；flower；petal；shine；luster；ostentatious；showy；gay；gorgeous|10|カ；ケ|はな|豪華；華奢；華美；華やか；華々しい
+R9538|範|pattern；example；model|15|ハン||範囲；規範；模範
+R9539|隠|conceal；hide；cover|14|イン；オン|かく.す；かく.し；かく.れる；よ.る|隠す；隠れる；隠居
+R9540|徳|benevolence；virtue；goodness；commanding respect|14|トク||道徳
+R9541|哲|philosophy；clear|10|テツ|さとい；あきらか|哲学
+R9542|杉|cedar；cryptomeria|7|サン|すぎ|杉
+R9543|里|ri；village；parent's home；league|7|リ|さと|郷里
+R9544|釈|explanation|11|シャク；セキ|とく；す.てる；ゆる.す|解釈
+R9545|己|self|3|コ；キ|おのれ；つちのと；な|自己
+R9546|妥|gentle；peace；satisfactory；appropriate|7|ダ||妥当；妥協；妥結
+R9547|威|intimidate；dignity；majesty；menace；threaten|9|イ|おど.す；おど.し；おど.かす|威張る；威力；権威
+R9548|豪|overpowering；great；powerful；excelling；Australia|14|ゴウ|えら.い|豪華；富豪
+R9549|熊|bear|14|ユウ|くま|
+R9550|滞|stagnate；be delayed；overdue；arrears|13|タイ；テイ|とどこお.る|渋滞；滞在；滞納；停滞；滞る
+R9551|微|delicate；minuteness；insignificance|13|ビ|かす.か|微妙；微笑む；顕微鏡；微か；微笑；微量；微塵
+R9552|隆|hump；high；noble；prosperity|11|リュウ||
+R9553|症|symptoms；illness|10|ショウ||症状；症
+R9554|暫|temporarily；a while；moment；long time|15|ザン|しばら.く|
+R9555|忠|loyalty；fidelity；faithfulness|8|チュウ||忠告；忠実
+R9556|倉|godown；warehouse；storehouse；cellar；treasury|10|ソウ|くら|倉庫
+R9557|彦|lad；boy；fine young man|9|ゲン|ひこ|
+R9558|肝|liver；pluck；nerve；chutzpah|7|カン|きも|肝心
+R9559|喚|yell；cry；call；scream；summon|12|カン|わめ.く|
+R9560|沿|run alongside；follow along；run along；lie along|8|エン|そ.う；-ぞ.い|沿岸；沿線；沿い；沿う
+R9561|妙|exquisite；strange；queer；mystery；miracle；excellent；delicate；charming|7|ミョウ；ビョウ|たえ|妙；奇妙；微妙；巧妙
+R9562|唱|chant；recite；call upon；yell|11|ショウ|とな.える|合唱；唱える
+R9563|阿|Africa；flatter；fawn upon；corner；nook；recess|8|ア；オ|おもね.る；くま|
+R9564|索|cord；rope；searching；inquiring|10|サク||索引；捜索；模索
+R9565|誠|sincerity；admonish；warn；prohibit；truth；fidelity|13|セイ|まこと|誠；誠実
+R9566|襲|attack；advance on；succeed to；pile；heap|22|シュウ|おそ.う；かさ.ね|襲う；襲撃
+R9567|懇|sociable；kind；courteous；hospitable；cordial|17|コン|ねんご.ろ|
+R9568|俳|haiku；actor|10|ハイ||俳優；俳句
+R9569|柄|design；pattern；build；nature；character；handle；crank；grip；knob；shaft|9|ヘイ|がら；え；つか|柄；間柄；大柄；小柄；事柄；人柄
+R9570|驚|wonder；be surprised；frightened；amazed|22|キョウ|おどろ.く；おどろ.かす|驚く；驚かす；驚き；驚異
+R9571|麻|hemp；flax；numb|11|マ；マア|あさ|麻；麻酔；麻痺
+R9572|李|plum|7|リ|すもも|
+R9573|浩|wide expanse；abundance；vigorous|10|コウ|おおき.い；ひろ.い|
+R9574|剤|dose；medicine；drug|10|ザイ；スイ；セイ|かる；けず.る|洗剤
+R9575|瀬|rapids；current；torrent；shallows；shoal|19|ライ|せ|瀬戸物
+R9576|趣|purport；gist；elegance；interest；proceed to；tend；become|15|シュ|おもむき；おもむ.く|趣味；趣；趣旨
+R9577|陥|collapse；fall into；cave in；fall (castle)；slide into|10|カン|おちい.る；おとしい.れる|欠陥
+R9578|斎|purification；Buddhist food；room；worship；avoid；alike|11|サイ|とき；つつし.む；ものいみ；い.む；いわ.う；いつ.く|書斎
+R9579|貫|pierce；8 1/3lbs；penetrate；brace|11|カン|つらぬ.く；ぬ.く；ぬき|貫禄；貫く
+R9580|仙|hermit；wizard；cent|5|セン；セント||仙
+R9581|慰|consolation；amusement；seduce；cheer；make sport of；comfort；console|15|イ|なぐさ.める；なぐさ.む|慰める
+R9582|序|preface；beginning；order；precedence；occasion；chance；incidentally|7|ジョ|つい.で；ついで|順序；秩序
+R9583|旬|decameron；ten-day period；season (for specific products)|6|ジュン；シュン||下旬；上旬；初旬；中旬
+R9584|兼|concurrently；and；beforehand；in advance|10|ケン|か.ねる；-か.ねる|兼ねる；兼業；兼用；兼ねて；気兼ね
+R9585|聖|holy；saint；sage；master；priest|13|セイ；ショウ|ひじり|神聖；聖書
+R9586|旨|delicious；relish；show a liking for；purport；will；clever；expert|6|シ|むね；うま.い|要旨；趣旨
+R9587|即|instant；namely；as is；conform；agree；adapt|7|ソク|つ.く；つ.ける；すなわ.ち|即座に；即する
+R9588|柳|willow|9|リュウ|やなぎ|
+R9589|舎|cottage；inn；hut；house；mansion|8|シャ；セキ|やど.る|田舎；校舎
+R9590|偽|falsehood；lie；deceive；pretend；counterfeit；forgery|11|ギ；カ|いつわ.る；にせ；いつわ.り|偽造
+R9591|較|contrast；compare|13|カク；コウ|くら.べる|比較；比較的
+R9592|覇|hegemony；supremacy；leadership；champion|19|ハ；ハク|はたがしら|
+R9593|詳|detailed；full；minute；accurate；well-informed|13|ショウ|くわ.しい；つまび.らか|詳しい；詳細
+R9594|抵|resist；reach；touch|8|テイ||抵抗
+R9595|脅|threaten；coerce|10|キョウ|おびや.かす；おど.す；おど.かす|脅す；脅迫
+R9596|茂|overgrown；grow thick；be luxuriant|8|モ|しげ.る|茂る
+R9597|犠|sacrifice|17|ギ；キ|いけにえ|犠牲
+R9598|旗|flag；banner；standard|14|キ|はた|旗
+R9599|距|long-distance；spur；fetlock|12|キョ|へだ.たる；けづめ|距離
+R9600|雅|gracious；elegant；graceful；refined|13|ガ|みや.び|雅致
+R9601|飾|decorate；ornament；adorn；embellish|13|ショク|かざ.る；かざ.り|飾る；飾り；修飾；装飾；着飾る；首飾り
+R9602|網|netting；network|14|モウ|あみ|網
+R9603|竜|dragon；imperial|10|リュウ；リョウ；ロウ|たつ；いせ|
+R9604|詩|poem；poetry|13|シ|うた|詩；詩人
+R9605|繁|luxuriant；thick；overgrown；frequency；complexity；trouble|16|ハン|しげ.る；しげ.く|繁栄；繁盛；繁殖；頻繁
+R9606|翼|wing；plane；flank|17|ヨク|つばさ|翼
+R9607|茨|briar；thorn|9|シ；ジ|いばら；かや；くさぶき|
+R9608|潟|lagoon|15|セキ|かた；-がた|
+R9609|敵|enemy；foe；opponent|15|テキ|かたき；あだ；かな.う|敵；匹敵
+R9610|魅|fascination；charm；bewitch|15|ミ||魅力
+R9611|嫌|dislike；detest；hate|13|ケン；ゲン|きら.う；きら.い；いや|嫌；嫌い；機嫌；嫌う；嫌がる；好き嫌い；嫌らしい
+R9612|斉|adjusted；alike；equal；similar variety of|8|セイ；サイ|そろ.う；ひと.しい；ひと.しく；あたる；はやい|一斉
+R9613|敷|spread；pave；sit；promulgate|15|フ|し.く；-し.き|座敷；敷地；敷く；風呂敷；屋敷
+R9614|擁|hug；embrace；possess；protect；lead|16|ヨウ||
+R9615|圏|sphere；circle；radius；range|12|ケン|かこ.い|圏
+R9616|酸|acid；bitterness；sour；tart|14|サン|す.い|酸素；酸性；酸；酸化
+R9617|罰|penalty；punishment|14|バツ；バチ；ハツ|ばっ.する|罰する；罰；刑罰；処罰
+R9618|滅|destroy；ruin；overthrow；perish|13|メツ|ほろ.びる；ほろ.ぶ；ほろ.ぼす|絶滅；滅多に；全滅；滅亡；滅びる；滅ぼす
+R9619|礎|cornerstone；foundation stone|18|ソ|いしずえ|基礎
+R9620|腐|rot；decay；sour|14|フ|くさ.る；-くさ.る；くさ.れる；くさ.れ；くさ.らす；くさ.す|腐る；腐敗
+R9621|脚|skids；leg；undercarriage；lower part；base|11|キャク；キャ；カク|あし|脚色；脚本
+R9622|潮|tide；salt water；opportunity|15|チョウ|しお；うしお|潮
+R9623|梅|plum|10|バイ|うめ|梅；梅雨；梅干
+R9624|尽|exhaust；use up；run out of；deplete；befriend；serve|6|ジン；サン|つ.きる；つ.くす；つ.かす；-づ.く；-ず.く；ことごと.く|尽きる；尽くす
+R9625|僕|me；I (male)；servant；manservant|14|ボク|しもべ|僕
+R9626|桜|cherry|10|オウ；ヨウ|さくら|桜
+R9627|滑|slippery；slide；slip；fail exam|13|カツ；コツ|すべ.る；なめ.らか|滑る；円滑；滑稽；滑らか
+R9628|孤|orphan；alone|9|コ||孤児；孤独；孤立
+R9629|炎|inflammation；flame；blaze|8|エン|ほのお|炎
+R9630|賠|compensation；indemnify|15|バイ||賠償
+R9631|句|phrase；clause；sentence；passage；paragraph；counter for haiku|5|ク||句；文句；俳句；句読点；佳句；語句
+R9632|鋼|steel|16|コウ|はがね|鉄鋼
+R9633|頑|stubborn；foolish；firmly|13|ガン|かたく.な|頑固；頑丈
+R9634|鎖|chain；irons；connection|18|サ|くさり；とざ.す|鎖；封鎖；閉鎖
+R9635|彩|coloring；paint；makeup|11|サイ|いろど.る|色彩
+R9636|摩|chafe；rub；polish；grind；scrape|15|マ|ま.する；さす.る；す.る|摩擦
+R9637|励|encourage；be diligent；inspire|7|レイ|はげ.む；はげ.ます|激励；奨励；励む；励ます
+R9638|縦|vertical；length；height；self-indulgent；wayward|16|ジュウ|たて|操縦
+R9639|輝|radiance；shine；sparkle；gleam；twinkle|15|キ|かがや.く|輝く
+R9640|蓄|amass；raise；hoard；store|13|チク|たくわ.える|蓄える；蓄積；貯蓄
+R9641|軸|axis；pivot；stem；stalk；counter for book scrolls|12|ジク||軸
+R9642|巡|patrol；go around；circumference|6|ジュン|めぐ.る；めぐ.り|巡査；巡る
+R9643|稼|earnings；work；earn money|15|カ|かせ.ぐ|稼ぐ；共稼ぎ
+R9644|瞬|wink；blink；twinkle|18|シュン|またた.く；まじろ.ぐ|一瞬；瞬間；瞬き
+R9645|砲|cannon；gun|10|ホウ||鉄砲
+R9646|噴|erupt；spout；emit；flush out|15|フン|ふ.く|噴火；噴水；噴出
+R9647|誇|boast；be proud；pride；triumphantly|13|コ|ほこ.る|誇り；誇張；誇る
+R9648|祥|auspicious；happiness；blessedness；good omen；good fortune|10|ショウ|さいわ.い；きざ.し；よ.い；つまび.らか|
+R9649|牲|animal sacrifice；offering|9|セイ||犠牲
+R9650|秩|regularity；salary；order|10|チツ||秩序
+R9651|帝|sovereign；the emperor；god；creator|9|テイ|みかど|
+R9652|宏|wide；large|7|コウ|ひろ.い|
+R9653|唆|tempt；seduce；instigate；promote|10|サ|そそ.る；そそのか.す|
+R9654|阻|thwart；separate from；prevent；obstruct；deter；impede|8|ソ|はば.む|阻止；阻む
+R9655|泰|peaceful；calm；peace；easy；Thailand；extreme；excessive；great|10|タイ||
+R9656|賄|bribe；board；supply；finance|13|ワイ|まかな.う|賄う
+R9657|撲|slap；strike；hit；beat；tell；speak|15|ボク||相撲
+R9658|堀|ditch；moat；canal|11|クツ|ほり|堀
+R9659|菊|chrysanthemum|11|キク||
+R9660|絞|strangle；constrict；wring|12|コウ|しぼ.る；し.める；し.まる|絞る
+R9661|縁|affinity；relation；connection；edge；border；verge；brink|15|エン；-ネン|ふち；ふち.どる；ゆかり；よすが；へり；えにし|縁；縁側；縁談
+R9662|唯|solely；only；merely；simply|11|ユイ；イ|ただ|唯一
+R9663|膨|swell；get fat；thick|16|ボウ|ふく.らむ；ふく.れる|膨大；膨らむ；膨らます；膨脹；膨れる
+R9664|矢|dart；arrow|5|シ|や|矢印；矢；矢鱈に
+R9665|耐|-proof；enduring|9|タイ|た.える|耐える
+R9666|塾|cram school；private school|14|ジュク||塾
+R9667|漏|leak；escape；time|14|ロウ|も.る；も.れる；も.らす|漏る；漏らす；漏れる
+R9668|慶|jubilation；congratulate；rejoice；be happy|15|ケイ|よろこ.び|
+R9669|猛|fierce；rave；rush；become furious；wildness；strength|11|モウ||猛烈
+R9670|芳|perfume；balmy；favorable；fragrant|7|ホウ|かんば.しい|
+R9671|懲|penal；chastise；punish；discipline|18|チョウ|こ.りる；こ.らす；こ.らしめる|懲りる
+R9672|剣|sabre；sword；blade；clock hand|10|ケン|つるぎ|真剣
+R9673|彰|patent；clear|14|ショウ||
+R9674|棋|chess piece；Japanese chess；shogi|12|キ|ご|将棋
+R9675|丁|street；ward；town；counter for guns, tools, leaves or cakes of something；even number；4th calendar sign|2|チョウ；テイ；チン；トウ；チ|ひのと|丁寧；庖丁；丁目；丁々
+R9676|恒|constancy；always|9|コウ|つね；つねに|
+R9677|揚|raise；elevate；hoist；praise；extol；fry in deep fat|12|ヨウ|あ.げる；-あ.げ；あ.がる|揚げる
+R9678|冒|risk；face；defy；dare；damage；assume (a name)|9|ボウ|おか.す|冒険；冒頭
+R9679|之|of；this|3|シ|の；これ；ゆく；この|
+R9680|曽|formerly；once；before；ever；never；ex-|11|ソウ；ソ；ゾウ|かつ；かつて；すなわち|
+R9681|倫|ethics；companion|10|リン||
+R9682|陳|exhibit；state；relate；explain|11|チン|ひ.ねる|陳列
+R9683|憶|recollection；think；remember|16|オク||記憶
+R9684|潜|submerge；conceal；hide；lower (voice)；hush|15|セン|ひそ.む；もぐ.る；かく.れる；くぐ.る；ひそ.める|潜る；潜水；潜入
+R9685|梨|pear tree|11|リ|なし|
+R9686|仁|humanity；virtue；benevolence；charity；man；kernel|4|ジン；ニ；ニン||
+R9687|克|overcome；kindly；skillfully|7|コク|か.つ|克服
+R9688|岳|point；peak；mountain|8|ガク|たけ|山岳
+R9689|概|outline；condition；approximation；generally|14|ガイ|おおむ.ね|概論；概説；概念；概略；大概；一概に
+R9690|拘|arrest；seize；concerned；adhere to；despite|8|コウ|かか.わる|拘束；にも拘らず
+R9691|墓|grave；tomb|13|ボ|はか|墓；墓地
+R9692|黙|silence；become silent；stop speaking；leave as is|15|モク；ボク|だま.る；もだ.す|黙る；沈黙
+R9693|須|ought；by all means；necessarily|12|ス；シュ|すべから.く；すべし；ひげ；まつ；もち.いる；もと.める|
+R9694|偏|partial；side；left-side radical；inclining；biased|11|ヘン|かたよ.る|偏；偏る；偏見
+R9695|雰|atmosphere；fog|12|フン||雰囲気
+R9696|遇|meet；encounter；interview；treat；entertain；receive；deal with|12|グウ|あ.う|境遇；待遇
+R9697|諮|consult with|16|シ|はか.る|諮る
+R9698|狭|cramped；narrow；contract；tight|9|キョウ；コウ|せま.い；せば.める；せば.まる；さ|狭い
+R9699|卓|eminent；table；desk；high|8|タク||食卓
+R9700|亀|tortoise；turtle|11|キ；キュウ；キン|かめ|
+R9701|糧|provisions；food；bread|18|リョウ；ロウ|かて|食糧
+R9702|簿|register；record book|19|ボ||名簿
+R9703|炉|hearth；furnace；kiln；reactor|8|ロ|いろり|
+R9704|牧|breed；care for；shepherd；feed；pasture|8|ボク|まき|牧場；牧畜；牧師；遊牧
+R9705|殊|particularly；especially；exceptionally|10|シュ|こと|特殊；殊に
+R9706|殖|augment；increase；multiply；raise|12|ショク|ふ.える；ふ.やす|殖える；繁殖
+R9707|艦|warship|21|カン||軍艦
+R9708|輩|comrade；fellow；people；companions|15|ハイ|-ばら；やから；やかい；ともがら|先輩；後輩
+R9709|穴|hole；aperture；slit；cave；den|5|ケツ|あな|穴
+R9710|奇|strange；strangeness；curiosity|8|キ|く.しき；あや.しい；くし；めずら.しい|奇妙；奇数
+R9711|慢|ridicule；laziness|14|マン||我慢；自慢；怠慢
+R9712|鶴|crane；stork|21|カク|つる|
+R9713|謀|conspire；cheat；impose on；plan；devise；scheme；have in mind；deceive|16|ボウ；ム|はか.る；たばか.る；はかりごと|
+R9714|暖|warmth|13|ダン；ノン|あたた.か；あたた.かい；あたた.まる；あたた.める|暖かい；暖房；温暖；暖まる；暖める
+R9715|昌|prosperous；bright；clear|8|ショウ|さかん|
+R9716|拍|clap；beat (music)|8|ハク；ヒョウ||拍手
+R9717|朗|melodious；clear；bright；serene；cheerful|10|ロウ|ほが.らか；あき.らか|朗らか；明朗；朗読
+R9718|寛|tolerant；leniency；generosity；relax；feel at home；be at ease；broadminded|13|カン|くつろ.ぐ；ひろ.い；ゆる.やか|寛容
+R9719|覆|capsize；cover；shade；mantle；be ruined|18|フク|おお.う；くつがえ.す；くつがえ.る|覆う；覆す；覆面
+R9720|胞|placenta；sac；sheath|9|ホウ||細胞
+R9721|泣|cry；weep；moan|8|キュウ|な.く|泣く
+R9722|隔|isolate；alternate；distance；separate；gulf|13|カク|へだ.てる；へだ.たる|間隔；隔てる；隔週；隔たる
+R9723|浄|clean；purify；cleanse；exorcise；Manchu Dynasty|9|ジョウ；セイ|きよ.める；きよ.い|
+R9724|没|drown；sink；hide；fall into；disappear；die|7|ボツ；モツ|おぼ.れる；しず.む；ない|沈没；没収；没落
+R9725|暇|spare time；rest；leisure；time；leave of absence|13|カ|ひま；いとま|暇；休暇；余暇
+R9726|肺|lungs|9|ハイ||肺
+R9727|貞|upright；chastity；constancy；righteousness|9|テイ；ジョウ|ただし.い；さだ|
+R9728|靖|peaceful|13|セイ；ジョウ|やす.んじる|
+R9729|鑑|specimen；take warning from；learn from|23|カン|かんが.みる；かがみ|鑑賞；図鑑；印鑑；年鑑
+R9730|飼|domesticate；raise；keep；feed|13|シ|か.う|飼う；飼育
+R9731|陰|shade；yin；negative；sex organs；secret；shadow|11|イン|かげ；かげ.る|陰；日陰；陰気
+R9732|銘|inscription；signature (of artisan)|14|メイ||銘々
+R9733|随|follow；though；notwithstanding；while；during；both；all；obey；submit to；comply；at the mercy of (the waves)|12|ズイ|まにま.に；したが.う|随筆
+R9734|烈|ardent；violent；vehement；furious；severe；extreme|10|レツ|はげ.しい|強烈；猛烈
+R9735|尋|inquire；fathom；look for|12|ジン|たず.ねる；ひろ|尋ねる
+R9736|稿|draft；copy；manuscript；straw|15|コウ|わら；したがき|原稿
+R9737|丹|rust-colored；red；red lead；pills；sincerity|4|タン|に|
+R9738|啓|disclose；open；say|11|ケイ|ひら.く；さと.す|拝啓
+R9739|也|to be (classical)|3|ヤ；エ|なり；か；また|
+R9740|丘|hill；knoll|5|キュウ|おか|丘；丘陵
+R9741|棟|ridgepole；ridge|12|トウ|むね；むな-|棟
+R9742|壌|lot；earth；soil|16|ジョウ|つち|
+R9743|漫|cartoon；involuntarily；unrestrained；in spite of oneself；corrupt|14|マン|みだり.に；そぞ.ろ|漫画
+R9744|玄|mysterious；occultness；black；deep；profound|5|ゲン|くろ；くろ.い|玄関；玄人
+R9745|粘|sticky；glutinous；greasy；persevere|11|ネン|ねば.る|粘り；粘る
+R9746|悟|enlightenment；perceive；discern；realize；understand|10|ゴ|さと.る|覚悟；悟る
+R9747|舗|shop；store；pave|15|ホ||舗装
+R9748|妊|pregnancy|7|ニン；ジン|はら.む；みごも.る|妊娠
+R9749|熟|mellow；ripen；mature；acquire skill|15|ジュク|う.れる|熟語；成熟；未熟
+R9750|旭|rising sun；morning sun|6|キョク|あさひ|
+R9751|恩|grace；kindness；goodness；favor；mercy；blessing；benefit|10|オン||恩；恩恵
+R9752|騰|leaping up；jumping up；rising；advancing；going|20|トウ|あが.る；のぼ.る|沸騰
+R9753|往|journey；travel；chase away；let go；going；before；formerly|8|オウ|い.く；いにしえ；さき.に；ゆ.く|往復
+R9754|豆|beans；pea；midget|7|トウ；ズ|まめ；まめ-|豆
+R9755|遂|consummate；accomplish；attain；commit (suicide)|12|スイ|と.げる；つい.に|遂に；遂げる；やり遂げる
+R9756|狂|lunatic；insane；crazy；confuse|7|キョウ|くる.う；くる.おしい；くるお.しい|狂う
+R9757|栃|horse chestnut；(kokuji)|9||とち|
+R9758|岐|branch off；fork in road；scene；arena；theater|7|キ；ギ||
+R9759|陛|highness；steps (of throne)|10|ヘイ||
+R9760|緯|horizontal；woof；left & right；(parallels of) latitude；prediction|16|イ|よこいと；ぬき|緯度；経緯
+R9761|培|cultivate；foster|11|バイ|つちか.う|栽培
+R9762|衰|decline；wane；weaken|10|スイ|おとろ.える|老衰；衰える
+R9763|艇|rowboat；small boat|13|テイ||
+R9764|屈|yield；bend；flinch；submit|8|クツ|かが.む；かが.める|退屈；窮屈；屈折；理屈
+R9765|径|diameter；path；method|8|ケイ|みち；こみち；さしわたし；ただちに|直径；半径
+R9766|淡|thin；faint；pale；fleeting|11|タン|あわ.い|淡水；冷淡
+R9767|抽|pluck；pull；extract；excel|8|チュウ|ひき-|抽象；抽選
+R9768|披|expose；open|8|ヒ||
+R9769|廷|courts；imperial court；government office|7|テイ||法廷
+R9770|錦|brocade；fine dress；honors|16|キン|にしき|
+R9771|准|quasi-；semi-；associate|10|ジュン||
+R9772|暑|sultry；hot；summer heat|12|ショ|あつ.い|暑い；蒸し暑い
+R9773|磯|seashore；beach|17|キ|いそ|
+R9774|奨|exhort；urge；encourage|13|ショウ；ソウ|すす.める|奨学金；奨励
+R9775|浸|immersed；soak；dip；steep；moisten；wet；dunk|10|シン|ひた.す；ひた.る；つ.かる|浸ける；浸す
+R9776|剰|surplus；besides|11|ジョウ|あまつさえ；あま.り；あま.る|過剰
+R9777|胆|gall bladder；courage；pluck；nerve|9|タン|きも|大胆
+R9778|繊|slender；fine；thin kimono|17|セン||化繊；繊維
+R9779|駒|pony；horse；colt|15|ク|こま|
+R9780|虚|void；emptiness；unpreparedness；crack；fissure；untruth|11|キョ；コ|むな.しい；うつ.ろ|謙虚
+R9781|霊|spirits；soul|15|レイ；リョウ|たま|幽霊
+R9782|帳|notebook；account book；album；curtain；veil；net；tent|11|チョウ|とばり|通帳；手帳；帳；几帳面
+R9783|悔|repent；regret|9|カイ|く.いる；く.やむ；くや.しい|悔しい；悔やむ；後悔
+R9784|諭|rebuke；admonish；charge；warn；persuade|16|ユ|さと.す|
+R9785|惨|wretched；disaster；cruelty；harsh|11|サン；ザン|みじ.め；いた.む；むご.い|悲惨
+R9786|虐|tyrannize；oppress|9|ギャク|しいた.げる|
+R9787|翻|flip；turn over；wave；flutter；change (mind)|18|ホン；ハン|ひるがえ.る；ひるがえ.す|翻訳
+R9788|墜|crash；fall (down)|15|ツイ|お.ちる；お.つ|墜落
+R9789|沼|marsh；lake；bog；swamp；pond|8|ショウ|ぬま|沼
+R9790|据|set；lay a foundation；install；equip；squat down；sit down|11|キョ|す.える；す.わる|据える；据え付ける
+R9791|肥|fertilizer；get fat；fertile；manure；pamper|8|ヒ|こ.える；こえ；こ.やす；こ.やし；ふと.る|肥料
+R9792|徐|gradually；slowly；deliberately；gently|10|ジョ|おもむ.ろに|徐々に；徐行；徐々
+R9793|糖|sugar|16|トウ||砂糖
+R9794|搭|board；load (a vehicle)；ride|12|トウ||
+R9795|盾|shield；escutcheon；pretext|9|ジュン|たて|矛盾；盾
+R9796|脈|vein；pulse；hope|10|ミャク|すじ|文脈；脈；山脈
+R9797|滝|waterfall；rapids；cascade|13|ロウ；ソウ|たき|滝
+R9798|軌|rut；wheel；track；model；way of doing|9|キ||軌道
+R9799|俵|bag；bale；sack；counter for bags|10|ヒョウ|たわら|土俵
+R9800|妨|disturb；prevent；hamper；obstruct|7|ボウ|さまた.げる|妨げる；妨害
+R9801|擦|grate；rub；scratch；scrape；chafe；scour|17|サツ|す.る；す.れる；-ず.れ；こす.る；こす.れる|擦る；摩擦；擦れる；擦れ違い
+R9802|鯨|whale|19|ゲイ|くじら|捕鯨
+R9803|荘|villa；inn；cottage；feudal manor；solemn；dignified|9|ソウ；ショウ；チャン|ほうき；おごそ.か|別荘
+R9804|諾|consent；assent；agreement|15|ダク||承諾
+R9805|雷|thunder；lightning bolt|13|ライ|かみなり；いかずち；いかづち|雷
+R9806|漂|drift；float (on liquid)|14|ヒョウ|ただよ.う|漂う
+R9807|懐|feelings；heart；yearn；miss someone；become attached to；bosom；breast；pocket|16|カイ；エ|ふところ；なつ.かしい；なつ.かしむ；なつ.く；なつ.ける；なず.ける；いだ.く；おも.う|懐かしい；懐く
+R9808|勘|intuition；perception；check；compare；sixth sense|11|カン||勘；勘定；勘違い；勘弁
+R9809|栽|plantation；planting|10|サイ||栽培
+R9810|拐|kidnap；falsify|8|カイ||
+R9811|駄|burdensome；pack horse；horse load；send by horse；trivial；worthless|14|ダ；タ||無駄；下駄；駄作；無駄遣い
+R9812|添|annexed；accompany；marry；suit；meet；satisfy；attach；append；garnish；imitate|11|テン|そ.える；そ.う|添う；添える
+R9813|冠|crown；best；peerless|9|カン|かんむり|冠
+R9814|斜|diagonal；slanting；oblique|11|シャ|なな.め；はす|斜；斜め；傾斜；斜面
+R9815|鏡|mirror；speculum；barrel-head；round rice-cake offering|19|キョウ；ケイ|かがみ|眼鏡；鏡；顕微鏡；望遠鏡
+R9816|聡|wise；fast learner|14|ソウ|さと.い；みみざと.い|
+R9817|浪|wandering；waves；billows；reckless；unrestrained|10|ロウ||浪費
+R9818|亜|Asia；rank next；come after；-ous|7|ア|つ.ぐ|亜科
+R9819|覧|perusal；see|17|ラン|み.る|展覧会；御覧；閲覧；回覧；観覧；御覧なさい
+R9820|詐|lie；falsehood；deceive；pretend|12|サ|いつわ.る|詐欺
+R9821|壇|podium；stage；rostrum；terrace|16|ダン；タン||壇；花壇
+R9822|勲|meritorious deed；merit|15|クン|いさお|
+R9823|魔|witch；demon；evil spirit|21|マ||悪魔；誤魔化す
+R9824|酬|repay；reward；retribution|13|シュウ；シュ；トウ|むく.いる|報酬
+R9825|紫|purple；violet|12|シ|むらさき|紫
+R9826|曙|dawn；daybreak|17|ショ|あけぼの|
+R9827|紋|family crest；figures|10|モン||
+R9828|卸|wholesale|9|シャ|おろ.す；おろし；おろ.し|卸す
+R9829|奮|stirred up；be invigorated；flourish|16|フン|ふる.う|興奮；奮闘
+R9830|欄|column；handrail；blank；space|20|ラン|てすり|欄
+R9831|逸|deviate；idleness；leisure；miss the mark；evade；elude；parry；diverge|11|イツ|そ.れる；そ.らす；はぐ.れる|逸れる；逸らす
+R9832|涯|horizon；shore；limit；bound|11|ガイ|はて|
+R9833|拓|clear (the land)；open；break up (land)|8|タク|ひら.く|開拓
+R9834|眼|eyeball|11|ガン；ゲン|まなこ；め|眼鏡；眼科；眼球；近眼
+R9835|獄|prison；jail|14|ゴク||地獄
+R9836|尚|esteem；furthermore；still；yet|8|ショウ|なお|高尚；尚更
+R9837|阜|hill；mound；left village radical (no. 170)|8|フ；フウ||
+R9838|彫|carve；engrave；chisel|11|チョウ|ほ.る；-ぼ.り|彫刻；彫る
+R9839|穏|calm；quiet；moderation|16|オン|おだ.やか|穏やか
+R9840|顕|appear；existing|18|ケン|あきらか；あらわ.れる|顕微鏡
+R9841|巧|adroit；skilled；ingenuity|5|コウ|たく.み；たく.む；うま.い|巧妙；精巧；巧み
+R9842|矛|halberd；arms；festival float|5|ム；ボウ|ほこ|矛盾
+R9843|垣|hedge；fence；wall|9|エン|かき|垣根
+R9844|欺|deceit；cheat；delude|12|ギ|あざむ.く|欺く；詐欺
+R9845|釣|angling；fish；catch；allure；ensnare|11|チョウ|つ.る；つ.り；つ.り-|釣る；釣；釣り合う；釣鐘
+R9846|萩|bush clover|12|シュウ|はぎ|
+R9847|葛|arrowroot；kudzu|11|カツ；カチ|つづら；くず|
+R9848|粛|solemn；quietly；softly|11|シュク；スク|つつし.む|
+R9849|栗|chestnut|10|リツ；リ|くり；おののく|
+R9850|愚|foolish；folly；absurdity；stupid|13|グ|おろ.か|愚か；愚痴
+R9851|嘉|applaud；praise；esteem；happy；auspicious|14|カ|よみ.する；よい|
+R9852|遭|encounter；meet；party；association；interview；join|14|ソウ|あ.う；あ.わせる|遭う；遭難
+R9853|架|erect；frame；mount；support；shelf；construct|9|カ|か.ける；か.かる|架空；担架
+R9854|鬼|ghost；devil|10|キ|おに；おに-|鬼
+R9855|庶|commoner；all；bastard|11|ショ||庶民；庶務
+R9856|稚|immature；young|13|チ；ジ|いとけない；おさない；おくて；おでる|幼稚；幼稚園
+R9857|滋|nourishing；more & more；be luxuriant；planting；turbidity|12|ジ；シ||
+R9858|幻|phantasm；vision；dream；illusion；apparition|4|ゲン|まぼろし|
+R9859|煮|boil；cook|12|シャ|に.る；-に；に.える；に.やす|煮る；煮える
+R9860|姫|princess|10|キ|ひめ；ひめ-|
+R9861|誓|vow；swear；pledge|14|セイ|ちか.う|誓う
+R9862|把|grasp；faggot；bunch；counter for bundles|7|ハ；ワ||把握
+R9863|践|tread；step on；trample；practice；carry through|13|セン|ふ.む|実践
+R9864|呈|display；offer；present；send；exhibit|7|テイ||進呈
+R9865|疎|alienate；rough；neglect；shun；sparse；penetrate|12|ソ；ショ|うと.い；うと.む；まば.ら|疎か；過疎
+R9866|仰|face-up；look up；depend；seek；respect；revere；drink；take|6|ギョウ；コウ|あお.ぐ；おお.せ；お.っしゃる；おっしゃ.る|信仰；仰ぐ
+R9867|剛|sturdy；strength|10|ゴウ||
+R9868|疾|rapidly|10|シツ|はや.い|
+R9869|征|subjugate；attack the rebellious；collect taxes|8|セイ||征服
+R9870|砕|smash；break；crush；familiar；popular|9|サイ|くだ.く；くだ.ける|砕く；砕ける
+R9871|謡|song；sing；ballad；noh chanting|16|ヨウ|うた.い；うた.う|歌謡；民謡
+R9872|嫁|marry into；bride|13|カ|よめ；とつ.ぐ；い.く；ゆ.く|嫁；花嫁
+R9873|謙|self-effacing；humble oneself；condescend；be modest|17|ケン|へりくだ.る|謙虚；謙遜；謙る
+R9874|后|empress；queen；after；behind；back；later|6|コウ；ゴ|きさき|
+R9875|嘆|sigh；lament；moan；grieve；sigh of admiration|13|タン|なげ.く；なげ.かわしい|嘆く
+R9876|菌|germ；fungus；bacteria|11|キン||細菌；黴菌
+R9877|鎌|sickle；scythe；trick|18|レン；ケン|かま|
+R9878|巣|nest；rookery；hive；cobweb；den|11|ソウ|す；す.くう|巣
+R9879|頻|repeatedly；recur|17|ヒン|しき.りに|頻繁
+R9880|琴|harp；koto|12|キン；ゴン|こと|琴
+R9881|班|squad；corps；unit；group|10|ハン||班
+R9882|棚|shelf；ledge；rack；mount；mantle；trellis|12|ホウ|たな；-だな|本棚；棚；戸棚
+R9883|潔|undefiled；pure；clean；righteous；gallant|15|ケツ|いさぎよ.い|清潔；不潔；簡潔
+R9884|酷|cruel；severe；atrocious；unjust|14|コク|ひど.い|残酷；冷酷
+R9885|宰|superintend；manager；rule|10|サイ||
+R9886|廊|corridor；hall；tower|12|ロウ||廊下
+R9887|寂|loneliness；quietly；mellow；mature；death of a priest|11|ジャク；セキ|さび；さび.しい；さび.れる；さみ.しい|寂しい
+R9888|辰|sign of the dragon；7-9AM；fifth sign of Chinese zodiac；shin dragon radical (no. 161)|7|シン；ジン|たつ|
+R9889|霞|be hazy；grow dim；blurred|17|カ；ゲ|かすみ；かす.む|霞む
+R9890|伏|prostrated；bend down；bow；cover；lay (pipes)|6|フク|ふ.せる；ふ.す|起伏；降伏
+R9891|碁|Go|13|ゴ||碁；碁盤
+R9892|俗|vulgar；customs；manners；worldliness；mundane things|9|ゾク||風俗；民俗
+R9893|漠|vague；obscure；desert；wide|13|バク||砂漠；漠然
+R9894|邪|wicked；injustice；wrong|8|ジャ|よこし.ま|風邪；無邪気
+R9895|晶|sparkle；clear；crystal|12|ショウ||結晶
+R9896|墨|black ink；India ink；ink stick；Mexico|14|ボク|すみ|墨
+R9897|鎮|tranquilize；ancient peace-preservation centers|18|チン|しず.める；しず.まる；おさえ|
+R9898|洞|den；cave；excavation|9|ドウ|ほら|
+R9899|履|perform；complete；footgear；shoes；boots；put on (the feet)|15|リ|は.く|草履；履歴
+R9900|劣|inferiority；be inferior to；be worse|6|レツ|おと.る|劣る
+R9901|那|what?|7|ナ；ダ|なに；なんぞ；いかん|旦那
+R9902|殴|assault；hit；beat；thrash|8|オウ|なぐ.る|
+R9903|娠|with child；pregnancy|10|シン||妊娠
+R9904|奉|observance；offer；present；dedicate|8|ホウ；ブ|たてまつ.る；まつ.る；ほう.ずる|奉る；奉仕
+R9905|憂|melancholy；grieve；lament；be anxious；sad；unhappy|15|ユウ|うれ.える；うれ.い；う.い；う.き|憂鬱
+R9906|朴|crude；simple；plain；docile|6|ボク|ほう；ほお；えのき|素朴
+R9907|亭|pavilion；restaurant；mansion；arbor；cottage；vaudeville；music hall；stage name|9|テイ；チン||
+R9908|淳|pure|11|ジュン；シュン|あつ.い|
+R9909|怪|suspicious；mystery；apparition|8|カイ；ケ|あや.しい；あや.しむ|怪我；怪しい；怪獣
+R9910|鳩|pigeon；dove|13|キュウ；ク|はと；あつ.める|
+R9911|酔|drunk；feel sick；poisoned；elated；spellbound|11|スイ|よ.う；よ.い；よ|酔う；酔っ払い；麻酔
+R9912|惜|pity；be sparing of；frugal；stingy；regret|11|セキ|お.しい；お.しむ|惜しい；惜しむ
+R9913|穫|harvest；reap|18|カク||収穫
+R9914|佳|excellent；beautiful；good；pleasing；skilled|8|カ||佳句
+R9915|潤|wet；be watered；profit by；receive benefits；favor；charm；steep|15|ジュン|うるお.う；うるお.す；うる.む|潤う；利潤
+R9916|悼|lament；grieve over|11|トウ|いた.む|
+R9917|乏|destitution；scarce；limited|4|ボウ|とぼ.しい；とも.しい|窮乏；欠乏；貧乏；乏しい
+R9918|該|above-stated；the said；that specific|13|ガイ||該当
+R9919|赴|proceed；get；become；tend|9|フ|おもむ.く|赴く；赴任
+R9920|桑|mulberry|10|ソウ|くわ|
+R9921|桂|Japanese Judas-tree；cinnamon tree|10|ケイ|かつら|
+R9922|髄|marrow；pith；essence|19|ズイ||
+R9923|虎|tiger；drunkard|8|コ|とら|虎
+R9924|盆|basin；lantern festival；tray|9|ボン||盆；盆地
+R9925|晋|advance|10|シン|すす.む|
+R9926|穂|ear；ear (grain)；head；crest (wave)|15|スイ|ほ|穂
+R9927|壮|robust；manhood；prosperity|6|ソウ|さかん|壮大
+R9928|堤|dike；bank；embankment|12|テイ|つつみ|堤防
+R9929|飢|hungry；starve|10|キ|う.える|飢饉；飢える
+R9930|傍|bystander；side；besides；while；nearby；third person|12|ボウ|かたわ.ら；わき；おか-；はた；そば|傍ら
+R9931|疫|epidemic|9|エキ；ヤク||
+R9932|累|accumulate；involvement；trouble；tie up；continually|11|ルイ||
+R9933|痴|stupid；foolish|13|チ|し.れる；おろか|愚痴
+R9934|搬|conveyor；carry；transport|13|ハン||運搬
+R9935|晃|clear|10|コウ|あきらか|
+R9936|癒|healing；cure；quench (thirst)；wreak|18|ユ|い.える；いや.す；い.やす|
+R9937|桐|paulownia|10|トウ；ドウ|きり|桐
+R9938|寸|measurement；tenth of a shaku；a little；small|3|スン||寸法
+R9939|郭|enclosure；quarters；fortification；red-light district|11|カク|くるわ|
+R9940|尿|urine|7|ニョウ|ゆばり；いばり；しと|尿；屎尿
+R9941|凶|villain；evil；bad luck；disaster|4|キョウ||凶作
+R9942|吐|spit；vomit；belch；confess；tell (lies)|6|ト|は.く；つ.く|吐く；吐き気
+R9943|宴|banquet；feast；party|10|エン|うたげ|宴会
+R9944|鷹|hawk|24|ヨウ；オウ|たか|
+R9945|賓|V.I.P.；guest|15|ヒン|まろうど；したがう|
+R9946|虜|captive；barbarian；low epithet for the enemy|13|リョ；ロ|とりこ；とりく|捕虜
+R9947|陶|pottery；porcelain|11|トウ|すえ|陶器；鬱陶しい
+R9948|鐘|bell；gong；chimes|20|ショウ|かね|鐘；釣鐘
+R9949|憾|remorse；regret；be sorry|16|カン|うら.む|
+R9950|畿|capital；suburbs of capital|15|キ|みやこ|
+R9951|猪|boar|11|チョ|い；いのしし|
+R9952|紘|large|10|コウ|おおづな；つな；つなぐ|
+R9953|磁|magnet；porcelain|14|ジ||磁石；磁器；磁気
+R9954|弥|all the more；increasingly|8|ミ；ビ|や；いや；いよ.いよ；わた.る|
+R9955|昆|descendants；elder brother；insect|8|コン||昆虫
+R9956|粗|coarse；rough；rugged|11|ソ|あら.い；あら-|粗；粗末；粗い
+R9957|訂|revise；correct；decide|9|テイ|ただ.す|改訂；訂正
+R9958|芽|bud；sprout；spear；germ|8|ガ|め|芽；発芽
+R9959|庄|level；in the country；manor；village；hamlet|6|ショウ；ソ；ソウ；ホウ||
+R9960|傘|umbrella|12|サン|かさ|傘
+R9961|敦|industry；kindliness|12|トン；タイ；ダン；チョウ|あつ.い|
+R9962|騎|equestrian；riding on horses；counter for equestrians|18|キ||
+R9963|寧|rather；preferably；peaceful；quiet；tranquility|14|ネイ|むし.ろ|丁寧；寧ろ
+R9964|循|sequential；follow|12|ジュン||循環
+R9965|忍|endure；bear；put up with；conceal；secrete；spy；sneak|7|ニン|しの.ぶ；しの.ばせる|
+R9966|怠|neglect；laziness|9|タイ|おこた.る；なま.ける|怠ける；怠る；怠慢；怠い
+R9967|如|likeness；like；such as；as if；better；best；equal|6|ジョ；ニョ|ごと.し|突如；如何に；如何にも
+R9968|寮|dormitory；hostel；villa；tea pavillion|15|リョウ||寮
+R9969|祐|help|9|ユウ；ウ|たす.ける|
+R9970|鵬|phoenix|19|ホウ|おおとり|
+R9971|鉛|lead|13|エン|なまり|鉛筆；鉛
+R9972|珠|pearl；gem；jewel|10|シュ|たま|真珠
+R9973|凝|congeal；freeze；stiff；be absorbed in|16|ギョウ|こ.る；こ.らす；こご.らす；こご.らせる；こご.る|凝る；凝らす
+R9974|苗|seedling；sapling；shoot|8|ビョウ；ミョウ|なえ；なわ-|苗
+R9975|獣|animal；beast|16|ジュウ|けもの；けだもの|獣；怪獣
+R9976|哀|pathetic；grief；sorrow；pathos；pity；sympathize|9|アイ|あわ.れ；あわ.れむ；かな.しい|哀れ
+R9977|跳|hop；leap up；spring；jerk；prance；buck；splash；sputter；snap|13|チョウ|は.ねる；と.ぶ；-と.び|跳ぶ；跳ねる
+R9978|匠|artisan；workman；carpenter|6|ショウ|たくみ|
+R9979|垂|droop；suspend；hang；slouch|8|スイ|た.れる；た.らす；た.れ；-た.れ；なんなんと.す|垂直；垂れる
+R9980|蛇|snake；serpent；hard drinker|11|ジャ；ダ；イ；ヤ|へび|蛇口
+R9981|澄|lucidity；be clear；clear；clarify；settle；strain；look grave|15|チョウ|す.む；す.ます；-す.ます|澄む；澄ます
+R9982|縫|sew；stitch；embroider|16|ホウ|ぬ.う|裁縫；縫う
+R9983|僧|Buddhist priest；monk|13|ソウ||僧
+R9984|眺|stare；watch；look at；see；scrutinize|11|チョウ|なが.める|眺め；眺める
+R9985|唐|T'ang；China；foreign|10|トウ|から|
+R9986|亘|span；range；extend over|6|コウ；カン；セン|わた.る；もと.める|
+R9987|呉|give；do something for；kingdom of Wu|7|ゴ|く.れる；くれ|
+R9988|凡|commonplace；ordinary；mediocre|3|ボン；ハン|およ.そ；おうよ.そ；すべ.て|平凡
+R9989|憩|recess；rest；relax；repose|16|ケイ|いこ.い；いこ.う|休憩
+R9990|媛|beautiful woman；princess|12|エン|ひめ|
+R9991|溝|gutter；ditch；sewer；drain；10**32|13|コウ|みぞ|溝
+R9992|恭|respect；reverent|10|キョウ|うやうや.しい|
+R9993|刈|reap；cut；clip；trim；prune|4|ガイ；カイ|か.る|刈る
+R9994|睡|drowsy；sleep；die|13|スイ|ねむ.る；ねむ.い|睡眠
+R9995|錯|confused；mix；be in disorder|16|サク；シャク||錯誤；錯覚
+R9996|伯|chief；count；earl；uncle；Brazil|7|ハク||伯母さん；伯父さん
+R9997|笹|bamboo grass；(kokuji)|11||ささ|
+R9998|穀|cereals；grain|14|コク||穀物
+R9999|柿|persimmon|9|シ|かき|
+R10000|陵|mausoleum；imperial tomb；mound；hill|11|リョウ|みささぎ|丘陵
+R10001|霧|fog；mist|19|ム；ボウ；ブ|きり|霧
+R10002|魂|soul；spirit|14|コン|たましい；たま|魂
+R10003|弊|abuse；evil；vice；breakage|15|ヘイ||
+R10004|妃|queen；princess|6|ヒ|きさき|
+R10005|舶|liner；ship|11|ハク||船舶
+R10006|餓|starve；hungry；thirst|15|ガ|う.える|
+R10007|腎|kidney|13|ジン||
+R10008|窮|hard up；destitute；suffer；perplexed；cornered|15|キュウ；キョウ|きわ.める；きわ.まる；きわ.まり；きわ.み|窮屈；窮乏
+R10009|掌|palm of hand；rule；administer；conduct|12|ショウ|てのひら；たなごころ|車掌；掌
+R10010|麗|lovely；beautiful；graceful；resplendent|19|レイ|うるわ.しい；うら.らか|
+R10011|綾|design；figured cloth；twill|14|リン|あや|
+R10012|臭|stinking；ill-smelling；suspicious looking；odor；savor；fragrance；be fragrant；stink；glow；be bright|9|シュウ|くさ.い；-くさ.い；にお.う；にお.い|臭い；面倒臭い；生臭い
+R10013|悦|ecstasy；joy；rapture|10|エツ|よろこ.ぶ；よろこ.ばす|
+R10014|刃|blade；sword；edge|3|ジン；ニン|は；やいば；き.る|刃
+R10015|縛|truss；arrest；bind；tie；restrain|16|バク|しば.る|縛る；束縛
+R10016|暦|calendar；almanac|14|レキ；リャク|こよみ|西暦；暦；還暦
+R10017|宜|best regards；good|8|ギ|よろ.しい；よろ.しく|適宜；便宜
+R10018|盲|blind；blind man；ignoramus|8|モウ|めくら|盲点
+R10019|粋|chic；style；purity；essence；pith；cream；elite；choice|10|スイ|いき|純粋；粋
+R10020|辱|embarrass；humiliate；shame|10|ジョク|はずかし.める|侮辱
+R10021|毅|strong|15|キ；ギ|つよ.い|
+R10022|轄|control；wedge|17|カツ|くさび|
+R10023|猿|monkey|13|エン|さる|猿
+R10024|弦|bowstring；chord；hypotenuse|8|ゲン|つる|
+R10025|稔|harvest；ripen|13|ネン；ジン；ニン|みの.る；みのり|
+R10026|窒|plug up；obstruct|11|チツ||窒息
+R10027|炊|cook；boil|8|スイ|た.く；-だ.き|炊事；炊く
+R10028|洪|deluge；flood；vast|9|コウ||洪水
+R10029|摂|vicarious；surrogate；act in addition to；take in；absorb|13|セツ；ショウ|おさ.める；かね.る；と.る|
+R10030|飽|sated；tired of；bored；satiate|13|ホウ|あ.きる；あ.かす；あ.く|飽きる；飽和
+R10031|冗|superfluous；uselessness|4|ジョウ||冗談
+R10032|桃|peach|10|トウ|もも|
+R10033|狩|hunt；raid；gather|9|シュ|か.る；か.り；-が.り|
+R10034|朱|vermilion；cinnabar；scarlet；red；bloody|6|シュ|あけ|
+R10035|渦|whirlpool；eddy；vortex|12|カ|うず|渦
+R10036|紳|sire；good belt；gentleman|11|シン||紳士
+R10037|枢|hinge；pivot；door；center of things|8|スウ；シュ|とぼそ；からくり|中枢
+R10038|碑|tombstone；monument|14|ヒ|いしぶみ|碑
+R10039|鍛|forge；discipline；train|17|タン|きた.える|鍛える
+R10040|刀|sword；saber；knife|2|トウ|かたな；そり|刀；剃刀
+R10041|鼓|drum；beat；rouse；muster|13|コ|つづみ|太鼓
+R10042|裸|naked；nude；uncovered；partially clothed|13|ラ|はだか|裸；裸足
+R10043|猶|furthermore；still；yet|12|ユウ；ユ|なお|
+R10044|塊|clod；lump；chunk；clot；mass|13|カイ；ケ|かたまり；つちくれ|塊
+R10045|旋|rotation；go around|11|セン|め.ぐる；いばり|
+R10046|弓|bow；bow (archery, violin)|3|キュウ|ゆみ|弓
+R10047|幣|cash；bad habit；humble prefix；gift；Shinto offerings of cloth；rope；cut paper|15|ヘイ|ぬさ|紙幣；貨幣
+R10048|膜|membrane|14|マク||膜
+R10049|扇|fan；folding fan|10|セン|おうぎ|扇ぐ；扇子；扇風機；団扇
+R10050|腸|intestines；guts；bowels；viscera|13|チョウ|はらわた；わた|腸
+R10051|槽|vat；tub；tank|15|ソウ|ふね|
+R10052|慈|mercy|13|ジ|いつく.しむ|
+R10053|楊|willow|13|ヨウ|やなぎ|
+R10054|伐|fell；strike；attack；punish|6|バツ；ハツ；カ；ボチ|き.る；そむ.く；う.つ|
+R10055|駿|a good horse；speed；a fast person|17|シュン；スン|すぐ.れる|
+R10056|漬|pickling；soak；moisten；steep|14|シ|つ.ける；つ.かる；-づ.け；-づけ|漬ける
+R10057|糾|twist；ask；investigate；verify|9|キュウ|ただ.す|
+R10058|亮|clear；help|9|リョウ|あきらか|
+R10059|墳|tomb；mound|15|フン||
+R10060|坪|two-mat area；approx. thirty-six sq ft|8|ヘイ|つぼ|
+R10061|紺|dark blue；navy|11|コン||紺
+R10062|慌|disconcerted；be confused；lose one's head|12|コウ|あわ.てる；あわ.ただしい|
+R10063|娯|recreation；pleasure|10|ゴ||娯楽
+R10064|椿|camellia|13|チン；チュン|つばき|
+R10065|舌|tongue；reed；clapper|6|ゼツ|した|舌
+R10066|羅|gauze；thin silk；Rome；arrange；spread out|19|ラ|うすもの|
+R10067|峡|gorge；ravine|9|キョウ；コウ|はざま|海峡
+R10068|俸|stipend；salary|10|ホウ||
+R10069|厘|rin；1/10 sen；1/10 bu|9|リン||
+R10070|峰|summit；peak|10|ホウ|みね；ね|峰
+R10071|圭|square jewel；corner；angle；edge|6|ケイ；ケ||
+R10072|醸|brew；cause|20|ジョウ|かも.す|
+R10073|蓮|lotus|13|レン|はす；はちす|蓮
+R10074|弔|condolences；mourning；funeral|4|チョウ|とむら.う；とぶら.う|
+R10075|乙|the latter；duplicate；strange；witty；fishhook radical (no. 5)|1|オツ；イツ|おと-；きのと|乙
+R10076|汁|soup；juice；broth；sap；gravy；pus|5|ジュウ|しる；-しる；つゆ|汁
+R10077|尼|nun|5|ニ|あま|
+R10078|遍|everywhere；times；widely；generally|12|ヘン|あまね.く|普遍
+R10079|衡|equilibrium；measuring rod；scale|16|コウ||均衡
+R10080|薫|send forth fragrance；fragrant；be scented；smoke (tobacco)|16|クン|かお.る|
+R10081|猟|game-hunting；shooting；game；bag|11|リョウ|かり；か.る|
+R10082|羊|sheep|6|ヨウ|ひつじ|羊毛
+R10083|款|goodwill；article；section；friendship；collusion|12|カン||
+R10084|閲|review；inspection；revision|15|エツ|けみ.する|閲覧
+R10085|偵|spy|11|テイ||
+R10086|喝|hoarse；scold|11|カツ||
+R10087|敢|daring；brave；bold；sad；tragic；pitiful|12|カン|あ.えて；あ.えない；あ.えず|勇敢；敢えて
+R10088|胎|womb；uterus|9|タイ||
+R10089|酵|fermentation|14|コウ||
+R10090|憤|aroused；resent；be indignant；anger|15|フン|いきどお.る|憤慨
+R10091|豚|pork；pig|11|トン|ぶた|豚肉
+R10092|遮|intercept；interrupt；obstruct|14|シャ|さえぎ.る|遮る
+R10093|扉|front door；title page；front page|12|ヒ|とびら|扉
+R10094|硫|sulphur|12|リュウ||
+R10095|赦|pardon；forgiveness|11|シャ|ゆる.す|
+R10096|挫|crush；break；sprain；discourage|10|ザ；サ|くじ.く；くじ.ける|
+R10097|窃|stealth；steal；secret；private；hushed|9|セツ|ぬす.む；ひそ.か|
+R10098|泡|bubbles；foam；suds；froth|8|ホウ|あわ|泡
+R10099|瑞|congratulations|13|ズイ；スイ|みず-；しるし|
+R10100|又|or again；furthermore；on the other hand|2|ユウ|また；また-；また.の-|
+R10101|慨|rue；be sad；sigh；lament|13|ガイ|なげ.く|感慨；憤慨
+R10102|紡|spinning|10|ボウ|つむ.ぐ|紡績
+R10103|恨|regret；bear a grudge；resentment；malice；hatred|9|コン|うら.む；うら.めしい|恨み；恨む
+R10104|肪|obese；fat|8|ボウ||脂肪
+R10105|扶|aid；help；assist|7|フ|たす.ける|扶養
+R10106|戯|frolic；play；sport|15|ギ；ゲ|たわむ.れる；ざ.れる；じゃ.れる|戯曲
+R10107|伍|five；five-man squad；file；line|6|ゴ|いつつ|
+R10108|忌|mourning；abhor；detestable；death anniversary|7|キ|い.む；い.み；い.まわしい|
+R10109|濁|voiced；uncleanness；wrong；nigori；impurity|16|ダク；ジョク|にご.る；にご.す|濁る；清濁
+R10110|奔|run；bustle|8|ホン|はし.る|
+R10111|斗|Big Dipper；ten sho (vol)；sake dipper；dots and cross radical (no. 68)|4|ト；トウ||
+R10112|蘭|orchid；Holland|19|ラン；ラ||
+R10113|迅|swift；fast|6|ジン||迅速
+R10114|肖|resemblance|7|ショウ|あやか.る|
+R10115|鉢|bowl；rice tub；pot；crown|13|ハチ；ハツ||鉢
+R10116|朽|decay；rot；remain in seclusion|6|キュウ|く.ちる|朽ちる
+R10117|殻|husk；nut shell|11|カク；コク；バイ|から；がら|殻；貝殻
+R10118|享|enjoy；receive；undergo；answer (phone)；take；get；catch|8|キョウ；コウ|う.ける|享受
+R10119|秦|Qin dynasty；name given to naturalized foreigners|10|シン|はた|
+R10120|茅|miscanthus reed|8|ボウ；ミョウ|かや；ちがや|
+R10121|藩|clan；enclosure|18|ハン||
+R10122|沙|sand|7|サ；シャ|すな；よなげる|無沙汰；御無沙汰
+R10123|輔|help|14|ホ；フ|たす.ける|
+R10124|媒|mediator；go-between|12|バイ|なこうど|
+R10125|鶏|chicken|19|ケイ|にわとり；とり|鶏肉
+R10126|禅|Zen；silent meditation|13|ゼン；セン|しずか；ゆず.る|禅
+R10127|嘱|entrust；request；send a message|15|ショク|しょく.する；たの.む|
+R10128|胴|trunk；torso；hull (ship)；hub of wheel|10|ドウ||胴
+R10129|迭|transfer；alternation|8|テツ||
+R10130|挿|insert；put in；graft；wear (sword)|10|ソウ|さ.す；はさ.む|挿す
+R10131|嵐|storm；tempest|12|ラン|あらし|嵐
+R10132|椎|chinquapin；mallet；spine|12|ツイ；スイ|つち；う.つ|
+R10133|絹|silk|13|ケン|きぬ|絹
+R10134|陪|obeisance；follow；accompany；attend on|11|バイ||
+R10135|剖|divide|10|ボウ||解剖
+R10136|譜|musical score；music；note；staff；table；genealogy|19|フ||楽譜
+R10137|郁|cultural progress；perfume|9|イク||
+R10138|悠|permanence；distant；long time；leisure|11|ユウ||悠々
+R10139|淑|graceful；gentle；pure|11|シュク|しと.やか|
+R10140|帆|sail|6|ハン|ほ|
+R10141|暁|daybreak；dawn；in the event|12|ギョウ；キョウ|あかつき；さと.る|
+R10142|傑|greatness；excellence|13|ケツ|すぐ.れる|傑作；傑
+R10143|楠|camphor tree|13|ナン；ダン；ゼン；ネン|くす；くすのき|
+R10144|笛|flute；clarinet；pipe；whistle；bagpipe；piccolo|11|テキ|ふえ|笛
+R10145|玲|sound of jewels|9|レイ||
+R10146|奴|guy；slave；manservant；fellow|5|ド|やつ；やっこ|奴
+R10147|錠|lock；fetters；shackles|16|ジョウ||手錠
+R10148|拳|fist|10|ケン；ゲン|こぶし|
+R10149|翔|soar；fly|12|ショウ|かけ.る；と.ぶ|
+R10150|遷|transition；move；change|15|セン|うつ.る；うつ.す；みやこがえ|変遷
+R10151|拙|bungling；clumsy；unskillful|8|セツ|つたな.い|
+R10152|侍|waiter；samurai；wait upon；serve|8|ジ；シ|さむらい；はべ.る|侍
+R10153|尺|shaku；Japanese foot；measure；scale；rule|4|シャク；セキ|さし|
+R10154|峠|mountain peak；mountain pass；climax；crest；(kokuji)|9||とうげ|峠
+R10155|篤|fervent；kind；cordial；serious；deliberate|16|トク|あつ.い|
+R10156|肇|beginning|14|チョウ；ジョウ；トウ|はじ.める；はじめ|
+R10157|渇|thirst；dry up；parch|11|カツ|かわ.く|渇く
+R10158|俺|I；myself|10|エン|おれ；われ|俺
+R10159|叔|uncle；youth|8|シュク||叔父さん；叔母さん
+R10160|雌|feminine；female|14|シ|め-；めす；めん|雌
+R10161|亨|pass through；go smoothly|7|コウ；キョウ；ホウ|とお.る|
+R10162|堪|withstand；endure；support；resist|12|カン；タン|た.える；たま.る；こら.える；こた.える|堪える
+R10163|叙|confer；relate；narrate；describe|9|ジョ|つい.ず；ついで|
+R10164|酢|vinegar；sour；acid；tart|12|サク|す|酢
+R10165|吟|versify；singing；recital|7|ギン||吟味
+R10166|逓|relay；in turn；sending|10|テイ|かわ.る；たがいに|
+R10167|痕|mark；foot print|11|コン|あと|
+R10168|嶺|peak；summit|17|レイ；リョウ|みね|
+R10169|甚|tremendously；very；great；exceedingly|9|ジン|はなは.だ；はなは.だしい|甚だしい；甚だ
+R10170|喬|high；boasting|12|キョウ|たか.い|
+R10171|妖|attractive；bewitching；calamity|7|ヨウ|あや.しい；なま.めく；わざわ.い|
+R10172|闇|get dark；gloom；disorder|17|アン；オン|やみ；くら.い|闇；無闇に
+R10173|崇|adore；respect；revere；worship|11|スウ|あが.める|崇拝
+R10174|漆|lacquer；varnish；seven|14|シツ|うるし|
+R10175|岬|headland；cape；spit；promontory|8|コウ|みさき|岬
+R10176|癖|mannerism；habit；vice；trait；fault；kink|18|ヘキ|くせ；くせ.に|癖
+R10177|愉|pleasure；happy；rejoice|12|ユ|たの.しい；たの.しむ|愉快
+R10178|寅|sign of the tiger；3-5AM；third sign of Chinese zodiac|11|イン|とら|
+R10179|捉|catch；capture|10|ソク；サク|とら.える|
+R10180|礁|reef；sunken rock|17|ショウ||
+R10181|乃|from；possessive particle；whereupon；accordingly|2|ナイ；ダイ；ノ；アイ|の；すなわ.ち；なんじ|乃至
+R10182|洲|continent；sandbar；island；country|9|シュウ；ス|しま|
+R10183|屯|barracks；police station；camp；ton|4|トン|たむろ|
+R10184|樺|birch；dark red|14|カ|かば；かんば|
+R10185|槙|twig；ornamental evergreen|14|テン；シン|まき；こずえ|
+R10186|姻|matrimony；marry|9|イン||
+R10187|巌|rock；crag；boulder|20|ガン|いわ；いわお；けわ.しい|
+R10188|賭|gamble；wager；bet|15|ト|か.ける；かけ|賭け；賭ける
+R10189|擬|mimic；aim (a gun) at；nominate；imitate|17|ギ|まが.い；もど.き|
+R10190|塀|fence；wall；(kokuji)|12|ヘイ；ベイ||塀
+R10191|唇|lips|10|シン|くちびる|唇
+R10192|睦|intimate；friendly；harmonious|13|ボク；モク|むつ.まじい；むつ.む；むつ.ぶ|
+R10193|閑|leisure|12|カン||長閑
+R10194|胡|barbarian；foreign|9|ウ；コ；ゴ|なんぞ|胡椒
+R10195|幽|seclude；confine to a room；deep；profound；secluded；faint；dark；tranquil；calm|9|ユウ|ふか.い；かす.か；くら.い；しろ.い|幽霊
+R10196|峻|high；steep|10|シュン|けわ.しい；たか.い|
+R10197|曹|office；official；comrade；fellow|11|ソウ；ゾウ||
+R10198|詠|recitation；poem；song；composing|12|エイ|よ.む；うた.う|
+R10199|卑|lowly；base；vile；vulgar；despise|9|ヒ|いや.しい；いや.しむ；いや.しめる|卑怯；卑しい
+R10200|侮|scorn；despise；make light of；contempt|8|ブ|あなど.る；あなず.る|侮辱
+R10201|鋳|casting；mint|15|チュウ；イ；シュ；シュウ|い.る|
+R10202|抹|rub；paint；erase|8|マツ||
+R10203|尉|military officer；jailer；old man；rank|11|イ；ジョウ||尉
+R10204|槻|Zelkova tree|15|キ|つき|
+R10205|隷|slave；servant；prisoner；criminal；follower|16|レイ|したが.う；しもべ|
+R10206|禍|calamity；misfortune；evil；curse|13|カ|わざわい|
+R10207|蝶|butterfly|15|チョウ||蝶
+R10208|酪|dairy products；whey；broth；fruit juice|13|ラク||酪農
+R10209|茎|stalk；stem|8|ケイ；キョウ|くき|茎
+R10210|汎|pan-|6|ハン；ブ；フウ；ホウ；ホン|ただよ.う；ひろ.い|
+R10211|帥|commander；leading troops；governor|9|スイ||
+R10212|逝|departed；die|10|セイ|ゆ.く；い.く|
+R10213|汽|vapor；steam|7|キ||汽車；汽船
+R10214|琢|polish|11|タク|みが.く|
+R10215|匿|hide；shelter；shield|10|トク|かくま.う|
+R10216|鍵|key|17|ケン|かぎ|
+R10217|襟|collar；neck；lapel；one's inner feelings|18|キン|えり|襟
+R10218|蛍|lightning-bug；firefly|11|ケイ|ほたる|蛍光灯
+R10219|蕉|banana；plantain|15|ショウ||
+R10220|寡|widow；minority；few|14|カ||
+R10221|琉|precious stone；gem；lapis lazuli|11|リュウ；ル||
+R10222|痢|diarrhea|12|リ||下痢
+R10223|庸|commonplace；ordinary；employment|11|ヨウ||
+R10224|朋|companion；friend|8|ホウ|とも|
+R10225|坑|pit；hole|7|コウ||
+R10226|藍|indigo|18|ラン|あい|
+R10227|賊|burglar；rebel；traitor；robber|13|ゾク||
+R10228|搾|squeeze|13|サク|しぼ.る|
+R10229|臼|mortar|6|キュウ；グ|うす；うすづ.く|
+R10230|畔|paddy ridge；levee|10|ハン|あぜ；くろ；ほとり|
+R10231|遼|distant|15|リョウ||
+R10232|唄|song；ballad|10|バイ|うた；うた.う|
+R10233|孔|cavity；hole；slit；very；great；exceedingly|4|コウ；ク|あな|
+R10234|橘|mandarin orange|16|キツ|たちばな|
+R10235|漱|gargle；rinse mouth|14|ソウ；シュウ；ス|くちすす.ぐ；くちそそ.ぐ；うがい；すす.ぐ|
+R10236|呂|spine；backbone|7|ロ；リョ|せぼね|お風呂；風呂敷
+R10237|拷|torture；beat|9|ゴウ||
+R10238|嬢|lass；girl；Miss；daughter|16|ジョウ|むすめ|お嬢さん；嬢
+R10239|苑|garden；farm；park|8|エン；オン|その；う.つ|
+R10240|巽|southeast|12|ソン|たつみ|
+R10241|杜|woods；grove|7|ト；トウ；ズ|もり；ふさ.ぐ；やまなし|
+R10242|渓|mountain stream；valley|11|ケイ|たに；たにがわ|
+R10243|翁|venerable old man|10|オウ|おきな|
+R10244|廉|bargain；reason；charge；suspicion；point；account；purity；honest；low price；cheap；rested；contented；peaceful|13|レン||
+R10245|牙|tusk；fang；tusk radical (no. 92)|5|ガ；ゲ|きば；は|
+R10246|謹|discreet；reverently；humbly|17|キン|つつし.む|
+R10247|瞳|pupil (of eye)|17|ドウ；トウ|ひとみ|瞳
+R10248|湧|boil；ferment；seethe；uproar；breed|12|ユウ；ヨウ；ユ|わ.く|湧く
+R10249|欣|take pleasure in；rejoice|8|キン；ゴン；コン|よろこ.ぶ；よろこ.び|
+R10250|窯|kiln；oven；furnace|15|ヨウ|かま|
+R10251|褒|praise；extol|15|ホウ|ほ.める|褒美
+R10252|醜|ugly；unclean；shame；bad looking|17|シュウ|みにく.い；しこ|醜い
+R10253|升|measuring box；1.8 liter|4|ショウ|ます|
+R10254|殉|martyrdom；follow by resigning|10|ジュン||
+R10255|煩|anxiety；trouble；worry；pain；ill；annoy；nuisance；irksome|13|ハン；ボン|わずら.う；わずら.わす；うるさ.がる；うるさ.い|煩い；煩わしい
+R10256|巴|comma-design|4|ハ|ともえ；うずまき|
+R10257|禎|happiness；blessed；good fortune；auspicious|13|テイ|さいわ.い|
+R10258|劾|censure；criminal investigation|8|ガイ||
+R10259|堕|degenerate；descend to；lapse into|12|ダ|お.ちる；くず.す；くず.れる|
+R10260|租|tariff；crop tax；borrowing|10|ソ||
+R10261|稜|angle；edge；corner；power；majesty|13|リョウ；ロウ|いつ；かど|
+R10262|桟|scaffold；cleat；frame；jetty；bolt (door)|10|サン；セン|かけはし|桟橋
+R10263|惧|fear；be afraid of；dread|11|ク；グ|おそ.れる|
+R10264|倭|Yamato；ancient Japan|10|ワ；イ|やまと；したが.う|
+R10265|婿|bridegroom；son-in-law|12|セイ|むこ|婿
+R10266|慕|pining；yearn for；love dearly；adore|14|ボ|した.う|慕う
+R10267|斐|beautiful；patterned|12|ヒ；イ||
+R10268|罷|quit；stop；leave；withdraw；go|15|ヒ|まか.り-；や.める|
+R10269|矯|rectify；straighten；correct；reform；cure；control；pretend；falsify|17|キョウ|た.める|
+R10270|某|so-and-so；one；a certain；that person|9|ボウ|それがし；なにがし|
+R10271|囚|captured；criminal；arrest；catch|5|シュウ|とら.われる|
+R10272|魁|charging ahead of others|14|カイ|さきがけ；かしら|
+R10273|虹|rainbow|9|コウ|にじ|虹
+R10274|鴻|large bird；wild goose；large；great；powerful；prosperous|17|コウ；ゴウ|おおとり；ひしくい；おおがり|
+R10275|泌|ooze；flow；soak in；penetrate；secrete|8|ヒツ；ヒ||
+R10276|於|at；in；on；as for|8|オ；ヨ|おい.て；お.ける；ああ；より|
+R10277|赳|strong and brave|10|キュウ||
+R10278|漸|steadily；gradually advancing；finally；barely|14|ゼン|ようや.く；やや；ようよ.う；すす.む|
+R10279|膳|small low table；tray|16|ゼン；セン|かしわ；すす.める；そな.える|膳
+R10280|蚊|mosquito|10|ブン|か|蚊
+R10281|葵|hollyhock|12|キ|あおい|
+R10282|厄|unlucky；misfortune；bad luck；disaster|4|ヤク||厄介
+R10283|藻|seaweed；duckweed|19|ソウ|も|
+R10284|禄|fief；allowance；pension；grant；happiness|12|ロク|さいわ.い；ふち|貫禄
+R10285|孟|chief；beginning|8|モウ；ボウ；ミョウ|かしら|
+R10286|嫡|legitimate wife；direct descent (non-bastard)|14|チャク；テキ||
+R10287|呪|spell；curse；charm；malediction|8|ジュ；シュ；シュウ；ズ|まじな.う；のろ.い；まじな.い；のろ.う|
+R10288|尭|high；far|8|ギョウ|たか.い|
+R10289|怨|grudge；show resentment；be jealous|9|エン；オン；ウン|うら.む；うらみ；うら.めしい|
+R10290|串|spit；skewer|7|カン；ケン；セン|くし；つらぬ.く|
+R10291|嚇|menacing；dignity；majesty；threaten|17|カク|おど.す|
+R10292|巳|sign of the snake or serpent；9-11AM；sixth sign of Chinese zodiac|3|シ|み|
+R10293|凸|convex；beetle brow；uneven|5|トツ|でこ|凸凹
+R10294|暢|stretch|14|チョウ|のび.る|
+R10295|腫|tumor；swelling|13|シュ；ショウ|は.れる；は.れ；は.らす；はれもの|腫れる
+R10296|韻|rhyme；elegance；tone|19|イン||
+R10297|霜|frost|17|ソウ|しも|霜
+R10298|硝|nitrate；saltpeter|12|ショウ||
+R10299|箸|chopsticks|15|チョ；チャク|はし|
+R10300|勅|imperial order|9|チョク|いまし.める；みことのり|
+R10301|芹|parsley|7|キン|せり|
+R10302|杏|apricot|7|キョウ；アン；コウ|あんず|
+R10303|棺|coffin；casket|12|カン||
+R10304|儒|Confucian|16|ジュ||
+R10305|鳳|male mythical bird|14|ホウ；フウ||
+R10306|馨|fragrant；balmy；favourable|20|ケイ；キョウ|かお.る；かおり|
+R10307|斑|spot；blemish；speck；patches|12|ハン|ふ；まだら|斑
+R10308|慧|wise|15|ケイ；エ|さとい|
+R10309|摯|gift；seriousness|15|シ|いた.る；つか.む；にえ|
+R10310|愁|distress；grieve；lament；be anxious|13|シュウ|うれ.える；うれ.い|郷愁
+R10311|楼|watchtower；lookout；high building|13|ロウ|たかどの|
+R10312|彬|refined；gentle|11|ヒン；フン|うるわ.しい；あき.らか|
+R10313|匡|correct；save；assist|6|キョウ；オウ|すく.う；ただ.す|
+R10314|眉|eyebrow|9|ビ；ミ|まゆ|眉
+R10315|欽|respect；revere；long for|12|キン；コン|つつし.む|
+R10316|薪|fuel；firewood；kindling|16|シン|たきぎ；まき|
+R10317|堆|piled high|11|タイ；ツイ|うずたか.い|
+R10318|褐|brown；woollen kimono|13|カツ||
+R10319|賜|grant；gift；boon；results|15|シ|たまわ.る；たま.う；たも.う|賜る
+R10320|嵯|steep；craggy；rugged|13|サ；シ||
+R10321|綜|rule；synthesize|14|ソウ|おさ.める；す.べる|
+R10322|繕|darning；repair；mend；trim；tidy up；adjust|18|ゼン|つくろ.う|修繕；繕う
+R10323|栓|plug；bolt；cork；bung；stopper|10|セン||栓
+R10324|翠|green；kingfisher|14|スイ|かわせみ；みどり|
+R10325|鮎|freshwater trout；smelt|16|デン；ネン|あゆ；なまず|
+R10326|蜜|honey；nectar；molasses|14|ミツ；ビツ||蜜；蜂蜜
+R10327|榛|hazelnut；filbert|14|シン；ハン|はしばみ；はり|
+R10328|凹|concave；hollow；sunken|5|オウ|くぼ.む；へこ.む；ぼこ|凸凹；凹む
+R10329|艶|glossy；luster；glaze；polish；charm；colorful；captivating|19|エン|つや；なま.めかしい；あで.やか；つや.めく；なま.めく|艶
+R10330|惣|all|12|ソウ|すべ.て|
+R10331|股|thigh；crotch|8|コ|また；もも|股
+R10332|蔦|vine；ivy|14|チョウ|つた|
+R10333|玩|play；take pleasure in；trifle with；make sport of|8|ガン|もちあそ.ぶ；もてあそ.ぶ|
+R10334|錬|tempering；refine；drill；train；polish|16|レン|ね.る|
+R10335|蜂|bee；wasp；hornet|13|ホウ|はち|蜂蜜
+R10336|隼|falcon|10|シュン；ジュン|はやぶさ|
+R10337|渚|strand；beach；shore|11|ショ|なぎさ|
+R10338|衷|inmost；heart；mind；inside|9|チュウ||折衷
+R10339|逐|pursue；drive away；chase；accomplish；attain；commit|10|チク||
+R10340|斥|reject；retreat；recede；withdraw；repel；repulse|5|セキ|しりぞ.ける|
+R10341|稀|rare；phenomenal；dilute (acid)|12|キ；ケ|まれ；まばら|稀
+R10342|芙|lotus；Mt Fuji|7|フ||
+R10343|詔|imperial edict|12|ショウ|みことのり|
+R10344|皐|swamp；shore；fifth month|11|コウ|さつき|
+R10345|雛|chick；squab；duckling；doll|18|スウ；ス；ジュ|ひな；ひよこ|雛
+R10346|椅|chair|12|イ||
+R10347|惟|consider；reflect；think|11|イ；ユイ|おも.んみる；これ；おも.うに|
+R10348|佑|help；assist|7|ユウ；ウ|たす.ける|
+R10349|耀|shine；sparkle；gleam；twinkle|20|ヨウ|かがや.く；ひかり|
+R10350|黛|blackened eyebrows|16|タイ|まゆずみ|
+R10351|渥|kindness；moisten|12|アク|あつ.い；うるお.う|
+R10352|憧|yearn after；long for；aspire to；admire；adore|15|ショウ；トウ；ドウ|あこが.れる|憧れる；憧れ
+R10353|宵|wee hours；evening；early night|10|ショウ|よい|
+R10354|妄|delusion；unnecessarily；without authority；reckless|6|モウ；ボウ|みだ.りに|
+R10355|惇|sincere；kind；considerate|11|シュン；ジュン；トン|あつ.い|
+R10356|脩|dried meat|11|シュウ|おさ.める；なが.い；ほじし|
+R10357|甫|for the first time；not until|7|ホ；フ|はじ.めて|
+R10358|酌|bar-tending；serving sake；the host；draw (water)；ladle；scoop；pump|10|シャク|く.む|酌む
+R10359|蚕|silkworm|10|サン；テン|かいこ；こ|
+R10360|嬉|glad；pleased；rejoice|15|キ|うれ.しい；たの.しむ|
+R10361|蒼|blue；pale|13|ソウ|あお.い|
+R10362|暉|shine；light|13|キ|かが.やく|
+R10363|頒|distribute；disseminate；partition；understand|13|ハン|わ.かつ；わ.ける|
+R10364|只|only；free；in addition|5|シ|ただ|
+R10365|肢|limb；arms & legs|8|シ||
+R10366|檀|cedar；sandalwood；spindle tree|17|ダン；タン|まゆみ|
+R10367|凱|victory song|12|ガイ；カイ|かちどき；やわらぐ|
+R10368|彗|comet；broom|11|スイ；エ；ケイ；セイ|ほうき|
+R10369|謄|mimeograph；copy|17|トウ||
+R10370|脊|stature；height；spine|10|セキ|せ；せい|
+R10371|梓|catalpa tree；woodblock printing|11|シ|あずさ|
+R10372|丑|sign of the ox or cow；1-3AM；second sign of Chinese zodiac|4|チュウ|うし|
+R10373|嗣|heir；succeed|13|シ||
+R10374|叶|grant；answer|5|キョウ|かな.える；かな.う|叶う；叶える
+R10375|汐|eventide；tide；salt water；opportunity|6|セキ|しお；うしお；せい|
+R10376|絢|brilliant fabric design|12|ケン||
+R10377|嫉|jealous；envy|13|シツ|そね.む；ねた.む；にく.む|嫉妬
+R10378|朔|conjunction (astronomy)；first day of month；north|10|サク|ついたち|
+R10379|伽|nursing；attending；entertainer|7|カ；ガ；キャ；ギャ|とぎ|
+R10380|恣|selfish；arbitrary|10|シ|ほしいまま|
+R10381|畝|furrow；thirty tsubo；ridge；rib|10|ボウ；ホ；モ；ム|せ；うね|
+R10382|抄|extract；selection；summary；copy；spread thin|7|ショウ||
+R10383|麺|noodles；wheat flour|16|メン；ベン|むぎこ|
+R10384|戴|be crowned with；live under (a ruler)；receive|17|タイ|いただ.く|
+R10385|爽|refreshing；bracing；resonant；sweet；clear|11|ソウ|あき.らか；さわ.やか；たがう|
+R10386|裾|cuff；hem；foot of mountain|13|キョ；コ|すそ|裾
+R10387|黎|dark；black；many|15|レイ；リ|くろ.い|
+R10388|惰|lazy；laziness|12|ダ||
+R10389|蛮|barbarian|12|バン|えびす|
+R10390|冴|be clear；serene；cold；skilful|7|ゴ；コ|さ.える；こお.る；ひ.える|冴える
+R10391|旺|flourishing；successful；beautiful；vigorous|8|オウ|さかん|
+R10392|萌|show symptoms of；sprout；bud；malt|11|ホウ|も.える；きざ.す；めばえ；きざ.し|
+R10393|冥|dark|10|メイ；ミョウ|くら.い|
+R10394|偲|recollect；remember|11|サイ；シ|しの.ぶ|
+R10395|壱|one (in documents)|7|イチ；イツ|ひとつ|
+R10396|瑠|lapis lazuli|14|ル；リュウ||
+R10397|允|license；sincerity；permit|4|イン|じょう；まこと.に；ゆるす|
+R10398|侯|marquis；lord；daimyo|9|コウ||
+R10399|蒔|sow (seeds)|13|シ；ジ|う.える；ま.く|蒔く
+R10400|鯉|carp|18|リ|こい|
+R10401|弧|arc；arch；bow|9|コ||括弧
+R10402|遥|far off；distant；long ago|12|ヨウ|はる.か|遥か
+R10403|訃|obituary|9|フ|しらせ|
+R10404|舜|type of morning glory；rose of Sharon；althea|13|シュン||
+R10405|畏|fear；majestic；graciously；be apprehensive|9|イ|おそ.れる；かしこま.る；かしこ；かしこ.し|
+R10406|喉|throat；voice|12|コウ|のど|
+R10407|瑛|sparkle of jewelry；crystal|12|エイ||
+R10408|附|affixed；attach；refer to；append|8|フ|つ.ける；つ.く|附属
+R10409|彪|spotted；mottled；patterned；small tiger|11|ヒョウ；ヒュウ|あや|
+R10410|卯|sign of the hare or rabbit；fourth sign of Chinese zodiac；5-7AM；east|5|ボウ；モウ|う|卯
+R10411|但|however；but|7|タン|ただ.し|但し
+R10412|綺|figured cloth；beautiful|14|キ|あや|
+R10413|芋|taro；yam；tuber|6|ウ|いも|
+R10414|茜|madder；red dye；Turkey red|9|セン|あかね|
+R10415|凌|endure；keep (rain)out；stave off；tide over；defy；slight；surpass|10|リョウ|しの.ぐ|凌ぐ
+R10416|皓|white；clear|12|コウ|しろ.い；ひか.る|
+R10417|洸|sparkling water|9|コウ||
+R10418|毬|burr；ball|11|キュウ|いが；まり|
+R10419|婆|old woman；grandma；wet nurse|11|バ|ばば；ばあ|
+R10420|緋|scarlet；cardinal|14|ヒ|あけ；あか|
+R10421|鯛|sea bream；red snapper|19|チョウ|たい|
+R10422|怜|wise|8|レイ；レン；リョウ|あわ.れむ；さと.い|
+R10423|邑|village；rural community；right village radical (no. 163)|7|ユウ|むら|
+R10424|倣|emulate；imitate|10|ホウ|なら.う|倣う；模倣
+R10425|碧|blue；green|14|ヘキ；ヒャク||
+R10426|緻|fine (i.e. not coarse)|16|チ|こまか.い|
+R10427|哺|nurse；suckle|10|ホ|はぐく.む；ふく.む|
+R10428|啄|peck；pick up|10|タク；ツク；トク|ついば.む；つつ.く|
+R10429|穣|good crops；prosperity；10**28|18|ジョウ|わら；ゆたか|
+R10430|罵|abuse；insult|15|バ|ののし.る|罵る
+R10431|酉|west；bird；sign of the bird；5-7PM；tenth sign of Chinese zodiac；sake radical (no. 164)|7|ユウ|とり|
+R10432|悌|serving our elders|10|テイ；ダイ||
+R10433|乞|beg；invite；ask|3|コツ；キツ；キ；キケ；コチ|こ.う|
+R10434|倹|frugal；economy；thrifty|10|ケン|つま.しい；つづまやか|倹約
+R10435|蔑|ignore；despise；neglect；ridicule|14|ベツ|ないがしろ；なみ.する；くらい；さげす.む|軽蔑
+R10436|柚|citron|9|ユ；ユウ；ジク|ゆず|
+R10437|繭|cocoon|18|ケン|まゆ；きぬ|
+R10438|且|moreover；also；furthermore|5|ショ；ソ；ショウ|か.つ|且つ
+R10439|丙|third class；3rd；3rd calendar sign|5|ヘイ|ひのえ|
+R10440|丞|help|6|ジョウ；ショウ|すく.う；たす.ける|
+R10441|亥|sign of the hog；9-11PM；twelfth sign of the Chinese zodiac|6|ガイ；カイ|い|
+R10442|亦|also；again|6|エキ；ヤク|また|
+R10443|伎|deed；skill|6|ギ；キ|わざ；わざおぎ|
+R10444|伶|actor|7|レイ；リョウ|わざおぎ|
+R10445|侃|strong；just；righteous；peace-loving|8|カン|つよ.い|
+R10446|侑|urge to eat|8|ユウ；ウ|すす.める；たす.ける|
+R10447|侶|companion；follower|9|リョ；ロ|とも|
+R10448|倖|happiness；luck|10|コウ|しあわ.せ；さいわ.い|
+R10449|傲|be proud|13|ゴウ|おご.る；あなど.る|
+R10450|冶|melting；smelting|7|ヤ|い.る|
+R10451|凜|cold；strict；severe|15|リン|きびし.い|
+R10452|凪|lull；calm；(kokuji)|6||なぎ；な.ぐ|
+R10453|刹|temple|8|セチ；セツ；サツ||
+R10454|剝|come off；peel；fade；discolor|10|ハク；ホク|へ.ぐ；へず.る；む.く；む.ける；は.がれる；は.ぐ；は.げる；は.がす|
+R10455|勁|strong|9|ケイ|つよ.い|
+R10456|勃|suddenness；rise|9|ボツ；ホツ|おこ.る；にわかに|
+R10457|勺|ladle；one tenth of a go；dip|3|シャク||
+R10458|勾|be bent；slope；capture|4|コウ；ク|かぎ；ま.がる|
+R10459|匁|monme；3.75 grams；(kokuji)|4||もんめ；め|
+R10460|叡|intelligence；imperial|16|エイ|あき.らか|
+R10461|吏|officer；an official|6|リ||下吏；捕吏
+R10462|咽|throat；choked；smothered；stuffy|9|イン；エン；エツ|むせ.ぶ；むせ.る；のど；の.む|
+R10463|哉|how；what；alas；question mark；exclamation mark|9|サイ|かな；や|
+R10464|唾|saliva；sputum|11|ダ；タ|つば；つばき|唾
+R10465|喩|metaphor；compare|12|ユ|たと.える；さと.す|
+R10466|嘲|ridicule；insult|15|チョウ；トウ|あざけ.る|
+R10467|塑|model；molding|13|ソ|でく|
+R10468|塡|fill in；fill up；make good|13|テン；チン|はま.る；うず.める；は.める；ふさ.ぐ|
+R10469|墾|ground-breaking；open up farmland|16|コン|は.る；ひら.く|
+R10470|奎|star；god of literature|9|ケイ；キ||
+R10471|妬|jealous；envy|8|ト；ツ|ねた.む；そね.む；つも.る；ふさ.ぐ|嫉妬；妬む
+R10472|宥|soothe；calm；pacify|9|ユウ|なだ.める；ゆる.す|
+R10473|崖|cliff；bluff；precipice|11|ガイ；ゲ；ギ|がけ；きし；はて|崖
+R10474|崚|mountains towering in a row|11|リョウ||
+R10475|嵩|be aggravated；grow worse；grow bulky；swell|13|スウ；シュウ|かさ；かさ.む；たか.い|嵩む；嵩張る
+R10476|弄|play with；tamper；trifle with|7|ロウ；ル|いじく.る；ろう.する；いじ.る；ひねく.る；たわむ.れる；もてあそ.ぶ|弄る
+R10477|弐|II；two；second|6|ニ；ジ|ふた.つ；そえ|
+R10478|彙|same kind；collect；classify；category；hedgehog|13|イ|はりねずみ|語彙
+R10479|恕|excuse；tolerate；forgive|10|ジョ；ショ|ゆる.す|
+R10480|慄|fear|13|リツ|ふる.える；おそ.れる；おのの.く|
+R10481|憬|yearn for；aspire to；admire|15|ケイ|あこが.れる|
+R10482|拉|Latin；kidnap；crush|8|ラツ；ラ；ロウ|らっ.する；ひし.ぐ；くだ.く|
+R10483|捗|make progress|10|チョク；ホ|はかど.る|捗る
+R10484|捷|victory；fast|11|ショウ；ソウ|はや.い|
+R10485|捺|press；print；affix a seal；stamp|11|ナツ；ダツ|さ.す；お.す|
+R10486|斤|axe；1.32 lb；catty；counter for loaves of bread；axe radical (no. 69)|4|キン||
+R10487|旦|daybreak；dawn；morning|5|タン；ダン|あき.らか；あきら；ただし；あさ；あした|一旦；旦那
+R10488|昂|rise|8|コウ；ゴウ|あ.がる；たか.い；たか.ぶる|
+R10489|昧|dark；foolish|9|マイ；バイ|くら.い；むさぼ.る|
+R10490|昴|the Pleiades|9|コウ；ボウ|すばる|
+R10491|晏|late；quiet；sets (sun)|10|アン|おそ.い|
+R10492|晟|clear|10|セイ；ジョウ|あきらか|
+R10493|晨|morning；early|11|シン|あした；とき；あさ|
+R10494|曖|dark；not clear|17|アイ|くら.い|
+R10495|朕|majestic plural；imperial we|10|チン||
+R10496|柊|holly|9|シュ；シュウ|ひいらぎ|
+R10497|柵|stockade；fence；weir；entwine around|9|サク；サン|しがら.む；しがらみ；とりで；やらい|柵
+R10498|柾|straight grain；spindle tree；(kokuji)|9||まさ；まさめ；まさき|
+R10499|栞|bookmark；guidebook|10|カン|しおり|
+R10500|梗|for the most part；close up；flower stem|11|コウ；キョウ|ふさぐ；やまにれ；おおむね|
+R10501|梢|treetops；twig|11|ショウ|こずえ；くすのき|梢
+R10502|梧|Chinese parasol tree；phoenix tree|11|ゴ|あおぎり|
+R10503|椋|type of deciduous tree；grey starling|12|リョウ|むく|
+R10504|椰|coconut tree|13|ヤ|やし|
+R10505|楓|maple|13|フウ|かえで|
+R10506|楷|square character style；correctness|13|カイ||
+R10507|毀|break；destroy；censure；be chipped；be scratched；be broken；be ruined|13|キ|こぼ.つ；こわ.す；こぼ.れる；こわ.れる；そし.る；やぶ.る|
+R10508|氾|spread out；wide|5|ハン|ひろ.がる|氾濫
+R10509|汰|washing；sieving；filtering；weeding out；luxury|7|タ；タイ|おご.る；にご.る；よな.げる|無沙汰；御無沙汰
+R10510|沃|fertility|7|ヨウ；ヨク；オク|そそ.ぐ|
+R10511|洵|alike；truth|9|ジュン；シュン|の.ぶ；まこと.に|
+R10512|淫|lewdness；licentiousness|11|イン|ひた.す；ほしいまま；みだ.ら；みだ.れる；みだり|
+R10513|滉|deep and broad (water)|13|コウ|ひろ.い|
+R10514|澪|water route；shipping channel|16|レイ|みお|
+R10515|濫|excessive；overflow；spread out|18|ラン|みだ.りに；みだ.りがましい|氾濫；濫用
+R10516|熙|bright；sunny；prosperous；merry|15|キ|たのし.む；ひか.る；ひろ.い；よろこ.ぶ；かわ.く；あきらか；ひろ.める；ひろ.まる|
+R10517|燎|burn；bonfire|16|リョウ|かがりび|
+R10518|燦|brilliant|17|サン|さん.たる；あき.らか；きらめ.く；きら.めく|
+R10519|燿|shine|18|ヨウ|かがや.く；ひかり|
+R10520|爵|baron；peerage；court rank|17|シャク||
+R10521|爾|you；thou；second person|14|ジ；ニ|なんじ；しかり；その；のみ；おれ；しか|
+R10522|玖|beautiful black jewel；nine|7|キュウ；ク||
+R10523|琳|jewel；tinkling of jewelry|12|リン||
+R10524|瑚|ancestral offering receptacle；coral|13|コ；ゴ||
+R10525|瑳|polish；brilliant white luster of a gem；artful smile|14|サ|みが.く|
+R10526|瑶|beautiful as a jewel|13|ヨウ|たま|
+R10527|璃|glassy；lapis lazuli|15|リ||
+R10528|璧|sphere；ball|18|ヘキ|たま|完璧
+R10529|璽|emperor's seal|19|ジ||
+R10530|痘|pox；smallpox|12|トウ||
+R10531|瘍|swelling；boil；tumor|14|ヨウ|かさ|
+R10532|眸|pupil of the eye|11|ボウ；ム|ひとみ|
+R10533|瞭|clear|17|リョウ|あきらか|明瞭
+R10534|碩|large；great；eminent|14|セキ|おお.きい|
+R10535|窟|cavern|13|クツ；コツ|いわや；いはや；あな|
+R10536|竣|end；finish|12|ドウ；シュン|わらわ；わらべ；おわ.る|
+R10537|笙|a reed instrument|11|ショウ；ソウ|ふえ|
+R10538|箇|counter for articles|14|カ；コ||箇所；箇箇；箇条書き
+R10539|紗|gauze；gossamer|10|サ；シャ|うすぎぬ|
+R10540|紬|pongee (a knotted silk cloth)|11|チュウ|つむぎ；つむ.ぐ|
+R10541|絃|string；cord；samisen music|11|ゲン|いと|
+R10542|綸|thread；silk cloth|14|リン；カン|いと|
+R10543|綻|be rent；ripped；unravel；run；begin to open；smile|14|タン|ほころ.びる|綻びる
+R10544|羞|feel ashamed|11|シュウ|はじ.る；すすめ.る；は.ずかしい|
+R10545|耗|decrease|10|モウ；コウ||消耗
+R10546|耶|question mark|9|ヤ；ジャ|か|
+R10547|胤|descendent；issue；offspring|9|イン|たね|
+R10548|脹|dilate；distend；bulge；fill out；swell|12|チョウ|は.れる；ふく.らむ；ふく.れる|膨脹
+R10549|腺|gland；(kokuji)|13|セン||
+R10550|臆|timidity；heart；mind；fear；cowardly|17|オク；ヨク|むね；おくする|臆病
+R10551|舷|gunwale|11|ゲン|ふなばた；ふなべり|
+R10552|苛|torment；scold；chastise|8|カ|いじ.める；さいな.む；いらだ.つ；からい；こまかい|
+R10553|茄|eggplant|8|カ||
+R10554|茉|jasmine|8|マツ；バツ；マ||
+R10555|莉|jasmine|10|リ；ライ；レイ||
+R10556|莞|smiling；reed used to cover tatami|10|カン|い|
+R10557|菖|iris|11|ショウ||
+R10558|菫|the violet|11|キン|すみれ|
+R10559|萎|wither；droop；lame|11|イ|な；しお.れる；しな.びる；しぼ.む；な.える|萎びる
+R10560|蓉|lotus|13|ヨウ||
+R10561|蔽|cover；shade；mantle；capsize；be ruined|15|ヘイ；ヘツ；フツ|おお.う；おお.い|
+R10562|蕗|butterbur；bog rhubarb|16|ロ；ル|ふき|
+R10563|虞|fear；uneasiness；anxiety；concern；expectation；consideration|13|グ|おそれ；おもんぱか.る；はか.る；うれ.える；あざむ.く；あやま.る；のぞ.む；たの.しむ|
+R10564|衿|neck；collar；lapel|9|キン；コン|えり|
+R10565|袈|a coarse camlet|11|ケ；カ||
+R10566|裟|Buddhist surplice|13|サ；シャ||
+R10567|詢|consult with|13|ジュン；シュン|はか.る；まこと|
+R10568|詣|visit a temple；arrive；attain|13|ケイ；ゲイ|けい.する；まい.る；いた.る；もう.でる|
+R10569|詮|discussion；methods called for；selection；result|13|セン|せん.ずる；かい；あき.らか|
+R10570|誼|friendship；intimacy|15|ギ|よしみ；よい|
+R10571|諄|tedious|15|シュン|ひちくど.い；くど.い；くどくど；ねんご.ろ|
+R10572|諒|fact；reality；understand；appreciate|15|リョウ|あきら.か；まことに|
+R10573|諧|harmony|16|カイ|かな.う；やわ.らぐ|
+R10574|謁|audience；audience (with king)|15|エツ||
+R10575|貌|form；appearance；countenance|14|ボウ；バク|かたち；かたどる|
+R10576|貪|covet；indulge in|11|タン；ドン；トン|むさぼ.る|
+R10577|賂|bribe|13|ロ|まいな.い；まいな.う|
+R10578|賦|levy；ode；prose；poem；tribute；installment|15|フ；ブ||月賦
+R10579|踪|remains；clue；footprint|15|ソウ；ショウ|あと|
+R10580|辣|pungent；spicy；harsh；cruel；severe|14|ラツ|から.い|
+R10581|迪|edify；way；path|8|テキ|みち；みちび.く；すす.む；いた.る|
+R10582|遵|abide by；follow；obey；learn|15|ジュン||
+R10583|酎|sake|10|チュウ；チュ|かも.す|
+R10584|醒|awake；be disillusioned；sober up|16|セイ|さ.ます；さ.める|
+R10585|采|dice；form；appearance；take；gather；coloring|8|サイ|と.る；いろどり|
+R10586|銑|pig iron|14|セン||
+R10587|錘|weight；plumb bob；sinker；spindle|16|スイ|つむ；おもり|
+R10588|錮|confinement；to tie|16|コ|ふさ.ぐ|
+R10589|鞠|ball|17|キク；キュウ|まり|鞠
+R10590|頌|eulogy|13|ショウ；ジュ；ヨウ|かたち；たた.える；ほめ.る|
+R10591|頓|suddenly；immediately；in a hurry；arrange；stay in place；bow；kowtow|13|トン；トツ|にわか.に；とん.と；つまず.く；とみ.に；ぬかずく|
+R10592|頰|cheeks；jaw|16|キョウ|ほお；ほほ|
+R10593|顎|jaw；chin；gill|18|ガク|あご；あぎと|顎
+R10594|颯|sudden；quick；sound of the wind|14|サツ；ソウ|さっ.と|
+R10595|骸|bone；body；corpse|16|ガイ；カイ|むくろ|
+R10596|鬱|gloom；depression；melancholy；luxuriant|29|ウツ|うっ.する；ふさ.ぐ；しげ.る|憂鬱；鬱陶しい
+R10597|麟|Chinese unicorn；genius；giraffe；bright；shining|24|リン||
+R10598|麿|I；you；(kokuji)|18||まろ|
+R10599|𠮟|scold；reprove|5|シツ；シチ；カ|しか.る|

@@ -90,3 +90,181 @@ A089|KATAKANA|ロ|ro|RA|43|Hàng RO
 A090|KATAKANA|ワ|wa|WA|44|Hàng WA
 A091|KATAKANA|ヲ|wo|WA|45|Trợ từ WO
 A092|KATAKANA|ン|n|N|46|Phụ âm N
+A093|HIRAGANA|が|ga|DAKUTEN|47|Dấu dakuten
+A094|HIRAGANA|ぎ|gi|DAKUTEN|48|Dấu dakuten
+A095|HIRAGANA|ぐ|gu|DAKUTEN|49|Dấu dakuten
+A096|HIRAGANA|げ|ge|DAKUTEN|50|Dấu dakuten
+A097|HIRAGANA|ご|go|DAKUTEN|51|Dấu dakuten
+A098|HIRAGANA|ざ|za|DAKUTEN|52|Dấu dakuten
+A099|HIRAGANA|じ|ji|DAKUTEN|53|Dấu dakuten
+A100|HIRAGANA|ず|zu|DAKUTEN|54|Dấu dakuten
+A101|HIRAGANA|ぜ|ze|DAKUTEN|55|Dấu dakuten
+A102|HIRAGANA|ぞ|zo|DAKUTEN|56|Dấu dakuten
+A103|HIRAGANA|だ|da|DAKUTEN|57|Dấu dakuten
+A104|HIRAGANA|ぢ|ji|DAKUTEN|58|Dấu dakuten
+A105|HIRAGANA|づ|zu|DAKUTEN|59|Dấu dakuten
+A106|HIRAGANA|で|de|DAKUTEN|60|Dấu dakuten
+A107|HIRAGANA|ど|do|DAKUTEN|61|Dấu dakuten
+A108|HIRAGANA|ば|ba|DAKUTEN|62|Dấu dakuten
+A109|HIRAGANA|び|bi|DAKUTEN|63|Dấu dakuten
+A110|HIRAGANA|ぶ|bu|DAKUTEN|64|Dấu dakuten
+A111|HIRAGANA|べ|be|DAKUTEN|65|Dấu dakuten
+A112|HIRAGANA|ぼ|bo|DAKUTEN|66|Dấu dakuten
+A113|HIRAGANA|ぱ|pa|HANDAKUTEN|67|Dấu handakuten
+A114|HIRAGANA|ぴ|pi|HANDAKUTEN|68|Dấu handakuten
+A115|HIRAGANA|ぷ|pu|HANDAKUTEN|69|Dấu handakuten
+A116|HIRAGANA|ぺ|pe|HANDAKUTEN|70|Dấu handakuten
+A117|HIRAGANA|ぽ|po|HANDAKUTEN|71|Dấu handakuten
+A118|HIRAGANA|きゃ|kya|YOON|72|Âm ghép với kana nhỏ
+A119|HIRAGANA|きゅ|kyu|YOON|73|Âm ghép với kana nhỏ
+A120|HIRAGANA|きょ|kyo|YOON|74|Âm ghép với kana nhỏ
+A121|HIRAGANA|しゃ|sha|YOON|75|Âm ghép với kana nhỏ
+A122|HIRAGANA|しゅ|shu|YOON|76|Âm ghép với kana nhỏ
+A123|HIRAGANA|しょ|sho|YOON|77|Âm ghép với kana nhỏ
+A124|HIRAGANA|ちゃ|cha|YOON|78|Âm ghép với kana nhỏ
+A125|HIRAGANA|ちゅ|chu|YOON|79|Âm ghép với kana nhỏ
+A126|HIRAGANA|ちょ|cho|YOON|80|Âm ghép với kana nhỏ
+A127|HIRAGANA|にゃ|nya|YOON|81|Âm ghép với kana nhỏ
+A128|HIRAGANA|にゅ|nyu|YOON|82|Âm ghép với kana nhỏ
+A129|HIRAGANA|にょ|nyo|YOON|83|Âm ghép với kana nhỏ
+A130|HIRAGANA|ひゃ|hya|YOON|84|Âm ghép với kana nhỏ
+A131|HIRAGANA|ひゅ|hyu|YOON|85|Âm ghép với kana nhỏ
+A132|HIRAGANA|ひょ|hyo|YOON|86|Âm ghép với kana nhỏ
+A133|HIRAGANA|みゃ|mya|YOON|87|Âm ghép với kana nhỏ
+A134|HIRAGANA|みゅ|myu|YOON|88|Âm ghép với kana nhỏ
+A135|HIRAGANA|みょ|myo|YOON|89|Âm ghép với kana nhỏ
+A136|HIRAGANA|りゃ|rya|YOON|90|Âm ghép với kana nhỏ
+A137|HIRAGANA|りゅ|ryu|YOON|91|Âm ghép với kana nhỏ
+A138|HIRAGANA|りょ|ryo|YOON|92|Âm ghép với kana nhỏ
+A139|HIRAGANA|ぎゃ|gya|YOON|93|Âm ghép với kana nhỏ
+A140|HIRAGANA|ぎゅ|gyu|YOON|94|Âm ghép với kana nhỏ
+A141|HIRAGANA|ぎょ|gyo|YOON|95|Âm ghép với kana nhỏ
+A142|HIRAGANA|じゃ|ja|YOON|96|Âm ghép với kana nhỏ
+A143|HIRAGANA|じゅ|ju|YOON|97|Âm ghép với kana nhỏ
+A144|HIRAGANA|じょ|jo|YOON|98|Âm ghép với kana nhỏ
+A145|HIRAGANA|ぢゃ|ja|YOON|99|Âm ghép với kana nhỏ
+A146|HIRAGANA|ぢゅ|ju|YOON|100|Âm ghép với kana nhỏ
+A147|HIRAGANA|ぢょ|jo|YOON|101|Âm ghép với kana nhỏ
+A148|HIRAGANA|びゃ|bya|YOON|102|Âm ghép với kana nhỏ
+A149|HIRAGANA|びゅ|byu|YOON|103|Âm ghép với kana nhỏ
+A150|HIRAGANA|びょ|byo|YOON|104|Âm ghép với kana nhỏ
+A151|HIRAGANA|ぴゃ|pya|YOON|105|Âm ghép với kana nhỏ
+A152|HIRAGANA|ぴゅ|pyu|YOON|106|Âm ghép với kana nhỏ
+A153|HIRAGANA|ぴょ|pyo|YOON|107|Âm ghép với kana nhỏ
+A154|HIRAGANA|ぁ|a|SMALL|108|Kana nhỏ, cách ghi tùy ngữ cảnh
+A155|HIRAGANA|ぃ|i|SMALL|109|Kana nhỏ, cách ghi tùy ngữ cảnh
+A156|HIRAGANA|ぅ|u|SMALL|110|Kana nhỏ, cách ghi tùy ngữ cảnh
+A157|HIRAGANA|ぇ|e|SMALL|111|Kana nhỏ, cách ghi tùy ngữ cảnh
+A158|HIRAGANA|ぉ|o|SMALL|112|Kana nhỏ, cách ghi tùy ngữ cảnh
+A159|HIRAGANA|ゃ|ya|SMALL|113|Kana nhỏ, cách ghi tùy ngữ cảnh
+A160|HIRAGANA|ゅ|yu|SMALL|114|Kana nhỏ, cách ghi tùy ngữ cảnh
+A161|HIRAGANA|ょ|yo|SMALL|115|Kana nhỏ, cách ghi tùy ngữ cảnh
+A162|HIRAGANA|っ|tsu|SMALL|116|Kana nhỏ, cách ghi tùy ngữ cảnh
+A163|HIRAGANA|ゎ|wa|SMALL|117|Kana nhỏ, cách ghi tùy ngữ cảnh
+A164|HIRAGANA|ゔ|vu|VU|118|Cách ghi âm v trong từ mượn
+A165|HIRAGANA|ゐ|wi|HISTORICAL|119|Kana lịch sử
+A166|HIRAGANA|ゑ|we|HISTORICAL|120|Kana lịch sử
+A167|KATAKANA|ガ|ga|DAKUTEN|47|Dấu dakuten
+A168|KATAKANA|ギ|gi|DAKUTEN|48|Dấu dakuten
+A169|KATAKANA|グ|gu|DAKUTEN|49|Dấu dakuten
+A170|KATAKANA|ゲ|ge|DAKUTEN|50|Dấu dakuten
+A171|KATAKANA|ゴ|go|DAKUTEN|51|Dấu dakuten
+A172|KATAKANA|ザ|za|DAKUTEN|52|Dấu dakuten
+A173|KATAKANA|ジ|ji|DAKUTEN|53|Dấu dakuten
+A174|KATAKANA|ズ|zu|DAKUTEN|54|Dấu dakuten
+A175|KATAKANA|ゼ|ze|DAKUTEN|55|Dấu dakuten
+A176|KATAKANA|ゾ|zo|DAKUTEN|56|Dấu dakuten
+A177|KATAKANA|ダ|da|DAKUTEN|57|Dấu dakuten
+A178|KATAKANA|ヂ|ji|DAKUTEN|58|Dấu dakuten
+A179|KATAKANA|ヅ|zu|DAKUTEN|59|Dấu dakuten
+A180|KATAKANA|デ|de|DAKUTEN|60|Dấu dakuten
+A181|KATAKANA|ド|do|DAKUTEN|61|Dấu dakuten
+A182|KATAKANA|バ|ba|DAKUTEN|62|Dấu dakuten
+A183|KATAKANA|ビ|bi|DAKUTEN|63|Dấu dakuten
+A184|KATAKANA|ブ|bu|DAKUTEN|64|Dấu dakuten
+A185|KATAKANA|ベ|be|DAKUTEN|65|Dấu dakuten
+A186|KATAKANA|ボ|bo|DAKUTEN|66|Dấu dakuten
+A187|KATAKANA|パ|pa|HANDAKUTEN|67|Dấu handakuten
+A188|KATAKANA|ピ|pi|HANDAKUTEN|68|Dấu handakuten
+A189|KATAKANA|プ|pu|HANDAKUTEN|69|Dấu handakuten
+A190|KATAKANA|ペ|pe|HANDAKUTEN|70|Dấu handakuten
+A191|KATAKANA|ポ|po|HANDAKUTEN|71|Dấu handakuten
+A192|KATAKANA|キャ|kya|YOON|72|Âm ghép với kana nhỏ
+A193|KATAKANA|キュ|kyu|YOON|73|Âm ghép với kana nhỏ
+A194|KATAKANA|キョ|kyo|YOON|74|Âm ghép với kana nhỏ
+A195|KATAKANA|シャ|sha|YOON|75|Âm ghép với kana nhỏ
+A196|KATAKANA|シュ|shu|YOON|76|Âm ghép với kana nhỏ
+A197|KATAKANA|ショ|sho|YOON|77|Âm ghép với kana nhỏ
+A198|KATAKANA|チャ|cha|YOON|78|Âm ghép với kana nhỏ
+A199|KATAKANA|チュ|chu|YOON|79|Âm ghép với kana nhỏ
+A200|KATAKANA|チョ|cho|YOON|80|Âm ghép với kana nhỏ
+A201|KATAKANA|ニャ|nya|YOON|81|Âm ghép với kana nhỏ
+A202|KATAKANA|ニュ|nyu|YOON|82|Âm ghép với kana nhỏ
+A203|KATAKANA|ニョ|nyo|YOON|83|Âm ghép với kana nhỏ
+A204|KATAKANA|ヒャ|hya|YOON|84|Âm ghép với kana nhỏ
+A205|KATAKANA|ヒュ|hyu|YOON|85|Âm ghép với kana nhỏ
+A206|KATAKANA|ヒョ|hyo|YOON|86|Âm ghép với kana nhỏ
+A207|KATAKANA|ミャ|mya|YOON|87|Âm ghép với kana nhỏ
+A208|KATAKANA|ミュ|myu|YOON|88|Âm ghép với kana nhỏ
+A209|KATAKANA|ミョ|myo|YOON|89|Âm ghép với kana nhỏ
+A210|KATAKANA|リャ|rya|YOON|90|Âm ghép với kana nhỏ
+A211|KATAKANA|リュ|ryu|YOON|91|Âm ghép với kana nhỏ
+A212|KATAKANA|リョ|ryo|YOON|92|Âm ghép với kana nhỏ
+A213|KATAKANA|ギャ|gya|YOON|93|Âm ghép với kana nhỏ
+A214|KATAKANA|ギュ|gyu|YOON|94|Âm ghép với kana nhỏ
+A215|KATAKANA|ギョ|gyo|YOON|95|Âm ghép với kana nhỏ
+A216|KATAKANA|ジャ|ja|YOON|96|Âm ghép với kana nhỏ
+A217|KATAKANA|ジュ|ju|YOON|97|Âm ghép với kana nhỏ
+A218|KATAKANA|ジョ|jo|YOON|98|Âm ghép với kana nhỏ
+A219|KATAKANA|ヂャ|ja|YOON|99|Âm ghép với kana nhỏ
+A220|KATAKANA|ヂュ|ju|YOON|100|Âm ghép với kana nhỏ
+A221|KATAKANA|ヂョ|jo|YOON|101|Âm ghép với kana nhỏ
+A222|KATAKANA|ビャ|bya|YOON|102|Âm ghép với kana nhỏ
+A223|KATAKANA|ビュ|byu|YOON|103|Âm ghép với kana nhỏ
+A224|KATAKANA|ビョ|byo|YOON|104|Âm ghép với kana nhỏ
+A225|KATAKANA|ピャ|pya|YOON|105|Âm ghép với kana nhỏ
+A226|KATAKANA|ピュ|pyu|YOON|106|Âm ghép với kana nhỏ
+A227|KATAKANA|ピョ|pyo|YOON|107|Âm ghép với kana nhỏ
+A228|KATAKANA|ァ|a|SMALL|108|Kana nhỏ, cách ghi tùy ngữ cảnh
+A229|KATAKANA|ィ|i|SMALL|109|Kana nhỏ, cách ghi tùy ngữ cảnh
+A230|KATAKANA|ゥ|u|SMALL|110|Kana nhỏ, cách ghi tùy ngữ cảnh
+A231|KATAKANA|ェ|e|SMALL|111|Kana nhỏ, cách ghi tùy ngữ cảnh
+A232|KATAKANA|ォ|o|SMALL|112|Kana nhỏ, cách ghi tùy ngữ cảnh
+A233|KATAKANA|ャ|ya|SMALL|113|Kana nhỏ, cách ghi tùy ngữ cảnh
+A234|KATAKANA|ュ|yu|SMALL|114|Kana nhỏ, cách ghi tùy ngữ cảnh
+A235|KATAKANA|ョ|yo|SMALL|115|Kana nhỏ, cách ghi tùy ngữ cảnh
+A236|KATAKANA|ッ|tsu|SMALL|116|Kana nhỏ, cách ghi tùy ngữ cảnh
+A237|KATAKANA|ヮ|wa|SMALL|117|Kana nhỏ, cách ghi tùy ngữ cảnh
+A238|KATAKANA|ヴ|vu|VU|118|Cách ghi âm v trong từ mượn
+A239|KATAKANA|ヰ|wi|HISTORICAL|119|Kana lịch sử
+A240|KATAKANA|ヱ|we|HISTORICAL|120|Kana lịch sử
+A241|KATAKANA|イェ|ye|LOAN|121|Tổ hợp dùng trong từ mượn
+A242|KATAKANA|ウィ|wi|LOAN|122|Tổ hợp dùng trong từ mượn
+A243|KATAKANA|ウェ|we|LOAN|123|Tổ hợp dùng trong từ mượn
+A244|KATAKANA|ウォ|wo|LOAN|124|Tổ hợp dùng trong từ mượn
+A245|KATAKANA|ヴァ|va|LOAN|125|Tổ hợp dùng trong từ mượn
+A246|KATAKANA|ヴィ|vi|LOAN|126|Tổ hợp dùng trong từ mượn
+A247|KATAKANA|ヴェ|ve|LOAN|127|Tổ hợp dùng trong từ mượn
+A248|KATAKANA|ヴォ|vo|LOAN|128|Tổ hợp dùng trong từ mượn
+A249|KATAKANA|ヴュ|vyu|LOAN|129|Tổ hợp dùng trong từ mượn
+A250|KATAKANA|シェ|she|LOAN|130|Tổ hợp dùng trong từ mượn
+A251|KATAKANA|ジェ|je|LOAN|131|Tổ hợp dùng trong từ mượn
+A252|KATAKANA|チェ|che|LOAN|132|Tổ hợp dùng trong từ mượn
+A253|KATAKANA|ティ|ti|LOAN|133|Tổ hợp dùng trong từ mượn
+A254|KATAKANA|ディ|di|LOAN|134|Tổ hợp dùng trong từ mượn
+A255|KATAKANA|トゥ|tu|LOAN|135|Tổ hợp dùng trong từ mượn
+A256|KATAKANA|ドゥ|du|LOAN|136|Tổ hợp dùng trong từ mượn
+A257|KATAKANA|テュ|tyu|LOAN|137|Tổ hợp dùng trong từ mượn
+A258|KATAKANA|デュ|dyu|LOAN|138|Tổ hợp dùng trong từ mượn
+A259|KATAKANA|ファ|fa|LOAN|139|Tổ hợp dùng trong từ mượn
+A260|KATAKANA|フィ|fi|LOAN|140|Tổ hợp dùng trong từ mượn
+A261|KATAKANA|フェ|fe|LOAN|141|Tổ hợp dùng trong từ mượn
+A262|KATAKANA|フォ|fo|LOAN|142|Tổ hợp dùng trong từ mượn
+A263|KATAKANA|フュ|fyu|LOAN|143|Tổ hợp dùng trong từ mượn
+A264|KATAKANA|ツァ|tsa|LOAN|144|Tổ hợp dùng trong từ mượn
+A265|KATAKANA|ツィ|tsi|LOAN|145|Tổ hợp dùng trong từ mượn
+A266|KATAKANA|ツェ|tse|LOAN|146|Tổ hợp dùng trong từ mượn
+A267|KATAKANA|ツォ|tso|LOAN|147|Tổ hợp dùng trong từ mượn
+A268|KATAKANA|クァ|kwa|LOAN|148|Tổ hợp dùng trong từ mượn
+A269|KATAKANA|グァ|gwa|LOAN|149|Tổ hợp dùng trong từ mượn
+A270|KATAKANA|ー|-|LONG|150|Kéo dài nguyên âm đứng trước
