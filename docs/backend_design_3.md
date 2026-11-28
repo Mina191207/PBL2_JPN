@@ -1,5 +1,9 @@
 # PBL2 — BẢN CHỐT THIẾT KẾ BACKEND 3.0
 
+Tài liệu lịch sử được lưu ở commit `cdd4447`. Xem [kiến trúc hiện hành](backend_architecture.md), [API](backend_api.md) và [hợp đồng TXT](data_format.md).
+
+Đây là thiết kế tại thời điểm 30/10/2026. [Hợp đồng API hiện hành](backend_api.md), [định dạng TXT](data_format.md) và [benchmark bước ②](search_benchmark.md) cập nhật các thay đổi về tài khoản, tra cứu và lưu theo bảng.
+
 **Đề tài:** Xây dựng hệ thống quản lý và tra cứu kho học liệu tiếng Nhật.
 **Ngày cập nhật:** 30/10/2026.
 **Nền tảng:** C++17, lưu TXT, vận dụng Kỹ thuật lập trình, Cấu trúc dữ liệu và Lập trình hướng đối tượng.

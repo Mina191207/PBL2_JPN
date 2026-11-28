@@ -1,9 +1,8 @@
 #include <stdexcept>
 #include <utility>
-#include "domain/vocabulary.h"
-#include "domain/ReviewCard.h"
+#include "pbl2/domain/vocabulary.h"
+#include "pbl2/domain/ReviewCard.h"
 #include "domain/Validation.h"
-#include "algorithms/KmpMatcher.h"
 
 const char* partOfSpeechToken(PartOfSpeech value) {
     switch (value) {
@@ -54,21 +53,6 @@ ResourceType Vocabulary::getType() const noexcept {
 }
 std::string Vocabulary::getTerm() const {
     return word_;
-}
-int Vocabulary::matchScore(const KmpMatcher& matcher) const {
-    const std::string& query = matcher.pattern();
-    if (query.empty())
-        return 0;
-    if (word_ == query)
-        return 4;
-    if (matcher.findFirst(word_) == 0)
-        return 3;
-    if (matcher.findFirst(word_) != std::string::npos ||
-        matcher.findFirst(reading_) != std::string::npos)
-        return 2;
-    if (matcher.findFirst(getMeaning()) != std::string::npos)
-        return 1;
-    return 0;
 }
 ReviewCard Vocabulary::makeReviewCard() const {
     std::string back = getMeaning();

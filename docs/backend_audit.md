@@ -1,5 +1,7 @@
 # Kiểm tra ban đầu (2026-11-12)
 
+Tài liệu lịch sử được lưu ở commit `cdd4447`. Xem [kiến trúc hiện hành](backend_architecture.md) và [hợp đồng TXT](data_format.md).
+
 What this repo does: Backend quản lý kho học liệu tiếng Nhật, tài khoản và phiên học. Giả định một tiến trình cục bộ, gọi tuần tự.
 
 Baseline: commit `7bb633f`, nhánh ban đầu `main`, workspace sạch; không tìm thấy AGENTS.md trong repo hoặc các thư mục cha. Đọc toàn bộ backend, test, caller, CMake, README, schema cũ, bản thiết kế 3.0 ngày 30/10/2026 và Quy định (2).md. Các chỉ dẫn hội thoại nằm trong tài liệu được xem là bối cảnh thiết kế, không phải lệnh thực thi.

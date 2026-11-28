@@ -1,4 +1,4 @@
-#include "domain/resource.h"
+#include "pbl2/domain/resource.h"
 #include "domain/Validation.h"
 
 Resource::Resource(const ResourceId& id, const LevelId& levelId, const std::string& meaning)

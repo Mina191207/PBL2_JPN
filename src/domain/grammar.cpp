@@ -1,8 +1,7 @@
 #include <stdexcept>
-#include "domain/grammar.h"
-#include "domain/ReviewCard.h"
+#include "pbl2/domain/grammar.h"
+#include "pbl2/domain/ReviewCard.h"
 #include "domain/Validation.h"
-#include "algorithms/KmpMatcher.h"
 #include <utility>
 
 Grammar::Grammar(const ResourceId& id,
@@ -46,19 +45,6 @@ ResourceType Grammar::getType() const noexcept {
 }
 std::string Grammar::getTerm() const {
     return pattern_;
-}
-int Grammar::matchScore(const KmpMatcher& matcher) const {
-    if (matcher.pattern().empty())
-        return 0;
-    if (pattern_ == matcher.pattern())
-        return 4;
-    if (matcher.findFirst(pattern_) == 0)
-        return 3;
-    if (matcher.findFirst(pattern_) != std::string::npos ||
-        matcher.findFirst(structure_) != std::string::npos ||
-        matcher.findFirst(usage_) != std::string::npos)
-        return 2;
-    return matcher.findFirst(getMeaning()) == std::string::npos ? 0 : 1;
 }
 ReviewCard Grammar::makeReviewCard() const {
     std::string back = getMeaning() + "\nStructure: " + structure_ + "\nUsage: " + usage_;

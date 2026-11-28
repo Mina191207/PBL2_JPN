@@ -41,8 +41,8 @@ bool validUtf8(const std::string& text) {
 }
 
 void validateTxtField(const std::string& text, const char* field, bool required) {
-    if ((required && isBlank(text)) || text.find_first_of("|\r\n") != std::string::npos ||
-        text.find('\0') != std::string::npos || text.size() > 8192 || !validUtf8(text)) {
+    if (text.size() > maxTxtFieldBytes || (required && isBlank(text)) ||
+        text.find_first_of("|\r\n") != std::string::npos || text.find('\0') != std::string::npos || !validUtf8(text)) {
         throw std::invalid_argument(std::string("Invalid field: ") + field);
     }
 }

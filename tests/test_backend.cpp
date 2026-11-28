@@ -1,5 +1,4 @@
 #include "InternalApplication.h"
-#include "algorithms/KmpMatcher.h"
 #include "algorithms/MergeSort.h"
 #include <cassert>
 #include <filesystem>
@@ -23,8 +22,6 @@ int main() {
     assert(ResourceId::isValid("R18446744073709551615"));
     assert(!ResourceId::isValid("R18446744073709551616"));
     assert(!ResourceId::isValid("R0001"));
-    assert(KmpMatcher("ababac").findFirst("ababababac") == 4);
-    assert(KmpMatcher("abc").findFirst("xyz") == std::string::npos);
     std::vector<int> sorted{4, 2, 3, 1};
     mergeSort(sorted, [](int a, int b) {
         return a < b;
@@ -82,10 +79,11 @@ int main() {
     assert(app.resources().nextResourceId() == ResourceId("R004"));
     SearchOptions search;
     search.query = "school";
-    assert(app.service().search(search, error).size() == 1);
+    assert(app.resources().search(search).size() == 1);
+    assert(app.histories().record(search.query, error));
     assert(app.histories().listNewest().size() == 1);
     search.query.clear();
-    assert(app.service().search(search, error).size() == 3);
+    assert(app.resources().search(search).size() == 3);
     assert(app.histories().listNewest().size() == 1);
     assert(app.favorites().add(ResourceId("R001"), error));
     assert(!app.favorites().add(ResourceId("R001"), error));

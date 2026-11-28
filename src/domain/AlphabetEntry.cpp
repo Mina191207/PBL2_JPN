@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include "domain/AlphabetEntry.h"
+#include "pbl2/domain/AlphabetEntry.h"
 #include "domain/Validation.h"
 #include <utility>
 

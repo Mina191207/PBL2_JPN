@@ -1,4 +1,4 @@
-#include "Application.h"
+#include "pbl2/Application.h"
 #include "TestSupport.h"
 #include "storage/Paths.h"
 #include <algorithm>
@@ -105,6 +105,17 @@ void apiFlow() {
     CHECK(app.login("admin", "demo123").error == BackendError::NOT_LOADED);
     requireSaved(app.initialize(folder.string(), "admin", "demo123"));
     CHECK(app.currentAccount().status.error == BackendError::LOGIN_REQUIRED);
+    const std::vector<Status> guest = {
+        app.levels().status, app.resource(ResourceId("R001")).status, app.search({}).status, app.statistics().status,
+        app.alphabet().status, app.favorites().status, app.history().status, app.attempts().status,
+        app.startReview(), app.review().status, app.revealReview(), app.rateReview(true),
+        app.startQuiz(LevelId("L001"), 1), app.quiz().status, app.selectAnswer(0, 'A'),
+        app.submitQuiz().status, app.quizAnswers().status, app.retryWrong(), app.accounts().status,
+        app.activeQuestionCount(LevelId("L001")).status, app.questions().status,
+        app.createAccount("guest-user", "pass", UserRole::LEARNER).status,
+        app.importPackage(folder.string()), app.exportPackage(folder.string())
+    };
+    for (const auto& status : guest) CHECK(status.error == BackendError::LOGIN_REQUIRED);
     CHECK(app.login("ADMIN", "demo123").ok());
     CHECK(app.initialize(folder.string(), "other", "pass").error == BackendError::INVALID_STATE);
     auto n5 = app.createLevel({"jlpt", "N5", 5, ""});
@@ -193,7 +204,7 @@ void apiFlow() {
     CHECK(app.startQuiz(*n5.value, 2).ok());
     auto quiz = app.quiz();
     CHECK(quiz.value->questions.size() == 2);
-    CHECK(quiz.value->questions[0].id != quiz.value->questions[1].id);
+    CHECK(quiz.value->selectedAnswers == std::vector<char>({'-', '-'}));
     CHECK(!app.quizAnswers().ok());
     CHECK(!app.selectAnswer(2,'A').ok() && !app.selectAnswer(0,'X').ok());
     CHECK(app.selectAnswer(0,'B').ok() && app.selectAnswer(0,'-').ok());
@@ -240,18 +251,25 @@ void apiFlow() {
     requireSaved(app.addFavorite(*word.value));
     SearchOptions schoolSearch;
     schoolSearch.query = "学校";
-    const auto schoolResults = app.search(schoolSearch);
+    const auto schoolResults = app.submitSearch(schoolSearch);
     CHECK(schoolResults.ok() && schoolResults.value->size() == 2);
     CHECK((*schoolResults.value)[0].id == *word.value && (*schoolResults.value)[1].id == *kanji.value);
     auto personalHistory = app.history(); CHECK(personalHistory.value->size() == 1);
     const auto historyId = personalHistory.value->front().getId();
     CHECK(app.searchAgain(historyId).ok() && app.history().value->size() == 2);
     CHECK(app.startReview().ok() && app.startQuiz(*n5.value,1).ok());
+    CHECK(app.quizAnswers().status.error == BackendError::INVALID_STATE && app.attempts().value->empty());
+    CHECK(app.selectAnswer(0,'A').ok() && app.quiz().value->selectedAnswers.front() == 'A');
+    const auto learnerAttempt = app.submitQuiz();
+    CHECK(learnerAttempt.ok() && app.quizAnswers().ok());
+    CHECK(app.attempts().value->size() == 1 && app.attempts().value->front().getUserId() == *one.value);
     CHECK(app.login("learner2", "newpass").ok());
-    CHECK(!app.review().ok() && !app.quiz().ok());
-    CHECK(app.favorites().value->empty() && app.history().value->empty());
+    CHECK(!app.review().ok() && !app.quiz().ok() && !app.quizAnswers().ok());
+    CHECK(app.favorites().value->empty() && app.history().value->empty() && app.attempts().value->empty());
+    CHECK(!app.removeFavorite(*word.value).ok());
     CHECK(!app.searchAgain(historyId).ok());
     CHECK(app.login("learner1", "demo123").ok());
+    CHECK(app.attempts().value->size() == 1 && !app.quizAnswers().ok());
     requireSaved(app.clearHistory()); CHECK(app.history().value->empty());
     requireSaved(app.removeFavorite(*word.value));
     CHECK(!app.startReview().ok());
@@ -261,7 +279,7 @@ void apiFlow() {
 
     // Attempt creation succeeds in RAM even when the file write cannot start.
     CHECK(app.startQuiz(*n5.value, 1).ok());
-    std::filesystem::create_directory(folder / "user.txt.tmp");
+    std::filesystem::create_directory(folder / "quiz_attempt.txt.tmp");
     const auto before = app.attempts().value->size();
     auto pending = app.submitQuiz();
     CHECK(pending.ok() && pending.status.save == SaveState::PENDING && app.dirty());
@@ -271,10 +289,10 @@ void apiFlow() {
     CHECK(app.close().error == BackendError::UNSAVED_CHANGES);
     CHECK(app.load(folder.string()).error == BackendError::UNSAVED_CHANGES);
     CHECK(!app.load((temp.path / "missing").string(),UnsavedPolicy::DISCARD).ok() && app.dirty());
-    auto search = app.search(schoolSearch);
+    auto search = app.submitSearch(schoolSearch);
     CHECK(search.ok() && search.value->size() == 2 && search.status.save == SaveState::PENDING);
     CHECK(app.history().value->size() == 1);
-    std::filesystem::remove(folder / "user.txt.tmp");
+    std::filesystem::remove(folder / "quiz_attempt.txt.tmp");
     requireSaved(app.retrySave()); CHECK(!app.dirty());
     CHECK(app.attempts().value->size() == before + 1);
     CHECK(app.load(folder.string()).ok() && !app.currentAccount().ok());
@@ -282,13 +300,20 @@ void apiFlow() {
     CHECK(!app.quizAnswers().ok() && app.attempts().value->size() == before + 1);
 
     // Explicit discard is the only load path allowed to drop unsaved changes.
-    std::filesystem::create_directory(folder / "user.txt.tmp");
+    std::filesystem::create_directory(folder / "search_history.txt.tmp");
     const auto savedHistories = app.history().value->size();
-    CHECK(app.search(schoolSearch).status.save == SaveState::PENDING);
+    CHECK(app.submitSearch(schoolSearch).status.save == SaveState::PENDING);
     CHECK(app.history().value->size() == savedHistories + 1 && app.dirty());
     CHECK(app.load(folder.string(), UnsavedPolicy::DISCARD).ok());
     CHECK(!app.dirty() && !app.currentAccount().ok());
-    std::filesystem::remove(folder / "user.txt.tmp");
+    CHECK(app.login("admin", "demo123").ok());
+    CHECK(app.history().value->size() == savedHistories);
+    CHECK(app.submitSearch(schoolSearch).status.save == SaveState::PENDING);
+    CHECK(app.close().error == BackendError::UNSAVED_CHANGES);
+    app.discardAndClose();
+    CHECK(!app.loaded() && !app.dirty() && !app.currentAccount().ok());
+    std::filesystem::remove(folder / "search_history.txt.tmp");
+    CHECK(app.load(folder.string()).ok());
     CHECK(app.login("admin", "demo123").ok());
     CHECK(app.history().value->size() == savedHistories);
 
@@ -451,6 +476,29 @@ void apiFlow() {
     CHECK(!app.initialize(folder.string(),"admin","pass").ok());
 }
 
+void exportRejectsOccupiedTemp() {
+    TempDirectory temp;
+    const auto live = temp.path / "live";
+    const auto destination = temp.path / "package";
+    Application app;
+    requireSaved(app.initialize(live.string(), "fixture-admin", "fixture-only"));
+    CHECK(app.login("fixture-admin", "fixture-only").ok());
+    const auto level = app.createLevel({"JLPT", "N5", 5, ""});
+    CHECK(level.ok() && level.value);
+    CHECK(app.createVocabulary({*level.value, "学校", "がっこう", "school", PartOfSpeech::NOUN, ""}).ok());
+    CHECK(std::filesystem::create_directory(destination));
+    const auto active = live / "vocabulary.txt";
+    const auto occupied = destination / "vocabulary.txt.tmp";
+    std::filesystem::create_hard_link(active, occupied);
+    const auto failure = app.exportPackage(destination.string());
+    CHECK(failure.error == BackendError::IO_ERROR && failure.message.find("vocabulary.txt") != std::string::npos);
+    CHECK(std::filesystem::equivalent(active, occupied));
+    CHECK(std::distance(std::filesystem::directory_iterator(destination), {}) == 1);
+    CHECK(app.close().ok() && app.load(live.string()).ok());
+    CHECK(app.login("fixture-admin", "fixture-only").ok());
+    CHECK(app.resource(ResourceId("R001")).ok());
+}
+
 void deletedQuestionSnapshot() {
     TempDirectory temp;
     Application app(123);
@@ -466,6 +514,6 @@ void deletedQuestionSnapshot() {
     CHECK(app.close().ok());
 }
 int main() {
-    try { apiFlow(); deletedQuestionSnapshot(); }
+    try { apiFlow(); exportRejectsOccupiedTemp(); deletedQuestionSnapshot(); }
     catch (const std::exception& e) { std::cerr << e.what() << '\n'; return 1; }
 }

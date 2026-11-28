@@ -1,5 +1,7 @@
 # Review diff hoàn thiện backend
 
+Tài liệu lịch sử được lưu ở commit `cdd4447`. Xem [kiến trúc hiện hành](backend_architecture.md).
+
 What this change does: Hoàn thiện API Application cho frontend, giữ các thuật toán/CTDL tự cài và bổ sung bảo vệ phiên, quyền, quan hệ, TXT và trạng thái lưu. Tải dự kiến là một tiến trình cục bộ, gọi tuần tự.
 
 Looks good. Ship.

@@ -1,9 +1,189 @@
-#include "Application.h"
+#include "pbl2/Application.h"
 #include "Fixture.h"
-#include "managers/ResourceManager.h"
-#include "managers/LevelManager.h"
+#include "ReplacedFiles.h"
+#include "application/managers/ResourceManager.h"
+#include "application/managers/LevelManager.h"
+#include "Utf8.h"
+#include "domain/Validation.h"
 #include <algorithm>
 #include <limits>
+
+void preparedQueryTests() {
+    std::string input(maxTxtFieldBytes - 3, 'a');
+    CHECK(!Utf8::appendWithinLimit(input, "学校", maxTxtFieldBytes));
+    CHECK(input.size() == maxTxtFieldBytes - 3);
+    CHECK(Utf8::appendWithinLimit(input, "学", maxTxtFieldBytes));
+    CHECK(input.size() == maxTxtFieldBytes && validUtf8(input));
+    Utf8::eraseLast(input);
+    CHECK(input == std::string(maxTxtFieldBytes - 3, 'a'));
+    CHECK(Utf8::appendWithinLimit(input, "𠮷", maxTxtFieldBytes + 1));
+    Utf8::eraseLast(input);
+    CHECK(input.size() == maxTxtFieldBytes - 3 && validUtf8(input));
+
+    TempDirectory temp;
+    DataStore data;
+    const LevelId n5("L001"), n4("L002");
+    data.users.emplace_back(UserId("U001"), "fixture-admin", "fixture-only", UserRole::ADMIN, UserStatus::ACTIVE);
+    data.levels.emplace_back(n5, "JLPT", "N5", 5, "");
+    data.levels.emplace_back(n4, "JLPT", "N4", 4, "");
+    data.vocabularies.emplace_back(ResourceId("R001"), n5, "学校", "がっこう", "trường học", PartOfSpeech::NOUN, "");
+    data.kanjis.emplace_back(ResourceId("R002"), n5, "学", "study", 8, "ガク", "まなぶ", "");
+    data.grammars.emplace_back(ResourceId("R003"), n5, "Pattern", "grammar", "学校 structure", "Use Here", "ignored example", "ignored note");
+    data.vocabularies.emplace_back(ResourceId("R004"), n4, "学校生活", "", "school life", PartOfSpeech::NOUN, "");
+    data.vocabularies.emplace_back(ResourceId("R005"), n5, "abABabac", "", "A B", PartOfSpeech::NOUN, "");
+    data.vocabularies.emplace_back(ResourceId("R006"), n5, "Reference", "", "学校 reference", PartOfSpeech::NOUN, "");
+    data.rebuildIndexes();
+    saveFixture(temp.path, data);
+    Application app;
+    CHECK(app.load(temp.path.string()).ok() && app.login("fixture-admin", "fixture-only").ok());
+
+    using Scores = std::vector<std::pair<std::string, int>>;
+    auto scores = [&](const std::string& query, bool id = false,
+                      std::optional<ResourceType> type = {}, std::optional<LevelId> level = {}) {
+        const auto found = app.search({query, id, type, level});
+        CHECK(found.ok());
+        Scores result;
+        for (const auto& row : *found.value) result.emplace_back(row.id.getId(), row.score);
+        return result;
+    };
+    const Scores school{{"R001", 4}, {"R004", 3}, {"R002", 3}, {"R003", 2}, {"R006", 1}};
+    for (const auto* query : {"学校", " 学校 ", "\t学校\t", "\u00A0学校\u00A0", "\u3000学校\u3000"})
+        CHECK(scores(query) == school);
+    CHECK(scores(" R001 ", true) == Scores{{"R001", 4}});
+    CHECK(app.search({"R0001", true, {}, {}}).status.error == BackendError::INVALID_INPUT);
+    const Scores browsed{{"R001", 0}, {"R005", 0}, {"R006", 0}};
+    CHECK(scores("", true, ResourceType::VOCABULARY, n5) == browsed);
+    CHECK(scores(" \t\u00A0\u3000", true, ResourceType::VOCABULARY, n5) == browsed);
+    CHECK(app.history().value->empty());
+
+    CHECK(scores("学") == Scores{{"R002", 4}, {"R004", 3}, {"R001", 3}, {"R003", 2}, {"R006", 1}});
+    CHECK(scores("学校学") == Scores{{"R002", 3}});
+    CHECK(scores("がっこう") == Scores{{"R001", 2}});
+    CHECK(scores("trường học") == Scores{{"R001", 1}});
+    CHECK(scores("truong hoc").empty());
+    CHECK(scores("pATTERN") == Scores{{"R003", 4}});
+    CHECK(scores("use here") == Scores{{"R003", 2}});
+    CHECK(scores("abABAC") == Scores{{"R005", 2}});
+    CHECK(scores("a b") == Scores{{"R005", 1}} && scores("a  b").empty());
+    for (const auto* query : {"abABabac-longer", "not-found", "ignored note", "ignored example"})
+        CHECK(scores(query).empty());
+    for (const auto& invalid : {std::string(8193, ' '), std::string("\xC0\xAF"), std::string(" | "),
+                                std::string("\r学校"), std::string("学校\n"), std::string(" \0 ", 3)})
+        CHECK(app.search({invalid, false, {}, {}}).status.error == BackendError::INVALID_INPUT);
+    CHECK(app.history().value->empty());
+    const auto submitted = app.submitSearch({"\u00a0PaTTeRn\t", false, {}, {}});
+    CHECK(submitted.ok() && submitted.value->size() == 1 && submitted.value->front().id == ResourceId("R003"));
+    CHECK(app.history().value->front().getQuery() == "PaTTeRn");
+}
+
+void historyAndTableSaves() {
+    TempDirectory temp;
+    const auto folder = temp.path.string();
+    const LevelId n5("L001"), n4("L002");
+    auto data = fixture();
+    data.vocabularies.emplace_back(ResourceId("R050"), n5, "R999", "", "fixture", PartOfSpeech::NOUN, "");
+    data.rebuildIndexes();
+    saveFixture(temp.path, data);
+    Application app;
+    CHECK(app.load(folder).ok() && app.login("learner1", "demo123").ok());
+    auto replaces = [&](std::set<std::string> names, auto action) {
+        const ReplacedFiles before(temp.path);
+        action();
+        CHECK(before.names() == names);
+    };
+    const auto initial = app.history().value->size();
+    SearchOptions options{" \u3000R001\t", true, ResourceType::GRAMMAR, n5};
+    replaces({}, [&] {
+        CHECK(app.search(options).value->empty());
+        CHECK(app.search({"\u00A0\u3000", true, ResourceType::GRAMMAR, n5}).value->size() == 1);
+        CHECK(app.submitSearch({"\u00A0\u3000", false, {}, {}}).status.save == SaveState::UNCHANGED);
+        CHECK(!app.submitSearch({"R0001", true, {}, {}}).ok());
+        CHECK(app.history().value->size() == initial);
+    });
+    replaces({"search_history.txt"}, [&] {
+        const auto miss = app.submitSearch(options);
+        CHECK(miss.ok() && miss.value->empty() && miss.status.save == SaveState::SAVED);
+    });
+    const auto recorded = app.history().value->front();
+    CHECK(recorded.getQuery() == "R001" && app.history().value->size() == initial + 1);
+    CHECK(app.login("learner2", "demo123").ok());
+    CHECK(app.searchAgain(recorded.getId()).status.error == BackendError::NOT_FOUND);
+    CHECK(app.history().value->empty());
+    CHECK(app.login("learner1", "demo123").ok());
+    replaces({"search_history.txt"}, [&] {
+        const auto result = app.searchAgain(recorded.getId());
+        CHECK(result.ok() && result.value->options.exactId && result.value->options.query == "R001");
+        CHECK(result.value->rows.size() == 1 && result.value->rows.front().id == ResourceId("R001"));
+        CHECK(result.value->rows.front().reading == "がっこう");
+    });
+    CHECK(app.history().value->size() == initial + 2);
+    CHECK(app.submitSearch({" R999 ", false, {}, {}}).ok());
+    const auto fallback = app.searchAgain(app.history().value->front().getId());
+    CHECK(fallback.ok() && !fallback.value->options.exactId && fallback.value->rows.front().id == ResourceId("R050"));
+
+    const auto blocker = temp.path / "search_history.txt.tmp";
+    CHECK(std::filesystem::create_directory(blocker));
+    const auto beforePending = app.history().value->size();
+    replaces({}, [&] {
+        const auto pending = app.submitSearch({"  学校  ", false, {}, {}});
+        CHECK(pending.ok() && !pending.value->empty() && pending.status.save == SaveState::PENDING);
+        CHECK(!pending.status.message.empty() && app.dirty());
+        CHECK(app.search({"学校", false, {}, {}}).status.save == SaveState::UNCHANGED);
+        CHECK(app.retrySave().error == BackendError::IO_ERROR);
+    });
+    CHECK(std::filesystem::remove(blocker));
+    replaces({"search_history.txt"}, [&] { CHECK(app.retrySave().save == SaveState::SAVED); });
+    CHECK(app.history().value->size() == beforePending + 1 && app.history().value->front().getQuery() == "学校");
+
+    CHECK(app.login("admin", "demo123").ok());
+    auto input = VocabularyInput{n5, "Created", "", "m", PartOfSpeech::NOUN, ""};
+    std::optional<ResourceId> created;
+    replaces({"learning_resource.txt", "vocabulary.txt"}, [&] {
+        const auto result = app.createVocabulary(input);
+        CHECK(result.ok() && result.status.save == SaveState::SAVED);
+        created = result.value;
+    });
+    input.word = "Updated";
+    replaces({"vocabulary.txt"}, [&] { CHECK(app.updateVocabulary(*created, input).save == SaveState::SAVED); });
+    input.levelId = n4;
+    replaces({"learning_resource.txt", "vocabulary.txt"}, [&] {
+        CHECK(app.updateVocabulary(*created, input).save == SaveState::SAVED);
+    });
+    replaces({"favorites.txt"}, [&] { CHECK(app.addFavorite(*created).save == SaveState::SAVED); });
+    replaces({"favorites.txt", "learning_resource.txt", "vocabulary.txt"}, [&] {
+        CHECK(app.removeResource(*created).save == SaveState::SAVED && app.favorites().value->empty());
+    });
+    replaces({"alphabet.txt"}, [&] {
+        CHECK(app.createAlphabet({Script::HIRAGANA, "い", "i", "vowel", 2, ""}).status.save == SaveState::SAVED);
+    });
+    replaces({"question.txt"}, [&] { CHECK(app.setQuestionStatus(QuestionId("Q001"), QuestionStatus::INACTIVE).save == SaveState::SAVED); });
+    CHECK(app.startQuiz(n5, 1).ok());
+    replaces({"quiz_attempt.txt"}, [&] { CHECK(app.submitQuiz().status.save == SaveState::SAVED); });
+    replaces({"resource_levels.txt"}, [&] { CHECK(app.createLevel({"JLPT", "N3", 3, ""}).status.save == SaveState::SAVED); });
+
+    const auto packagePath = temp.path / "package";
+    DataStore package;
+    package.levels.emplace_back(n4, "JLPT", "N4", 4, "");
+    package.grammars.emplace_back(ResourceId("R100"), n4, "New pattern", "m", "", "", "", "");
+    std::string error;
+    CHECK(FileStorage{}.savePackage(packagePath.string(), package, error));
+    replaces({"grammar.txt", "learning_resource.txt"}, [&] { CHECK(app.importPackage(packagePath.string()).save == SaveState::SAVED); });
+
+    // The header replacement succeeds before the detail replacement is blocked.
+    const auto detail = temp.path / "vocabulary.txt";
+    const auto held = temp.path / "fixture-held";
+    const ReplacedFiles beforePartial(temp.path);
+    std::filesystem::rename(detail, held);
+    CHECK(std::filesystem::create_directory(detail));
+    const auto pending = app.createVocabulary(input);
+    CHECK(pending.ok() && pending.status.save == SaveState::PENDING && app.dirty());
+    CHECK(std::filesystem::remove(detail));
+    std::filesystem::rename(held, detail);
+    CHECK(beforePartial.names() == std::set<std::string>{"learning_resource.txt"});
+    replaces({"vocabulary.txt"}, [&] { CHECK(app.retrySave().save == SaveState::SAVED); });
+    CHECK(app.load(folder).ok() && app.login("admin", "demo123").ok());
+    CHECK(app.resource(*pending.value).ok() && app.resource(ResourceId("R100")).ok());
+}
 
 void searchTests() {
     TempDirectory temp;
@@ -21,7 +201,7 @@ void searchTests() {
     Application app;
     CHECK(app.load(temp.path.string()).ok() && app.login("admin","demo123").ok());
     SearchOptions options; options.query = "cat";
-    auto rows = app.search(options);
+    auto rows = app.submitSearch(options);
     CHECK(rows.ok() && rows.value->size() == 6);
     CHECK((*rows.value)[0].id == ResourceId("R1000") && (*rows.value)[0].score == 4);
     CHECK((*rows.value)[1].id == ResourceId("R999") && (*rows.value)[1].score == 4);
@@ -99,7 +279,7 @@ void searchTests() {
     saveFixture(temp.path,data);
     CHECK(app.load(temp.path.string()).ok() && app.login("admin","demo123").ok());
     options.sort = SearchSort::RELEVANCE;
-    rows = app.search(options);
+    rows = app.submitSearch(options);
     CHECK(rows.ok() && rows.value->size() == 6 && !rows.status.message.empty());
     CHECK(app.history().value->size() == 1);
 }
@@ -135,9 +315,10 @@ void indexAndImportTests() {
     const auto first = *seededA.quiz().value;
     const auto second = *seededB.quiz().value;
     for (std::size_t i = 0; i < first.questions.size(); ++i)
-        CHECK(first.questions[i].id == second.questions[i].id);
-    CHECK(first.questions[0].id != first.questions[1].id && first.questions[1].id != first.questions[2].id &&
-          first.questions[0].id != first.questions[2].id);
+        CHECK(first.questions[i].prompt == second.questions[i].prompt);
+    CHECK(first.questions[0].prompt != first.questions[1].prompt &&
+          first.questions[1].prompt != first.questions[2].prompt &&
+          first.questions[0].prompt != first.questions[2].prompt);
     Application app;
     CHECK(app.load(live.string()).ok() && app.login("admin","demo123").ok());
     DataStore package;
@@ -166,6 +347,6 @@ void indexAndImportTests() {
     CHECK(app.load(live.string()).ok());
 }
 int main() {
-    try { searchTests(); indexAndImportTests(); }
+    try { preparedQueryTests(); historyAndTableSaves(); searchTests(); indexAndImportTests(); }
     catch (const std::exception& e) { std::cerr << e.what() << '\n'; return 1; }
 }

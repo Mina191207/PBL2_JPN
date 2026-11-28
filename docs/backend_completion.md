@@ -1,5 +1,9 @@
 # Ma trận hoàn thiện backend 3.0
 
+Ma trận lịch sử được lưu ở commit `cdd4447`. Xem [README](../README.md) để chạy kiểm thử trên cây hiện hành.
+
+Ma trận ghi nhận bản hoàn thiện tháng 11/2026 trước các bước ①–②. Tra cứu và lưu hiện hành được mô tả ở [hợp đồng API](backend_api.md) và [báo cáo benchmark](search_benchmark.md).
+
 Căn cứ: bản thiết kế ngày 30/10/2026 được giữ ở backend_design_3.md và yêu cầu tích hợp ngày 12/11/2026. Workspace ban đầu sạch tại 7bb633f trên main; làm việc trên refactor/backend-3-completion. Không thay database thật. Baseline MinGW Debug build được, test cũ 1/1 pass; xem backend_audit.md cho các lỗi chưa được baseline phát hiện.
 
 “Đạt” dưới đây dựa trên hành vi đã kiểm, không dựa vào tên class. Một file test chứa nhiều ca CHECK luôn hoạt động trong Release. Test API hoàn thành các luồng qua Application mà không dùng DataStore; các test storage/index cố ý dùng thành phần nội bộ để gây lỗi.

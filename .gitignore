@@ -7,9 +7,8 @@
 
 # Build directories
 build/
-build-mingw/
+/build-*/
 cmake-build-*/
-/build-raylib/
 
 # Local snapshots and generated resource packages
 /database copy/
@@ -22,6 +21,7 @@ cmake-build-*/
 
 # Temporary files
 *.tmp
+user.txt.tmp-*
 
 # Additional CMake generated files
 CMakeFiles/

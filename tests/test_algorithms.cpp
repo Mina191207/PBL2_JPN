@@ -1,9 +1,8 @@
 #include "TestSupport.h"
-#include "algorithms/KmpMatcher.h"
 #include "algorithms/MergeSort.h"
 #include "dsa/LinkedList.h"
 #include "IdGenerator.h"
-#include "domain/EntityId.h"
+#include "pbl2/domain/EntityId.h"
 #include "domain/QuizSession.h"
 #include <limits>
 #include <vector>
@@ -69,11 +68,6 @@ void listTests() {
 }
 void algorithmTests() {
     throws([] { QuizSession empty({}); });
-    for (const std::string pattern : {"", "a", "aba", "ababac", "aaaaab", "long pattern", "学校", "học"}) {
-        KmpMatcher matcher(pattern);
-        for (const std::string text : {"", "a", "ababababac", "aaaaaaaab", "学校へ学校", "tôi học"})
-            CHECK(matcher.findFirst(text) == text.find(pattern));
-    }
     std::vector<Item> values;
     mergeSort(values, [](const Item& a, const Item& b) { return a.key < b.key; });
     values.emplace_back(2,0);

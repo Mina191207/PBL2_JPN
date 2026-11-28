@@ -1,8 +1,13 @@
 #include "Fixture.h"
+#include "ReplacedFiles.h"
 #include "domain/Time.h"
 #include "domain/Validation.h"
 #include <limits>
 #include <vector>
+#ifndef _WIN32
+#include <csignal>
+#include <sys/resource.h>
+#endif
 
 void malformedTests() {
     TempDirectory temp;
@@ -33,9 +38,7 @@ void malformedTests() {
         {"vocabulary.txt", "R999|word||meaning|NOUN|\n"},
         {"vocabulary.txt", "R001|\xC0\xAF||meaning|NOUN|\n"},
         {"vocabulary.txt", "R001|word||meaning|NOUN|\n\xEF\xBB\xBF"},
-        {"user.txt", "U001|Admin|pass|ADMIN|ACTIVE\nU002|ADMIN|pass|LEARNER|ACTIVE\n"},
-        {"user.txt", "U001|Admin|pass|ADMIN|UNKNOWN\n"},
-        {"user.txt", "U001|Admin|pass|ADMIN|LOCKED\n"},
+        {"user.txt", "PBL2_USERS_V2\nU001|Admin|pass|ADMIN|ACTIVE\n"},
         {"favorites.txt", "F001|U002|R999\n"},
         {"favorites.txt", "F001|U999|R001\n"},
         {"favorites.txt", "F001|U002|R001\nF002|U002|R001\n"},
@@ -115,10 +118,10 @@ void writerFailureTests() {
     TempDirectory temp;
     auto data = fixture();
     std::string error;
-    std::filesystem::create_directory(temp.path / "user.txt.tmp");
+    std::filesystem::create_directory(temp.path / "vocabulary.txt.tmp");
     CHECK(!FileStorage{}.saveAll(temp.path.string(), data, error));
     CHECK(!std::filesystem::exists(temp.path / "user.txt"));
-    std::filesystem::remove(temp.path / "user.txt.tmp");
+    std::filesystem::remove(temp.path / "vocabulary.txt.tmp");
     std::filesystem::create_directory(temp.path / "question.txt");
     CHECK(!FileStorage{}.saveAll(temp.path.string(), data, error));
     CHECK(error.find("replace") != std::string::npos);
@@ -126,6 +129,37 @@ void writerFailureTests() {
     CHECK(FileStorage{}.saveAll(temp.path.string(), data, error));
     DataStore loaded;
     CHECK(FileStorage{}.loadAll(temp.path.string(), loaded, error));
+#ifndef _WIN32
+    // Force a buffered write/flush failure in this process, before any rename.
+    {
+        const ReplacedFiles before(temp.path);
+        struct FileLimit {
+            struct rlimit old{};
+            void (*oldSignal)(int) = SIG_DFL;
+            FileLimit() {
+                CHECK(getrlimit(RLIMIT_FSIZE, &old) == 0);
+                oldSignal = std::signal(SIGXFSZ, SIG_IGN);
+                CHECK(oldSignal != SIG_ERR);
+                auto lower = old;
+                lower.rlim_cur = 8;
+                if (setrlimit(RLIMIT_FSIZE, &lower) != 0) {
+                    std::signal(SIGXFSZ, oldSignal);
+                    throw std::runtime_error("cannot set fixture file limit");
+                }
+            }
+            ~FileLimit() { setrlimit(RLIMIT_FSIZE, &old); std::signal(SIGXFSZ, oldSignal); }
+        };
+        bool saved = false;
+        {
+            const FileLimit limit;
+            saved = FileStorage{}.saveAll(temp.path.string(), data, error);
+        }
+        CHECK(!saved && error.find("cannot write or close temp") != std::string::npos);
+        CHECK(before.names().empty());
+        for (const auto& entry : std::filesystem::directory_iterator(temp.path))
+            CHECK(entry.path().extension() == ".txt");
+    }
+#endif
     // Writer checks the same 32 MiB limit as reader before replacing any file.
     DataStore big;
     big.levels.emplace_back(LevelId("L001"), "JLPT", "N5", 1, "");
