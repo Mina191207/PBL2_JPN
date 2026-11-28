@@ -1,25 +1,18 @@
 #include "application/managers/ResourceManager.h"
+#include "algorithms/KmpMatcher.h"
 #include "algorithms/MergeSort.h"
-#include <algorithm>
+#include "search/SearchText.h"
 #include <string_view>
 #include <unordered_set>
 
 namespace {
-bool upperAscii(char c) { return c >= 'A' && c <= 'Z'; }
-void foldAscii(std::string& text) {
-    for (auto& c : text)
-        if (upperAscii(c)) c = static_cast<char>(c + ('a' - 'A'));
-}
-
 struct ContentQuery {
-    std::string pattern;
-    bool foldFields;
+    KmpMatcher matcher;
     std::unordered_set<std::string_view> ideographs;
 
-    ContentQuery(std::string_view text, bool includeKanji) : pattern(text) {
-        foldAscii(pattern);
-        foldFields = std::any_of(pattern.begin(), pattern.end(), [](char c) { return c >= 'a' && c <= 'z'; });
+    ContentQuery(std::string_view query, bool includeKanji) : matcher(normalizeSearchText(query)) {
         if (!includeKanji) return;
+        const std::string_view text = matcher.pattern();
         std::size_t count = 0;
         // The Application validates the UTF-8 query before search.
         for (std::size_t i = 0; i < text.size();) {
@@ -41,22 +34,14 @@ struct ContentQuery {
         if (count < 2) ideographs.clear();
     }
 
-    std::size_t find(std::string_view field) const {
-        if (field.size() < pattern.size()) return std::string_view::npos;
-        if (!foldFields || std::none_of(field.begin(), field.end(), upperAscii)) return field.find(pattern);
-        std::string folded(field);
-        foldAscii(folded);
-        return folded.find(pattern);
-    }
-
     int score(std::string_view term, std::string_view meaning, std::string_view first,
               std::string_view second, bool kanji) const {
-        const auto position = find(term);
-        if (position == 0) return term.size() == pattern.size() ? 4 : 3;
+        const auto position = matcher.findFirst(term);
+        if (position == 0) return term.size() == matcher.pattern().size() ? 4 : 3;
         if (kanji && ideographs.count(term)) return 3;
-        if (position != std::string_view::npos || find(first) != std::string_view::npos ||
-            find(second) != std::string_view::npos) return 2;
-        return find(meaning) == std::string_view::npos ? 0 : 1;
+        if (position != std::string_view::npos || matcher.findFirst(first) != std::string_view::npos ||
+            matcher.findFirst(second) != std::string_view::npos) return 2;
+        return matcher.findFirst(meaning) == std::string_view::npos ? 0 : 1;
     }
 };
 
@@ -99,22 +84,23 @@ std::vector<SearchRow> ResourceManager::search(const SearchOptions& options) con
         const bool browse = options.query.empty();
         const ContentQuery query(options.query, allows(ResourceType::KANJI));
         const auto match = [&](const Resource& item, std::string_view term, std::string_view pronunciation,
-                               std::string_view first, std::string_view second, bool kanji = false) {
-            const int score = browse ? 0 : query.score(term, item.getMeaning(), first, second, kanji);
+                               bool kanji = false) {
+            const auto& keys = item.searchKeys_;
+            const int score = browse ? 0 : query.score(keys.term, keys.meaning, keys.first, keys.second, kanji);
             if (browse || score > 0) include(item, term, pronunciation, score);
         };
         if (browse) rows.reserve(data_.resourceById.size());
         if (allows(ResourceType::VOCABULARY)) {
             for (const auto& item : data_.vocabularies)
-                if (matchesFilter(item)) match(item, item.getWord(), item.getReading(), item.getReading(), {});
+                if (matchesFilter(item)) match(item, item.getWord(), item.getReading());
         }
         if (allows(ResourceType::GRAMMAR)) {
             for (const auto& item : data_.grammars)
-                if (matchesFilter(item)) match(item, item.getPattern(), {}, item.getStructure(), item.getUsage());
+                if (matchesFilter(item)) match(item, item.getPattern(), {});
         }
         if (allows(ResourceType::KANJI)) {
             for (const auto& item : data_.kanjis)
-                if (matchesFilter(item)) match(item, item.getCharacter(), reading(item), item.getOnyomi(), item.getKunyomi(), true);
+                if (matchesFilter(item)) match(item, item.getCharacter(), reading(item), true);
         }
     }
     mergeSort(rows, [&](const SearchRow& a, const SearchRow& b) {

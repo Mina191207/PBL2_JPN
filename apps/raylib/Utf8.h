@@ -1,39 +1,42 @@
 #pragma once
 
+#include <algorithm>
 #include <cstddef>
 #include <string>
 #include <string_view>
 #include <vector>
 
 namespace Utf8 {
-struct Unit { int codepoint; std::size_t begin; std::size_t end; };
+struct Unit { int codepoint; std::size_t begin; std::size_t end; bool valid; };
+
+inline Unit next(std::string_view text, std::size_t& i) {
+    const std::size_t begin = i;
+    const unsigned char lead = static_cast<unsigned char>(text[i++]);
+    int cp = 0xFFFD;
+    std::size_t tail = 0;
+    if (lead < 0x80) cp = lead;
+    else if ((lead & 0xE0) == 0xC0) { cp = lead & 0x1F; tail = 1; }
+    else if ((lead & 0xF0) == 0xE0) { cp = lead & 0x0F; tail = 2; }
+    else if ((lead & 0xF8) == 0xF0) { cp = lead & 0x07; tail = 3; }
+    bool valid = (lead < 0x80 || tail != 0) && begin + tail < text.size();
+    if (valid) for (std::size_t n = 0; n < tail; ++n) {
+        const unsigned char next = static_cast<unsigned char>(text[i + n]);
+        if ((next & 0xC0) != 0x80) { valid = false; break; }
+        cp = (cp << 6) | (next & 0x3F);
+    }
+    if (valid && tail > 0) {
+        i += tail;
+        if ((tail == 1 && cp < 0x80) || (tail == 2 && cp < 0x800) ||
+            (tail == 3 && cp < 0x10000) || cp > 0x10FFFF ||
+            (cp >= 0xD800 && cp <= 0xDFFF)) { cp = 0xFFFD; valid = false; }
+    }
+    if (!valid) cp = 0xFFFD;
+    return {cp, begin, i, valid};
+}
 
 inline std::vector<Unit> decode(std::string_view text) {
     std::vector<Unit> units;
-    for (std::size_t i = 0; i < text.size();) {
-        const std::size_t begin = i;
-        const unsigned char lead = static_cast<unsigned char>(text[i++]);
-        int cp = 0xFFFD;
-        std::size_t tail = 0;
-        if (lead < 0x80) cp = lead;
-        else if ((lead & 0xE0) == 0xC0) { cp = lead & 0x1F; tail = 1; }
-        else if ((lead & 0xF0) == 0xE0) { cp = lead & 0x0F; tail = 2; }
-        else if ((lead & 0xF8) == 0xF0) { cp = lead & 0x07; tail = 3; }
-        bool valid = tail == 0 || begin + tail < text.size();
-        if (valid) for (std::size_t n = 0; n < tail; ++n) {
-            const unsigned char next = static_cast<unsigned char>(text[i + n]);
-            if ((next & 0xC0) != 0x80) { valid = false; break; }
-            cp = (cp << 6) | (next & 0x3F);
-        }
-        if (valid && tail > 0) {
-            i += tail;
-            if ((tail == 1 && cp < 0x80) || (tail == 2 && cp < 0x800) ||
-                (tail == 3 && cp < 0x10000) || cp > 0x10FFFF ||
-                (cp >= 0xD800 && cp <= 0xDFFF)) { cp = 0xFFFD; valid = false; }
-        }
-        if (!valid) cp = 0xFFFD;
-        units.push_back({cp, begin, i});
-    }
+    for (std::size_t i = 0; i < text.size();) units.push_back(next(text, i));
     return units;
 }
 
@@ -57,11 +60,20 @@ inline std::string encode(int cp) {
     return result;
 }
 
-inline std::size_t lastOffset(std::string_view value) noexcept {
-    if (value.empty()) return 0;
-    std::size_t start = value.size() - 1;
+inline std::size_t previous(std::string_view value, std::size_t offset) noexcept {
+    if (offset == 0) return 0;
+    std::size_t start = offset - 1;
     while (start > 0 && (static_cast<unsigned char>(value[start]) & 0xC0) == 0x80) --start;
     return start;
+}
+
+inline std::size_t lastOffset(std::string_view value) noexcept { return previous(value, value.size()); }
+
+inline std::size_t boundary(std::string_view value, std::size_t offset) noexcept {
+    offset = std::min(offset, value.size());
+    while (offset > 0 && offset < value.size() && (static_cast<unsigned char>(value[offset]) & 0xC0) == 0x80)
+        --offset;
+    return offset;
 }
 
 inline void eraseLast(std::string& value) {

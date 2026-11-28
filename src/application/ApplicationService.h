@@ -7,6 +7,7 @@
 #include "application/managers/QuizManager.h"
 #include "storage/FileStorage.h"
 #include <optional>
+#include <memory>
 #include <cstddef>
 #include <string>
 #include <vector>
@@ -19,7 +20,7 @@ class ApplicationService {
     FileStorage& storage_;
     std::optional<ReviewSession> review_;
     std::size_t reviewEpoch_ = 0;
-    std::string activeFolder_;
+    std::unique_ptr<StoreLock> lock_;
 
   public:
     ApplicationService(DataStore& data,
@@ -31,9 +32,10 @@ class ApplicationService {
     bool startReview(std::string& error);
     ReviewSession* review() noexcept;
     void logout() noexcept;
-    bool load(const std::string& folder, std::string& error, bool discardUnsaved = false);
-    bool save(const std::string& folder, std::string& error);
+    bool initialize(const std::string& folder, DataStore& staged);
+    bool load(const std::string& folder, std::string& error, bool discardUnsaved, bool& empty);
+    bool save(std::string& error);
     bool importPackage(const std::string& folder, std::string& error);
-    bool exportPackage(const std::string& folder, std::string& error) const;
+    bool overlaps(const std::string& folder) const;
     bool dirty() const noexcept;
 };

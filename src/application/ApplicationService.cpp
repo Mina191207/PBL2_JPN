@@ -103,24 +103,35 @@ bool ApplicationService::startReview(std::string& error) {
     reviewEpoch_ = users_.sessionEpoch();
     return true;
 }
-bool ApplicationService::load(const std::string& folder, std::string& error, bool discardUnsaved) {
+bool ApplicationService::initialize(const std::string& folder, DataStore& staged) {
+    auto next = std::make_unique<StoreLock>(pathFromUtf8(folder), true);
+    if (!storage_.isEmpty(*next)) return false;
+    staged.dirtyTables = StoreTable::ALL;
+    data_.swap(staged);
+    lock_ = std::move(next);
+    return true;
+}
+bool ApplicationService::load(const std::string& folder, std::string& error, bool discardUnsaved, bool& empty) {
     if (data_.dirty() && !discardUnsaved) {
         error = "unsaved changes; save or explicitly discard before loading";
         return false;
     }
-    std::string nextFolder = folder;
-    if (!storage_.loadAll(folder, data_, error))
+    try {
+        const auto path = pathFromUtf8(folder);
+        std::unique_ptr<StoreLock> next;
+        if (!lock_ || !std::filesystem::equivalent(lock_->root, path))
+            next = std::make_unique<StoreLock>(path);
+        if (!storage_.loadAll(next ? *next : *lock_, data_, error, &empty)) return false;
+        if (next) lock_ = std::move(next);
+    } catch (const std::exception& e) {
+        error = e.what();
         return false;
+    }
     logout();
-    activeFolder_.swap(nextFolder);
     return true;
 }
-bool ApplicationService::save(const std::string& folder, std::string& error) {
-    if (activeFolder_ != folder) {
-        activeFolder_ = folder;
-        data_.dirtyTables = StoreTable::ALL;
-    }
-    return storage_.saveDirty(folder, data_, error);
+bool ApplicationService::save(std::string& error) {
+    return storage_.saveDirty(*lock_, data_, error);
 }
 bool ApplicationService::importPackage(const std::string& folder, std::string& error) {
     if (!users_.isAdmin()) {
@@ -128,8 +139,14 @@ bool ApplicationService::importPackage(const std::string& folder, std::string& e
         return false;
     }
     DataStore package;
-    if (!storage_.loadPackage(folder, package, error))
+    try {
+        const bool same = lock_ && std::filesystem::equivalent(lock_->root, pathFromUtf8(folder));
+        if (!(same ? storage_.loadPackage(*lock_, package, error)
+                   : storage_.loadPackage(folder, package, error))) return false;
+    } catch (const std::filesystem::filesystem_error& e) {
+        error = e.what();
         return false;
+    }
     DataStore staged(data_);
     for (const auto& level : package.levels) {
         const Level* old = staged.findLevel(level.getId());
@@ -179,15 +196,6 @@ bool ApplicationService::importPackage(const std::string& folder, std::string& e
     data_.swap(staged);
     return true;
 }
-bool ApplicationService::exportPackage(const std::string& folder, std::string& error) const {
-    if (!users_.isAdmin()) {
-        error = "admin required";
-        return false;
-    }
-    const bool overlaps = !activeFolder_.empty() && pathsOverlap(folder, activeFolder_);
-    if (overlaps) {
-        error = "export folder overlaps active data directory";
-        return false;
-    }
-    return storage_.savePackage(folder, data_, error);
+bool ApplicationService::overlaps(const std::string& folder) const {
+    return lock_ && pathsOverlap(folder, pathToUtf8(lock_->root));
 }

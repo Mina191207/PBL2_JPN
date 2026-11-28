@@ -4,6 +4,7 @@
 #include <optional>
 #include <cstddef>
 #include <string>
+#include <string_view>
 #include <vector>
 
 enum class SearchSort {
@@ -21,6 +22,8 @@ struct SearchOptions {
     std::optional<LevelId> levelId;
     SearchSort sort = SearchSort::RELEVANCE;
 };
+std::string_view trimSearchQuery(std::string_view query, bool trimStart = true, bool trimEnd = true);
+
 struct SearchRow {
     ResourceId id;
     ResourceType type;

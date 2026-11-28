@@ -20,7 +20,7 @@
 
 enum class BackendError {
     NONE, NOT_LOADED, LOGIN_REQUIRED, FORBIDDEN, INVALID_INPUT, NOT_FOUND,
-    REJECTED, INVALID_STATE, ID_EXHAUSTED, IO_ERROR, UNSAVED_CHANGES
+    REJECTED, INVALID_STATE, ID_EXHAUSTED, IO_ERROR, UNSAVED_CHANGES, EMPTY_DATA_DIRECTORY
 };
 enum class SaveState { UNCHANGED, SAVED, PENDING };
 enum class UnsavedPolicy { REJECT, DISCARD };
@@ -29,6 +29,10 @@ struct Status {
     SaveState save = SaveState::UNCHANGED;
     std::string message;
     bool ok() const noexcept { return error == BackendError::NONE; }
+};
+struct PackageExportPlan {
+    std::string folder;
+    std::vector<std::string> existingFiles;
 };
 template<class T> struct Result {
     Status status;
@@ -97,7 +101,8 @@ struct QuizAnswerDetail {
     std::string explanation;
 };
 
-// Single local process, sequential calls. Returned values own their content.
+// Call sequentially. An open Application exclusively owns its local store.
+// Returned values own their content.
 class Application {
     struct Impl;
     std::unique_ptr<Impl> impl_;
@@ -126,6 +131,7 @@ class Application {
                                  UserRole role, UserStatus status = UserStatus::ACTIVE);
     Status setAccountStatus(const UserId&, UserStatus);
     Status resetPassword(const UserId&, const std::string& password);
+    Status changePassword(const std::string& currentPassword, const std::string& newPassword);
     Result<std::vector<Level>> levels() const;
     Result<LevelId> createLevel(const LevelInput&);
     Status updateLevel(const LevelId&, const LevelInput&);
@@ -174,5 +180,8 @@ class Application {
     void stopQuiz() noexcept;
     Result<std::vector<QuizAttempt>> attempts() const;
     Status importPackage(const std::string& folder);
-    Status exportPackage(const std::string& folder) const;
+    Result<PackageExportPlan> inspectPackageExport(const std::string& folder) const;
+    // Pass the files approved for replacement after inspecting the destination.
+    Status exportPackage(const std::string& folder,
+                         const std::vector<std::string>& approvedFiles = {}) const;
 };

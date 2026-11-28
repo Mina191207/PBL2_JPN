@@ -22,6 +22,9 @@ cmake-build-*/
 # Temporary files
 *.tmp
 user.txt.tmp-*
+.pbl2.lock
+.pbl2-stage/
+.pbl2-rollback/
 
 # Additional CMake generated files
 CMakeFiles/

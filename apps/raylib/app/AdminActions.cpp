@@ -52,7 +52,26 @@ void AppController::handleAdminEvent(const BackendScreenEvent& event) {
         return;
     }
     if (event.type == Event::EXPORT_PACKAGE) {
-        reportBackend(application_.exportPackage(event.text), "Package exported.");
+        auto plan = application_.inspectPackageExport(event.text);
+        if (!plan.value) {
+            reportBackend(plan.status, "");
+        } else if (plan.value->existingFiles.empty()) {
+            reportBackend(application_.exportPackage(plan.value->folder), "Package exported.");
+        } else {
+            BackendScreenEvent replacement(Event::REPLACE_PACKAGE);
+            replacement.text = std::move(plan.value->folder);
+            replacement.approvedFiles = std::move(plan.value->existingFiles);
+            std::string files = "Files to replace: ";
+            for (std::size_t i = 0; i < replacement.approvedFiles.size(); ++i) {
+                if (i != 0) files += ", ";
+                files += replacement.approvedFiles[i];
+            }
+            backendScreen_.confirm(std::move(replacement), "Replace existing package files?", std::move(files));
+        }
+        return;
+    }
+    if (event.type == Event::REPLACE_PACKAGE) {
+        reportBackend(application_.exportPackage(event.text, event.approvedFiles), "Package exported.");
         return;
     }
     if (event.type == Event::PASSWORD_TOO_LONG) {

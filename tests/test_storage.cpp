@@ -44,6 +44,9 @@ void malformedTests() {
         {"favorites.txt", "F001|U002|R001\nF002|U002|R001\n"},
         {"search_history.txt", "H001|U002|query|2026-02-29T01:00:00Z\n"},
         {"search_history.txt", "H001|U002|query|2026-11-12T01:00:00\n"},
+        {"search_history.txt", "H001|U002|query|2026-11-12T01:00:00Z|CONTENT|||\n"},
+        {"search_history.txt", "H001|U002|query|2026-11-12T01:00:00Z|ID|||RELEVANCE\n"},
+        {"search_history.txt", "H001|U999|query|2026-11-12T01:00:00Z|CONTENT|KANJI|L001|TERM_DESC\n"},
         {"alphabet.txt", "A001|HIRAGANA|a|a|group|1|\nA002|HIRAGANA|a|a|group|2|\n"},
         {"alphabet.txt", "A001|OTHER|a|a|group|1|\n"},
         {"question.txt", "Q001|L002|R001|p|a|b|c|d|A||ACTIVE\n"},
@@ -83,6 +86,7 @@ void roundTripTests() {
     CHECK(loaded.questions[1].getResourceId() == std::nullopt);
     CHECK(loaded.histories.size() == 1 && loaded.attempts.size() == 1);
     for (const auto& entry : std::filesystem::directory_iterator(temp.path)) {
+        if (entry.path().extension() != ".txt") continue;
         std::ifstream in(entry.path(), std::ios::binary);
         std::string text((std::istreambuf_iterator<char>(in)), {});
         std::string crlf = "\xEF\xBB\xBF";
@@ -118,10 +122,11 @@ void writerFailureTests() {
     TempDirectory temp;
     auto data = fixture();
     std::string error;
-    std::filesystem::create_directory(temp.path / "vocabulary.txt.tmp");
+    const auto stageBlocker = temp.path / ".pbl2-stage";
+    writeFile(stageBlocker, "occupied");
     CHECK(!FileStorage{}.saveAll(temp.path.string(), data, error));
     CHECK(!std::filesystem::exists(temp.path / "user.txt"));
-    std::filesystem::remove(temp.path / "vocabulary.txt.tmp");
+    CHECK(std::filesystem::remove(stageBlocker));
     std::filesystem::create_directory(temp.path / "question.txt");
     CHECK(!FileStorage{}.saveAll(temp.path.string(), data, error));
     CHECK(error.find("replace") != std::string::npos);
@@ -156,8 +161,7 @@ void writerFailureTests() {
         }
         CHECK(!saved && error.find("cannot write or close temp") != std::string::npos);
         CHECK(before.names().empty());
-        for (const auto& entry : std::filesystem::directory_iterator(temp.path))
-            CHECK(entry.path().extension() == ".txt");
+        CHECK(!std::filesystem::exists(temp.path / ".pbl2-rollback"));
     }
 #endif
     // Writer checks the same 32 MiB limit as reader before replacing any file.

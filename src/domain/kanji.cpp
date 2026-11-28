@@ -30,6 +30,7 @@ Kanji::Kanji(const ResourceId& id,
     validateTxtField(kunyomi_, "kunyomi", false);
     validateTxtField(examples_, "examples", false);
     validateTxtRecord({getId().getId(), character_, getMeaning(), std::to_string(strokeCount_), onyomi_, kunyomi_, examples_});
+    buildSearchKeys(character_, onyomi_, kunyomi_);
 }
 const std::string& Kanji::getCharacter() const noexcept {
     return character_;

@@ -32,6 +32,7 @@ Vocabulary::Vocabulary(const ResourceId& id,
     validateTxtField(reading_, "reading", false);
     validateTxtField(example_, "example", false);
     validateTxtRecord({getId().getId(), word_, reading_, getMeaning(), partOfSpeechToken(partOfSpeech_), example_});
+    buildSearchKeys(word_, reading_);
 }
 const std::string& Vocabulary::getWord() const noexcept {
     return word_;

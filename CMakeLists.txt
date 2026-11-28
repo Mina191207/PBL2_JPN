@@ -45,13 +45,18 @@ add_library(pbl2_backend STATIC
     src/application/managers/QuizManager.cpp
     src/storage/FileStorage.cpp
     src/storage/Paths.cpp
+    src/algorithms/KmpMatcher.cpp
     src/search/ResourceSearch.cpp
+    src/search/SearchText.cpp
 )
 target_include_directories(pbl2_backend PUBLIC include PRIVATE src)
 target_compile_features(pbl2_backend PUBLIC cxx_std_17)
 target_link_libraries(pbl2_backend PRIVATE ${sodium_target})
 if(WIN32)
-    target_link_libraries(pbl2_backend PRIVATE advapi32)
+    target_link_libraries(pbl2_backend PRIVATE advapi32 normaliz)
+else()
+    find_package(ICU REQUIRED COMPONENTS uc)
+    target_link_libraries(pbl2_backend PRIVATE ICU::uc)
 endif()
 if(MSVC)
     target_compile_options(pbl2_backend PRIVATE /W4 /permissive- /utf-8)
@@ -68,6 +73,7 @@ endif()
 
 include(CTest)
 if(BUILD_TESTING)
+    target_compile_definitions(pbl2_backend PRIVATE PBL2_STORAGE_TESTING)
     add_executable(test_backend tests/test_backend.cpp tests/support/InternalApplication.cpp)
     target_include_directories(test_backend PRIVATE src tests/support)
     target_link_libraries(test_backend PRIVATE pbl2_backend)
@@ -77,7 +83,7 @@ if(BUILD_TESTING)
         target_compile_options(test_backend PRIVATE -Wall -Wextra -Wpedantic)
     endif()
     add_test(NAME backend COMMAND test_backend)
-    foreach(group algorithms storage api search credentials)
+    foreach(group algorithms storage storage_recovery api search credentials)
         add_executable(test_${group} tests/test_${group}.cpp)
         target_include_directories(test_${group} PRIVATE src tests/support)
         target_link_libraries(test_${group} PRIVATE pbl2_backend)
@@ -88,6 +94,11 @@ if(BUILD_TESTING)
         endif()
         add_test(NAME ${group} COMMAND test_${group})
     endforeach()
+    target_compile_definitions(test_storage_recovery PRIVATE PBL2_STORAGE_TESTING)
+    set_tests_properties(storage_recovery PROPERTIES TIMEOUT 120)
+    if(WIN32 AND MINGW)
+        target_link_options(test_storage_recovery PRIVATE -municode)
+    endif()
     target_link_libraries(test_credentials PRIVATE ${sodium_target})
     target_include_directories(test_credentials PRIVATE apps/raylib)
     target_include_directories(test_search PRIVATE apps/raylib)
@@ -126,9 +137,11 @@ option(PBL2_BUILD_RAYLIB "Build Raylib frontend" OFF)
 
 if(PBL2_BUILD_RAYLIB)
     find_package(raylib CONFIG REQUIRED)
+    set(PBL2_DATA_DIR "${CMAKE_CURRENT_SOURCE_DIR}/database" CACHE PATH "Default data directory for the build")
 
     add_executable(pbl2_app
         apps/raylib/main.cpp
+        apps/raylib/FolderField.cpp
         apps/raylib/UiText.cpp
         apps/raylib/UITheme.cpp
         apps/raylib/app/AppController.cpp
@@ -137,6 +150,7 @@ if(PBL2_BUILD_RAYLIB)
         apps/raylib/app/StudyActions.cpp
         apps/raylib/screens/StartupScreen.cpp
         apps/raylib/screens/LoginScreen.cpp
+        apps/raylib/screens/ChangePasswordDialog.cpp
         apps/raylib/screens/MainScreen.cpp
         apps/raylib/screens/ResourcesScreen.cpp
         apps/raylib/screens/BackendScreen.cpp
@@ -152,6 +166,12 @@ if(PBL2_BUILD_RAYLIB)
         pbl2_backend
         raylib
     )
+    if(WIN32)
+        target_sources(pbl2_app PRIVATE apps/raylib/WindowsFolderPicker.cpp)
+        target_link_libraries(pbl2_app PRIVATE ole32 shell32 uuid)
+    endif()
+    file(GENERATE OUTPUT "$<TARGET_FILE_DIR:pbl2_app>/pbl2-data-dir.txt"
+        CONTENT "${PBL2_DATA_DIR}\n")
 
     add_custom_command(TARGET pbl2_app POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:pbl2_app>/assets/fonts"
@@ -170,6 +190,14 @@ if(PBL2_BUILD_RAYLIB)
 
     if(BUILD_TESTING)
         add_executable(test_raylib_state tests/test_raylib_state.cpp
+            apps/raylib/FolderField.cpp
+            apps/raylib/app/AppController.cpp
+            apps/raylib/app/AdminActions.cpp
+            apps/raylib/app/ResourceActions.cpp
+            apps/raylib/app/StudyActions.cpp
+            apps/raylib/screens/MainScreen.cpp
+            apps/raylib/screens/LoginScreen.cpp
+            apps/raylib/screens/ChangePasswordDialog.cpp
             apps/raylib/screens/BackendScreen.cpp
             apps/raylib/screens/StudyScreen.cpp
             apps/raylib/screens/AdminForm.cpp
@@ -178,15 +206,23 @@ if(PBL2_BUILD_RAYLIB)
             apps/raylib/UITheme.cpp
             apps/raylib/UiText.cpp
         )
-        target_include_directories(test_raylib_state PRIVATE apps/raylib tests/support)
+        target_include_directories(test_raylib_state PRIVATE apps/raylib src tests/support)
         target_link_libraries(test_raylib_state PRIVATE pbl2_backend raylib)
+        if(WIN32)
+            target_sources(test_raylib_state PRIVATE apps/raylib/WindowsFolderPicker.cpp)
+            target_link_libraries(test_raylib_state PRIVATE ole32 shell32 uuid)
+        endif()
         foreach(input GetScreenWidth GetScreenHeight GetMousePosition IsMouseButtonPressed IsKeyPressed
-                IsKeyPressedRepeat IsKeyDown GetMouseWheelMove GetClipboardText GetCharPressed)
+                IsKeyPressedRepeat IsKeyDown GetMouseWheelMove GetClipboardText GetCharPressed WindowShouldClose)
             target_compile_definitions(test_raylib_state PRIVATE ${input}=Test${input})
         endforeach()
         if(MSVC)
             target_compile_options(test_raylib_state PRIVATE /utf-8)
         endif()
         add_test(NAME raylib_state COMMAND test_raylib_state)
+        if(WIN32)
+            add_dependencies(test_raylib_state pbl2_app)
+            add_test(NAME raylib_render COMMAND test_raylib_state --draw)
+        endif()
     endif()
 endif()

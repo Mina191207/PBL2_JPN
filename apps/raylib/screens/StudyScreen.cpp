@@ -2,7 +2,6 @@
 #include "UITheme.h"
 
 #include <algorithm>
-#include <sstream>
 #include <type_traits>
 
 namespace {
@@ -10,38 +9,82 @@ constexpr Color kBorder = UITheme::border;
 constexpr Color kText = UITheme::text;
 constexpr Color kMuted = UITheme::muted;
 constexpr float kActionButtonWidth = 170.0f;
-constexpr float kQuizAnswerRowHeight = 128.0f;
 
 Rectangle action(float x, float y, float width = kActionButtonWidth, float height = 40.0f) {
     return {x, y, width, height};
 }
 
 using Event = BackendScreenEvent::Type;
-struct QuizUiLayout {
-    Rectangle level;
-    Rectangle options[4];
-    Rectangle previous;
-    Rectangle next;
+Rectangle quizLevelBounds(Rectangle list) {
+    return {list.x + 12.0f, list.y + 10.0f, std::min(250.0f, list.width * 0.48f), 38.0f};
+}
+
+Rectangle quizViewport(Rectangle list, bool submitted) {
+    return {list.x + 12.0f, list.y + 48.0f, list.width - 24.0f,
+            std::max(1.0f, list.height - (submitted ? 60.0f : 100.0f))};
+}
+
+Rectangle quizNav(Rectangle list, bool next) {
+    return {next ? list.x + list.width - 124.0f : list.x + 12.0f,
+            list.y + list.height - 44.0f, 112.0f, 36.0f};
+}
+
+struct QuizQuestionLayout {
+    UITheme::WrappedText prompt;
+    std::array<UITheme::WrappedText, 4> labels;
+    std::array<Rectangle, 4> options;
+    float height;
 };
 
-QuizUiLayout quizLayout(Rectangle list) {
-    QuizUiLayout result{};
-    result.level = {list.x + 12.0f, list.y + 10.0f, std::min(250.0f, list.width * 0.48f), 38.0f};
-    const float optionGap = 10.0f;
-    const float optionWidth = (list.width - 36.0f - optionGap) * 0.5f;
-    const float optionY = list.y + (list.height < 350.0f ? 136.0f : 162.0f);
-    const float navY = list.y + list.height - 48.0f;
-    const float optionHeight = std::clamp((navY - optionY - 2.0f * optionGap) * 0.5f, 24.0f, 64.0f);
-    const float secondRowY = optionY + optionHeight + optionGap;
-    const float left = list.x + 12.0f;
-    const float right = left + optionWidth + optionGap;
-    result.options[0] = {left, optionY, optionWidth, optionHeight};
-    result.options[1] = {right, optionY, optionWidth, optionHeight};
-    result.options[2] = {left, secondRowY, optionWidth, optionHeight};
-    result.options[3] = {right, secondRowY, optionWidth, optionHeight};
-    result.previous = {left, navY, 112.0f, 36.0f};
-    result.next = {list.x + list.width - 124.0f, navY, 112.0f, 36.0f};
-    return result;
+QuizQuestionLayout quizQuestionLayout(Rectangle viewport, const QuizQuestionView& question) {
+    QuizQuestionLayout ui{UITheme::wrap(question.prompt, viewport.width - 12.0f, 20), {}, {}, 0};
+    float y = viewport.y + ui.prompt.height() + 10.0f;
+    for (std::size_t i = 0; i < ui.labels.size(); ++i) {
+        ui.labels[i] = UITheme::wrap(std::string(1, static_cast<char>('A' + i)) + ". " + question.options[i],
+                                     viewport.width - 36.0f, 17);
+        ui.options[i] = {viewport.x + 2.0f, y, viewport.width - 12.0f, ui.labels[i].height() + 14.0f};
+        y += ui.options[i].height + 8.0f;
+    }
+    ui.height = y - viewport.y;
+    return ui;
+}
+
+struct QuizResultCard {
+    bool correct;
+    std::vector<UITheme::WrappedText> fields;
+    float height;
+};
+
+std::vector<QuizResultCard> quizResultCards(Rectangle viewport, const BackendActivityState& activity) {
+    std::vector<QuizResultCard> cards;
+    for (std::size_t i = 0; i < activity.quizAnswers.size(); ++i) {
+        const auto& answer = activity.quizAnswers[i];
+        const auto* question = i < activity.quiz->questions.size() ? &activity.quiz->questions[i] : nullptr;
+        const auto answerText = [&](char letter) {
+            if (letter == '-') return std::string("Not answered");
+            std::string value(1, letter);
+            if (question && letter >= 'A' && letter <= 'D') value += ". " + question->options[letter - 'A'];
+            return value;
+        };
+        QuizResultCard card{answer.selectedAnswer == answer.correctAnswer, {}, 12.0f};
+        const auto field = [&](const std::string& value, int size) {
+            card.fields.push_back(UITheme::wrap(value, viewport.width - 40.0f, size));
+            card.height += card.fields.back().height() + 8.0f;
+        };
+        field("Question " + std::to_string(i + 1), 15);
+        if (question) field(question->prompt, 19);
+        field("Your answer: " + answerText(answer.selectedAnswer), 17);
+        field("Correct answer: " + answerText(answer.correctAnswer), 17);
+        field("Explanation: " + answer.explanation, 17);
+        cards.push_back(std::move(card));
+    }
+    return cards;
+}
+
+float quizResultHeight(const std::vector<QuizResultCard>& cards) {
+    float height = 0;
+    for (const auto& card : cards) height += card.height + 8.0f;
+    return height;
 }
 
 bool quizHasWrongAnswers(const BackendActivityState& activity) {
@@ -50,10 +93,6 @@ bool quizHasWrongAnswers(const BackendActivityState& activity) {
     const bool submittedScoreContainsWrong = activity.quizResult &&
         activity.quizResult->getCorrectAnswers() < activity.quizResult->getTotalQuestions();
     return answerDetailsContainWrong || submittedScoreContainsWrong;
-}
-
-std::size_t visibleQuizAnswers(Rectangle list) {
-    return static_cast<std::size_t>(std::max(1.0f, (list.height - 112.0f) / kQuizAnswerRowHeight));
 }
 
 std::string partOfSpeechLabel(PartOfSpeech value) {
@@ -123,32 +162,6 @@ ReviewDisplayDetails reviewDisplayDetails(const BackendActivityState& activity, 
     return details;
 }
 
-std::size_t wrappedLineCount(const std::string& value, int width, int fontSize) {
-    std::size_t lines = 0;
-    std::string line;
-    std::istringstream words(value);
-    std::string token;
-    while (words >> token) {
-        const std::string candidate = line.empty() ? token : line + " " + token;
-        if (UITheme::measureText(candidate.c_str(), fontSize) <= width) {
-            line = candidate;
-            continue;
-        }
-        if (!line.empty()) { ++lines; line.clear(); }
-        if (UITheme::measureText(token.c_str(), fontSize) <= width) { line = token; continue; }
-        for (const auto& unit : Utf8::decode(token)) {
-            const std::string character = token.substr(unit.begin, unit.end - unit.begin);
-            if (!line.empty() && UITheme::measureText((line + character).c_str(), fontSize) > width) {
-                ++lines;
-                line.clear();
-            }
-            line += character;
-        }
-    }
-    if (!line.empty()) ++lines;
-    return std::max<std::size_t>(1, lines);
-}
-
 Rectangle reviewDetailsViewport(Rectangle list) {
     const float top = list.y + 154.0f;
     const float bottom = list.y + list.height - 52.0f;
@@ -160,9 +173,8 @@ std::vector<float> reviewFieldRowHeights(const ReviewDisplayDetails& details, fl
     const std::size_t rows = (details.fields.size() + 1) / 2;
     std::vector<float> heights(rows, 62.0f);
     for (std::size_t index = 0; index < details.fields.size(); ++index) {
-        const auto lines = wrappedLineCount(details.fields[index].second,
-            std::max(1, static_cast<int>(tileWidth - 20.0f)), 15);
-        heights[index / 2] = std::max(heights[index / 2], 27.0f + static_cast<float>(lines) * 20.0f);
+        const auto value = UITheme::wrap(details.fields[index].second, tileWidth - 20.0f, 15);
+        heights[index / 2] = std::max(heights[index / 2], 27.0f + value.height());
     }
     return heights;
 }
@@ -173,13 +185,44 @@ float reviewDetailsContentHeight(const ReviewDisplayDetails& details, float widt
     for (const float rowHeight : rowHeights) height += rowHeight;
     if (rowHeights.size() > 1) height += static_cast<float>(rowHeights.size() - 1) * 8.0f;
     if (!details.example.empty()) {
-        const auto lines = wrappedLineCount(details.example, std::max(1, static_cast<int>(width - 24.0f)), 16);
-        height += (height > 0.0f ? 8.0f : 0.0f) + 36.0f + static_cast<float>(lines) * 21.0f;
+        const auto example = UITheme::wrap(details.example, width - 32.0f, 16);
+        height += (height > 0.0f ? 8.0f : 0.0f) + 36.0f + example.height();
     }
     return height;
 }
 
 } // namespace
+
+void BackendScreen::addStudyControls(std::vector<int>& order, Section section, const BackendActivityState& activity) const {
+    const auto add = [&](Event event) { order.push_back(actionControl(event)); };
+    if (section == Section::Review) {
+        const auto& state = activity.review;
+        if (!state || state->finished) add(Event::START_REVIEW);
+        else if (state->current) {
+            if (state->current->back) { add(Event::RATE_KNOWN); add(Event::RATE_UNKNOWN); }
+            else add(Event::REVEAL_REVIEW);
+            add(Event::STOP_REVIEW);
+        }
+    } else if (section == Section::Quiz) {
+        if (!activity.quiz) {
+            if (activity.quizLevels.size() > 1) order.push_back(QuizLevel);
+            if (activity.activeQuestionCount > 0) add(Event::START_QUIZ);
+        } else {
+            if (!activity.quiz->submitted) {
+                if (!activity.quiz->questions.empty()) {
+                    order.insert(order.end(), {QuizText, QuizA, QuizB, QuizC, QuizD});
+                    if (quizQuestionIndex_ > 0) order.push_back(QuizPrevious);
+                    if (quizQuestionIndex_ + 1 < activity.quiz->questions.size()) order.push_back(QuizNext);
+                }
+                add(Event::SUBMIT_QUIZ);
+            } else {
+                order.push_back(QuizText);
+                if (quizHasWrongAnswers(activity)) add(Event::RETRY_WRONG);
+            }
+            add(Event::STOP_QUIZ);
+        }
+    }
+}
 
 BackendScreenEvent BackendScreen::updateReview(Rectangle list, float x, float y, const BackendActivityState& activity) {
     const auto& state = activity.review;
@@ -196,64 +239,105 @@ BackendScreenEvent BackendScreen::updateReview(Rectangle list, float x, float y,
     }
 
     Event event = Event::NONE;
-    if ((!state || state->finished) && click(action(x, y))) event = Event::START_REVIEW;
-    else if (active && !revealed && click(action(x, y + 48))) event = Event::REVEAL_REVIEW;
-    else if (revealed && click(action(x, y + 96, 80))) event = Event::RATE_KNOWN;
-    else if (revealed && click(action(x + 90, y + 96, 80))) event = Event::RATE_UNKNOWN;
-    else if (active && click(action(x, y + 144))) event = Event::STOP_REVIEW;
+    if ((!state || state->finished) && focus_.activate(actionControl(Event::START_REVIEW), action(x, y))) event = Event::START_REVIEW;
+    else if (active && !revealed && focus_.activate(actionControl(Event::REVEAL_REVIEW), action(x, y + 48))) event = Event::REVEAL_REVIEW;
+    else if (revealed && focus_.activate(actionControl(Event::RATE_KNOWN), action(x, y + 96, 80))) event = Event::RATE_KNOWN;
+    else if (revealed && focus_.activate(actionControl(Event::RATE_UNKNOWN), action(x + 90, y + 96, 80))) event = Event::RATE_UNKNOWN;
+    else if (active && focus_.activate(actionControl(Event::STOP_REVIEW), action(x, y + 144))) event = Event::STOP_REVIEW;
     if (event != Event::NONE) reviewDetailsScrollOffset_ = 0.0f;
     return {event};
 }
 
+void BackendScreen::revealQuizOption(Rectangle list, const BackendActivityState& activity) {
+    if (!activity.quiz || activity.quiz->submitted || activity.quiz->questions.empty() ||
+        focus_.id < QuizA || focus_.id > QuizD) return;
+    const auto viewport = quizViewport(list, false);
+    const auto ui = quizQuestionLayout(viewport, activity.quiz->questions[
+        std::min(quizQuestionIndex_, activity.quiz->questions.size() - 1)]);
+    const auto option = ui.options[focus_.id - QuizA];
+    const float top = option.y - viewport.y;
+    const float bottom = top + option.height;
+    if (top < quizOffset_ || option.height > viewport.height) quizOffset_ = top;
+    else if (bottom > quizOffset_ + viewport.height) quizOffset_ = bottom - viewport.height;
+    quizOffset_ = std::min(quizOffset_, std::max(0.0f, ui.height - viewport.height));
+}
+
 BackendScreenEvent BackendScreen::updateQuiz(Rectangle list, float x, float y,
                                              const BackendActivityState& activity) {
-    const auto quizUi = quizLayout(list);
     const bool hasSession = activity.quiz.has_value();
     const bool active = hasSession && !activity.quiz->submitted;
     const bool submitted = hasSession && activity.quiz->submitted;
-
-    if (!hasSession && activity.quizLevels.size() > 1 && click(quizUi.level)) {
+    const auto viewport = quizViewport(list, submitted);
+    if (!hasSession && activity.quizLevels.size() > 1 && focus_.activate(QuizLevel, quizLevelBounds(list))) {
         const auto current = std::find_if(activity.quizLevels.begin(), activity.quizLevels.end(),
             [&](const Level& level) { return activity.selectedQuizLevel && level.getId() == *activity.selectedQuizLevel; });
-        const std::size_t currentIndex = current == activity.quizLevels.end()
-            ? 0 : static_cast<std::size_t>(std::distance(activity.quizLevels.begin(), current));
-        const Level& next = activity.quizLevels[(currentIndex + 1) % activity.quizLevels.size()];
-        return {Event::SELECT_QUIZ_LEVEL, next.getId()};
+        const auto index = current == activity.quizLevels.end() ? 0 : current - activity.quizLevels.begin();
+        return {Event::SELECT_QUIZ_LEVEL, activity.quizLevels[(index + 1) % activity.quizLevels.size()].getId()};
     }
     if (active && !activity.quiz->questions.empty()) {
         quizQuestionIndex_ = std::min(quizQuestionIndex_, activity.quiz->questions.size() - 1);
-        for (std::size_t option = 0; option < 4; ++option) {
-            if (click(quizUi.options[option])) {
+        if (quizViewportSize_.x != viewport.width || quizViewportSize_.y != viewport.height) {
+            quizViewportSize_ = {viewport.width, viewport.height};
+            revealQuizOption(list, activity);
+        }
+        const auto ui = quizQuestionLayout(viewport, activity.quiz->questions[quizQuestionIndex_]);
+        quizOffset_ = UiInput::scroll(viewport, ui.height, quizOffset_,
+            focus_.on(QuizText) || (focus_.id >= QuizA && focus_.id <= QuizD));
+        for (std::size_t option = 0; option < ui.options.size(); ++option) {
+            auto bounds = ui.options[option];
+            bounds.y -= quizOffset_;
+            const auto visible = GetCollisionRec(bounds, viewport);
+            if (visible.height > 0 && focus_.activate(QuizA + static_cast<int>(option), visible)) {
                 BackendScreenEvent event(Event::ANSWER);
                 event.questionIndex = quizQuestionIndex_;
                 event.answer = static_cast<char>('A' + option);
                 return event;
             }
         }
-        if (quizQuestionIndex_ > 0 && click(quizUi.previous)) --quizQuestionIndex_;
-        else if (quizQuestionIndex_ + 1 < activity.quiz->questions.size() && click(quizUi.next)) ++quizQuestionIndex_;
+        if (click(viewport)) focus_.id = QuizText;
+        if (quizQuestionIndex_ > 0 && focus_.activate(QuizPrevious, quizNav(list, false))) {
+            --quizQuestionIndex_;
+            quizOffset_ = 0;
+            focus_.id = QuizText;
+        } else if (quizQuestionIndex_ + 1 < activity.quiz->questions.size() &&
+                   focus_.activate(QuizNext, quizNav(list, true))) {
+            ++quizQuestionIndex_;
+            quizOffset_ = 0;
+            focus_.id = QuizText;
+        }
     }
-    if (!hasSession && activity.activeQuestionCount > 0 && click(action(x, y))) {
+    if (!hasSession && focus_.activate(actionControl(Event::START_QUIZ), action(x, y), activity.activeQuestionCount > 0)) {
         quizQuestionIndex_ = 0;
-        return {BackendScreenEvent::Type::START_QUIZ};
+        quizOffset_ = 0;
+        focus_.id = QuizText;
+        return {Event::START_QUIZ};
     }
-    if (active && click(action(x, y + 48.0f))) return {BackendScreenEvent::Type::SUBMIT_QUIZ};
-    const bool hasWrongAnswers = quizHasWrongAnswers(activity);
-    if (submitted && hasWrongAnswers && click(action(x, y + 48.0f))) {
-        quizQuestionIndex_ = 0;
-        return {BackendScreenEvent::Type::RETRY_WRONG};
+    if (active && focus_.activate(actionControl(Event::SUBMIT_QUIZ), action(x, y))) {
+        quizResultOffset_ = 0;
+        const auto& answers = activity.quiz->selectedAnswers;
+        const auto blank = std::count(answers.begin(), answers.end(), '-');
+        if (blank == 0) {
+            focus_.id = QuizText;
+            return {Event::SUBMIT_QUIZ};
+        }
+        confirm({Event::SUBMIT_QUIZ}, "Submit quiz?",
+                std::to_string(blank) + (blank == 1 ? " question is" : " questions are") +
+                    " unanswered. Submit this attempt?");
+        return {};
     }
-    if (hasSession && click(action(x, y + (submitted && !hasWrongAnswers ? 120.0f : 96.0f))))
-        return {BackendScreenEvent::Type::STOP_QUIZ};
-    if (submitted && !activity.quizAnswers.empty() && CheckCollisionPointRec(GetMousePosition(), list)) {
-        const float wheel = GetMouseWheelMove();
-        const std::size_t visible = visibleQuizAnswers(list);
-        const std::size_t maxOffset = activity.quizAnswers.size() > visible
-            ? activity.quizAnswers.size() - visible : 0;
-        if (wheel > 0.0f && scrollOffset_ > 0) --scrollOffset_;
-        if (wheel < 0.0f && scrollOffset_ < maxOffset) ++scrollOffset_;
-        scrollOffset_ = std::min(scrollOffset_, maxOffset);
+    if (submitted) {
+        if (click(viewport)) focus_.id = QuizText;
+        const auto cards = quizResultCards(viewport, activity);
+        quizResultOffset_ = UiInput::scroll(viewport, quizResultHeight(cards), quizResultOffset_, focus_.on(QuizText));
+        if (focus_.activate(actionControl(Event::RETRY_WRONG), action(x, y), quizHasWrongAnswers(activity))) {
+            quizQuestionIndex_ = 0;
+            quizOffset_ = 0;
+            focus_.id = QuizText;
+            return {Event::RETRY_WRONG};
+        }
     }
+    if (hasSession && focus_.activate(actionControl(Event::STOP_QUIZ), action(x + 180, y)))
+        return {Event::STOP_QUIZ};
     return {};
 }
 
@@ -303,24 +387,20 @@ void BackendScreen::drawReviewPage(Rectangle list, const BackendActivityState& a
                 UITheme::drawText(details.fields[index].first.c_str(), static_cast<int>(tile.x + 10.0f),
                     static_cast<int>(tile.y + 6.0f), 13, kMuted);
                 UITheme::drawWrapped(details.fields[index].second, static_cast<int>(tile.x + 10.0f),
-                    static_cast<int>(tile.y + 25.0f), static_cast<int>(tile.width - 20.0f), 15, kText,
-                    static_cast<int>(wrappedLineCount(details.fields[index].second,
-                        std::max(1, static_cast<int>(tile.width - 20.0f)), 15)));
+                    static_cast<int>(tile.y + 25.0f), static_cast<int>(tile.width - 20.0f), 15, kText);
             }
             float exampleY = viewport.y;
             for (const float rowHeight : rowHeights) exampleY += rowHeight + rowGap;
             if (fieldRows > 0) exampleY -= rowGap;
             if (!details.example.empty()) {
-                const std::size_t lines = wrappedLineCount(details.example,
-                    std::max(1, static_cast<int>(viewport.width - 24.0f)), 16);
-                const float exampleHeight = 36.0f + static_cast<float>(lines) * 21.0f;
+                const auto example = UITheme::wrap(details.example, viewport.width - 32.0f, 16);
+                const float exampleHeight = 36.0f + example.height();
                 const Rectangle exampleBounds{viewport.x, exampleY - scroll, viewport.width - 8.0f, exampleHeight};
                 DrawRectangleRounded(exampleBounds, 0.08f, 7, Color{255,239,245,255});
                 UITheme::drawText(details.exampleLabel.c_str(), static_cast<int>(exampleBounds.x + 12.0f),
                     static_cast<int>(exampleBounds.y + 8.0f), 13, kMuted);
-                UITheme::drawWrapped(details.example, static_cast<int>(exampleBounds.x + 12.0f),
-                    static_cast<int>(exampleBounds.y + 28.0f), static_cast<int>(exampleBounds.width - 24.0f), 16, kText,
-                    static_cast<int>(lines));
+                example.draw(static_cast<int>(exampleBounds.x + 12.0f),
+                    static_cast<int>(exampleBounds.y + 28.0f), kText);
             }
             EndScissorMode();
             if (maxScroll > 0.0f) {
@@ -339,107 +419,80 @@ void BackendScreen::drawReviewPage(Rectangle list, const BackendActivityState& a
 
 }
 
-void BackendScreen::drawQuizPage(Rectangle list, const BackendActivityState& activity, std::size_t questionIndex,
-                                 std::size_t scrollOffset) const {
-    DrawRectangleRounded(list,0.04f,8,Color{255,252,253,255});
-    DrawRectangleRoundedLinesEx(list,0.04f,8,1.0f,kBorder);
-    const auto quizUi = quizLayout(list);
-    const bool hasSession = activity.quiz.has_value();
-    const bool active = hasSession && !activity.quiz->submitted;
-    const bool submitted = hasSession && activity.quiz->submitted;
-    std::string selectedLevelName = "Select JLPT level";
-    if (activity.selectedQuizLevel) {
-        const auto found = std::find_if(activity.quizLevels.begin(), activity.quizLevels.end(), [&](const Level& level) {
-            return level.getId() == *activity.selectedQuizLevel;
-        });
-        selectedLevelName = found == activity.quizLevels.end() ? activity.selectedQuizLevel->getId() : found->getName();
-    }
-    button(quizUi.level, selectedLevelName.c_str(), false, !hasSession && activity.quizLevels.size() > 1);
-    UITheme::drawText(TextFormat("%zu active questions", activity.activeQuestionCount),
-        static_cast<int>(quizUi.level.x + quizUi.level.width + 14.0f),
-        static_cast<int>(quizUi.level.y + 10.0f), 16, kMuted);
-    if (active && !activity.quiz->questions.empty()) {
-        const std::size_t index = std::min(questionIndex, activity.quiz->questions.size() - 1);
-        const auto& question = activity.quiz->questions[index];
-        const auto& selections = activity.quiz->selectedAnswers;
-        const auto answered = static_cast<std::size_t>(selections.size() - std::count(selections.begin(), selections.end(), '-'));
-        UITheme::drawText(TextFormat("Question %zu of %zu  |  Answered %zu", index + 1,
-            activity.quiz->questions.size(), answered), static_cast<int>(list.x + 16.0f),
-            static_cast<int>(list.y + 58.0f), 17, kMuted);
-        UITheme::drawWrapped(question.prompt, static_cast<int>(list.x + 16.0f),
-            static_cast<int>(list.y + 90.0f), static_cast<int>(list.width - 32.0f), 20, kText,
-            list.height < 350.0f ? 2 : 3);
-        for (std::size_t option = 0; option < 4; ++option) {
-            const Rectangle bounds = quizUi.options[option];
-            const bool chosen = selections[index] == static_cast<char>('A' + option);
-            DrawRectangleRounded(bounds,0.12f,7,chosen?Color{255,224,234,255}:RAYWHITE);
-            DrawRectangleRoundedLinesEx(bounds,0.12f,7,chosen?2.0f:1.0f,chosen?UITheme::primary:kBorder);
-            BeginScissorMode(static_cast<int>(bounds.x+10.0f),static_cast<int>(bounds.y+4.0f),
-                std::max(1,static_cast<int>(bounds.width-20.0f)),static_cast<int>(bounds.height-8.0f));
-            UITheme::drawWrapped(std::string(1,static_cast<char>('A'+option))+". "+question.options[option],
-                static_cast<int>(bounds.x+12.0f),static_cast<int>(bounds.y+9.0f),
-                static_cast<int>(bounds.width-24.0f),17,kText,2);
-            EndScissorMode();
-        }
-        button(quizUi.previous,"Previous",false,index>0);
-        button(quizUi.next,"Next",false,index+1<activity.quiz->questions.size());
-    } else if (submitted) {
-        if (activity.quizResult) {
-            UITheme::drawText(TextFormat("Score: %d / %d  (%.0f%%)", activity.quizResult->getCorrectAnswers(),
-                activity.quizResult->getTotalQuestions(), activity.quizResult->percentage()),
-                static_cast<int>(list.x+16.0f),static_cast<int>(list.y+58.0f),22,UITheme::strongText);
-        } else {
-            UITheme::drawText("Quiz submitted",static_cast<int>(list.x+16.0f),static_cast<int>(list.y+58.0f),22,UITheme::strongText);
-        }
-        const float rowHeight = kQuizAnswerRowHeight;
-        const float rowsTop = list.y + 96.0f;
-        const std::size_t visible = visibleQuizAnswers(list);
-        const std::size_t maxOffset = activity.quizAnswers.size()>visible?activity.quizAnswers.size()-visible:0;
-        const std::size_t first = std::min(scrollOffset,maxOffset);
-        BeginScissorMode(static_cast<int>(list.x+6.0f),static_cast<int>(rowsTop),
-            static_cast<int>(list.width-18.0f),static_cast<int>(list.height-108.0f));
-        for(std::size_t visibleIndex=0;visibleIndex<visible&&first+visibleIndex<activity.quizAnswers.size();++visibleIndex){
-            const auto& answer=activity.quizAnswers[first+visibleIndex];
-            const float y=rowsTop+static_cast<float>(visibleIndex)*rowHeight;
-            DrawRectangleRounded({list.x+10.0f,y+2.0f,list.width-30.0f,rowHeight-8.0f},0.06f,6,
-                answer.selectedAnswer==answer.correctAnswer?Color{241,250,244,255}:Color{255,244,246,255});
-            UITheme::drawText(TextFormat("Question %zu",first+visibleIndex+1),static_cast<int>(list.x+20.0f),static_cast<int>(y+8.0f),16,kMuted);
-            std::string selectedText=answer.selectedAnswer=='-'?"Not answered":std::string(1,answer.selectedAnswer);
-            std::string correctText(1,answer.correctAnswer);
-            if(first+visibleIndex<activity.quiz->questions.size()){
-                const auto& options=activity.quiz->questions[first+visibleIndex].options;
-                const int selectedIndex=answer.selectedAnswer-'A';
-                const int correctIndex=answer.correctAnswer-'A';
-                if(selectedIndex>=0&&selectedIndex<static_cast<int>(options.size()))selectedText+=" - "+options[static_cast<std::size_t>(selectedIndex)];
-                if(correctIndex>=0&&correctIndex<static_cast<int>(options.size()))correctText+=" - "+options[static_cast<std::size_t>(correctIndex)];
+void BackendScreen::drawQuizPage(Rectangle list, const BackendActivityState& activity) const {
+    DrawRectangleRounded(list, 0.04f, 8, Color{255,252,253,255});
+    DrawRectangleRoundedLinesEx(list, 0.04f, 8, 1.0f, kBorder);
+    const bool submitted = activity.quiz && activity.quiz->submitted;
+    const auto viewport = quizViewport(list, submitted);
+    const auto x = static_cast<int>(list.x + 16.0f);
+    const auto headingY = static_cast<int>(list.y + 12.0f);
+    if (submitted) {
+        const char* heading = activity.quizResult ? TextFormat("Score: %d / %d  (%.0f%%)",
+            activity.quizResult->getCorrectAnswers(), activity.quizResult->getTotalQuestions(),
+            activity.quizResult->percentage()) : "Quiz submitted";
+        UITheme::drawText(heading, x, headingY, 22, UITheme::strongText);
+        const auto cards = quizResultCards(viewport, activity);
+        const float height = quizResultHeight(cards);
+        const float offset = std::min(quizResultOffset_, std::max(0.0f, height - viewport.height));
+        UITheme::beginClip(viewport);
+        float y = viewport.y - offset;
+        for (const auto& card : cards) {
+            if (y + card.height > viewport.y && y < viewport.y + viewport.height) {
+                DrawRectangleRounded({viewport.x + 2.0f, y, viewport.width - 12.0f, card.height}, 0.06f, 6,
+                    card.correct ? Color{241,250,244,255} : Color{255,235,242,255});
+                float textY = y + 10.0f;
+                for (const auto& field : card.fields) {
+                    field.draw(x + 8, static_cast<int>(textY), kText);
+                    textY += field.height() + 8.0f;
+                }
             }
-            UITheme::drawWrapped("Your answer: "+selectedText,static_cast<int>(list.x+20.0f),static_cast<int>(y+29.0f),
-                static_cast<int>(list.width-58.0f),14,kText,2);
-            UITheme::drawWrapped("Correct answer: "+correctText,static_cast<int>(list.x+20.0f),static_cast<int>(y+58.0f),
-                static_cast<int>(list.width-58.0f),14,kText,2);
-            UITheme::drawWrapped("Explanation: "+answer.explanation,static_cast<int>(list.x+20.0f),static_cast<int>(y+88.0f),
-                static_cast<int>(list.width-58.0f),14,kMuted,2);
+            y += card.height + 8.0f;
         }
         EndScissorMode();
-    } else if (activity.quizLevels.empty()) {
-        UITheme::drawWrapped("No JLPT levels are available for a quiz.",static_cast<int>(list.x+18.0f),
-            static_cast<int>(list.y+88.0f),static_cast<int>(list.width-36.0f),18,kMuted,3);
-    } else if (activity.activeQuestionCount == 0) {
-        UITheme::drawWrapped("This level has no active questions. Choose another level or ask an administrator to activate questions.",
-            static_cast<int>(list.x+18.0f),static_cast<int>(list.y+88.0f),static_cast<int>(list.width-36.0f),18,kMuted,4);
+        UITheme::drawScrollbar(viewport, height, offset);
+    } else if (activity.quiz && !activity.quiz->questions.empty()) {
+        const auto index = std::min(quizQuestionIndex_, activity.quiz->questions.size() - 1);
+        const auto& selections = activity.quiz->selectedAnswers;
+        const auto answered = selections.size() - std::count(selections.begin(), selections.end(), '-');
+        UITheme::drawText(TextFormat("Question %zu of %zu  |  Answered %zu", index + 1,
+            activity.quiz->questions.size(), answered), x, headingY, 19, kMuted);
+        const auto ui = quizQuestionLayout(viewport, activity.quiz->questions[index]);
+        const float offset = std::min(quizOffset_, std::max(0.0f, ui.height - viewport.height));
+        UITheme::beginClip(viewport);
+        ui.prompt.draw(x, static_cast<int>(viewport.y - offset), kText);
+        for (std::size_t option = 0; option < ui.options.size(); ++option) {
+            auto bounds = ui.options[option];
+            bounds.y -= offset;
+            if (!CheckCollisionRecs(viewport, bounds)) continue;
+            const bool chosen = index < selections.size() && selections[index] == static_cast<char>('A' + option);
+            const bool hovered = CheckCollisionPointRec(GetMousePosition(), GetCollisionRec(bounds, viewport));
+            DrawRectangleRounded(bounds, 0.12f, 7, chosen ? Color{255,224,234,255} : hovered ? UITheme::hover : RAYWHITE);
+            DrawRectangleRoundedLinesEx(bounds, 0.12f, 7, chosen ? 2.0f : 1.0f, chosen ? UITheme::primary : kBorder);
+            ui.labels[option].draw(static_cast<int>(bounds.x + 12.0f), static_cast<int>(bounds.y + 7.0f), kText);
+            if (!modalOpen() && focus_.on(QuizA + static_cast<int>(option))) UITheme::drawFocus(bounds);
+        }
+        EndScissorMode();
+        UITheme::drawScrollbar(viewport, ui.height, offset);
+        controlButton(QuizPrevious, quizNav(list, false), "Previous", false, index > 0);
+        controlButton(QuizNext, quizNav(list, true), "Next", false, index + 1 < activity.quiz->questions.size());
     } else {
-        UITheme::drawWrapped("This level is ready. Start the quiz when you are ready.",static_cast<int>(list.x+18.0f),
-            static_cast<int>(list.y+88.0f),static_cast<int>(list.width-36.0f),18,kMuted,3);
+        const auto level = quizLevelBounds(list);
+        std::string name = "Select JLPT level";
+        if (activity.selectedQuizLevel) {
+            const auto found = std::find_if(activity.quizLevels.begin(), activity.quizLevels.end(), [&](const Level& value) {
+                return value.getId() == *activity.selectedQuizLevel;
+            });
+            name = found == activity.quizLevels.end() ? activity.selectedQuizLevel->getId() : found->getName();
+        }
+        controlButton(QuizLevel, level, name.c_str(), false, activity.quizLevels.size() > 1);
+        UITheme::drawText(TextFormat("%zu active questions", activity.activeQuestionCount),
+            static_cast<int>(level.x + level.width + 14.0f), static_cast<int>(level.y + 10.0f), 16, kMuted);
+        const char* hint = activity.quizLevels.empty() ? "No JLPT levels are available for a quiz." :
+            activity.activeQuestionCount == 0 ? "This level has no active questions. Choose another level." :
+            "This level is ready. Start the quiz when you are ready.";
+        UITheme::drawWrapped(hint, x, static_cast<int>(list.y + 60.0f), static_cast<int>(list.width - 36.0f), 18, kMuted);
     }
-    const std::size_t visible = visibleQuizAnswers(list);
-    if (submitted && activity.quizAnswers.size() > visible) {
-        const Rectangle track{list.x+list.width-7.0f,list.y+98.0f,3.0f,list.height-112.0f};
-        DrawRectangleRounded(track,0.5f,3,Color{239,224,230,255});
-        const std::size_t maxOffset=activity.quizAnswers.size()-visible;
-        const float thumb=std::max(22.0f,track.height*static_cast<float>(visible)/static_cast<float>(activity.quizAnswers.size()));
-        DrawRectangleRounded({track.x,track.y+(track.height-thumb)*(maxOffset?static_cast<float>(std::min(scrollOffset,maxOffset))/maxOffset:0.0f),track.width,thumb},0.5f,3,kBorder);
-    }
-
+    if (!modalOpen() && focus_.on(QuizText)) UITheme::drawFocus(viewport);
 }
 
 void BackendScreen::drawStudyActions(Section section, float x, float y, const BackendActivityState& activity) const {
@@ -448,33 +501,25 @@ void BackendScreen::drawStudyActions(Section section, float x, float y, const Ba
     if (reviewPage) {
         const bool active = activity.review && !activity.review->finished && activity.review->current.has_value();
         const bool revealed = active && activity.review->current->back.has_value();
-        button(action(x,y),activity.review&& !activity.review->finished ? "Review active" : "Start review",
+        controlButton(actionControl(Event::START_REVIEW), action(x,y),activity.review&& !activity.review->finished ? "Review active" : "Start review",
                !activity.review || activity.review->finished, !activity.review || activity.review->finished);
-        if (active && !revealed) button(action(x,y+48),"Reveal answer",true,true);
+        if (active && !revealed) controlButton(actionControl(Event::REVEAL_REVIEW), action(x,y+48),"Reveal answer",true,true);
         if (active && revealed) {
-            button(action(x,y+96,80,40),"Known",true,true);
-            button(action(x+90,y+96,80,40),"Again",false,true);
+            controlButton(actionControl(Event::RATE_KNOWN), action(x,y+96,80,40),"Known",true,true);
+            controlButton(actionControl(Event::RATE_UNKNOWN), action(x+90,y+96,80,40),"Again",false,true);
         }
-        if (active) button(action(x,y+144),"Stop review",false,true);
+        if (active) controlButton(actionControl(Event::STOP_REVIEW), action(x,y+144),"Stop review",false,true);
     } else if (quizPage) {
-        const bool hasSession = activity.quiz.has_value();
-        const bool active = hasSession && !activity.quiz->submitted;
-        const bool submitted = hasSession && activity.quiz->submitted;
-        const bool hasWrongAnswers = quizHasWrongAnswers(activity);
-        if (!hasSession) {
-            button(action(x,y),activity.activeQuestionCount>0
-                ? TextFormat("Start quiz (%zu)",std::min<std::size_t>(10,activity.activeQuestionCount))
-                : "No active questions",true,activity.activeQuestionCount>0);
-        } else if (active) {
-            button(action(x,y),"Quiz in progress",false,false);
-            button(action(x,y+48),"Submit quiz",true,true);
-            button(action(x,y+96),"Stop quiz",false,true);
-        } else if (submitted) {
-            button(action(x,y),"Quiz submitted",false,false);
-            if (hasWrongAnswers) button(action(x,y+48),"Retry wrong",true,true);
-            else UITheme::drawWrapped("Great job! You got all questions correct.", static_cast<int>(x), static_cast<int>(y + 52.0f),
-                                      static_cast<int>(kActionButtonWidth), 14, UITheme::strongText, 3);
-            button(action(x,y+(hasWrongAnswers?96.0f:120.0f)),"Stop quiz",false,true);
+        if (!activity.quiz) {
+            controlButton(actionControl(Event::START_QUIZ), action(x,y), activity.activeQuestionCount > 0
+                ? TextFormat("Start quiz (%zu)", std::min<std::size_t>(10, activity.activeQuestionCount))
+                : "No active questions", true, activity.activeQuestionCount > 0);
+        } else {
+            if (!activity.quiz->submitted)
+                controlButton(actionControl(Event::SUBMIT_QUIZ), action(x,y), "Submit quiz", true);
+            else if (quizHasWrongAnswers(activity))
+                controlButton(actionControl(Event::RETRY_WRONG), action(x,y), "Retry wrong", true);
+            controlButton(actionControl(Event::STOP_QUIZ), action(x + 180,y), "Stop quiz");
         }
     }
 }

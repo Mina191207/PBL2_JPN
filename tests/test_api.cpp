@@ -279,7 +279,8 @@ void apiFlow() {
 
     // Attempt creation succeeds in RAM even when the file write cannot start.
     CHECK(app.startQuiz(*n5.value, 1).ok());
-    std::filesystem::create_directory(folder / "quiz_attempt.txt.tmp");
+    const auto stageBlocker = folder / ".pbl2-stage";
+    writeFile(stageBlocker, "occupied");
     const auto before = app.attempts().value->size();
     auto pending = app.submitQuiz();
     CHECK(pending.ok() && pending.status.save == SaveState::PENDING && app.dirty());
@@ -292,7 +293,7 @@ void apiFlow() {
     auto search = app.submitSearch(schoolSearch);
     CHECK(search.ok() && search.value->size() == 2 && search.status.save == SaveState::PENDING);
     CHECK(app.history().value->size() == 1);
-    std::filesystem::remove(folder / "quiz_attempt.txt.tmp");
+    CHECK(std::filesystem::remove(stageBlocker));
     requireSaved(app.retrySave()); CHECK(!app.dirty());
     CHECK(app.attempts().value->size() == before + 1);
     CHECK(app.load(folder.string()).ok() && !app.currentAccount().ok());
@@ -300,7 +301,7 @@ void apiFlow() {
     CHECK(!app.quizAnswers().ok() && app.attempts().value->size() == before + 1);
 
     // Explicit discard is the only load path allowed to drop unsaved changes.
-    std::filesystem::create_directory(folder / "search_history.txt.tmp");
+    writeFile(stageBlocker, "occupied");
     const auto savedHistories = app.history().value->size();
     CHECK(app.submitSearch(schoolSearch).status.save == SaveState::PENDING);
     CHECK(app.history().value->size() == savedHistories + 1 && app.dirty());
@@ -312,7 +313,7 @@ void apiFlow() {
     CHECK(app.close().error == BackendError::UNSAVED_CHANGES);
     app.discardAndClose();
     CHECK(!app.loaded() && !app.dirty() && !app.currentAccount().ok());
-    std::filesystem::remove(folder / "search_history.txt.tmp");
+    CHECK(std::filesystem::remove(stageBlocker));
     CHECK(app.load(folder.string()).ok());
     CHECK(app.login("admin", "demo123").ok());
     CHECK(app.history().value->size() == savedHistories);
@@ -445,6 +446,9 @@ void apiFlow() {
 #endif
     if (!symlinkError) {
         CHECK(app.exportPackage(databaseAlias.string()).error == BackendError::REJECTED);
+        Application competing;
+        const auto busy = competing.load(databaseAlias.string());
+        CHECK(busy.error == BackendError::IO_ERROR && busy.message.find("already in use") != std::string::npos);
         std::filesystem::remove(databaseAlias, symlinkError);
     } else {
         std::cout << "SKIP: directory symlink export guard test unavailable: "
@@ -476,7 +480,7 @@ void apiFlow() {
     CHECK(!app.initialize(folder.string(),"admin","pass").ok());
 }
 
-void exportRejectsOccupiedTemp() {
+void exportRejectsOccupiedStage() {
     TempDirectory temp;
     const auto live = temp.path / "live";
     const auto destination = temp.path / "package";
@@ -488,12 +492,12 @@ void exportRejectsOccupiedTemp() {
     CHECK(app.createVocabulary({*level.value, "学校", "がっこう", "school", PartOfSpeech::NOUN, ""}).ok());
     CHECK(std::filesystem::create_directory(destination));
     const auto active = live / "vocabulary.txt";
-    const auto occupied = destination / "vocabulary.txt.tmp";
+    const auto occupied = destination / ".pbl2-stage";
     std::filesystem::create_hard_link(active, occupied);
     const auto failure = app.exportPackage(destination.string());
-    CHECK(failure.error == BackendError::IO_ERROR && failure.message.find("vocabulary.txt") != std::string::npos);
+    CHECK(failure.error == BackendError::IO_ERROR && failure.message.find(".pbl2-stage") != std::string::npos);
     CHECK(std::filesystem::equivalent(active, occupied));
-    CHECK(std::distance(std::filesystem::directory_iterator(destination), {}) == 1);
+    CHECK(std::distance(std::filesystem::directory_iterator(destination), {}) == 2);
     CHECK(app.close().ok() && app.load(live.string()).ok());
     CHECK(app.login("fixture-admin", "fixture-only").ok());
     CHECK(app.resource(ResourceId("R001")).ok());
@@ -514,6 +518,6 @@ void deletedQuestionSnapshot() {
     CHECK(app.close().ok());
 }
 int main() {
-    try { apiFlow(); exportRejectsOccupiedTemp(); deletedQuestionSnapshot(); }
+    try { apiFlow(); exportRejectsOccupiedStage(); deletedQuestionSnapshot(); }
     catch (const std::exception& e) { std::cerr << e.what() << '\n'; return 1; }
 }

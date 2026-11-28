@@ -6,6 +6,7 @@
 #include "../screens/StartupScreen.h"
 #include "../screens/ResourcesScreen.h"
 #include "../screens/BackendScreen.h"
+#include "../screens/ChangePasswordDialog.h"
 
 #include <optional>
 #include <string>
@@ -16,6 +17,7 @@ class AppController {
     int run(const std::string& dataFolder);
 
   private:
+    friend struct RaylibStateTest;
     enum class ViewState { STARTUP_ERROR, LOGIN, AUTHENTICATED };
 
     Application application_;
@@ -24,6 +26,7 @@ class AppController {
     MainScreen mainScreen_;
     ResourcesScreen resourcesScreen_;
     BackendScreen backendScreen_;
+    ChangePasswordDialog changePasswordDialog_;
     std::vector<AlphabetEntry> backendAlphabet_;
     BackendTableData backendTable_;
     BackendActivityState backendActivity_;
@@ -58,10 +61,16 @@ class AppController {
 
     bool initializeWindow();
     void initializeApplication(const std::string& dataFolder);
+    void handleStartup();
+    void finishInitialization(const Status& status);
     void processFrame();
     void drawFrame();
+    void drawScene();
     void shutdownWindow();
     void handleMainScreenEvent(MainScreenEvent event);
+    void updateContent();
+    bool contentTab();
+    bool contentModal() const;
     void navigate(Section section, bool refresh = true);
     void handleLoginEvent(LoginEvent event);
     void performPendingLogin();

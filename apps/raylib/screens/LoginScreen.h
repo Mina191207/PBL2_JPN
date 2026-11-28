@@ -1,12 +1,13 @@
 #pragma once
 
 #include "raylib.h"
-#include "../PasswordInput.h"
+#include "../UiInput.h"
+#include "../UiText.h"
 
 #include <string>
 
 struct LoginEvent {
-    enum class Type { NONE, EMPTY_FIELDS, PASSWORD_TOO_LONG, SUBMIT, REQUEST_CLOSE } type = Type::NONE;
+    enum class Type { NONE, EDITED, EMPTY_FIELDS, PASSWORD_TOO_LONG, SUBMIT, REQUEST_CLOSE } type = Type::NONE;
 };
 
 class LoginScreen {
@@ -22,8 +23,10 @@ class LoginScreen {
   private:
     std::string username_;
     PasswordInput password_;
-    bool usernameFocused_ = true;
-    bool passwordFocused_ = false;
+    enum Control { Username, Password, Visibility, Submit, Close };
+    UiInput::Focus focus_{Username};
+    UiInput::Cursor usernameCursor_, passwordCursor_;
+    mutable UiText::PrivateFont revealedFont_;
     bool passwordVisible_ = false;
 
     static Rectangle usernameField();
@@ -31,9 +34,6 @@ class LoginScreen {
     static Rectangle visibilityButton();
     static Rectangle submitButton();
     static Rectangle closeButton();
-    static bool clicked(Rectangle bounds);
-    static bool validUsernameCharacter(int codepoint);
-    static void removeLastCodepoint(std::string& text);
     static void drawButton(Rectangle bounds, const char* label, bool primary, bool enabled = true);
     static void drawTextWrapped(const std::string& message,
                                 int x,

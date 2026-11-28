@@ -21,14 +21,10 @@ struct ResourceUiLayout {
     Rectangle edit;
     Rectangle remove;
     Rectangle favorite;
-    Rectangle selectionHint;
+    Rectangle banner, detailClip;
     Rectangle rowsClip;
     Rectangle browse, previous, next;
     float rowHeight;
-    float typeColumnX;
-    float levelColumnX;
-    float typeBadgeWidth;
-    float levelBadgeWidth;
     std::size_t visibleRows;
 };
 
@@ -50,7 +46,13 @@ const char* typeName(ResourceType type) {
 
 
 
-ResourceUiLayout layout(UserRole role, bool hasSelected) {
+const char* favoriteLabel(const std::optional<bool>& selected) {
+    if (!selected) return "Favorite unavailable";
+    return *selected ? "In Favorites" : "Add to Favorites";
+}
+
+ResourceUiLayout layout(bool hasSelected, const std::optional<bool>& favorite = {},
+                        const std::string& message = {}) {
     ResourceUiLayout result{};
     result.content = UiLayout::content();
     const float pad = std::min(24.0f, std::max(16.0f, result.content.width * 0.025f));
@@ -65,43 +67,37 @@ ResourceUiLayout layout(UserRole role, bool hasSelected) {
     result.type = {x + filterW + filterGap, y + 106.0f, filterW, 36.0f};
     result.level = {x + (filterW + filterGap) * 2.0f, y + 106.0f, filterW, 36.0f};
     result.sort = {x + (filterW + filterGap) * 3.0f, y + 106.0f, filterW, 36.0f};
-    const float bodyY = y + 164.0f;
-    const float footerY = result.content.y + result.content.height - 34.0f;
-    const float bodyH = std::max(96.0f, footerY - bodyY - 12.0f);
+    const float bottom = result.content.y + result.content.height;
+    const float bodySpace = bottom - 46.0f - (y + 164.0f);
+    result.banner = {x, y + 150.0f, innerW, std::min(UITheme::bannerHeight(innerW, message), bodySpace - 141.0f)};
+    const float bodyY = y + 164.0f + result.banner.height;
+    const float bodyH = bodySpace - result.banner.height;
     const float gap = 14.0f;
-    const float listW = std::max(130.0f, (innerW - gap) * 0.52f);
+    const float listW = (innerW - gap) * 0.44f;
     result.list = {x, bodyY, listW, bodyH};
     result.detail = {x + listW + gap, bodyY, innerW - listW - gap, bodyH};
-    result.rowHeight = 45.0f;
-    const float rowsTop = result.list.y + 62.0f;
+    result.detailClip = {result.detail.x + 8.0f, bodyY + 38.0f, result.detail.width - 16.0f, bodyH - 46.0f};
+    result.rowHeight = 65.0f;
+    const float rowsTop = result.list.y + 38.0f;
     const float footerTop = result.list.y + result.list.height - 34.0f;
-    result.next = {x + listW - 57.0f, footerTop + 4.0f, 48.0f, 26.0f};
-    result.previous = {result.next.x - 52.0f, result.next.y, 48.0f, 26.0f};
+    result.next = {x + listW - 47.0f, footerTop + 4.0f, 38.0f, 26.0f};
+    result.previous = {result.next.x - 42.0f, result.next.y, 38.0f, 26.0f};
     result.browse = {x + listW - 116.0f, result.next.y, 108.0f, 26.0f};
     result.rowsClip = {result.list.x + 4.0f, rowsTop, result.list.width - 18.0f,
-                       std::max(32.0f, footerTop - rowsTop - 6.0f)};
-    result.visibleRows = std::min<std::size_t>(8, std::max<std::size_t>(1, static_cast<std::size_t>(result.rowsClip.height / result.rowHeight)));
-    result.typeBadgeWidth = 104.0f;
-    result.levelBadgeWidth = 62.0f;
-    result.levelColumnX = result.list.x + result.list.width - 24.0f - result.levelBadgeWidth;
-    result.typeColumnX = result.levelColumnX - 8.0f - result.typeBadgeWidth;
-    const float actionGap = 8.0f;
-    const float actionW = (result.detail.width - actionGap) * 0.5f;
-    const float detailBottom = result.detail.y + result.detail.height;
-    const bool adminHint = role == UserRole::ADMIN && !hasSelected;
-    const float actionY = detailBottom - (adminHint ? 132.0f : 78.0f);
-    result.add = {result.detail.x, actionY, actionW, 34.0f};
-    result.edit = {result.detail.x + actionW + actionGap, actionY, actionW, 34.0f};
-    result.remove = {result.detail.x, actionY + 40.0f, actionW, 34.0f};
-    result.favorite = role == UserRole::LEARNER
-        ? Rectangle{result.detail.x, detailBottom - 42.0f, result.detail.width, 34.0f}
-        : hasSelected ? Rectangle{result.detail.x + actionW + actionGap, actionY + 40.0f, actionW, 34.0f}
-                      : Rectangle{};
-    result.selectionHint = adminHint
-        ? Rectangle{result.detail.x, actionY + 82.0f, result.detail.width, 44.0f}
-        : role == UserRole::LEARNER && !hasSelected
-            ? Rectangle{result.detail.x, detailBottom - 56.0f, result.detail.width, 48.0f}
-            : Rectangle{};
+                       std::max(0.0f, footerTop - rowsTop - 4.0f)};
+    result.visibleRows = std::min<std::size_t>(8, std::max<std::size_t>(1,
+        static_cast<std::size_t>(result.rowsClip.height / result.rowHeight)));
+    const float actionY = bottom - 38.0f;
+    const float addW = UITheme::buttonWidth("Add") + 16.0f;
+    const float editW = UITheme::buttonWidth("Edit") + 16.0f;
+    const float removeW = UITheme::buttonWidth("Delete") + 16.0f;
+    result.add = {x, actionY, addW, 34.0f};
+    result.edit = {x + addW + 8.0f, actionY, editW, 34.0f};
+    result.remove = {result.edit.x + editW + 8.0f, actionY, removeW, 34.0f};
+    if (hasSelected) {
+        const float width = UITheme::buttonWidth(favoriteLabel(favorite)) + 16.0f;
+        result.favorite = {x + innerW - width, actionY, width, 34.0f};
+    }
     return result;
 }
 
@@ -151,7 +147,7 @@ std::string detailTitle(const ResourceDetail& detail) {
     }, detail);
 }
 
-struct DetailField { std::string label; std::string value; bool example = false; };
+struct DetailField { std::string label; std::string value;  };
 
 std::vector<DetailField> detailLines(const ResourceDetail& detail) {
     return std::visit([](const auto& item) -> std::vector<DetailField> {
@@ -159,14 +155,14 @@ std::vector<DetailField> detailLines(const ResourceDetail& detail) {
         if constexpr (std::is_same_v<T, Vocabulary>) {
             return {{"Reading", item.getReading()}, {"Meaning", item.getMeaning()},
                     {"Part of speech", partOfSpeechToken(item.getPartOfSpeech())},
-                    {"Example", item.getExample(), true}};
+                    {"Example", item.getExample()}};
         } else if constexpr (std::is_same_v<T, Grammar>) {
             return {{"Meaning", item.getMeaning()}, {"Structure", item.getStructure()},
-                    {"Usage", item.getUsage()}, {"Example", item.getExample(), true}, {"Note", item.getNote()}};
+                    {"Usage", item.getUsage()}, {"Example", item.getExample()}, {"Note", item.getNote()}};
         } else {
             return {{"Meaning", item.getMeaning()}, {"Strokes", std::to_string(item.getStrokeCount())},
                     {"Onyomi", item.getOnyomi()}, {"Kunyomi", item.getKunyomi()},
-                    {"Examples", item.getExamples(), true}};
+                    {"Examples", item.getExamples()}};
         }
     }, detail);
 }
@@ -176,68 +172,87 @@ std::string levelLabel(const LevelId& id, const std::vector<Level>& levels) {
     return found == levels.end() ? id.getId() : found->getName();
 }
 
-void drawBadge(Rectangle bounds, const std::string& label, Color fill) {
-    DrawRectangleRounded(bounds, 0.35f, 8, fill);
-    DrawRectangleRoundedLinesEx(bounds, 0.35f, 8, 1.0f, UITheme::border);
-    const int textWidth = UITheme::measureText(label.c_str(), 15);
-    BeginScissorMode(static_cast<int>(bounds.x + 6.0f), static_cast<int>(bounds.y),
-                     std::max(1, static_cast<int>(bounds.width - 12.0f)), static_cast<int>(bounds.height));
-    UITheme::drawText(label.c_str(), static_cast<int>(bounds.x + (bounds.width - textWidth) * 0.5f),
-                      static_cast<int>(bounds.y + (bounds.height - 15.0f) * 0.5f), 15, UITheme::strongText);
-    EndScissorMode();
+struct DetailBlock {
+    std::string label;
+    UITheme::WrappedText text;
+};
+
+std::vector<DetailBlock> detailBlocks(const ResourceDetail& detail, float width) {
+    const auto id = std::visit([](const auto& item) { return item.getId(); }, detail);
+    const auto type = std::visit([](const auto& item) { return item.getType(); }, detail);
+    std::vector<DetailBlock> blocks{
+        {{}, UITheme::wrap(id.getId() + " | " + typeName(type), width, 15)},
+        {{}, UITheme::wrap(detailTitle(detail), width, 30)}
+    };
+    for (const auto& field : detailLines(detail))
+        if (!field.value.empty()) blocks.push_back({field.label, UITheme::wrap(field.value, width, 18)});
+    return blocks;
 }
 
-Color typeBadgeColor(ResourceType type) {
-    switch (type) {
-    case ResourceType::VOCABULARY: return {255, 235, 242, 255};
-    case ResourceType::GRAMMAR: return {241, 235, 252, 255};
-    case ResourceType::KANJI: return {233, 244, 250, 255};
-    }
-    return UITheme::sidebar;
+float detailHeight(const std::vector<DetailBlock>& blocks) {
+    float height = 0;
+    for (const auto& block : blocks) height += block.text.height() + (block.label.empty() ? 6.0f : 28.0f);
+    return height;
 }
 
-int estimatedLines(const std::string& value, int fontSize, float width, int maxLines) {
-    if (value.empty() || width <= 0.0f) return 1;
-    return std::clamp(static_cast<int>(std::ceil(static_cast<float>(UITheme::measureText(value.c_str(), fontSize)) / width)), 1, maxLines);
+Rectangle resultRow(const ResourceUiLayout& ui, std::size_t index) {
+    const float y = ui.rowsClip.y + static_cast<float>(index) * ui.rowHeight;
+    return {ui.list.x + 8.0f, y, ui.rowsClip.width - 8.0f,
+            std::max(0.0f, std::min(ui.rowHeight - 3.0f, ui.rowsClip.y + ui.rowsClip.height - y))};
 }
 
 }
 
-Rectangle ResourcesScreen::bounds(float x, float y, float w, float h) { return {x, y, w, h}; }
 bool ResourcesScreen::click(Rectangle r) {
-    return IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(GetMousePosition(), r);
+    return UiInput::click(r);
 }
-void ResourcesScreen::button(Rectangle r, const char* label, bool primary, bool enabled) {
-    UITheme::drawButton(r, label, primary, enabled);
+void ResourcesScreen::controlButton(int control, Rectangle r, const char* label, bool primary, bool enabled) const {
+    UITheme::drawButton(r, label, primary, enabled, false, !modalOpen() && focus_.on(control));
 }
-void ResourcesScreen::field(Rectangle r, const std::string& label, const std::string& value, bool focused) {
-    UITheme::drawField(r, label, value, focused);
-}
-void ResourcesScreen::appendInput(std::string& value, int limit) {
-    if (IsKeyPressed(KEY_BACKSPACE) || IsKeyPressedRepeat(KEY_BACKSPACE)) {
-        if (!value.empty()) {
-            Utf8::eraseLast(value);
-        }
+
+bool ResourcesScreen::tab(UserRole role, std::size_t count, const std::optional<bool>& selectedFavorited,
+                          const std::string& message) {
+    const auto ui = layout(hasSelected_, selectedFavorited, message);
+    rowOffset_ = std::min(rowOffset_, count > ui.visibleRows ? count - ui.visibleRows : 0);
+    std::vector<int> order{Query, Search, Mode, Type, LevelFilter, Sort};
+    if (count) order.push_back(Results);
+    else order.push_back(Browse);
+    if (count > ui.visibleRows) {
+        if (rowOffset_ > 0) order.push_back(Previous);
+        if (rowOffset_ + ui.visibleRows < count) order.push_back(Next);
     }
-    for (int cp = GetCharPressed(); cp > 0; cp = GetCharPressed()) {
-        if (cp >= 32 && cp != 127) Utf8::appendWithinLimit(value, Utf8::encode(cp), static_cast<std::size_t>(limit));
+    if (hasSelected_) order.push_back(Details);
+    if (role == UserRole::ADMIN) {
+        order.push_back(Add);
+        if (hasSelected_) order.insert(order.end(), {Edit, Remove});
     }
+    if (hasSelected_ && selectedFavorited.has_value()) order.push_back(Favorite);
+    return focus_.move(order, false);
 }
 
 ResourcesEvent ResourcesScreen::update(const std::vector<SearchRow>& rows,
                                        const std::vector<Level>& levels,
                                        const AccountSummary& account,
-                                       const std::optional<bool>& selectedFavorited) {
-    const ResourceUiLayout ui = layout(account.role, hasSelected_);
+                                       const std::optional<bool>& selectedFavorited,
+                                       const std::optional<ResourceDetail>& detail, const std::string& message) {
+    if (confirmDelete_) return updateDeleteConfirmation();
+    if (formOpen_) return updateResourceForm(levels);
+    const ResourceUiLayout ui = layout(hasSelected_, selectedFavorited, message);
+    const float bannerHeight = UITheme::bannerHeight(ui.banner.width, message);
+    bannerOffset_ = bannerHeight > ui.banner.height
+        ? UiInput::scroll(ui.banner, bannerHeight, bannerOffset_, false) : 0.0f;
     if (rows.empty()) rowOffset_ = 0;
     else {
         const std::size_t maxOffset = rows.size() > ui.visibleRows ? rows.size() - ui.visibleRows : 0;
         rowOffset_ = std::min(rowOffset_, maxOffset);
     }
-    if (confirmDelete_) return updateDeleteConfirmation();
-    if (formOpen_) return updateResourceForm(levels);
     if (const auto event = updateSearchControls(levels, rows.empty(), ui)) return *event;
     if (const auto event = updateResourceSelection(rows, ui)) return *event;
+    if (detail) {
+        if (click(ui.detailClip)) focus_.id = Details;
+        const auto blocks = detailBlocks(*detail, ui.detailClip.width - 18.0f);
+        detailOffset_ = UiInput::scroll(ui.detailClip, detailHeight(blocks), detailOffset_, focus_.on(Details));
+    }
     return updateResourceActions(account, levels, selectedFavorited, ui);
 }
 
@@ -245,88 +260,105 @@ ResourcesEvent ResourcesScreen::updateDeleteConfirmation() {
     const Rectangle d = UiLayout::centeredDialog(460.0f, 220.0f, 20.0f);
     const Rectangle yes{d.x + d.width - 236, d.y + d.height - 58, 104, 38};
     const Rectangle no{d.x + d.width - 120, d.y + d.height - 58, 96, 38};
-    if (IsKeyPressed(KEY_ESCAPE) || click(no)) { confirmDelete_ = false; return {}; }
-    if (click(yes)) { confirmDelete_ = false; return {ResourcesEvent::Type::REMOVE, {}, selectedId_}; }
+    if (UiInput::tab()) { modalFocus_.move({0, 1}); return {}; }
+    if (IsKeyPressed(KEY_ESCAPE) || modalFocus_.activate(1, no)) { confirmDelete_ = false; return {}; }
+    if (modalFocus_.activate(0, yes)) {
+        confirmDelete_ = false;
+        focus_.id = Results;
+        return {ResourcesEvent::Type::REMOVE, {}, selectedId_};
+    }
     return {};
 }
 
 ResourcesEvent ResourcesScreen::updateResourceForm(const std::vector<Level>& levels) {
     using Event = ResourcesEvent::Type;
-    if (IsKeyPressed(KEY_ESCAPE) || click(formCancelButton())) {
+    const auto count = static_cast<int>(form_.fields.size());
+    if (UiInput::tab()) {
+        std::vector<int> order;
+        if (!editing_) order.push_back(FormType);
+        if (!levels.empty()) order.push_back(FormLevel);
+        for (int id = 0; id < count; ++id) order.push_back(id);
+        if (!levels.empty()) order.push_back(FormSave);
+        order.push_back(FormCancel);
+        modalFocus_.move(order);
+        formCursor_.reset();
+        return {};
+    }
+    if (IsKeyPressed(KEY_ESCAPE) || modalFocus_.activate(FormCancel, formCancelButton())) {
         closeForm();
         return {Event::CANCEL_FORM};
     }
-    if (!editing_ && click(formTypeButton())) {
+    if (modalFocus_.activate(FormType, formTypeButton(), !editing_)) {
         form_.type = static_cast<ResourceType>((static_cast<int>(form_.type)+1)%3);
         form_.fields = resourceFields(form_.type);
-        focusedField_ = 0;
-        return {};
+        formCursor_.reset();
+        return {Event::EDITED};
     }
-    if (click(formLevelButton()) && !levels.empty()) {
+    if (modalFocus_.activate(FormLevel, formLevelButton(), !levels.empty())) {
         formLevelIndex_ = (formLevelIndex_+1)%levels.size();
         form_.levelId = levels[formLevelIndex_].getId();
-        return {};
+        return {Event::EDITED};
     }
-    const auto count = form_.fields.size();
-    for (std::size_t i = 0; i < count; ++i) {
-        if (!click(formField(i, count))) continue;
-        focusedField_ = i;
-        if (form_.fields[i].id == Field::PartOfSpeech) cyclePartOfSpeech(form_.fields[i].value);
-    }
-    if (IsKeyPressed(KEY_TAB)) {
-        const bool backwards = IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT);
-        focusedField_ = (focusedField_ + (backwards ? count-1 : 1))%count;
-    }
-    auto& draft = form_.fields[focusedField_];
-    const bool choose = draft.id == Field::PartOfSpeech;
-    const bool enter = IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_KP_ENTER);
-    if (choose && enter) cyclePartOfSpeech(draft.value);
-    if (!choose) appendInput(draft.value, maxTxtFieldBytes);
-    if (!levels.empty() && (click(formSaveButton()) || (!choose && enter)))
+    if (modalFocus_.activate(FormSave, formSaveButton(), !levels.empty()))
         return {editing_ ? Event::UPDATE : Event::CREATE, {}, selectedId_, form_};
+
+    for (int i = 0; i < count; ++i) {
+        auto& draft = form_.fields[i];
+        const auto bounds = formField(i, count);
+        if (draft.id == Field::PartOfSpeech) {
+            if (modalFocus_.activate(i, bounds)) {
+                cyclePartOfSpeech(draft.value);
+                return {Event::EDITED};
+            }
+            continue;
+        }
+        if (UiInput::click(bounds) && !modalFocus_.on(i)) {
+            modalFocus_.id = i;
+            formCursor_.reset();
+        }
+        if (!modalFocus_.on(i)) continue;
+        const auto edit = UiInput::text(draft.value, formCursor_, maxTxtFieldBytes);
+        if (UiInput::enter() && !levels.empty())
+            return {editing_ ? Event::UPDATE : Event::CREATE, {}, selectedId_, form_};
+        if (edit.changed) return {Event::EDITED};
+    }
     return {};
 }
 
 std::optional<ResourcesEvent> ResourcesScreen::updateSearchControls(const std::vector<Level>& levels, bool empty,
                                                                     const ResourceUiLayout& ui) {
     using Event = ResourcesEvent::Type;
-    if (empty && click(ui.browse)) {
+    if (empty && focus_.activate(Browse, ui.browse)) {
         setSearch({});
+        focus_.id = Query;
         return ResourcesEvent{Event::PREVIEW_SEARCH, search_};
     }
-    if (IsKeyPressed(KEY_ESCAPE) && queryFocused_) {
-        search_.query.clear();
-        return ResourcesEvent{Event::PREVIEW_SEARCH, search_};
-    }
-    if (click(ui.query)) queryFocused_ = true;
-    else if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !CheckCollisionPointRec(GetMousePosition(), ui.query)) queryFocused_ = false;
-    if (queryFocused_) {
-        if (IsKeyPressed(KEY_BACKSPACE) || IsKeyPressedRepeat(KEY_BACKSPACE)) Utf8::eraseLast(search_.query);
-        const bool control = IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL);
-        bool withinLimit = true;
-        if (control && IsKeyPressed(KEY_V)) {
-            if (const char* pasted = GetClipboardText())
-                withinLimit = Utf8::appendWithinLimit(search_.query, pasted, maxTxtFieldBytes);
+    if (UiInput::click(ui.query)) focus_.id = Query;
+    if (focus_.activate(Search, ui.search)) return ResourcesEvent{Event::SUBMIT_SEARCH, search_};
+    if (focus_.on(Query)) {
+        if (IsKeyPressed(KEY_ESCAPE)) {
+            search_.query.clear();
+            queryCursor_.reset();
+            return ResourcesEvent{Event::PREVIEW_SEARCH, search_};
         }
-        for (int cp = GetCharPressed(); cp > 0; cp = GetCharPressed()) {
-            if (!control && cp >= 32 && cp != 127 &&
-                !Utf8::appendWithinLimit(search_.query, Utf8::encode(cp), maxTxtFieldBytes)) withinLimit = false;
-        }
-        if (!withinLimit) return ResourcesEvent{Event::INPUT_LIMIT};
+        // Keep pasted separators and interior line breaks for Application to validate.
+        const auto edit = UiInput::text(search_.query, queryCursor_, maxTxtFieldBytes,
+            [](int cp) { return UiInput::printable(cp) || cp == '\r' || cp == '\n' || cp == '\t'; }, trimSearchQuery);
+        if (edit.overLimit) return ResourcesEvent{Event::INPUT_LIMIT};
+        if (UiInput::enter()) return ResourcesEvent{Event::SUBMIT_SEARCH, search_};
+        if (edit.changed) return ResourcesEvent{Event::EDITED};
     }
-    if (click(ui.search) || (queryFocused_ && (IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_KP_ENTER))))
-        return ResourcesEvent{Event::SUBMIT_SEARCH, search_};
-    if (click(ui.mode)) {
+    if (focus_.activate(Mode, ui.mode)) {
         search_.exactId = !search_.exactId;
         return ResourcesEvent{Event::PREVIEW_SEARCH, search_};
     }
-    if (click(ui.type)) {
+    if (focus_.activate(Type, ui.type)) {
         if (!search_.type) search_.type = ResourceType::VOCABULARY;
         else if (*search_.type == ResourceType::KANJI) search_.type.reset();
         else search_.type = static_cast<ResourceType>(static_cast<int>(*search_.type) + 1);
         return ResourcesEvent{Event::PREVIEW_SEARCH, search_};
     }
-    if (click(ui.level)) {
+    if (focus_.activate(LevelFilter, ui.level)) {
         const auto current = std::find_if(levels.begin(), levels.end(), [&](const Level& level) {
             return search_.levelId && level.getId() == *search_.levelId;
         });
@@ -334,7 +366,7 @@ std::optional<ResourcesEvent> ResourcesScreen::updateSearchControls(const std::v
         search_.levelId = next == levels.end() ? std::nullopt : std::optional<LevelId>(next->getId());
         return ResourcesEvent{Event::PREVIEW_SEARCH, search_};
     }
-    if (click(ui.sort)) {
+    if (focus_.activate(Sort, ui.sort)) {
         search_.sort = static_cast<SearchSort>((static_cast<int>(search_.sort) + 1) % 6);
         return ResourcesEvent{Event::PREVIEW_SEARCH, search_};
     }
@@ -346,9 +378,9 @@ std::optional<ResourcesEvent> ResourcesScreen::updateResourceSelection(const std
                                                                         const ResourceUiLayout& ui) {
     if (rows.size() > ui.visibleRows) {
         const auto maxOffset = rows.size() - ui.visibleRows;
-        if (click(ui.previous) || (!queryFocused_ && IsKeyPressed(KEY_PAGE_UP)))
+        if (focus_.activate(Previous, ui.previous, rowOffset_ > 0) || (focus_.on(Results) && IsKeyPressed(KEY_PAGE_UP)))
             rowOffset_ = rowOffset_ > ui.visibleRows ? rowOffset_ - ui.visibleRows : 0;
-        if (click(ui.next) || (!queryFocused_ && IsKeyPressed(KEY_PAGE_DOWN)))
+        if (focus_.activate(Next, ui.next, rowOffset_ < maxOffset) || (focus_.on(Results) && IsKeyPressed(KEY_PAGE_DOWN)))
             rowOffset_ = std::min(maxOffset, rowOffset_ + ui.visibleRows);
     }
     if(CheckCollisionPointRec(GetMousePosition(),ui.list)){
@@ -357,11 +389,30 @@ std::optional<ResourcesEvent> ResourcesScreen::updateResourceSelection(const std
         if(wheel<0&&rowOffset_+ui.visibleRows<rows.size())++rowOffset_;
     }
     for (std::size_t i = 0; i < ui.visibleRows && rowOffset_+i < rows.size(); ++i) {
-        const Rectangle row = bounds(ui.list.x + 8.0f, ui.rowsClip.y + static_cast<float>(i) * ui.rowHeight,
-                                      ui.rowsClip.width - 8.0f, ui.rowHeight - 3.0f);
-        if (click(row)) { selectedId_ = rows[rowOffset_+i].id; hasSelected_ = true; return ResourcesEvent{ResourcesEvent::Type::SELECT, {}, rows[rowOffset_+i].id}; }
+        const Rectangle row = resultRow(ui, i);
+        if (click(row)) {
+            focus_.id = Results;
+            if (!hasSelected_ || selectedId_ != rows[rowOffset_ + i].id) detailOffset_ = 0;
+            selectedId_ = rows[rowOffset_ + i].id;
+            hasSelected_ = true;
+            return ResourcesEvent{ResourcesEvent::Type::SELECT, {}, selectedId_};
+        }
     }
 
+    if (focus_.on(Results) && UiInput::rowKey()) {
+        std::optional<std::size_t> current;
+        if (hasSelected_) {
+            const auto found = std::find_if(rows.begin(), rows.end(), [&](const SearchRow& row) { return row.id == selectedId_; });
+            if (found != rows.end()) current = static_cast<std::size_t>(found - rows.begin());
+        }
+        if (const auto next = UiInput::row(rows.size(), current)) {
+            if (!hasSelected_ || selectedId_ != rows[*next].id) detailOffset_ = 0;
+            selectedId_ = rows[*next].id;
+            hasSelected_ = true;
+            UiInput::revealRow(*next, ui.visibleRows, rowOffset_);
+            return ResourcesEvent{ResourcesEvent::Type::SELECT, {}, selectedId_};
+        }
+    }
     return std::nullopt;
 }
 
@@ -369,7 +420,7 @@ ResourcesEvent ResourcesScreen::updateResourceActions(const AccountSummary& acco
                                                        const std::optional<bool>& selectedFavorited,
                                                        const ResourceUiLayout& ui) {
     if (account.role == UserRole::ADMIN) {
-        if (click(ui.add)) {
+        if (focus_.activate(Add, ui.add)) {
             closeForm();
             formOpen_ = true;
             form_.type = search_.type.value_or(ResourceType::VOCABULARY);
@@ -378,15 +429,16 @@ ResourcesEvent ResourcesScreen::updateResourceActions(const AccountSummary& acco
             if (!levels.empty()) form_.levelId = levels.front().getId();
             return {};
         }
-        if (click(ui.edit) && hasSelected_) {
+        if (focus_.activate(Edit, ui.edit, hasSelected_)) {
             return {ResourcesEvent::Type::OPEN_EDIT, {}, selectedId_};
         }
-        if (click(ui.remove) && hasSelected_) {
+        if (focus_.activate(Remove, ui.remove, hasSelected_)) {
             confirmDelete_ = true;
+            modalFocus_.id = 1;
             return {};
         }
     }
-    if (click(ui.favorite) && hasSelected_ && selectedFavorited.has_value())
+    if (focus_.activate(Favorite, ui.favorite, hasSelected_ && selectedFavorited.has_value()))
         return {ResourcesEvent::Type::FAVORITE, {}, selectedId_};
     return {};
 }
@@ -395,18 +447,16 @@ void ResourcesScreen::drawSearchSection(const ResourceUiLayout& ui, const std::v
     const float pad = std::min(24.0f, std::max(16.0f, ui.content.width * 0.025f));
     const int x = static_cast<int>(ui.content.x + pad);
     UITheme::drawText("Find learning resources", x, static_cast<int>(ui.content.y + 10), 22, kText);
-    const auto& query = search_.query;
-    std::size_t start = query.size() > 240 ? query.size() - 240 : 0;
-    while (start < query.size() && (static_cast<unsigned char>(query[start]) & 0xc0) == 0x80) ++start;
-    field(ui.query, search_.exactId ? "Resource ID (e.g. R001)" : "Search term", query.substr(start), queryFocused_);
-    button(ui.search, "Search", true);
-    button(ui.mode, search_.exactId ? "ID" : "Nội dung");
+    UITheme::drawField(ui.query, search_.exactId ? "Resource ID (e.g. R001)" : "Search term",
+                       search_.query, !modalOpen() && focus_.on(Query), queryCursor_.at(search_.query));
+    controlButton(Search, ui.search, "Search", true);
+    controlButton(Mode, ui.mode, search_.exactId ? "ID" : "Nội dung");
     const char* typeLabel = search_.type ? typeName(*search_.type) : "All types";
     const std::string selectedLevelLabel = search_.levelId ? levelLabel(*search_.levelId, levels) : "All levels";
-    button(ui.type, typeLabel);
-    button(ui.level, selectedLevelLabel.c_str());
+    controlButton(Type, ui.type, typeLabel);
+    controlButton(LevelFilter, ui.level, selectedLevelLabel.c_str());
     static const char* sorts[] = {"Relevant", "ID", "Level +", "Level -", "Term A-Z", "Term Z-A"};
-    button(ui.sort, sorts[static_cast<int>(search_.sort)]);
+    controlButton(Sort, ui.sort, sorts[static_cast<int>(search_.sort)]);
 }
 
 void ResourcesScreen::drawPanelHeaders(const ResourceUiLayout& ui) const {
@@ -415,31 +465,29 @@ void ResourcesScreen::drawPanelHeaders(const ResourceUiLayout& ui) const {
     DrawRectangleRounded(ui.detail, 0.04f, 8, Color{255, 252, 253, 255});
     DrawRectangleRoundedLinesEx(ui.detail, 0.04f, 8, 1.0f, kBorder);
     UITheme::drawText("Results", static_cast<int>(ui.list.x + 14), static_cast<int>(ui.list.y + 10), 22, kText);
-    UITheme::drawText("Item", static_cast<int>(ui.list.x + 14), static_cast<int>(ui.list.y + 36), 16, kMuted);
-    UITheme::drawText("Type", static_cast<int>(ui.typeColumnX), static_cast<int>(ui.list.y + 36), 16, kMuted);
-    UITheme::drawText("Level", static_cast<int>(ui.levelColumnX), static_cast<int>(ui.list.y + 36), 16, kMuted);
+
 }
 
 void ResourcesScreen::drawResourceList(const ResourceUiLayout& ui, const std::vector<SearchRow>& rows,
                                        const std::vector<Level>& levels, bool searchError) const {
-    for (std::size_t i = rowOffset_; i < rows.size() && i < rowOffset_ + ui.visibleRows; ++i) {
-        const Rectangle r = bounds(ui.list.x + 8.0f, ui.rowsClip.y + static_cast<float>(i-rowOffset_)*ui.rowHeight,
-                                   ui.list.width - 24.0f, ui.rowHeight - 3.0f);
-        const bool selected = hasSelected_ && rows[i].id == selectedId_;
-        if (selected || CheckCollisionPointRec(GetMousePosition(), r)) DrawRectangleRounded(r, 0.12f, 5, kHover);
-        const int itemRight = static_cast<int>(ui.typeColumnX - 10.0f);
-        BeginScissorMode(static_cast<int>(r.x + 6.0f), static_cast<int>(r.y),
-                         std::max(1, itemRight - static_cast<int>(r.x + 6.0f)), static_cast<int>(r.height));
-        UITheme::drawText(rows[i].term.c_str(), static_cast<int>(r.x + 6), static_cast<int>(r.y + 2), 18, kText);
+    const std::size_t first = std::min(rowOffset_, rows.size() > ui.visibleRows ? rows.size() - ui.visibleRows : 0);
+    UITheme::beginClip(ui.rowsClip);
+    for (std::size_t i = first; i < rows.size() && i < first + ui.visibleRows; ++i) {
+        const Rectangle r = resultRow(ui, i - first);
         const auto& row = rows[i];
-        const std::string subtitle = row.reading.empty() ? row.meaning : row.reading + " · " + row.meaning;
-        UITheme::drawText(subtitle.c_str(), static_cast<int>(r.x + 6), static_cast<int>(r.y + 23), 14, kMuted);
-        EndScissorMode();
-        const Rectangle typeBadge{ui.typeColumnX, r.y + (r.height - 26.0f) * 0.5f, ui.typeBadgeWidth, 26.0f};
-        const Rectangle levelBadge{ui.levelColumnX, r.y + (r.height - 26.0f) * 0.5f, ui.levelBadgeWidth, 26.0f};
-        drawBadge(typeBadge, typeName(rows[i].type), typeBadgeColor(rows[i].type));
-        drawBadge(levelBadge, levelLabel(rows[i].levelId, levels), Color{244, 239, 243, 255});
+        const bool selected = hasSelected_ && row.id == selectedId_;
+        if (selected || CheckCollisionPointRec(GetMousePosition(), r)) DrawRectangleRounded(r, 0.12f, 5, kHover);
+        const int x = static_cast<int>(r.x + 6);
+        const auto drawLine = [&](const std::string& value, int y, int size, Color color) {
+            const auto label = UITheme::ellipsize(value, r.width - 12, size);
+            UITheme::drawText(label.c_str(), x, static_cast<int>(r.y) + y, size, color);
+        };
+        drawLine(row.term, 2, 18, kText);
+        drawLine(row.reading.empty() ? row.meaning : row.reading + " | " + row.meaning, 25, 15, kText);
+        drawLine(std::string(typeName(row.type)) + " | " + levelLabel(row.levelId, levels) + " | " + row.id.getId(),
+                 45, 13, kMuted);
     }
+    EndScissorMode();
     if (rows.size() > ui.visibleRows && ui.rowsClip.height > 0.0f) {
         const Rectangle track{ui.list.x + ui.list.width - 8.0f, ui.rowsClip.y, 3.0f, ui.rowsClip.height};
         DrawRectangleRounded(track, 0.5f, 4, Color{239, 224, 230, 255});
@@ -447,7 +495,7 @@ void ResourcesScreen::drawResourceList(const ResourceUiLayout& ui, const std::ve
         const float thumbHeight = std::max(20.0f, track.height * ratio);
         const float maxOffset = static_cast<float>(rows.size() - ui.visibleRows);
         const float thumbY = track.y + (track.height - thumbHeight) *
-            (maxOffset > 0.0f ? static_cast<float>(rowOffset_) / maxOffset : 0.0f);
+            (maxOffset > 0.0f ? static_cast<float>(first) / maxOffset : 0.0f);
         DrawRectangleRounded({track.x, thumbY, track.width, thumbHeight}, 0.5f, 4, kBorder);
     }
     if (rows.empty() && !searchError) UITheme::drawWrapped("No matching resources. Try another search or filter.",
@@ -455,94 +503,55 @@ void ResourcesScreen::drawResourceList(const ResourceUiLayout& ui, const std::ve
 }
 
 void ResourcesScreen::drawResourceDetails(const ResourceUiLayout& ui,
-                                          const std::optional<ResourceDetail>& detail,
-                                          const AccountSummary& account, const std::string& message) const {
-    UITheme::drawText("Resource details", static_cast<int>(ui.detail.x + 14), static_cast<int>(ui.detail.y + 10), 22, kText);
-    float detailY = ui.detail.y + 46.0f;
-    if (detail) {
-        const ResourceId id = std::visit([](const auto& item){ return item.getId(); }, *detail);
-        const ResourceType type = std::visit([](const auto& item){ return item.getType(); }, *detail);
-        UITheme::drawText(TextFormat("%s | %s", id.getId().c_str(), typeName(type)),
-                          static_cast<int>(ui.detail.x + 14), static_cast<int>(detailY), 15, kMuted);
-        detailY += 24.0f;
-        const std::string primary = detailTitle(*detail);
-        const float titleWidth = std::max(1.0f, ui.detail.width - 28.0f);
-        const int primarySize = static_cast<int>(std::clamp(ui.detail.width * 0.08f, 38.0f, 44.0f));
-        const int titleLines = estimatedLines(primary, primarySize, titleWidth, 2);
-        UITheme::drawWrapped(primary, static_cast<int>(ui.detail.x + 14),
-                             static_cast<int>(detailY), static_cast<int>(titleWidth), primarySize, UITheme::strongText, 2);
-        detailY += static_cast<float>(titleLines * (primarySize + std::max(4, primarySize / 3)) + 8);
-        const float detailBottom = account.role == UserRole::LEARNER ? ui.favorite.y - 8.0f : ui.add.y - 8.0f;
-        const float detailsContentBottom = message.empty() ? detailBottom : detailBottom - 48.0f;
-        const Rectangle detailsClip{ui.detail.x + 8.0f, detailY, ui.detail.width - 16.0f,
-                                    std::max(0.0f, detailsContentBottom - detailY)};
-        BeginScissorMode(static_cast<int>(detailsClip.x), static_cast<int>(detailsClip.y),
-                         static_cast<int>(detailsClip.width), static_cast<int>(detailsClip.height));
-        for (const DetailField& field : detailLines(*detail)) {
-            if (field.value.empty() || detailY >= detailBottom) continue;
-            if (field.example) {
-                const float valueWidth = std::max(1.0f, ui.detail.width - 44.0f);
-                const int lines = estimatedLines(field.value, 19, valueWidth, 4);
-                const float panelHeight = 12.0f + 20.0f + 4.0f + lines * 25.0f + 10.0f;
-                const Rectangle examplePanel{ui.detail.x + 10.0f, detailY, ui.detail.width - 20.0f, panelHeight};
-                DrawRectangleRounded(examplePanel, 0.08f, 8, Color{255, 239, 245, 255});
-                DrawRectangleRoundedLinesEx(examplePanel, 0.08f, 8, 1.0f, Color{226, 190, 204, 255});
-                UITheme::drawText(field.label.c_str(), static_cast<int>(examplePanel.x + 12.0f),
-                                  static_cast<int>(examplePanel.y + 8.0f), 18, kMuted);
-                UITheme::drawWrapped(field.value, static_cast<int>(examplePanel.x + 12.0f),
-                                     static_cast<int>(examplePanel.y + 32.0f),
-                                     static_cast<int>(examplePanel.width - 24.0f), 19, kText, 4);
-                detailY += panelHeight + 14.0f;
-            } else {
-                const float valueWidth = std::max(1.0f, ui.detail.width - 28.0f);
-                const int lines = estimatedLines(field.value, 19, valueWidth, 2);
-                UITheme::drawText(field.label.c_str(), static_cast<int>(ui.detail.x + 14.0f),
-                                  static_cast<int>(detailY), 18, kMuted);
-                UITheme::drawWrapped(field.value, static_cast<int>(ui.detail.x + 14.0f),
-                                     static_cast<int>(detailY + 23.0f), static_cast<int>(valueWidth), 19, kText, 2);
-                detailY += 23.0f + std::max(25.0f, lines * 25.0f) + 14.0f;
-            }
+                                          const std::optional<ResourceDetail>& detail) const {
+    const Rectangle viewport = ui.detailClip;
+    const int x = static_cast<int>(viewport.x + 6.0f);
+    UITheme::drawText("Resource details", x, static_cast<int>(ui.detail.y + 10), 22, kText);
+    if (!detail) {
+        UITheme::drawWrapped("Select a result to see its full details.", x, static_cast<int>(viewport.y),
+                             static_cast<int>(viewport.width - 18.0f), 16, kMuted);
+        return;
+    }
+    const auto blocks = detailBlocks(*detail, viewport.width - 18.0f);
+    const float height = detailHeight(blocks);
+    const float offset = std::min(detailOffset_, std::max(0.0f, height - viewport.height));
+    UITheme::beginClip(viewport);
+    float y = viewport.y - offset;
+    for (const auto& block : blocks) {
+        if (!block.label.empty()) {
+            UITheme::drawText(block.label.c_str(), x, static_cast<int>(y), 15, kMuted);
+            y += 20.0f;
         }
-        EndScissorMode();
-    } else UITheme::drawWrapped("Select a result to see its full details.", static_cast<int>(ui.detail.x + 14),
-                                static_cast<int>(detailY), static_cast<int>(ui.detail.width - 28), 16, kMuted, 3);
+        block.text.draw(x, static_cast<int>(y), kText);
+        y += block.text.height() + (block.label.empty() ? 6.0f : 8.0f);
+    }
+    EndScissorMode();
+    UITheme::drawScrollbar(viewport, height, offset);
+    if (!modalOpen() && focus_.on(Details)) UITheme::drawFocus(viewport);
 }
 
 void ResourcesScreen::drawResourceActions(const ResourceUiLayout& ui, const AccountSummary& account,
-                                          const std::optional<bool>& selectedFavorited,
-                                          const std::string& message, bool messageError) const {
+                                          const std::optional<bool>& selectedFavorited) const {
     if (account.role == UserRole::ADMIN) {
-        button(ui.add, "Add", true);
-        button(ui.edit, "Edit");
-        button(ui.remove, "Delete");
+        controlButton(Add, ui.add, "Add", true);
+        controlButton(Edit, ui.edit, "Edit", false, hasSelected_);
+        controlButton(Remove, ui.remove, "Delete", false, hasSelected_);
     }
-    const bool favoriteKnown = selectedFavorited.has_value() && hasSelected_;
-    if (!hasSelected_) {
-        UITheme::drawWrapped("Select a resource to view its details and manage favorites.",
-                             static_cast<int>(ui.selectionHint.x + 8.0f),
-                             static_cast<int>(ui.selectionHint.y + 4.0f),
-                             static_cast<int>(ui.selectionHint.width - 16.0f), 15, kMuted, 2);
-    } else {
-        const char* favoriteLabel = !favoriteKnown ? "Favorite status unavailable" :
-                                    *selectedFavorited ? "In Favorites" : "Add to Favorites";
-        button(ui.favorite, favoriteLabel, favoriteKnown && *selectedFavorited, favoriteKnown);
-    }
-    if (!message.empty()) {
-        const float detailBottom = account.role == UserRole::LEARNER ? ui.favorite.y - 8.0f : ui.add.y - 8.0f;
-        UITheme::drawStatusBanner({ui.detail.x + 10.0f, detailBottom - 42.0f,
-                                   ui.detail.width - 20.0f, 36.0f}, message, messageError);
-    }
+    if (hasSelected_)
+        controlButton(Favorite, ui.favorite, favoriteLabel(selectedFavorited),
+                      selectedFavorited.value_or(false), selectedFavorited.has_value());
 }
 
 void ResourcesScreen::drawResultRange(const ResourceUiLayout& ui, const std::vector<SearchRow>& rows, bool searchError) const {
-    const std::size_t last = std::min(rowOffset_ + ui.visibleRows, rows.size());
+    const std::size_t first = std::min(rowOffset_, rows.size() > ui.visibleRows ? rows.size() - ui.visibleRows : 0);
+    const std::size_t last = std::min(first + ui.visibleRows, rows.size());
     const std::string range = rows.empty() ? (searchError ? "Check search" : "0 results") :
-        std::to_string(rowOffset_ + 1) + "-" + std::to_string(last) + " / " + std::to_string(rows.size());
+        std::to_string(first + 1) + "-" + std::to_string(last) + "/" + std::to_string(rows.size());
     UITheme::drawText(range.c_str(), static_cast<int>(ui.list.x + 14), static_cast<int>(ui.list.y + ui.list.height - 24), 15, kMuted);
-    if (rows.empty()) button(ui.browse, "Browse all");
+    if (rows.empty()) controlButton(Browse, ui.browse, "Browse all");
     else if (rows.size() > ui.visibleRows) {
-        button(ui.previous, "Prev", false, rowOffset_ > 0);
-        button(ui.next, "Next", false, last < rows.size());
+        controlButton(Previous, ui.previous, "<", false, first > 0);
+        controlButton(Next, ui.next, ">", false, last < rows.size());
     }
 }
 
@@ -553,23 +562,28 @@ void ResourcesScreen::drawResourceForm(const std::vector<Level>& levels, const s
     DrawRectangleRoundedLinesEx(dialog, 0.04f, 10, 1.5f, kBorder);
     UITheme::drawText(editing_ ? "Edit resource" : "Add resource", static_cast<int>(dialog.x+24),
                       static_cast<int>(dialog.y+22), 22, kText);
-    button(formTypeButton(), typeName(form_.type), false, !editing_);
+    UITheme::drawButton(formTypeButton(), typeName(form_.type), false, !editing_, false, modalFocus_.on(FormType));
     const std::string level = formLevelIndex_ < levels.size() ? levels[formLevelIndex_].getName() : "No levels available";
-    button(formLevelButton(), level.c_str(), false, !levels.empty());
+    UITheme::drawButton(formLevelButton(), level.c_str(), false, !levels.empty(), false, modalFocus_.on(FormLevel));
     for (std::size_t i = 0; i < form_.fields.size(); ++i) {
         const auto& draft = form_.fields[i];
         const auto bounds = formField(i, form_.fields.size());
         if (draft.id == Field::PartOfSpeech) {
             const std::string label = std::string(draft.label) + " ? " + draft.value;
-            button(bounds, label.c_str(), focusedField_ == i);
+            UITheme::drawButton(bounds, label.c_str(), false, true, false, modalFocus_.on(static_cast<int>(i)));
         } else {
-            field(bounds, draft.label, draft.value, focusedField_ == i);
+            const bool focused = modalFocus_.on(static_cast<int>(i));
+            UITheme::drawField(bounds, draft.label, draft.value, focused,
+                               focused ? formCursor_.at(draft.value) : draft.value.size());
         }
     }
-    if (!error.empty())
-        UITheme::drawStatusBanner({dialog.x+24,dialog.y+dialog.height-99,dialog.width-48,36}, error, true);
-    button(formSaveButton(), editing_ ? "Save" : "Create", true, !levels.empty());
-    button(formCancelButton(), "Cancel");
+    if (!error.empty()) {
+        const float width = dialog.width - 48.0f;
+        const float height = UITheme::bannerHeight(width, error);
+        UITheme::drawStatusBanner({dialog.x + 24, formSaveButton().y - height - 8, width, height}, error, true);
+    }
+    UITheme::drawButton(formSaveButton(), editing_ ? "Save" : "Create", true, !levels.empty(), false, modalFocus_.on(FormSave));
+    UITheme::drawButton(formCancelButton(), "Cancel", false, true, false, modalFocus_.on(FormCancel));
 }
 
 void ResourcesScreen::drawDeleteConfirmation() const {
@@ -579,20 +593,22 @@ void ResourcesScreen::drawDeleteConfirmation() const {
     DrawRectangleRoundedLinesEx(d, 0.05f, 10, 1.5f, kBorder);
     UITheme::drawText("Delete this resource?", static_cast<int>(d.x + 24), static_cast<int>(d.y + 24), 20, kText);
     UITheme::drawWrapped("This action cannot be undone.", static_cast<int>(d.x + 24), static_cast<int>(d.y + 66), static_cast<int>(d.width - 48), 15, kMuted, 2);
-    button({d.x + d.width - 236, d.y + d.height - 58, 104, 38}, "Delete", true);
-    button({d.x + d.width - 120, d.y + d.height - 58, 96, 38}, "Cancel");
+    UITheme::drawButton({d.x + d.width - 236, d.y + d.height - 58, 104, 38}, "Delete", true, true, false, modalFocus_.on(0));
+    UITheme::drawButton({d.x + d.width - 120, d.y + d.height - 58, 96, 38}, "Cancel", false, true, false, modalFocus_.on(1));
 }
 
 void ResourcesScreen::draw(const std::vector<SearchRow>& rows, const std::vector<Level>& levels,
                            const std::optional<ResourceDetail>& detail, const AccountSummary& account,
                            const std::string& message, bool messageError,
                            const std::optional<bool>& selectedFavorited) const {
-    const ResourceUiLayout ui = layout(account.role, hasSelected_);
+    const ResourceUiLayout ui = layout(hasSelected_, selectedFavorited, message);
     drawSearchSection(ui, levels);
     drawPanelHeaders(ui);
     drawResourceList(ui, rows, levels, messageError);
-    drawResourceDetails(ui, detail, account, message);
-    drawResourceActions(ui, account, selectedFavorited, message, messageError);
+    if (!modalOpen() && focus_.on(Results)) UITheme::drawFocus(ui.rowsClip);
+    drawResourceDetails(ui, detail);
+    drawResourceActions(ui, account, selectedFavorited);
+    if (!formOpen_) UITheme::drawStatusBanner(ui.banner, message, messageError, bannerOffset_);
     drawResultRange(ui, rows, messageError);
     if (formOpen_) drawResourceForm(levels, messageError ? message : std::string{});
     if (confirmDelete_) drawDeleteConfirmation();
@@ -627,22 +643,27 @@ void ResourcesScreen::setEditing(const ResourceDetail& detail, const std::vector
 }
 
 void ResourcesScreen::setSearch(const SearchOptions& options, bool resetSelection) {
+    if (search_.query != options.query) queryCursor_.reset();
     search_ = options;
-    queryFocused_ = false;
     if (resetSelection) clearSelection();
 }
 void ResourcesScreen::clearSelection() noexcept {
     rowOffset_ = 0;
+    detailOffset_ = 0;
+    bannerOffset_ = 0;
     hasSelected_ = false;
 }
 void ResourcesScreen::closeForm() noexcept {
     form_.fields.clear();
     formOpen_ = editing_ = confirmDelete_ = false;
-    focusedField_ = formLevelIndex_ = 0;
+    modalFocus_.id = 0;
+    formCursor_.reset();
+    formLevelIndex_ = 0;
 }
 void ResourcesScreen::reset() noexcept {
     search_ = {};
     clearSelection();
     closeForm();
-    queryFocused_ = false;
+    clearFocus();
+    queryCursor_.reset();
 }

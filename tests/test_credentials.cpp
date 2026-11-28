@@ -33,7 +33,8 @@ std::string bytes(const fs::path& path) {
 auto otherFiles(const fs::path& folder) {
     std::map<fs::path, std::pair<std::string, fs::file_time_type>> result;
     for (const auto& entry : fs::directory_iterator(folder)) {
-        if (entry.path().filename() == "user.txt" || !entry.is_regular_file()) continue;
+        if (entry.path().filename() == "user.txt" || entry.path().filename() == StoreLock::filename ||
+            !entry.is_regular_file()) continue;
         result.emplace(entry.path().filename(), std::make_pair(bytes(entry.path()), entry.last_write_time()));
     }
     return result;
@@ -133,8 +134,8 @@ void accountFlow() {
     // A failed level save is still pending after a subsequent account command.
     CHECK(app.load(folder).ok() && app.login("fixture-admin", secret).ok());
     CHECK(fs::remove(blocker));
-    const auto levelBlocker = temp.path / "resource_levels.txt.tmp";
-    CHECK(fs::create_directory(levelBlocker));
+    const auto levelBlocker = temp.path / ".pbl2-stage";
+    writeFile(levelBlocker, "occupied");
     auto level = app.createLevel({"JLPT", "N5", 1, ""});
     CHECK(level.ok() && level.status.save == SaveState::PENDING);
     CHECK(app.resetPassword(*one.value, secret).save == SaveState::PENDING);
@@ -143,6 +144,52 @@ void accountFlow() {
     CHECK(app.retrySave().save == SaveState::SAVED && !app.dirty());
     CHECK(app.load(folder).ok() && app.login("fixture-learner", secret).ok());
     CHECK(app.levels().value->size() == 1);
+}
+
+void ownPasswordFlow() {
+    TempDirectory temp;
+    saveFixture(temp.path, fixture());
+    const auto folder = temp.path.u8string();
+    const auto file = temp.path / "user.txt";
+    const auto before = bytes(file);
+    const auto other = otherFiles(temp.path);
+    Application app;
+    CHECK(app.changePassword("demo123", secret).error == BackendError::NOT_LOADED);
+    CHECK(app.load(folder).ok());
+    CHECK(app.changePassword("demo123", secret).error == BackendError::LOGIN_REQUIRED);
+    CHECK(app.login("learner1", "demo123").ok());
+    CHECK(app.resetPassword(UserId("U003"), secret).error == BackendError::FORBIDDEN);
+    CHECK(!app.changePassword("wrong", secret).ok());
+    CHECK(!app.changePassword("demo123", "bad ").ok());
+    CHECK(!app.changePassword("demo123", std::string(maxPasswordBytes + 1, 'a')).ok());
+    CHECK(bytes(file) == before && !app.dirty());
+    const auto blocker = temp.path / ".pbl2-stage";
+    writeFile(blocker, "occupied");
+    const auto changed = app.changePassword("demo123", secret);
+    CHECK(changed.ok() && changed.save == SaveState::PENDING && app.dirty());
+    CHECK(bytes(file) == before && app.retrySave().save == SaveState::PENDING);
+    CHECK(app.currentAccount().value->id == UserId("U002"));
+    CHECK(app.close().error == BackendError::UNSAVED_CHANGES);
+    CHECK(fs::remove(blocker));
+    CHECK(app.retrySave().save == SaveState::SAVED && !app.dirty());
+    const auto after = bytes(file);
+    CHECK(after.find(secret) == std::string::npos);
+    for (const auto* row : {"U001|Admin|", "U003|learner2|"})
+        CHECK(encodedFromRow(after, row) == encodedFromRow(before, row));
+    CHECK(otherFiles(temp.path) == other);
+    app.logout();
+    CHECK(app.changePassword(secret, replacement).error == BackendError::LOGIN_REQUIRED);
+    CHECK(app.close().ok() && app.load(folder).ok());
+    CHECK(!app.login("learner1", "demo123").ok() && app.login("learner1", secret).ok());
+    CHECK(app.login("learner2", "demo123").ok() && !app.login("learner2", secret).ok());
+    CHECK(app.login("Admin", "demo123").ok());
+    CHECK(app.setAccountStatus(UserId("U002"), UserStatus::LOCKED).save == SaveState::SAVED);
+    CHECK(app.resetPassword(UserId("U002"), replacement).save == SaveState::SAVED);
+    CHECK(!app.login("learner1", replacement).ok());
+    CHECK(app.changePassword(replacement, secret).error == BackendError::LOGIN_REQUIRED);
+    CHECK(app.login("Admin", "demo123").ok());
+    CHECK(app.setAccountStatus(UserId("U002"), UserStatus::ACTIVE).save == SaveState::SAVED);
+    CHECK(!app.login("learner1", secret).ok() && app.login("learner1", replacement).ok());
 }
 
 #ifdef _WIN32
@@ -266,9 +313,11 @@ void migrationFlow() {
         const auto load = app.load(dataPath);
         CHECK(!load.ok() && load.message.find("user.txt, line 2: invalid or unsupported password hash") == 0);
         CHECK(app.currentAccount().value->id == UserId("U002"));
-        CHECK(!storage.migrateUsers(file, result, error) && bytes(file) == corrupt);
-        CHECK(otherFiles(folder) == others);
+        CHECK(!storage.migrateUsers(file, result, error) && error.find("already in use") != std::string::npos);
+        CHECK(bytes(file) == corrupt && otherFiles(folder) == others);
     }
+    CHECK(app.close().ok());
+    CHECK(!storage.migrateUsers(file, result, error) && error.find("invalid or unsupported password hash") != std::string::npos);
 
     // Only user.txt is needed to migrate, regardless of the learning store.
     const auto separate = temp.path / "user-only";
@@ -340,6 +389,7 @@ int main() {
         try {
             passwordField();
             accountFlow();
+            ownPasswordFlow();
             migrationFlow();
             rehashFlow();
         } catch (...) {

@@ -15,7 +15,7 @@ Mỗi dòng là một bản ghi, phân cách bằng `|` và giữ cột rỗng c
 | resource_levels.txt | id, category, name, order, description | 5 |
 | user.txt | user_id, username, password_hash, role, status | 5 |
 | favorites.txt | favorite_id, user_id, resource_id | 3 |
-| search_history.txt | history_id, user_id, query, searched_at | 4 |
+| search_history.txt | history_id, user_id, query, searched_at[, mode, resource_type, level_id, sort] | 4 hoặc 8 |
 | alphabet.txt | alphabet_id, script, glyph, romaji, group_name, display_order, note | 7 |
 | question.txt | question_id, level_id, resource_id, prompt, option_a, option_b, option_c, option_d, correct_option, explanation, status | 11 |
 | quiz_attempt.txt | attempt_id, user_id, level_id, total_questions, correct_answers, submitted_at | 6 |
@@ -29,6 +29,7 @@ Giới hạn chung reader/domain/writer: 8192 byte/trường, 16384 byte/dòng k
 - ID: prefix R/U/L/F/H/A/Q/T và số dương uint64_t, tối thiểu 3 chữ số, không thêm 0 thừa từ 1000. R999, R1000, R1000000 hợp lệ; R000, R0001, R18446744073709551616 sai. Cấp max hiện có +1, Resource dùng max chung ba loại. Xóa ID lớn nhất có thể làm số đó được tái dùng; không có metadata/high-water mark mới.
 - Số nguyên parse hết chuỗi, không dấu hoặc 0 thừa. Level.order và displayOrder trong 1..INT_MAX; strokeCount 1..255; quiz total 1..50, correct 0..total.
 - ResourceType: VOCABULARY/GRAMMAR/KANJI. PartOfSpeech: NOUN/VERB/I_ADJ/NA_ADJ/ADV/OTHER. Role ADMIN/LEARNER; user status ACTIVE/LOCKED; question status ACTIVE/INACTIVE; script HIRAGANA/KATAKANA. Không nhận token lạ hoặc enum cast sai trong RAM.
+- Lịch sử mới ghi 8 cột. Mode là CONTENT hoặc ID. Loại và cấp để trống khi chọn tất cả. Sort là RELEVANCE, ID, LEVEL_ASC, LEVEL_DESC, TERM_ASC hoặc TERM_DESC. Dòng 4 cột cũ được giữ ở định dạng cũ khi ghi lại, mặc định mọi loại, mọi cấp và RELEVANCE. Mode của dòng cũ là ID nếu truy vấn là ID chuẩn đang tồn tại, còn lại là CONTENT. Cả hai định dạng có thể cùng xuất hiện trong một file.
 - Vocabulary bắt buộc word/meaning; Grammar pattern/meaning; Kanji character/meaning và ít nhất một On/Kun. Không kiểm một chữ Nhật bằng string.size()==1.
 - Level category/name bắt buộc, cặp category/name duy nhất. Question/Attempt chỉ tham chiếu Level category JLPT.
 - User có username ASCII 3–32 ký tự, bắt đầu bằng chữ, còn lại là chữ, số hoặc `_.-`, duy nhất sau lowercase ASCII. Mật khẩu nhập khi tạo/reset dài 1–128 byte, tuân thủ giới hạn ký tự TXT và không có space/tab ở hai đầu. Backend xác thực đúng các byte đầu vào.

@@ -52,6 +52,7 @@ Mọi query nghiệp vụ cần phiên ACTIVE. Mọi command quản trị kiểm
 |---|---|---|
 | Tài khoản | currentAccount, accounts | AccountSummary chỉ id/username/role/status; accounts ADMIN |
 | Quản trị user | createAccount, setAccountStatus, resetPassword | ADMIN; không xóa user; không khóa người hiện hành/admin ACTIVE cuối |
+| Tự đổi mật khẩu | changePassword(currentPassword, newPassword) | Phiên ACTIVE và mật khẩu hiện tại hợp lệ. Đổi cho chính tài khoản trong phiên. `PENDING` yêu cầu `retrySave()` để lưu xuống đĩa. |
 | Level | levels, createLevel, updateLevel, removeLevel | List theo order rồi số ID; CRUD ADMIN, kiểm Resource/Question/Attempt |
 | Resource | create/updateVocabulary, create/updateGrammar, create/updateKanji, removeResource | ADMIN, request theo loại; ID chung; xóa dọn Favorite, chặn cả Question INACTIVE |
 | Detail/search | resource, search, submitSearch, statistics | ResourceDetail là variant 3 entity. SearchRow theo giá trị có ID, term, reading nếu có, meaning và score |
@@ -78,8 +79,8 @@ Các input struct và kiểu trả cụ thể nằm trong Application.h. Usernam
 
 - `search(options)` chỉ đọc. UI dùng đường này để mở hoặc refresh màn và đổi mode, loại, level, sort. Phân trang và scroll dùng snapshot hiện có.
 - `submitSearch(options)` thêm đúng một history với query hợp lệ và không rỗng, kể cả khi không có kết quả. Khi chỉ history thay đổi, lượt lưu chỉ replace `search_history.txt`. Query rỗng liệt kê theo bộ lọc với cả hai mode. Query sai trả INVALID_INPUT trước khi ghi.
-- Backend kiểm UTF-8, ký tự TXT và giới hạn 8192 byte trên đầu vào thô, rồi bỏ space, tab, U+00A0 và U+3000 ở hai đầu. History giữ cách viết sau trim. Tìm nội dung fold A–Z ASCII ở cả hai phía và giữ dấu, khoảng trắng bên trong và ký tự Nhật. Phạm vi đối chiếu là UTF-8 theo byte, với ID theo grammar EntityId.
-- `searchAgain(id)` chỉ tìm mục của actor, rồi chạy như submit và trả options cùng rows theo giá trị. Schema cũ lưu mỗi query, nên replay dùng filter và sort mặc định. Nếu query là ID chuẩn đang tồn tại, replay chọn exact ID. Các trường hợp còn lại dùng mode nội dung.
+- Backend bỏ khoảng trắng Unicode ở hai đầu, gồm CR/LF, rồi kiểm UTF-8, ký tự TXT và giới hạn 8192 byte. History giữ cách viết sau trim. Tìm nội dung chuyển về chữ thường và NFC trên cả truy vấn và các khóa học liệu, giữ dấu và khoảng trắng bên trong. KMP dò trên UTF-8 đã chuẩn hóa. Khóa học liệu được tạo cùng học liệu, còn kết quả hiển thị dùng văn bản gốc. ID tiếp tục theo grammar EntityId.
+- `searchAgain(id)` chỉ tìm mục của tài khoản đang đăng nhập, chạy cùng đường với submit và trả options cùng rows. Dòng mới dùng đúng mode, loại, cấp và sort đã lưu. Dòng cũ dùng mọi loại, mọi cấp, sort Relevance và tự chọn mode ID nếu truy vấn là ID chuẩn đang tồn tại. Nếu cấp đã lưu bị xóa, replay trả INVALID_INPUT theo quy tắc chung cho bộ lọc.
 - Điểm là 4 cho nguyên term, 3 cho tiền tố term, 2 cho chuỗi con term hoặc trường chuyên biệt, 1 cho nghĩa. Query có nhiều chữ Hán có thể trả từng Kanji tương ứng với điểm 3. Type và level kết hợp AND. Relevance theo điểm giảm, levelOrder tăng, ID số tăng. Năm sort còn lại dùng ID số tăng khi trùng tiêu chí chính.
 
 Quiz chọn 1–50 câu ACTIVE, không lặp. Một engine tồn tại trong Application; constructor nhận seed tùy chọn để test. Phiên giữ bản sao: sửa/xóa/inactive Question không đổi đề đang làm. Submit kiểm Level snapshot còn tồn tại và JLPT; nếu mất/đổi category, không thêm attempt. Bỏ trống `'-'` tính sai. Submit một lần, không sửa đáp án sau nộp. RetryWrong dùng câu sai của snapshot, tạo phiên mới, không tạo phiên rỗng. Sau load/restart chỉ xem attempts tổng hợp, không bịa chi tiết bài cũ.

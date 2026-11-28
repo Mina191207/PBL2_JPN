@@ -1,5 +1,4 @@
 #include "application/managers/PersonalManagers.h"
-#include "domain/Validation.h"
 #include "domain/Time.h"
 
 FavoriteManager::FavoriteManager(DataStore& data, const UserManager& users)
@@ -55,13 +54,13 @@ std::vector<Favorite> FavoriteManager::list() const {
                 result.push_back(item);
     return result;
 }
-bool HistoryManager::record(const std::string& query, std::string& error) {
+bool HistoryManager::record(const SearchOptions& options, std::string& error) {
     const User* user = users_.currentUser();
     if (!user) {
         error = "login required";
         return false;
     }
-    if (query.empty())
+    if (options.query.empty())
         return true;
     std::uint64_t maxValue = 0;
     data_.histories.forEach([&](const SearchHistory& item) {
@@ -70,7 +69,7 @@ bool HistoryManager::record(const std::string& query, std::string& error) {
     });
     try {
         data_.histories.pushBack(
-            SearchHistory(idAfter<HistoryId>(maxValue), user->getId(), query, utcNow()));
+            SearchHistory(idAfter<HistoryId>(maxValue), user->getId(), options, utcNow()));
         data_.dirtyTables |= StoreTable::HISTORY;
     } catch (const std::exception& e) {
         error = e.what();
@@ -88,15 +87,14 @@ std::vector<SearchHistory> HistoryManager::listNewest() const {
         });
     return result;
 }
-std::optional<std::string> HistoryManager::queryFor(const HistoryId& id) const {
+const SearchHistory* HistoryManager::find(const HistoryId& id) const {
     const auto* user = users_.currentUser();
-    if (!user) return {};
+    if (!user) return nullptr;
     const SearchHistory* found = nullptr;
     data_.histories.forEach([&](const SearchHistory& item) {
         if (item.getId() == id && item.getUserId() == user->getId()) found = &item;
     });
-    if (!found) return {};
-    return found->getQuery();
+    return found;
 }
 bool HistoryManager::clear(std::string& error) {
     const User* user = users_.currentUser();

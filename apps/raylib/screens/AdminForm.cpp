@@ -53,7 +53,8 @@ void BackendScreen::closeForm() noexcept {
     clearPassword();
     formFields_.clear();
     editId_ = {};
-    focusedField_ = 0;
+    modalFocus_.id = 0;
+    formCursor_.reset();
     formOpen_ = editing_ = resetPasswordForm_ = false;
 }
 
@@ -79,42 +80,50 @@ void BackendScreen::openResetPasswordForm(const UserId& id) {
 
 BackendScreenEvent BackendScreen::updateForm() {
     using Event = BackendScreenEvent::Type;
-    if (IsKeyPressed(KEY_ESCAPE) || click(cancelButton())) {
+    const auto count = static_cast<int>(formFields_.size());
+    const int cancel = count;
+    const int submit = count + 1;
+    if (UiInput::tab()) {
+        std::vector<int> order;
+        for (int id = 0; id <= submit; ++id) order.push_back(id);
+        modalFocus_.move(order);
+        formCursor_.reset();
+        return {};
+    }
+    if (IsKeyPressed(KEY_ESCAPE) || modalFocus_.activate(cancel, cancelButton())) {
         closeForm();
         return {Event::CANCEL_FORM};
     }
-    const auto count = formFields_.size();
-    for (std::size_t i = 0; i < count; ++i) {
-        if (!click(fieldBounds(i, count))) continue;
-        focusedField_ = i;
-        if (choice(formFields_[i].id)) cycle(formFields_[i]);
-    }
-    if (IsKeyPressed(KEY_TAB)) {
-        const bool backwards = IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT);
-        focusedField_ = (focusedField_ + (backwards ? count - 1 : 1)) % count;
-    }
-    auto& field = formFields_[focusedField_];
-    const bool secret = field.id == Field::Password;
-    const bool choose = choice(field.id);
-    if (!choose && (IsKeyPressed(KEY_BACKSPACE) || IsKeyPressedRepeat(KEY_BACKSPACE))) {
-        if (secret) password_.backspace();
-        else Utf8::eraseLast(field.value);
-    }
-    for (int cp = GetCharPressed(); cp > 0; cp = GetCharPressed()) {
-        if (secret) password_.append(cp);
-        else if (!choose && cp >= 32 && cp != 127)
-            Utf8::appendWithinLimit(field.value, Utf8::encode(cp), maxTxtFieldBytes);
-    }
-    const bool enter = IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_KP_ENTER);
-    if (choose && enter) cycle(field);
-    if (click(submitButton()) || (!choose && enter)) {
-        if (password_.tooLong()) {
-            clearPassword();
-            return {Event::PASSWORD_TOO_LONG};
+    if (UiInput::click(submitButton())) modalFocus_.id = submit;
+    UiInput::Edit edit;
+    bool submitRequested = modalFocus_.on(submit) && (UiInput::click(submitButton()) || UiInput::confirm());
+    for (int i = 0; i < count; ++i) {
+        auto& field = formFields_[i];
+        if (choice(field.id)) {
+            if (modalFocus_.activate(i, fieldBounds(i, count))) {
+                cycle(field);
+                formCursor_.reset();
+                return {Event::EDITED};
+            }
+            continue;
         }
-        return {resetPasswordForm_ ? Event::RESET_PASSWORD : Event::SAVE_FORM, editId_};
+        if (UiInput::click(fieldBounds(i, count)) && !modalFocus_.on(i)) {
+            modalFocus_.id = i;
+            formCursor_.reset();
+        }
+        if (!modalFocus_.on(i)) continue;
+        if (field.id == Field::Password) edit = UiInput::password(password_, formCursor_);
+        else if (field.id == Field::Username) edit = UiInput::text(field.value, formCursor_, 32, UiInput::username);
+        else edit = UiInput::text(field.value, formCursor_, maxTxtFieldBytes);
+        submitRequested = UiInput::enter();
     }
-    return {};
+    if (!submitRequested) return {edit.changed ? Event::EDITED : Event::NONE};
+    if (password_.tooLong()) {
+        clearPassword();
+        formCursor_.reset();
+        return {Event::PASSWORD_TOO_LONG};
+    }
+    return {resetPasswordForm_ ? Event::RESET_PASSWORD : Event::SAVE_FORM, editId_};
 }
 
 void BackendScreen::drawForm(Section section, const std::string& error) const {
@@ -130,14 +139,26 @@ void BackendScreen::drawForm(Section section, const std::string& error) const {
         const auto bounds = fieldBounds(i, formFields_.size());
         if (choice(field.id)) {
             const std::string label = std::string(field.label) + " · " + field.value;
-            button(bounds, label.c_str(), focusedField_ == i);
+            UITheme::drawButton(bounds, label.c_str(), false, true, false, modalFocus_.on(static_cast<int>(i)));
         } else {
-            UITheme::drawField(bounds, field.label,
-                field.id == Field::Password ? password_.masked() : field.value, focusedField_ == i);
+            const bool focused = modalFocus_.on(static_cast<int>(i));
+            if (field.id == Field::Password) {
+                const auto mask = password_.masked();
+                const auto caret = Utf8::countValid(std::string_view(password()).substr(0, formCursor_.at(password())));
+                UITheme::drawField(bounds, field.label, mask, focused, focused ? caret : mask.size());
+            } else {
+                UITheme::drawField(bounds, field.label, field.value, focused,
+                                   focused ? formCursor_.at(field.value) : field.value.size());
+            }
         }
     }
-    if (!error.empty())
-        UITheme::drawStatusBanner({panel.x+24, panel.y+panel.height-96, panel.width-48, 36}, error, true);
-    button(cancelButton(), "Cancel");
-    button(submitButton(), resetPasswordForm_ ? "Reset" : editing_ ? "Save" : "Create", true);
+    if (!error.empty()) {
+        const float width = panel.width - 48.0f;
+        const float height = UITheme::bannerHeight(width, error);
+        UITheme::drawStatusBanner({panel.x + 24, submitButton().y - height - 8, width, height}, error, true);
+    }
+    const auto cancel = static_cast<int>(formFields_.size());
+    UITheme::drawButton(cancelButton(), "Cancel", false, true, false, modalFocus_.on(cancel));
+    UITheme::drawButton(submitButton(), resetPasswordForm_ ? "Reset" : editing_ ? "Save" : "Create",
+                        true, true, false, modalFocus_.on(cancel + 1));
 }

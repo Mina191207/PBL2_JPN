@@ -42,70 +42,40 @@ Rectangle LoginScreen::closeButton() {
     return {static_cast<float>(GetScreenWidth() - 176), 28.0f, 144.0f, 46.0f};
 }
 
-bool LoginScreen::clicked(Rectangle bounds) {
-    return IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
-           CheckCollisionPointRec(GetMousePosition(), bounds);
-}
-
-bool LoginScreen::validUsernameCharacter(int codepoint) {
-    return (codepoint >= 'A' && codepoint <= 'Z') ||
-           (codepoint >= 'a' && codepoint <= 'z') ||
-           (codepoint >= '0' && codepoint <= '9') ||
-           codepoint == '_' || codepoint == '.' || codepoint == '-';
-}
-
-void LoginScreen::removeLastCodepoint(std::string& text) {
-    Utf8::eraseLast(text);
-}
-
 LoginEvent LoginScreen::update(bool submitting) {
+    using Event = LoginEvent::Type;
     if (submitting) return {};
-    if (clicked(closeButton()) || IsKeyPressed(KEY_ESCAPE)) return {LoginEvent::Type::REQUEST_CLOSE};
-
-    if (IsKeyPressed(KEY_TAB)) {
-        usernameFocused_ = !usernameFocused_;
-        passwordFocused_ = !passwordFocused_;
+    if (UiInput::tab()) {
+        focus_.move({Username, Password, Visibility, Submit, Close});
+        return {};
+    }
+    if (IsKeyPressed(KEY_ESCAPE) || focus_.activate(Close, closeButton())) return {Event::REQUEST_CLOSE};
+    if (UiInput::click(usernameField())) focus_.id = Username;
+    if (UiInput::click(passwordField())) focus_.id = Password;
+    if (focus_.activate(Visibility, visibilityButton())) {
+        passwordVisible_ = !passwordVisible_;
+        if (!passwordVisible_) revealedFont_.clear();
+        return {};
     }
 
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-        const Vector2 mouse = GetMousePosition();
-        if (CheckCollisionPointRec(mouse, usernameField())) {
-            usernameFocused_ = true;
-            passwordFocused_ = false;
-        } else if (CheckCollisionPointRec(mouse, passwordField())) {
-            usernameFocused_ = false;
-            passwordFocused_ = true;
-        } else if (CheckCollisionPointRec(mouse, visibilityButton())) {
-            passwordVisible_ = !passwordVisible_;
-        }
-    }
-
-    if (IsKeyPressed(KEY_BACKSPACE) || IsKeyPressedRepeat(KEY_BACKSPACE)) {
-        if (usernameFocused_) removeLastCodepoint(username_);
-        if (passwordFocused_) password_.backspace();
-    }
-
-    int codepoint = GetCharPressed();
-    while (codepoint > 0) {
-        if (usernameFocused_ && validUsernameCharacter(codepoint) && username_.size() < 32) {
-            username_.push_back(static_cast<char>(codepoint));
-        } else if (passwordFocused_) password_.append(codepoint);
-        codepoint = GetCharPressed();
-    }
-
-    const bool submitRequested = IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_KP_ENTER) ||
-                                 clicked(submitButton());
-    if (!submitRequested) return {};
+    const bool inField = focus_.on(Username) || focus_.on(Password);
+    UiInput::Edit edit;
+    if (focus_.on(Username)) edit = UiInput::text(username_, usernameCursor_, 32, UiInput::username);
+    if (focus_.on(Password)) edit = UiInput::password(password_, passwordCursor_);
+    if (!focus_.activate(Submit, submitButton()) && !(inField && UiInput::enter()))
+        return {edit.changed ? Event::EDITED : Event::NONE};
     if (password_.tooLong()) {
         clearPassword();
-        return {LoginEvent::Type::PASSWORD_TOO_LONG};
+        focus_.id = Password;
+        return {Event::PASSWORD_TOO_LONG};
     }
     if (username_.empty() || password().empty()) {
-        clearPassword();
-        return {LoginEvent::Type::EMPTY_FIELDS};
+        focus_.id = username_.empty() ? Username : Password;
+        return {Event::EMPTY_FIELDS};
     }
     passwordVisible_ = false;
-    return {LoginEvent::Type::SUBMIT};
+    revealedFont_.clear();
+    return {Event::SUBMIT};
 }
 
 void LoginScreen::drawButton(Rectangle bounds, const char* label, bool primary, bool enabled) {
@@ -134,33 +104,19 @@ void LoginScreen::draw(bool submitting, const std::string& message) const {
     UITheme::drawText("Sign in to your Japanese learning library", static_cast<int>(card.x + 50), static_cast<int>(card.y + 124), 17, kMuted);
 
     const Rectangle user = usernameField();
-    UITheme::drawText("Username", static_cast<int>(user.x), static_cast<int>(user.y - 28), 16, kText);
-    DrawRectangleRounded(user, 0.18f, 8, {255, 252, 253, 255});
-    DrawRectangleRoundedLinesEx(user, 0.18f, 8, usernameFocused_ ? 2.0f : 1.0f,
-                                usernameFocused_ ? kPrimary : kBorder);
-    UITheme::drawText(username_.empty() ? "Enter username" : username_.c_str(),
-             static_cast<int>(user.x + 16), static_cast<int>(user.y + 19), 18,
-             username_.empty() ? kMuted : kText);
-
-    const Rectangle password = passwordField();
-    UITheme::drawText("Password", static_cast<int>(password.x), static_cast<int>(password.y - 28), 16, kText);
-    DrawRectangleRounded(password, 0.18f, 8, {255, 252, 253, 255});
-    DrawRectangleRoundedLinesEx(password, 0.18f, 8, passwordFocused_ ? 2.0f : 1.0f,
-                                passwordFocused_ ? kPrimary : kBorder);
-    const int passwordX = static_cast<int>(password.x + 16);
-    const int passwordY = static_cast<int>(password.y + 19);
-    BeginScissorMode(passwordX, static_cast<int>(password.y), static_cast<int>(password.width - 32),
-                     static_cast<int>(password.height));
-    if (passwordVisible_ && !this->password().empty()) {
-        // Use Raylib directly so revealed characters stay out of the shared font atlas queue.
-        DrawText(this->password().c_str(), passwordX, passwordY, 18, kText);
+    UITheme::drawField(user, "Username", username_, focus_.on(Username),
+                       usernameCursor_.at(username_), "Enter username");
+    const auto caret = passwordCursor_.at(password());
+    if (passwordVisible_) {
+        UITheme::drawField(passwordField(), "Password", password(), focus_.on(Password),
+                           caret, "Enter password", revealedFont_.prepare(password()));
     } else {
         const auto masked = password_.masked();
-        UITheme::drawText(masked.empty() ? "Enter password" : masked.c_str(),
-                         passwordX, passwordY, 18, masked.empty() ? kMuted : kText);
+        const auto maskedCaret = Utf8::countValid(std::string_view(password()).substr(0, caret));
+        UITheme::drawField(passwordField(), "Password", masked, focus_.on(Password),
+                           maskedCaret, "Enter password");
     }
-    EndScissorMode();
-    drawButton(visibilityButton(), passwordVisible_ ? "Hide" : "Show", false);
+    UITheme::drawButton(visibilityButton(), passwordVisible_ ? "Hide" : "Show", false, true, false, focus_.on(Visibility));
 
     if (!message.empty()) {
         drawTextWrapped(message,
@@ -170,9 +126,12 @@ void LoginScreen::draw(bool submitting, const std::string& message) const {
                         16,
                         kError);
     }
-    drawButton(submitButton(), submitting ? "Signing in..." : "Sign in", true, !submitting);
-    drawButton(closeButton(), "Close", false);
-    UITheme::drawText("Press ESC to close", 32, GetScreenHeight() - 42, 16, kMuted);
+    UITheme::drawButton(submitButton(), submitting ? "Signing in..." : "Sign in", true, !submitting, false, focus_.on(Submit));
+    UITheme::drawText("Need an account or forgot your password?", static_cast<int>(user.x),
+                      static_cast<int>(user.y + 299), 17, kText);
+    UITheme::drawText("Contact your Admin for an account or a password reset.", static_cast<int>(user.x),
+                      static_cast<int>(user.y + 323), 16, kMuted);
+    UITheme::drawButton(closeButton(), "Close", false, true, false, focus_.on(Close));
 }
 
 void LoginScreen::drawAuthenticated(const std::string& username, const std::string& role) const {
@@ -198,6 +157,8 @@ void LoginScreen::drawAuthenticated(const std::string& username, const std::stri
 
 void LoginScreen::clearPassword() noexcept {
     password_.clear();
+    passwordCursor_.reset();
+    revealedFont_.clear();
     passwordVisible_ = false;
 }
 
@@ -205,7 +166,6 @@ void LoginScreen::reset() noexcept {
     clearPassword();
     std::fill(username_.begin(), username_.end(), '\0');
     username_.clear();
-    usernameFocused_ = true;
-    passwordFocused_ = false;
-    passwordVisible_ = false;
+    usernameCursor_.reset();
+    focus_.id = Username;
 }

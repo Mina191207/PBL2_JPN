@@ -3,6 +3,7 @@
 #include "raylib.h"
 #include "../UiText.h"
 #include "../UITheme.h"
+#include "../UiLayout.h"
 #include "pbl2/InputLimits.h"
 
 #include <algorithm>
@@ -97,43 +98,121 @@ bool AppController::initializeWindow() {
 
 void AppController::initializeApplication(const std::string& dataFolder) {
     const Status loadStatus = application_.load(dataFolder);
+    startupScreen_.setFolder(dataFolder, loadStatus.error == BackendError::EMPTY_DATA_DIRECTORY);
     backendLoaded_ = loadStatus.ok();
     startupSucceeded_ = backendLoaded_ && fontReady_;
     if (!startupSucceeded_) {
-        startupMessage_ = "Data folder: " + dataFolder + "\n" +
-            (!fontReady_ ? UiText::error() : loadStatus.message);
+        startupMessage_ = "Data folder: " + (dataFolder.empty() ? std::string("(empty)") : dataFolder);
+        if (!loadStatus.ok()) startupMessage_ += "\n" + loadStatus.message;
+        if (!fontReady_) startupMessage_ += "\n" + UiText::error();
         std::cerr << startupMessage_ << '\n';
     }
     viewState_ = backendLoaded_ && fontReady_ ? ViewState::LOGIN : ViewState::STARTUP_ERROR;
+}
 
+void AppController::finishInitialization(const Status& status) {
+    const auto folder = startupScreen_.folder();
+    if (status.save == SaveState::PENDING) {
+        startupScreen_.waitForSave();
+        startupMessage_ = "Database save is pending. " + status.message;
+    } else if (!status.ok()) {
+        startupMessage_ = status.message;
+    } else {
+        const auto closed = application_.close();
+        if (closed.ok()) initializeApplication(folder);
+        else startupMessage_ = closed.message;
+    }
+}
+
+void AppController::handleStartup() {
+    switch (startupScreen_.poll(false)) {
+    case StartupAction::REQUEST_CLOSE: requestClose(); break;
+    case StartupAction::OPEN_FOLDER: initializeApplication(startupScreen_.folder()); break;
+    case StartupAction::BEGIN_CREATE: startupMessage_.clear(); break;
+    case StartupAction::CREATE_DATABASE: {
+        const auto& password = startupScreen_.password();
+        if (password.tooLong()) {
+            startupMessage_ = "Password exceeds " + std::to_string(maxPasswordBytes) + " bytes.";
+            startupScreen_.clearPassword();
+            break;
+        }
+        const auto status = application_.initialize(startupScreen_.folder(), startupScreen_.admin(), password.value());
+        startupScreen_.clearPassword();
+        finishInitialization(status);
+        break;
+    }
+    case StartupAction::RETRY_INITIALIZE: finishInitialization(application_.retrySave()); break;
+    default: break;
+    }
 }
 
 void AppController::processFrame() {
-    if (WindowShouldClose() && !exitDialog_) requestClose();
+    if (WindowShouldClose() && !exitDialog_) { requestClose(); return; }
 
     if (exitDialog_) {
-        switch (startupScreen_.poll(true)) {
+        switch (startupScreen_.poll(true, exitMessage_)) {
         case StartupAction::RETRY_SAVE: retrySaveAndClose(); break;
         case StartupAction::DISCARD_CLOSE: discardAndClose(); break;
         case StartupAction::CANCEL_CLOSE: cancelClose(); break;
-        case StartupAction::NONE:
-        case StartupAction::REQUEST_CLOSE: break;
+        default: break;
         }
     } else if (viewState_ == ViewState::STARTUP_ERROR) {
-        if (startupScreen_.poll(false) == StartupAction::REQUEST_CLOSE) requestClose();
+        handleStartup();
     } else if (viewState_ == ViewState::LOGIN) {
         handleLoginEvent(loginScreen_.update(loginInProgress_));
     } else if (viewState_ == ViewState::AUTHENTICATED && activeAccount_) {
+        if (changePasswordDialog_.isOpen()) {
+            using Action = ChangePasswordDialog::Action;
+            switch (changePasswordDialog_.update()) {
+            case Action::SUBMIT:
+                changePasswordDialog_.showResult(application_.changePassword(
+                    changePasswordDialog_.currentPassword(), changePasswordDialog_.newPassword()));
+                break;
+            case Action::RETRY_SAVE: changePasswordDialog_.showResult(application_.retrySave()); break;
+            case Action::REQUEST_CLOSE: requestClose(); break;
+            case Action::NONE: break;
+            }
+            return;
+        }
+        if (contentModal()) { updateContent(); return; }
+        if (UiInput::tab()) {
+            const auto role = activeAccount_->role;
+            if (mainScreen_.hasFocus()) {
+                if (!mainScreen_.tab(role, selectedSection_) && !contentTab()) mainScreen_.tab(role, selectedSection_);
+            } else if (!contentTab()) mainScreen_.tab(role, selectedSection_);
+            return;
+        }
+        if (UiInput::click(UiLayout::content())) mainScreen_.clearFocus();
         handleMainScreenEvent(mainScreen_.update(activeAccount_->role, selectedSection_));
     }
 }
 
+bool AppController::contentModal() const {
+    return selectedSection_ == Section::Resources ? resourcesScreen_.modalOpen() : backendScreen_.modalOpen();
+}
+
+bool AppController::contentTab() {
+    if (selectedSection_ == Section::Resources)
+        return resourcesScreen_.tab(activeAccount_->role, resourceRows_.size(), selectedResourceFavorited_, resourcesMessage_);
+    if (selectedSection_ != Section::Dashboard)
+        return backendScreen_.tab(selectedSection_, activeAccount_->role, backendTable_, backendAlphabet_,
+                                  backendActivity_, backendMessage_);
+    return false;
+}
+
 void AppController::handleMainScreenEvent(MainScreenEvent event) {
+    if (event.type == MainScreenEvent::Type::CHANGE_PASSWORD) {
+        changePasswordDialog_.open();
+        return;
+    }
     if (event.type == MainScreenEvent::Type::SELECT_SECTION) {
+        resourcesScreen_.clearFocus();
+        backendScreen_.clearFocus();
         navigate(event.section);
         return;
     }
     if (event.type == MainScreenEvent::Type::LOGOUT) {
+        changePasswordDialog_.close();
         application_.logout();
         activeAccount_.reset();
         selectedSection_ = Section::Dashboard;
@@ -160,10 +239,16 @@ void AppController::handleMainScreenEvent(MainScreenEvent event) {
         requestClose();
         return;
     }
+    updateContent();
+}
+
+void AppController::updateContent() {
     if (selectedSection_ == Section::Resources) {
-        handleResourcesEvent(resourcesScreen_.update(resourceRows_, resourceLevels_, *activeAccount_, selectedResourceFavorited_));
+        handleResourcesEvent(resourcesScreen_.update(resourceRows_, resourceLevels_, *activeAccount_,
+                                                     selectedResourceFavorited_, selectedResource_, resourcesMessage_));
     } else if (selectedSection_ != Section::Dashboard && selectedSection_ != Section::Resources) {
-        handleBackendEvent(backendScreen_.update(selectedSection_, activeAccount_->role, backendAlphabet_, backendTable_, backendActivity_));
+        handleBackendEvent(backendScreen_.update(selectedSection_, activeAccount_->role, backendAlphabet_,
+                                                   backendTable_, backendActivity_, backendMessage_));
     }
 }
 
@@ -182,18 +267,23 @@ void AppController::navigate(Section section, bool refresh) {
 }
 
 void AppController::drawFrame() {
-    UiText::beginFrame();
     BeginDrawing();
+    drawScene();
+    EndDrawing();
+}
+
+void AppController::drawScene() {
     switch (viewState_) {
     case ViewState::STARTUP_ERROR:
-        startupScreen_.draw(false, startupMessage_, false, {});
+        startupScreen_.draw(startupMessage_);
         break;
     case ViewState::LOGIN:
         loginScreen_.draw(loginInProgress_, loginMessage_);
         break;
     case ViewState::AUTHENTICATED:
         if (activeAccount_) {
-            mainScreen_.draw(*activeAccount_, selectedSection_, dashboardData_);
+            mainScreen_.draw(*activeAccount_, selectedSection_, dashboardData_,
+                             !contentModal() && !changePasswordDialog_.isOpen() && !exitDialog_);
             if (selectedSection_ == Section::Resources)
                 resourcesScreen_.draw(resourceRows_, resourceLevels_, selectedResource_, *activeAccount_, resourcesMessage_, resourcesMessageError_, selectedResourceFavorited_);
             else if (selectedSection_ != Section::Dashboard && selectedSection_ != Section::Resources)
@@ -203,16 +293,17 @@ void AppController::drawFrame() {
                 DrawRectangle(0, y, GetScreenWidth(), 34, UITheme::card);
                 UITheme::drawText("Password upgrade is waiting to be saved.", 14, y + 8, 16, UITheme::text);
             }
+            if (changePasswordDialog_.isOpen()) changePasswordDialog_.draw();
         }
         break;
     }
     if (exitDialog_) startupScreen_.drawExitDialog(exitMessage_);
-    EndDrawing();
-    UiText::endFrame();
 }
 
 void AppController::shutdownWindow() {
+    changePasswordDialog_.close();
     if (!windowReady_) return;
+    loginScreen_.clearPassword();
     UiText::shutdown();
     CloseWindow();
     windowReady_ = false;
@@ -221,6 +312,9 @@ void AppController::shutdownWindow() {
 void AppController::handleLoginEvent(LoginEvent event) {
     switch (event.type) {
     case LoginEvent::Type::NONE:
+        return;
+    case LoginEvent::Type::EDITED:
+        loginMessage_.clear();
         return;
     case LoginEvent::Type::EMPTY_FIELDS:
         loginMessage_ = "Enter both username and password.";
@@ -347,7 +441,7 @@ void AppController::refreshBackendSection() {
 }
 
 void AppController::reportBackend(const Status& status, const char* success) {
-    backendMessageError_ = !status.ok();
+    backendMessageError_ = !status.ok() || status.save == SaveState::PENDING;
     if (!status.ok()) backendMessage_ = status.message;
     else if (status.save == SaveState::PENDING) backendMessage_ = "Save pending: " + status.message;
     else backendMessage_ = success;
@@ -359,7 +453,7 @@ void AppController::handleBackendEvent(const BackendScreenEvent& event) {
     if (event.type == Event::REFRESH) { refreshBackendSection(); return; }
     backendMessage_.clear();
     backendMessageError_ = false;
-    if (event.type == Event::CANCEL_FORM) return;
+    if (event.type == Event::CANCEL_FORM || event.type == Event::EDITED) return;
     if (selectedSection_ == Section::Favorites || selectedSection_ == Section::History ||
         selectedSection_ == Section::Review || selectedSection_ == Section::Quiz) {
         handleBackendLearningEvent(event);
@@ -370,12 +464,13 @@ void AppController::handleBackendEvent(const BackendScreenEvent& event) {
 
 void AppController::requestClose() {
     loginInProgress_ = false;
-    loginScreen_.clearPassword();
-    backendScreen_.closeForm();
-    resourcesScreen_.closeForm();
+    if (changePasswordDialog_.editing()) changePasswordDialog_.close();
 
     const Status closeStatus = application_.close();
     if (closeStatus.ok() && !application_.loaded()) {
+        loginScreen_.clearPassword();
+        backendScreen_.closeForm();
+        resourcesScreen_.closeForm();
         backendLoaded_ = false;
         activeAccount_.reset();
         exitDialog_ = false;
@@ -384,6 +479,7 @@ void AppController::requestClose() {
     }
 
     exitDialog_ = true;
+    startupScreen_.openExitDialog();
     exitMessage_ = closeStatus.message;
 }
 

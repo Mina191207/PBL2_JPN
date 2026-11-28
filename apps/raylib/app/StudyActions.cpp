@@ -83,7 +83,7 @@ void AppController::refreshLearnerBackendSection(Section section) {
         if (attempts.value) for (const auto& attempt : *attempts.value) {
             std::string levelName = "Level unavailable";
             for (const auto& level : resourceLevels_) if (level.getId() == attempt.getLevelId()) { levelName = level.getName(); break; }
-            backendTable_.rows.push_back({{}, {attempt.getId().getId(), levelName,
+            backendTable_.rows.push_back({attempt.getId(), {attempt.getId().getId(), levelName,
                 std::to_string(attempt.getCorrectAnswers()) + " / " + std::to_string(attempt.getTotalQuestions()),
                 formatUtcTimestamp(attempt.getSubmittedAt())}});
         }
@@ -100,6 +100,15 @@ bool AppController::handleBackendLearningEvent(const BackendScreenEvent& event) 
         refreshBackendSection();
         refreshSelectedFavoriteState();
         reportBackend(status, "Favorite removed.");
+        return true;
+    }
+    case BackendScreenEvent::Type::REQUEST_CLEAR_HISTORY: {
+        const auto history = application_.history();
+        if (!history.value) { reportBackend(history.status, ""); return true; }
+        const auto count = history.value->size();
+        backendScreen_.confirm({BackendScreenEvent::Type::CLEAR_HISTORY}, "Clear search history?",
+                               "Delete " + std::to_string(count) + (count == 1 ? " row" : " rows") +
+                                   " from your search history?");
         return true;
     }
     case BackendScreenEvent::Type::CLEAR_HISTORY: {
@@ -178,7 +187,10 @@ bool AppController::handleBackendLearningEvent(const BackendScreenEvent& event) 
         }
         refreshBackendSection();
         if (!attempt.ok()) { backendMessage_ = attempt.status.message; backendMessageError_ = true; }
-        else if (attempt.status.save == SaveState::PENDING) { backendMessage_ = "Quiz submitted; saving is pending: " + attempt.status.message; backendMessageError_ = false; }
+        else if (attempt.status.save == SaveState::PENDING) {
+            backendMessage_ = "Quiz submitted. The attempt is waiting to be saved. " + attempt.status.message;
+            backendMessageError_ = true;
+        }
         else { backendMessage_ = "Quiz submitted. Review the result and explanations."; backendMessageError_ = false; }
         return true;
     }

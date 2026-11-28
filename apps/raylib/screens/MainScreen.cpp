@@ -19,7 +19,7 @@ constexpr Color kText = UITheme::text;
 constexpr Color kMuted = UITheme::muted;
 
 Rectangle sectionBounds(std::size_t index, std::size_t count) {
-    const float top = std::min(138.0f, std::max(112.0f, static_cast<float>(GetScreenHeight()) * 0.19f));
+    const float top = std::clamp(static_cast<float>(GetScreenHeight()) * 0.19f, 132.0f, 146.0f);
     const float buttonHeight = std::clamp(static_cast<float>(GetScreenHeight()) * 0.058f, 30.0f, 42.0f);
     constexpr float preferredGap = 8.0f;
     const float bottom = static_cast<float>(GetScreenHeight()) - 126.0f;
@@ -33,21 +33,23 @@ Rectangle sectionBounds(std::size_t index, std::size_t count) {
     const float side = UiLayout::sidebarWidth();
     return {14.0f, top + static_cast<float>(index) * step, side - 28.0f, buttonHeight};
 }
-Rectangle logoutBounds() {
+Rectangle logoutBounds(UserRole role) {
     return {14.0f, static_cast<float>(GetScreenHeight()) - 64.0f,
-            UiLayout::sidebarWidth() - 28.0f, 42.0f};
+            role == UserRole::LEARNER ? 72.0f : UiLayout::sidebarWidth() - 28.0f,
+            role == UserRole::LEARNER ? 48.0f : 42.0f};
+}
+Rectangle changePasswordBounds() {
+    return {94.0f, static_cast<float>(GetScreenHeight()) - 64.0f, UiLayout::sidebarWidth() - 108.0f, 48.0f};
 }
 Rectangle closeBounds() {
     return {static_cast<float>(GetScreenWidth() - 176), 28.0f, 144.0f, 46.0f};
 }
-bool clicked(Rectangle bounds) {
-    return IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(GetMousePosition(), bounds);
-}
-void drawButton(Rectangle bounds, const char* label) {
+void drawButton(Rectangle bounds, const char* label, bool focused) {
     const bool hover = CheckCollisionPointRec(GetMousePosition(), bounds);
     DrawRectangleRounded(bounds, 0.24f, 8, hover ? Color{255, 232, 240, 255} : kCard);
     DrawRectangleRoundedLinesEx(bounds, 0.24f, 8, 1.0f, kBorder);
     UITheme::drawText(label, static_cast<int>(bounds.x + 18), static_cast<int>(bounds.y + 13), 17, kText);
+    if (focused) UITheme::drawFocus(bounds);
 }
 void drawText(const char* text, float x, float y, float size, Color color) {
     UITheme::drawText(text, static_cast<int>(x), static_cast<int>(y), static_cast<int>(size), color);
@@ -98,7 +100,7 @@ void drawMetricCard(Rectangle bounds, const char* label, const std::string& valu
 }
 
 void drawDashboard(const AccountSummary& account, const DashboardData& dashboard,
-                   const Rectangle& content, int monthOffset) {
+                   const Rectangle& content, int monthOffset, bool previousFocused, bool nextFocused) {
     const float x = content.x + 28.0f;
     const float width = content.width - 56.0f;
     drawText(account.role == UserRole::ADMIN ? "Welcome, administrator" : "Welcome back",
@@ -108,8 +110,8 @@ void drawDashboard(const AccountSummary& account, const DashboardData& dashboard
              x + 2.0f, content.y + 69.0f, 16.0f, kMuted);
 
     if (!dashboard.loaded) {
-        UITheme::drawStatusBanner({x, content.y + 104.0f, width, 42.0f},
-            dashboard.message.empty() ? "Dashboard data could not be loaded." : dashboard.message, true);
+        const std::string message = dashboard.message.empty() ? "Dashboard data could not be loaded." : dashboard.message;
+        UITheme::drawStatusBanner({x, content.y + 104.0f, width, UITheme::bannerHeight(width, message)}, message, true);
         return;
     }
 
@@ -123,15 +125,19 @@ void drawDashboard(const AccountSummary& account, const DashboardData& dashboard
         const int columns = width >= 720.0f ? 3 : 2;
         const float gap = 14.0f;
         const float cardWidth = (width - gap * static_cast<float>(columns - 1)) / static_cast<float>(columns);
-        const float cardHeight = 90.0f;
+        const std::size_t rows = (metrics.size() + columns - 1) / columns;
+        const float cardsTop = content.y + 110.0f;
+        const auto overview = UITheme::wrap("Overview from the current library and account data.", width - 4.0f, 15);
+        const float cardHeight = std::min(90.0f,
+            (content.height - 110.0f - (rows - 1) * gap - overview.height() - 22.0f) / rows);
         for (std::size_t i = 0; i < metrics.size(); ++i) {
             const int row = static_cast<int>(i) / columns;
             const int column = static_cast<int>(i) % columns;
-            const Rectangle card{x + column * (cardWidth + gap), content.y + 128.0f + row * (cardHeight + gap), cardWidth, cardHeight};
+            const Rectangle card{x + column * (cardWidth + gap), cardsTop + row * (cardHeight + gap), cardWidth, cardHeight};
             drawMetricCard(card, metrics[i].first, std::to_string(metrics[i].second));
         }
-        drawText("Overview from the current library and account data.", x + 2.0f,
-                 content.y + 128.0f + 2.0f * (cardHeight + gap) + 10.0f, 15.0f, kMuted);
+        overview.draw(static_cast<int>(x + 2.0f),
+                      static_cast<int>(cardsTop + rows * cardHeight + (rows - 1) * gap + 10.0f), kMuted);
         return;
     }
 
@@ -159,8 +165,8 @@ void drawDashboard(const AccountSummary& account, const DashboardData& dashboard
     const std::string monthLabel = std::string(monthNames[month.month - 1]) + " " + std::to_string(month.year);
     UITheme::drawText(monthLabel.c_str(), static_cast<int>(panel.x + 18.0f),
                       static_cast<int>(panel.y + 52.0f), 16, kMuted);
-    UITheme::drawButton(calendarPreviousButton(panel), "<");
-    UITheme::drawButton(calendarNextButton(panel), ">", false, monthOffset < 0);
+    UITheme::drawButton(calendarPreviousButton(panel), "<", false, true, false, previousFocused);
+    UITheme::drawButton(calendarNextButton(panel), ">", false, monthOffset < 0, false, nextFocused);
 
     const float gridX = panel.x + 16.0f;
     const float gridY = panel.y + (compact ? 74.0f : 91.0f);
@@ -210,27 +216,46 @@ void drawDashboard(const AccountSummary& account, const DashboardData& dashboard
 }
 }
 
+bool MainScreen::tab(UserRole role, Section section) {
+    std::vector<int> order;
+    for (std::size_t i = 0; i < menu(role).size(); ++i) order.push_back(static_cast<int>(i));
+    order.push_back(SignOut);
+    if (role == UserRole::LEARNER) order.push_back(ChangePassword);
+    order.push_back(Close);
+    if (role == UserRole::LEARNER && section == Section::Dashboard) {
+        order.push_back(PreviousMonth);
+        if (calendarMonthOffset_ < 0) order.push_back(NextMonth);
+    }
+    return focus_.move(order, false);
+}
+
 MainScreenEvent MainScreen::update(UserRole role, Section selectedSection) {
-    if (clicked(closeBounds())) return {MainScreenEvent::Type::REQUEST_CLOSE};
-    if (clicked(logoutBounds())) return {MainScreenEvent::Type::LOGOUT};
+    if (focus_.activate(Close, closeBounds())) return {MainScreenEvent::Type::REQUEST_CLOSE};
+    if (focus_.activate(SignOut, logoutBounds(role))) return {MainScreenEvent::Type::LOGOUT};
+    if (role == UserRole::LEARNER && focus_.activate(ChangePassword, changePasswordBounds()))
+        return {MainScreenEvent::Type::CHANGE_PASSWORD};
     if (role == UserRole::LEARNER && selectedSection == Section::Dashboard) {
         const Rectangle panel = UiLayout::content();
         const float x = panel.x + 28.0f;
         const bool compact = panel.height < 500.0f;
         const Rectangle calendar{x, panel.y + (compact ? 166.0f : 195.0f), panel.width - 56.0f,
                                  panel.height - (compact ? 186.0f : 215.0f)};
-        if (clicked(calendarPreviousButton(calendar))) --calendarMonthOffset_;
-        else if (calendarMonthOffset_ < 0 && clicked(calendarNextButton(calendar))) ++calendarMonthOffset_;
+        if (focus_.activate(PreviousMonth, calendarPreviousButton(calendar))) --calendarMonthOffset_;
+        else if (focus_.activate(NextMonth, calendarNextButton(calendar), calendarMonthOffset_ < 0)) {
+            ++calendarMonthOffset_;
+            if (calendarMonthOffset_ == 0) focus_.id = PreviousMonth;
+        }
     }
     const auto& items = menu(role);
     for (std::size_t i = 0; i < items.size(); ++i) {
-        if (clicked(sectionBounds(i, items.size()))) return {MainScreenEvent::Type::SELECT_SECTION, items.begin()[i].section};
+        if (focus_.activate(static_cast<int>(i), sectionBounds(i, items.size())))
+            return {MainScreenEvent::Type::SELECT_SECTION, items.begin()[i].section};
     }
     return {};
 }
 
 void MainScreen::draw(const AccountSummary& account, Section selectedSection,
-                      const DashboardData& dashboard) const {
+                      const DashboardData& dashboard, bool showFocus) const {
     const float sidebarWidth = UiLayout::sidebarWidth();
     ClearBackground(kBackground);
     DrawRectangle(0, 0, static_cast<int>(sidebarWidth), GetScreenHeight(), kSidebar);
@@ -252,6 +277,7 @@ void MainScreen::draw(const AccountSummary& account, Section selectedSection,
             UITheme::drawText(items.begin()[i].label, static_cast<int>(bounds.x + 18),
                      static_cast<int>(bounds.y + (bounds.height - 18.0f) / 2.0f), 18, kText);
         }
+        if (showFocus && focus_.on(static_cast<int>(i))) UITheme::drawFocus(bounds);
     }
 
     DrawLine(16, GetScreenHeight() - 120, static_cast<int>(sidebarWidth) - 16,
@@ -261,7 +287,7 @@ void MainScreen::draw(const AccountSummary& account, Section selectedSection,
     EndScissorMode();
     drawText(account.role == UserRole::ADMIN ? "Admin" : "Learner",
              20, GetScreenHeight() - 86, 15, kMuted);
-    const Rectangle logout = logoutBounds();
+    const Rectangle logout = logoutBounds(account.role);
     DrawRectangleRounded(logout, 0.24f, 8,
                          CheckCollisionPointRec(GetMousePosition(), logout) ? Color{255, 232, 240, 255} : kCard);
     DrawRectangleRoundedLinesEx(logout, 0.24f, 8, 1.0f, kBorder);
@@ -269,6 +295,10 @@ void MainScreen::draw(const AccountSummary& account, Section selectedSection,
     const int signOutX = static_cast<int>(logout.x + (logout.width - signOutWidth) * 0.5f);
     const int signOutY = static_cast<int>(logout.y + (logout.height - 18.0f) * 0.5f);
     drawText("Sign out", static_cast<float>(signOutX), static_cast<float>(signOutY), 18, kPrimaryHover);
+    if (showFocus && focus_.on(SignOut)) UITheme::drawFocus(logout);
+    if (account.role == UserRole::LEARNER)
+        UITheme::drawButton(changePasswordBounds(), "Change password", false, true, false,
+                            showFocus && focus_.on(ChangePassword));
 
     DrawRectangle(static_cast<int>(sidebarWidth), 0, GetScreenWidth() - static_cast<int>(sidebarWidth),
                   94, kCard);
@@ -277,10 +307,12 @@ void MainScreen::draw(const AccountSummary& account, Section selectedSection,
     drawText(title, static_cast<int>(UiLayout::content().x), 25, 30, kText);
     const std::string roleText = account.role == UserRole::ADMIN ? "Admin" : "Learner";
     drawText(TextFormat("%s  |  %s", account.username.c_str(), roleText.c_str()), static_cast<int>(UiLayout::content().x), 61, 15, kMuted);
-    drawButton(closeBounds(), "Close");
+    drawButton(closeBounds(), "Close", showFocus && focus_.on(Close));
 
     const Rectangle content = UiLayout::content();
     DrawRectangleRounded(content, 0.035f, 12, kCard);
     DrawRectangleRoundedLinesEx(content, 0.035f, 12, 1.0f, kBorder);
-    if (selectedSection == Section::Dashboard) drawDashboard(account, dashboard, content, calendarMonthOffset_);
+    if (selectedSection == Section::Dashboard)
+        drawDashboard(account, dashboard, content, calendarMonthOffset_,
+                      showFocus && focus_.on(PreviousMonth), showFocus && focus_.on(NextMonth));
 }

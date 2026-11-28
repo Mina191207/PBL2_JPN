@@ -1,5 +1,7 @@
 PBL2_USERS_V2
-U001|admin|$argon2id$v=19$m=65536,t=2,p=1$UijiCuTnckkJSuNBhSgqug$pFMtY2CWLWP1/b3KFvEPkQmqezt4e/2Qwb1TckVcSd0|ADMIN|ACTIVE
-U002|learner01|$argon2id$v=19$m=65536,t=2,p=1$d2zDEUCt1C1DDhPp+BPW4g$7tY+qAK0IVoJmPrxBiLEs/SHt3ihkff6X6R7rr0NRq0|LEARNER|ACTIVE
-U003|learner02|$argon2id$v=19$m=65536,t=2,p=1$CigxywJh6HmGPFoj+YVQdw$fMH3ePq/zqumDmPIUEbM8f1wLz76Ggp0OHUWApdpg7Q|LEARNER|LOCKED
-U004|learner03|$argon2id$v=19$m=65536,t=2,p=1$F+8L8TdEoTeGZTZpK322Ow$uJOWrn/BpqWMZSC3skSgOzI7ndVa3zElvKvOStP2cKQ|LEARNER|LOCKED
+U001|admin|$argon2id$v=19$m=65536,t=2,p=1$P/JdmncjnWpzgU5fJyN7GQ$MsX9/bvX2sLMPNCyDPViZWwgkVFEDcxdcrftRoXoBW4|ADMIN|ACTIVE
+U002|learner01|$argon2id$v=19$m=65536,t=2,p=1$0GOSy3I62rLG6twAaIhKAg$jKg/bnEq8ftbMo0evYwDb9vUp/08PbphYx3N2JvOa6Q|LEARNER|ACTIVE
+U003|learner02|$argon2id$v=19$m=65536,t=2,p=1$fMOn6QUG9jmCc96AcYho0g$fnr3fes555tCTG+g+HaVq22gye8FWebbrmYORbq0Uxg|LEARNER|LOCKED
+U004|learner03|$argon2id$v=19$m=65536,t=2,p=1$qC2mO+zeQ2BAyiqgE5jBNg$4eF3gOzkf/tHm8C5fPsumuVgsWu0n82lOLkTeZplpAk|LEARNER|LOCKED
+U005|admin_test|$argon2id$v=19$m=65536,t=2,p=1$pwidCMSQg/+RNS05Ele5+Q$DyIHwj2maVowdewNfWZwVMq2PjMl6R6fHrk4ZfTlM/s|ADMIN|ACTIVE
+U006|learner_test|$argon2id$v=19$m=65536,t=2,p=1$PO3HKk6EiUC+HD8SBQ428w$SR96A4wcT0HNGknf+enMgy+hyRO+i5806Fy7Ckwq4B0|LEARNER|ACTIVE

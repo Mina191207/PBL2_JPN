@@ -4,182 +4,218 @@
 #include <algorithm>
 #include <cmath>
 #include <filesystem>
-#include <string_view>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
 namespace {
-constexpr int kAtlasSize = 48;
-constexpr std::size_t kCodepointsPerPage = 512;
-constexpr double kIdleBeforeAtlasUpdate = 0.18;
-constexpr float kSpacing = 1.0f;
+constexpr int atlasSize = 48;
+constexpr std::size_t pageSize = 512;
+constexpr float spacing = 1.0f;
+constexpr int traceLevel = LOG_WARNING;
 
+struct Glyph { const Font* font; int index; int codepoint; };
+struct Location { std::size_t page; int index; };
 std::vector<Font> pages;
-std::unordered_map<int, std::size_t> glyphPages;
-std::unordered_set<int> pendingSet;
-std::vector<int> pending;
-bool ready = false;
-double lastPendingTime = 0.0;
-std::string fontPath;
+std::unordered_map<int, Location> locations;
+std::unordered_set<int> unavailable;
+unsigned char* fontData = nullptr;
+int fontBytes = 0;
 std::string errorMessage;
 
-void addPage(const std::vector<int>& requested) {
-    if (requested.empty() || fontPath.empty()) return;
-    std::vector<int> codes;
-    codes.reserve(requested.size());
-    for (const int cp : requested)
-        if (glyphPages.find(cp) == glyphPages.end() &&
-            std::find(codes.begin(), codes.end(), cp) == codes.end()) codes.push_back(cp);
-    if (codes.empty()) return;
-
-    Font font = LoadFontEx(fontPath.c_str(), kAtlasSize, codes.data(), static_cast<int>(codes.size()));
-    if (font.texture.id == 0 || !font.glyphs || !font.recs) {
-        errorMessage = "Noto Sans JP could not build a font atlas.";
-        if (font.texture.id != 0) UnloadFont(font);
-        return;
-    }
-    const std::size_t pageIndex = pages.size();
+Font load(std::vector<int>& codes) {
+    if (!fontData || codes.empty()) return {};
+    Font font{};
+    font.baseSize = atlasSize;
+    font.glyphCount = static_cast<int>(codes.size());
+    font.glyphPadding = 1;
+    font.glyphs = LoadFontData(fontData, fontBytes, atlasSize, codes.data(), font.glyphCount, FONT_DEFAULT);
+    if (!font.glyphs) return {};
+    // Size each cell from the rasterized glyphs. Raylib 5.5's default atlas can
+    // place tall glyphs past the end of a small page.
+    int cellWidth = 2, cellHeight = 2;
     for (int i = 0; i < font.glyphCount; ++i) {
-        const int cp = font.glyphs[i].value;
-        if (std::find(codes.begin(), codes.end(), cp) != codes.end())
-            glyphPages.emplace(cp, pageIndex);
+        cellWidth = std::max(cellWidth, font.glyphs[i].image.width + 2);
+        cellHeight = std::max(cellHeight, font.glyphs[i].image.height + 2);
     }
-    pages.push_back(font);
-}
-
-void loadCodepoints(const std::vector<int>& codepoints) {
-    for (std::size_t start = 0; start < codepoints.size(); start += kCodepointsPerPage) {
-        const std::size_t finish = std::min(codepoints.size(), start + kCodepointsPerPage);
-        addPage(std::vector<int>(codepoints.begin() + static_cast<std::ptrdiff_t>(start),
-                                 codepoints.begin() + static_cast<std::ptrdiff_t>(finish)));
+    const int columns = static_cast<int>(std::ceil(std::sqrt(font.glyphCount)));
+    const int width = columns * cellWidth;
+    const int height = ((font.glyphCount + columns - 1) / columns) * cellHeight;
+    std::vector<unsigned char> pixels(static_cast<std::size_t>(width) * height * 2);
+    font.recs = static_cast<Rectangle*>(MemAlloc(static_cast<unsigned>(font.glyphCount * sizeof(Rectangle))));
+    if (!font.recs) { UnloadFontData(font.glyphs, font.glyphCount); return {}; }
+    for (int i = 0; i < font.glyphCount; ++i) {
+        const auto& bitmap = font.glyphs[i].image;
+        const int x = (i % columns) * cellWidth + 1;
+        const int y = (i / columns) * cellHeight + 1;
+        font.recs[i] = {static_cast<float>(x), static_cast<float>(y),
+                        static_cast<float>(bitmap.width), static_cast<float>(bitmap.height)};
+        const auto* source = static_cast<const unsigned char*>(bitmap.data);
+        for (int row = 0; row < bitmap.height; ++row) {
+            for (int col = 0; col < bitmap.width; ++col) {
+                const auto pixel = 2 * (static_cast<std::size_t>(y + row) * width + x + col);
+                pixels[pixel] = 255;
+                pixels[pixel + 1] = source[row * bitmap.width + col];
+            }
+        }
     }
-}
-
-int fallbackPage() {
-    const auto it = glyphPages.find('?');
-    return it == glyphPages.end() ? 0 : static_cast<int>(it->second);
-}
-
-void queueMissing(int cp) {
-    if (glyphPages.find(cp) != glyphPages.end() || !pendingSet.insert(cp).second) return;
-    pending.push_back(cp);
-    lastPendingTime = GetTime();
-}
-
-std::string resolveFontPath() {
-    const std::filesystem::path besideExe = std::filesystem::path(GetApplicationDirectory()) /
-                                              "assets" / "fonts" / "NotoSansJP-Medium.ttf";
-    if (FileExists(besideExe.string().c_str())) return besideExe.string();
+    font.texture = LoadTextureFromImage({pixels.data(), width, height, 1, PIXELFORMAT_UNCOMPRESSED_GRAY_ALPHA});
+    if (font.texture.id != 0) return font;
+    UnloadFont(font);
     return {};
 }
 
-bool containsGlyph(const Font& font, int cp) {
-    if (!font.glyphs || !font.recs) return false;
-    for (int i = 0; i < font.glyphCount; ++i)
-        if (font.glyphs[i].value == cp && (font.recs[i].width > 0.0f || cp == ' ')) return true;
-    return false;
+int exactIndex(const Font& font, int cp) {
+    if (!font.glyphs || !font.recs) return -1;
+    const int index = GetGlyphIndex(font, cp);
+    return index >= 0 && index < font.glyphCount && font.glyphs[index].value == cp &&
+           (font.recs[index].width > 0.0f || cp == ' ') ? index : -1;
+}
+
+void addPage(std::vector<int> codes) {
+    Font font = load(codes);
+    if (font.texture.id != 0) {
+        const auto index = pages.size();
+        pages.push_back(font);
+        for (int i = 0; i < font.glyphCount; ++i) {
+            const int cp = font.glyphs[i].value;
+            if (font.recs[i].width > 0.0f || cp == ' ') locations.emplace(cp, Location{index, i});
+        }
+    }
+    for (int cp : codes)
+        if (!locations.count(cp)) unavailable.insert(cp);
+}
+
+Glyph resolve(int cp, const Font* privateFont, const Font& fallback) {
+    if (cp == '\t') cp = ' ';
+    const auto found = locations.find(cp);
+    if (found != locations.end()) return {&pages[found->second.page], found->second.index, cp};
+    if (privateFont) {
+        if (const int index = exactIndex(*privateFont, cp); index >= 0) return {privateFont, index, cp};
+    }
+    const auto replacement = locations.find('?');
+    if (replacement != locations.end())
+        return {&pages[replacement->second.page], replacement->second.index, '?'};
+    const int index = exactIndex(fallback, cp);
+    if (index >= 0) return {&fallback, index, cp};
+    return {&fallback, exactIndex(fallback, '?'), '?'};
+}
+
+float advance(const Glyph& glyph, int size) {
+    if (glyph.index < 0 || glyph.font->baseSize <= 0) return static_cast<float>(size) * 0.5f;
+    const auto& info = glyph.font->glyphs[glyph.index];
+    const float width = info.advanceX == 0 ? glyph.font->recs[glyph.index].width : static_cast<float>(info.advanceX);
+    return std::max(1.0f, width * size / glyph.font->baseSize + spacing);
 }
 }
 
 namespace UiText {
 bool initialize() {
-    if (ready) return true;
+    if (!pages.empty()) return true;
+    SetTraceLogLevel(traceLevel);
     errorMessage.clear();
-    fontPath = resolveFontPath();
-    if (fontPath.empty()) {
+    const auto path = std::filesystem::path(GetApplicationDirectory()) / "assets" / "fonts" / "NotoSansJP-Medium.ttf";
+    fontData = LoadFileData(path.string().c_str(), &fontBytes);
+    if (!fontData) {
         errorMessage = "Bundled Noto Sans JP font not found beside the application.";
         return false;
     }
-    std::vector<int> basic;
-    for (int cp = 32; cp <= 126; ++cp) basic.push_back(cp);
-    basic.insert(basic.end(), {0x00E9, 0x1EBF, 0x3042, 0x30A2, 0x65E5});
-    loadCodepoints(basic);
-    if (pages.empty() || pages.front().texture.id == 0) {
-        if (errorMessage.empty()) errorMessage = "Could not load the bundled Noto Sans JP font.";
+    std::vector<int> codes;
+    for (int cp = 32; cp <= 126; ++cp) codes.push_back(cp);
+    codes.insert(codes.end(), {0x1EBF, 0x3042, 0x30A2, 0x65E5});
+    addPage(std::move(codes));
+    for (int cp : {static_cast<int>('A'), 0x1EBF, 0x3042, 0x30A2, 0x65E5}) {
+        if (hasGlyph(cp)) continue;
+        errorMessage = "Bundled font is missing a required Latin, Vietnamese, kana, or Kanji glyph.";
+        shutdown();
         return false;
     }
-    const Font& font = pages.front();
-    for (const int cp : {static_cast<int>('A'), 0x1EBF, 0x3042, 0x30A2, 0x65E5}) {
-        if (!containsGlyph(font, cp)) {
-            errorMessage = "Bundled font is missing a required Latin, Vietnamese, kana, or Kanji glyph.";
-            shutdown();
-            return false;
-        }
-    }
-    ready = true;
     return true;
 }
 
 void shutdown() {
-    for (auto& font : pages) if (font.texture.id != 0) UnloadFont(font);
-    pages.clear(); glyphPages.clear(); pending.clear(); pendingSet.clear(); ready = false;
+    for (const auto& font : pages) UnloadFont(font);
+    pages.clear();
+    locations.clear();
+    unavailable.clear();
+    if (fontData) UnloadFileData(fontData);
+    fontData = nullptr;
+    fontBytes = 0;
 }
 
-void beginFrame() {}
+bool hasGlyph(int codepoint) { return locations.count(codepoint) != 0; }
 
-void endFrame() {
-    if (!pending.empty() && GetTime() - lastPendingTime >= kIdleBeforeAtlasUpdate) {
-        const auto codes = std::move(pending);
-        pending.clear(); pendingSet.clear();
-        loadCodepoints(codes);
+void prepare(std::string_view text) {
+    if (!fontData) return;
+    std::vector<int> missing;
+    std::unordered_set<int> seen;
+    for (std::size_t pos = 0; pos < text.size();) {
+        const int cp = Utf8::next(text, pos).codepoint;
+        if (cp < 32 || hasGlyph(cp) || unavailable.count(cp) || !seen.insert(cp).second) continue;
+        missing.push_back(cp);
+        if (missing.size() == pageSize) { addPage(std::move(missing)); missing.clear(); }
+    }
+    if (!missing.empty()) addPage(std::move(missing));
+}
+
+void draw(std::string_view text, int x, int y, int fontSize, Color tint, const Font* privateFont) {
+    if (!privateFont) prepare(text);
+    const auto fallback = GetFontDefault();
+    float pen = static_cast<float>(x);
+    for (std::size_t pos = 0; pos < text.size();) {
+        const int cp = Utf8::next(text, pos).codepoint;
+        if (cp == '\n') { pen = static_cast<float>(x); y += fontSize + 8; continue; }
+        const auto glyph = resolve(cp, privateFont, fallback);
+        if (glyph.index >= 0)
+            DrawTextCodepoint(*glyph.font, glyph.codepoint, {pen, static_cast<float>(y)}, static_cast<float>(fontSize), tint);
+        pen += advance(glyph, fontSize);
     }
 }
 
-void draw(const char* input, int x, int y, int fontSize, Color tint) {
-    if (!input || *input == '\0') return;
-    if (pages.empty()) { DrawText(input, x, y, fontSize, tint); return; }
-    const std::string_view text(input);
-    const auto cps = Utf8::decode(text);
-    float penX = static_cast<float>(x);
-    float penY = static_cast<float>(y);
-    std::size_t runStart = 0;
-    int runPage = -1;
-    auto flush = [&](std::size_t end) {
-        if (runPage < 0 || end <= runStart) return;
-        const std::string run(text.substr(runStart, end - runStart));
-        const Font& font = pages[static_cast<std::size_t>(runPage)];
-        DrawTextEx(font, run.c_str(), {penX, penY}, static_cast<float>(fontSize), kSpacing, tint);
-        penX += MeasureTextEx(font, run.c_str(), static_cast<float>(fontSize), kSpacing).x;
-    };
-    for (const auto& cp : cps) {
-        auto it = glyphPages.find(cp.codepoint);
-        int page = it == glyphPages.end() ? fallbackPage() : static_cast<int>(it->second);
-        if (it == glyphPages.end()) queueMissing(cp.codepoint);
-        if (cp.codepoint == '\n') {
-            flush(cp.begin);
-            runStart = cp.end; runPage = -1; penX = static_cast<float>(x);
-            penY += static_cast<float>(fontSize + 8);
-            continue;
-        }
-        if (runPage != page) { flush(cp.begin); runStart = cp.begin; runPage = page; }
-    }
-    flush(text.size());
+float glyphAdvance(int cp, int size, const Font* privateFont) {
+    if (!privateFont && !hasGlyph(cp) && !unavailable.count(cp) && cp >= 32) prepare(Utf8::encode(cp));
+    const auto fallback = GetFontDefault();
+    return advance(resolve(cp, privateFont, fallback), size);
 }
 
-int measure(const char* input, int fontSize) {
-    if (!input || *input == '\0') return 0;
-    if (pages.empty()) return MeasureText(input, fontSize);
-    const std::string_view text(input);
-    const auto cps = Utf8::decode(text);
-    float width = 0.0f;
-    float maxWidth = 0.0f;
-    std::size_t start = 0;
-    int current = -1;
-    auto flush = [&](std::size_t end) {
-        if (current < 0 || end <= start) return;
-        const std::string run(text.substr(start, end - start));
-        width += MeasureTextEx(pages[static_cast<std::size_t>(current)], run.c_str(), static_cast<float>(fontSize), kSpacing).x;
-    };
-    for (const auto& cp : cps) {
-        const auto it = glyphPages.find(cp.codepoint);
-        const int page = it == glyphPages.end() ? fallbackPage() : static_cast<int>(it->second);
-        if (it == glyphPages.end()) queueMissing(cp.codepoint);
-        if (cp.codepoint == '\n') { flush(cp.begin); maxWidth = std::max(maxWidth, width); width = 0.0f; start = cp.end; current = -1; continue; }
-        if (page != current) { flush(cp.begin); start = cp.begin; current = page; }
+int measure(const char* value, int fontSize) {
+    if (!value || !*value) return 0;
+    std::string_view text(value);
+    prepare(text);
+    const auto fallback = GetFontDefault();
+    float width = 0, longest = 0;
+    for (std::size_t pos = 0; pos < text.size();) {
+        const int cp = Utf8::next(text, pos).codepoint;
+        if (cp == '\n') { longest = std::max(width, longest); width = 0; }
+        else width += advance(resolve(cp, nullptr, fallback), fontSize);
     }
-    flush(text.size());
-    return static_cast<int>(std::ceil(std::max(maxWidth, width)));
+    return static_cast<int>(std::ceil(std::max(longest, width)));
+}
+
+const Font* PrivateFont::prepare(std::string_view text) {
+    std::vector<int> missing;
+    for (std::size_t pos = 0; pos < text.size();) {
+        const int cp = Utf8::next(text, pos).codepoint;
+        if (cp < 32 || hasGlyph(cp)) continue;
+        missing.push_back(cp);
+    }
+    std::sort(missing.begin(), missing.end());
+    missing.erase(std::unique(missing.begin(), missing.end()), missing.end());
+    if (missing != required_) {
+        clear();
+        // Raylib can include a requested codepoint in atlas diagnostics.
+        SetTraceLogLevel(LOG_NONE);
+        font_ = load(missing);
+        SetTraceLogLevel(traceLevel);
+        required_ = std::move(missing);
+    }
+    return &font_;
+}
+
+void PrivateFont::clear() noexcept {
+    if (font_.texture.id != 0) UnloadFont(font_);
+    font_ = {};
+    required_.clear();
 }
 
 const std::string& error() { return errorMessage; }

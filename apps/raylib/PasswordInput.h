@@ -19,6 +19,7 @@ class PasswordInput {
     PasswordInput& operator=(const PasswordInput&) = delete;
     const std::string& value() const noexcept { return value_; }
     bool tooLong() const noexcept { return tooLong_; }
+    void markTooLong() noexcept { tooLong_ = true; }
     std::string masked() const {
         return std::string(Utf8::countValid(value_), '*');
     }
@@ -32,6 +33,17 @@ class PasswordInput {
         const auto start = Utf8::lastOffset(value_);
         wipe(value_.data() + start, value_.size() - start);
         value_.resize(start);
+        tooLong_ = false;
+    }
+    void erase(std::size_t first, std::size_t count) {
+        const auto remaining = value_.size() - first - count;
+        for (std::size_t i = 0; i < remaining; ++i) value_[first + i] = value_[first + count + i];
+        wipe(value_.data() + value_.size() - count, count);
+        value_.resize(value_.size() - count);
+        tooLong_ = false;
+    }
+    void insert(std::size_t offset, std::string_view bytes) {
+        value_.insert(offset, bytes);
         tooLong_ = false;
     }
     void append(int codepoint) {

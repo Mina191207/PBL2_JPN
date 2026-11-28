@@ -24,6 +24,7 @@ Grammar::Grammar(const ResourceId& id,
     validateTxtField(example_, "example", false);
     validateTxtField(note_, "note", false);
     validateTxtRecord({getId().getId(), pattern_, getMeaning(), structure_, usage_, example_, note_});
+    buildSearchKeys(pattern_, structure_, usage_);
 }
 const std::string& Grammar::getPattern() const noexcept {
     return pattern_;

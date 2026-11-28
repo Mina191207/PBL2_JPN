@@ -80,7 +80,7 @@ int main() {
     SearchOptions search;
     search.query = "school";
     assert(app.resources().search(search).size() == 1);
-    assert(app.histories().record(search.query, error));
+    assert(app.histories().record(search, error));
     assert(app.histories().listNewest().size() == 1);
     search.query.clear();
     assert(app.resources().search(search).size() == 3);
@@ -142,8 +142,7 @@ int main() {
     assert(!app.service().importPackage(packageFolder.string(), error));
     assert(app.resources().nextResourceId() == ResourceId("R100001"));
     assert(app.service().dirty());
-    assert(app.service().save(folder.string(), error));
-    assert(!app.service().dirty());
+    assert(storage.saveAll(folder.string(), app.data(), error));
     DataStore loaded;
     assert(storage.loadAll(folder.string(), loaded, error));
     assert(loaded.findResource(ResourceId("R100000")) && loaded.attempts.size() == 2);

@@ -51,7 +51,7 @@ void AppController::handleResourcesEvent(ResourcesEvent event) {
     auto report = [&](const Status& status, const char* success) {
         if (!status.ok()) { resourcesMessage_ = status.message.empty() ? "The operation failed." : status.message; resourcesMessageError_ = true; }
         else if (status.save == SaveState::PENDING)
-            { resourcesMessage_ = status.message.empty() ? "Change applied; saving is pending." : "Change applied; save pending: " + status.message; resourcesMessageError_ = false; }
+            { resourcesMessage_ = status.message.empty() ? "Change applied; saving is pending." : "Change applied; save pending: " + status.message; resourcesMessageError_ = true; }
         else { resourcesMessage_ = success; resourcesMessageError_ = false; }
     };
     if (event.type != ResourcesEvent::Type::NONE) {
@@ -59,7 +59,7 @@ void AppController::handleResourcesEvent(ResourcesEvent event) {
         resourcesMessageError_ = false;
     }
     switch (event.type) {
-    case ResourcesEvent::Type::NONE: case ResourcesEvent::Type::CANCEL_FORM: return;
+    case ResourcesEvent::Type::NONE: case ResourcesEvent::Type::CANCEL_FORM: case ResourcesEvent::Type::EDITED: return;
     case ResourcesEvent::Type::INPUT_LIMIT:
         resourcesMessage_ = "Search input exceeds " + std::to_string(maxTxtFieldBytes) + " bytes.";
         resourcesMessageError_ = true;

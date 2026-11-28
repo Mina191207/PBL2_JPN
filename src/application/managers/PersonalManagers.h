@@ -21,8 +21,8 @@ class HistoryManager {
 
   public:
     HistoryManager(DataStore& data, const UserManager& users);
-    bool record(const std::string& query, std::string& error);
+    bool record(const SearchOptions& options, std::string& error);
     std::vector<SearchHistory> listNewest() const;
-    std::optional<std::string> queryFor(const HistoryId& id) const;
+    const SearchHistory* find(const HistoryId& id) const;
     bool clear(std::string& error);
 };

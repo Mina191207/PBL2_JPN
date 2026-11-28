@@ -16,24 +16,85 @@ constexpr Color kMuted = UITheme::muted;
 constexpr Color kHover = UITheme::hover;
 
 constexpr float kActionButtonWidth = 170.0f;
-struct BackendUiLayout { Rectangle content, list, refresh; float actionX, actionY; std::size_t visibleRows; };
-BackendUiLayout layout() {
+struct BackendUiLayout {
+    Rectangle content, list, refresh, banner, helper;
+    float actionX, actionY;
+};
+
+const char* sectionHelp(Section section) {
+    switch (section) {
+    case Section::Statistics: return "Review your resource totals and past quiz attempts.";
+    case Section::Review: return "Review your saved favorites one card at a time.";
+    case Section::Quiz: return "Choose a JLPT level with active questions to begin.";
+    case Section::Alphabet: return "Choose Hiragana or Katakana, then select a kana.";
+    case Section::Packages: return "Choose a package folder, then export or import.";
+    case Section::Accounts:
+    case Section::Questions: return "Select a row, then choose View details to read the full record.";
+    default: return "Select an entry to act on it.";
+    }
+}
+
+BackendUiLayout layout(Section section, const std::string& message) {
     BackendUiLayout ui{};
     ui.content = UiLayout::content();
+    const float fullWidth = ui.content.width - 24.0f;
+    const float left = ui.content.x + 12.0f;
+    const float bottom = ui.content.y + ui.content.height;
+    const bool stats = section == Section::Statistics;
+    const bool quiz = section == Section::Quiz;
+    const float bannerHeight = std::min(UITheme::bannerHeight(fullWidth, message), stats ? 100.0f : 120.0f);
+    ui.banner = {left, bottom - bannerHeight - 8.0f, fullWidth, bannerHeight};
+    const float usableBottom = bannerHeight > 0 ? ui.banner.y - 8.0f : bottom - 8.0f;
     ui.actionX = ui.content.x + ui.content.width - kActionButtonWidth - 14.0f;
     ui.actionY = ui.content.y + 72.0f;
-    ui.refresh = {ui.actionX, ui.content.y + 12.0f, kActionButtonWidth, 36.0f};
-    ui.list = {ui.content.x + 12.0f, ui.content.y + 72.0f,
-               std::max(150.0f, ui.content.width - 220.0f), ui.content.height - 124.0f};
-    ui.visibleRows = std::max<std::size_t>(1, static_cast<std::size_t>(ui.list.height / 34.0f));
+    ui.refresh = {ui.actionX, ui.content.y + 8.0f, kActionButtonWidth, 32.0f};
+    ui.helper = {left, ui.content.y + 44.0f, fullWidth, 20.0f};
+    const float top = ui.content.y + (stats ? 152.0f : 72.0f);
+    if (quiz) {
+        ui.actionX = left;
+        ui.actionY = usableBottom - 40.0f;
+    }
+    const float listBottom = quiz ? ui.actionY - 8.0f : std::min(usableBottom, bottom - 52.0f);
+    const float sideSpace = section == Section::Accounts ? 208.0f : 220.0f;
+    ui.list = {left, top, stats || quiz ? fullWidth : ui.content.width - sideSpace,
+               std::max(60.0f, listBottom - top)};
     return ui;
 }
-BackendUiLayout statisticsLayout(BackendUiLayout ui) {
-    ui.list = {ui.content.x + 12.0f, ui.content.y + 152.0f, ui.content.width - 24.0f,
-               std::max(120.0f, ui.content.height - 204.0f)};
-    ui.visibleRows = std::max<std::size_t>(1, static_cast<std::size_t>(ui.list.height / 42.0f));
-    return ui;
+
+bool supportsRowDetails(Section section) {
+    return section == Section::Accounts || section == Section::Questions || section == Section::Statistics;
 }
+
+Rectangle rowDetailsButton(Rectangle list) {
+    return {list.x + 10.0f, list.y + list.height - 36.0f, UITheme::buttonWidth("View details") + 8.0f, 30.0f};
+}
+
+Rectangle rowDetailsDialog() { return UiLayout::centeredDialog(680, 500); }
+Rectangle rowDetailsViewport(Rectangle panel) {
+    return {panel.x + 20.0f, panel.y + 62.0f, panel.width - 40.0f, panel.height - 126.0f};
+}
+Rectangle rowDetailsClose(Rectangle panel) {
+    return {panel.x + panel.width - 122.0f, panel.y + panel.height - 52.0f, 102.0f, 36.0f};
+}
+
+std::vector<UITheme::WrappedText> rowDetails(const BackendTableData& table, const BackendId& selected,
+                                             Rectangle viewport) {
+    std::vector<UITheme::WrappedText> fields;
+    const auto row = std::find_if(table.rows.begin(), table.rows.end(),
+        [&](const auto& candidate) { return candidate.id == selected; });
+    if (row != table.rows.end()) {
+        for (std::size_t i = 0; i < table.headers.size() && i < row->cells.size(); ++i)
+            fields.push_back(UITheme::wrap(table.headers[i] + ": " + row->cells[i], viewport.width - 20.0f, 18));
+    }
+    return fields;
+}
+
+float rowDetailsHeight(const std::vector<UITheme::WrappedText>& fields) {
+    float height = 0.0f;
+    for (const auto& field : fields) height += field.height() + 12.0f;
+    return height;
+}
+
 Rectangle accountRoleFilterBounds(const BackendUiLayout& ui) {
     const float x = ui.list.x + 145.0f;
     return {x, ui.content.y + 6.0f, std::min(250.0f, ui.actionX - x - 10.0f), 32.0f};
@@ -159,7 +220,7 @@ const std::initializer_list<TableAction>& tableActions(Section section, UserRole
         {Event::EDIT_ROW, "Edit question", 144, true}};
     static const std::initializer_list<TableAction> favorites = {{Event::REMOVE_FAVORITE, "Remove favorite", 0, true}};
     static const std::initializer_list<TableAction> history = {{Event::REPLAY_HISTORY, "Search again", 0, true, true},
-        {Event::CLEAR_HISTORY, "Clear history", 48, false}};
+        {Event::REQUEST_CLEAR_HISTORY, "Clear history", 48, false}};
     static const std::initializer_list<TableAction> none{};
     switch (section) {
     case Section::Levels: return levels;
@@ -175,63 +236,97 @@ const std::initializer_list<TableAction>& tableActions(Section section, UserRole
 struct BackendTableLayout {
     Rectangle clip;
     float columnsX;
-    float columnsWidth;
-    float rowHeight;
     std::size_t visibleRows;
-    std::vector<float> weights;
+    std::vector<float> widths;
 };
 
 BackendTableLayout tableLayout(const BackendUiLayout& ui, Section section, const BackendTableData& table) {
     BackendTableLayout result{};
-    result.clip = {ui.list.x + 6.0f, ui.list.y + 48.0f, ui.list.width - 20.0f,
-                   std::max(24.0f, ui.list.height - 76.0f)};
+    const float footer = supportsRowDetails(section) ? 44.0f : 24.0f;
+    result.clip = {ui.list.x + 6.0f, ui.list.y + 42.0f, ui.list.width - 18.0f,
+                   std::max(0.0f, ui.list.height - 42.0f - footer)};
     result.columnsX = ui.list.x + 12.0f;
-    result.columnsWidth = std::max(1.0f, ui.list.width - 38.0f);
-    result.rowHeight = 42.0f;
-    result.visibleRows = std::max<std::size_t>(1, static_cast<std::size_t>(result.clip.height / result.rowHeight));
-    if (section == Section::Levels) result.weights = {0.12f, 0.18f, 0.18f, 0.10f, 0.42f};
-    else if (section == Section::Accounts) result.weights = {0.15f, 0.33f, 0.23f, 0.29f};
-    else if (section == Section::Questions) result.weights = {0.14f, 0.50f, 0.18f, 0.18f};
-    else if (section == Section::Favorites) result.weights = {0.14f, 0.23f, 0.31f, 0.16f, 0.16f};
-    else if (section == Section::History) result.weights = {0.16f, 0.48f, 0.36f};
-    else if (section == Section::Statistics) result.weights = {0.20f, 0.28f, 0.17f, 0.35f};
-    if (result.weights.size() != table.headers.size()) {
-        result.weights.assign(table.headers.size(), table.headers.empty() ? 0.0f : 1.0f / static_cast<float>(table.headers.size()));
+    const float width = ui.list.width - 28.0f;
+    result.visibleRows = std::max<std::size_t>(1, static_cast<std::size_t>(result.clip.height / 42.0f));
+    const auto column = [](const char* sample) { return UITheme::measureText(sample, 16) + 14.0f; };
+    if (section == Section::Accounts && table.headers.size() == 4) {
+        const float id = column("U00000"), role = column("Learner"), status = column("Locked");
+        result.widths = {id, width - id - role - status, role, status};
+    } else if (section == Section::Questions && table.headers.size() == 4) {
+        const float id = column("Q00000"), level = column("JLPT N5"), status = column("Inactive");
+        result.widths = {id, width - id - level - status, level, status};
+    } else if (section == Section::Statistics && table.headers.size() == 4) {
+        const float id = column("Attempt ID"), level = column("JLPT N5"), date = column("28 Nov 2026, 23:59:59 UTC");
+        result.widths = {id, level, width - id - level - date, date};
+    } else {
+        std::vector<float> weights;
+        if (section == Section::Levels) weights = {0.12f, 0.18f, 0.18f, 0.10f, 0.42f};
+        else if (section == Section::Favorites) weights = {0.14f, 0.23f, 0.31f, 0.16f, 0.16f};
+        else if (section == Section::History) weights = {0.16f, 0.48f, 0.36f};
+        if (weights.size() != table.headers.size() && !table.headers.empty())
+            weights.assign(table.headers.size(), 1.0f / static_cast<float>(table.headers.size()));
+        for (float weight : weights) result.widths.push_back(width * weight);
     }
     return result;
 }
 
-Rectangle tableRowBounds(const BackendUiLayout& ui, std::size_t visibleRow) {
-    return {ui.list.x + 6.0f, ui.list.y + 48.0f + static_cast<float>(visibleRow) * 42.0f,
-            ui.list.width - 18.0f, 40.0f};
+Rectangle tableRowBounds(const BackendTableLayout& ui, std::size_t visibleRow) {
+    const float y = ui.clip.y + static_cast<float>(visibleRow) * 42.0f;
+    return {ui.clip.x, y, ui.clip.width, std::max(0.0f, std::min(40.0f, ui.clip.y + ui.clip.height - y))};
 }
 
-float tableColumnX(const BackendTableLayout& ui, std::size_t column) {
-    float x = ui.columnsX;
-    for (std::size_t i = 0; i < column && i < ui.weights.size(); ++i) x += ui.columnsWidth * ui.weights[i];
-    return x;
+Rectangle confirmDialog(bool package) {
+    return package ? UiLayout::centeredDialog(700, 360, 20) : UiLayout::centeredDialog(460, 220, 20);
 }
-
-float tableColumnWidth(const BackendTableLayout& ui, std::size_t column) {
-    return column < ui.weights.size() ? ui.columnsWidth * ui.weights[column] : 0.0f;
-}
-Rectangle confirmDialog() { return UiLayout::centeredDialog(460.0f, 220.0f, 20.0f); }
-Rectangle confirmYes() { const Rectangle d=confirmDialog(); return {d.x+d.width-236.0f,d.y+d.height-58.0f,104,38}; }
-Rectangle confirmNo() { const Rectangle d=confirmDialog(); return {d.x+d.width-120.0f,d.y+d.height-58.0f,96,38}; }
+Rectangle confirmYes(Rectangle d) { return {d.x+d.width-236.0f,d.y+d.height-58.0f,104,38}; }
+Rectangle confirmNo(Rectangle d) { return {d.x+d.width-120.0f,d.y+d.height-58.0f,96,38}; }
 
 }
 
 bool BackendScreen::click(Rectangle r) {
-    return IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(GetMousePosition(), r);
+    return UiInput::click(r);
 }
 void BackendScreen::button(Rectangle r, const char* label, bool primary, bool enabled) {
     UITheme::drawButton(r,label,primary,enabled);
+}
+void BackendScreen::controlButton(int control, Rectangle r, const char* label, bool primary, bool enabled) const {
+    UITheme::drawButton(r, label, primary, enabled, false, !modalOpen() && focus_.on(control));
+}
+
+bool BackendScreen::tab(Section section, UserRole role, const BackendTableData& table,
+                        const std::vector<AlphabetEntry>& alphabet, const BackendActivityState& activity,
+                        const std::string& message) {
+    std::vector<int> order{Refresh};
+    if (section == Section::Accounts) order.push_back(Roles);
+    if (section == Section::Alphabet) {
+        order.insert(order.end(), {Hiragana, Katakana});
+        if (std::any_of(alphabet.begin(), alphabet.end(), [&](const AlphabetEntry& entry) {
+            return entry.getScript() == (alphabetKatakana_ ? Script::KATAKANA : Script::HIRAGANA);
+        })) order.push_back(Rows);
+    }
+    if (isTableSection(section) && !table.rows.empty() &&
+        (section != Section::Accounts || accountRoleFilter_ == 0 || !accountRows(table, accountRoleFilter_).empty()))
+        order.push_back(Rows);
+    if (section == Section::Packages) {
+        order.push_back(PackagePath);
+        if (FolderField::nativeBrowse) order.push_back(PackageBrowse);
+        order.insert(order.end(), {Export, Import});
+    }
+    if (supportsRowDetails(section) && hasSelection()) order.push_back(RowDetails);
+    addStudyControls(order, section, activity);
+    for (const auto& item : tableActions(section, role))
+        if (!item.needsTarget || hasSelection()) order.push_back(actionControl(item.event));
+    const bool moved = focus_.move(order, false);
+    if (section == Section::Quiz && moved) revealQuizOption(layout(section, message).list, activity);
+    return moved;
 }
 
 void BackendScreen::navigate(Section section) {
     if (section == section_) return;
     closeForm();
-    importConfirm_ = deleteConfirm_ = packagePathFocused_ = false;
+    confirmation_.reset();
+    rowDetailsOpen_ = false;
+    clearFocus();
     positions_[static_cast<std::size_t>(section_)] = {std::move(selected_), scrollOffset_};
     section_ = section;
     const auto& position = positions_[static_cast<std::size_t>(section)];
@@ -258,51 +353,73 @@ void BackendScreen::reset() noexcept {
     section_ = Section::Dashboard;
     selected_ = {};
     scrollOffset_ = alphabetScrollOffset_ = quizQuestionIndex_ = accountRoleFilter_ = 0;
-    reviewDetailsScrollOffset_ = 0;
-    alphabetKatakana_ = importConfirm_ = deleteConfirm_ = packagePathFocused_ = false;
+    reviewDetailsScrollOffset_ = quizOffset_ = quizResultOffset_ = 0;
+    alphabetKatakana_ = false;
+    confirmation_.reset();
+    rowDetailsOpen_ = false;
+    clearFocus();
 }
 
 BackendScreenEvent BackendScreen::update(Section section, UserRole role, const std::vector<AlphabetEntry>& alphabet,
-                                         const BackendTableData& table, const BackendActivityState& activity) {
-    const bool statisticsPage = section == Section::Statistics;
-    const BackendUiLayout base = layout();
-    const auto ui = statisticsPage ? statisticsLayout(base) : base;
-    if (deleteConfirm_ || importConfirm_) return updateConfirmation();
+                                         const BackendTableData& table, const BackendActivityState& activity,
+                                         const std::string& message) {
+    const auto ui = layout(section, message);
+    if (rowDetailsOpen_) {
+        const Rectangle panel = rowDetailsDialog();
+        const Rectangle viewport = rowDetailsViewport(panel);
+        if (IsKeyPressed(KEY_ESCAPE) || modalFocus_.activate(0, rowDetailsClose(panel))) rowDetailsOpen_ = false;
+        else rowDetailsOffset_ = UiInput::scroll(viewport, rowDetailsHeight(rowDetails(table, selected_, viewport)),
+                                                 rowDetailsOffset_, true);
+        return {};
+    }
+    if (confirmation_) return updateConfirmation();
     if (formOpen_) {
         if (role == UserRole::ADMIN) return updateForm();
         closeForm();
     }
+    const float bannerHeight = UITheme::bannerHeight(ui.banner.width, message);
+    bannerOffset_ = bannerHeight > ui.banner.height
+        ? UiInput::scroll(ui.banner, bannerHeight, bannerOffset_, false) : 0.0f;
     if (section == Section::Packages && role == UserRole::ADMIN) {
-        const Rectangle path{ui.content.x+12,ui.content.y+100,ui.list.width,42};
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-            packagePathFocused_ = CheckCollisionPointRec(GetMousePosition(), path);
-        if (packagePathFocused_) {
-            if (IsKeyPressed(KEY_BACKSPACE) || IsKeyPressedRepeat(KEY_BACKSPACE)) Utf8::eraseLast(packagePath_);
-            for (int cp = GetCharPressed(); cp > 0; cp = GetCharPressed())
-                if (cp >= 32) Utf8::appendWithinLimit(packagePath_, Utf8::encode(cp), 4096);
-        }
-        if (click({path.x,path.y+52,kActionButtonWidth,38})) {
+        const Rectangle path{ui.content.x+12,ui.content.y+100,ui.content.width-24,42};
+        if (focus_.activate(Export, {path.x,path.y+52,kActionButtonWidth,38})) {
             BackendScreenEvent event(Event::EXPORT_PACKAGE);
-            event.text = packagePath_;
+            event.text = packageFolder_.path();
             return event;
         }
-        if (click({path.x+kActionButtonWidth+12,path.y+52,kActionButtonWidth,38})) { importConfirm_ = true; return {}; }
+        if (focus_.activate(Import, {path.x+kActionButtonWidth+12,path.y+52,kActionButtonWidth,38})) {
+            BackendScreenEvent event(Event::IMPORT_PACKAGE);
+            event.text = packageFolder_.path();
+            confirm(std::move(event), "Import this package?", "The package will be merged into current data.");
+            return {};
+        }
+        if (packageFolder_.update(path, focus_, PackagePath, PackageBrowse))
+            return {Event::EDITED};
     }
-    if (click(ui.refresh)) return {Event::REFRESH};
+    if (focus_.activate(Refresh, ui.refresh)) return {Event::REFRESH};
     if (section == Section::Review) return updateReview(ui.list, ui.actionX, ui.actionY, activity);
     if (section == Section::Quiz) return updateQuiz(ui.list, ui.actionX, ui.actionY, activity);
 
-    if (section == Section::Accounts && click(accountRoleFilterBounds(ui))) {
+    if (section == Section::Accounts && focus_.activate(Roles, accountRoleFilterBounds(ui))) {
         accountRoleFilter_ = (accountRoleFilter_+1)%3;
         scrollOffset_ = 0;
         revalidate(table, alphabet);
         return {};
     }
     if (isTableSection(section)) {
+        if (supportsRowDetails(section) &&
+            (focus_.activate(RowDetails, rowDetailsButton(ui.list), hasSelection()) ||
+             (focus_.on(Rows) && hasSelection() && UiInput::confirm()))) {
+            rowDetailsOpen_ = true;
+            rowDetailsOffset_ = 0.0f;
+            modalFocus_.id = 0;
+            return {};
+        }
         const bool filtered = section == Section::Accounts && accountRoleFilter_ != 0;
         const auto rows = filtered ? accountRows(table, accountRoleFilter_) : std::vector<std::size_t>{};
         const auto count = filtered ? rows.size() : table.rows.size();
         const auto bounds = tableLayout(ui, section, table);
+        const auto idAt = [&](std::size_t i) -> const BackendId& { return table.rows[filtered ? rows[i] : i].id; };
         const auto maxOffset = count > bounds.visibleRows ? count - bounds.visibleRows : 0;
         scrollOffset_ = std::min(scrollOffset_, maxOffset);
         if (CheckCollisionPointRec(GetMousePosition(), ui.list)) {
@@ -310,17 +427,27 @@ BackendScreenEvent BackendScreen::update(Section section, UserRole role, const s
             if (wheel > 0 && scrollOffset_ > 0) --scrollOffset_;
             if (wheel < 0 && scrollOffset_ < maxOffset) ++scrollOffset_;
         }
-        for (std::size_t i = 0; !statisticsPage && i < bounds.visibleRows && scrollOffset_ + i < count; ++i) {
-            if (!click(tableRowBounds(ui, i))) continue;
-            auto index = scrollOffset_ + i;
-            selected_ = table.rows[filtered ? rows[index] : index].id;
+        for (std::size_t i = 0; i < bounds.visibleRows && scrollOffset_ + i < count; ++i) {
+            if (!click(tableRowBounds(bounds, i))) continue;
+            focus_.id = Rows;
+            selected_ = idAt(scrollOffset_ + i);
             return {};
+        }
+        if (focus_.on(Rows) && UiInput::rowKey()) {
+            std::optional<std::size_t> current;
+            if (hasSelection())
+                for (std::size_t i = 0; i < count; ++i) if (idAt(i) == selected_) { current = i; break; }
+            if (const auto next = UiInput::row(count, current)) {
+                selected_ = idAt(*next);
+                UiInput::revealRow(*next, bounds.visibleRows, scrollOffset_);
+                return {};
+            }
         }
     } else if (section == Section::Alphabet) {
         const auto grid = alphabetRows(alphabet, alphabetKatakana_);
         const auto bounds = alphabetLayout(ui, grid.size());
-        if (click(bounds.hiraganaTab) || click(bounds.katakanaTab)) {
-            const bool next = click(bounds.katakanaTab);
+        if (focus_.activate(Hiragana, bounds.hiraganaTab) || focus_.activate(Katakana, bounds.katakanaTab)) {
+            const bool next = focus_.on(Katakana);
             if (next != alphabetKatakana_) {
                 alphabetKatakana_ = next;
                 alphabetScrollOffset_ = 0;
@@ -339,35 +466,60 @@ BackendScreenEvent BackendScreen::update(Section section, UserRole role, const s
             const auto& row = grid[alphabetScrollOffset_+i];
             for (std::size_t col = 0; col < row.entries.size(); ++col) {
                 if (!row.entries[col] || !click(alphabetCell(bounds, i, col))) continue;
+                focus_.id = Rows;
                 selected_ = alphabet[*row.entries[col]].getId();
                 return {};
             }
+        }
+        if (focus_.on(Rows) && UiInput::rowKey()) {
+            std::vector<std::pair<std::size_t, AlphabetId>> entries;
+            std::optional<std::size_t> current;
+            for (std::size_t row = 0; row < grid.size(); ++row) {
+                for (const auto& index : grid[row].entries) {
+                    if (!index) continue;
+                    const auto& id = alphabet[*index].getId();
+                    if (selected_ == BackendId(id)) current = entries.size();
+                    entries.emplace_back(row, id);
+                }
+            }
+            if (const auto next = UiInput::row(entries.size(), current)) {
+                selected_ = entries[*next].second;
+                UiInput::revealRow(entries[*next].first, bounds.visibleRows, alphabetScrollOffset_);
+            }
+            return {};
         }
     }
     return updateActions(section, role, ui.actionX, ui.actionY);
 }
 
+void BackendScreen::confirm(BackendScreenEvent event, std::string title, std::string message) {
+    confirmation_ = Confirmation{std::move(event), std::move(title), std::move(message)};
+    modalFocus_.id = 1;
+}
+
 BackendScreenEvent BackendScreen::updateConfirmation() {
-    if (IsKeyPressed(KEY_ESCAPE) || click(confirmNo())) {
-        deleteConfirm_ = importConfirm_ = false;
+    if (UiInput::tab()) { modalFocus_.move({0, 1}); return {}; }
+    const auto dialog = confirmDialog(confirmation_->event.type == Event::REPLACE_PACKAGE);
+    if (IsKeyPressed(KEY_ESCAPE) || modalFocus_.activate(1, confirmNo(dialog))) {
+        confirmation_.reset();
         return {};
     }
-    if (!click(confirmYes())) return {};
-    if (importConfirm_) {
-        importConfirm_ = false;
-        BackendScreenEvent event(Event::IMPORT_PACKAGE);
-        event.text = packagePath_;
-        return event;
-    }
-    deleteConfirm_ = false;
-    return {Event::DELETE_ROW, selected_};
+    if (!modalFocus_.activate(0, confirmYes(dialog))) return {};
+    auto event = std::move(confirmation_->event);
+    confirmation_.reset();
+    if (event.type == Event::DELETE_ROW) focus_.id = Rows;
+    if (event.type == Event::SUBMIT_QUIZ) focus_.id = QuizText;
+    return event;
 }
 
 BackendScreenEvent BackendScreen::updateActions(Section section, UserRole role, float x, float y) {
     for (const auto& item : tableActions(section, role)) {
-        if ((item.needsTarget && !hasSelection()) || !click(action(x, y + item.offset))) continue;
+        if (!focus_.activate(actionControl(item.event), action(x, y + item.offset), !item.needsTarget || hasSelection())) continue;
         if (item.event == Event::OPEN_CREATE) { openCreateForm(section); return {}; }
-        if (item.event == Event::DELETE_ROW) { deleteConfirm_ = true; return {}; }
+        if (item.event == Event::DELETE_ROW) {
+            confirm({Event::DELETE_ROW, selected_}, "Delete this record?", "This action cannot be undone.");
+            return {};
+        }
         return {item.event, item.needsTarget ? selected_ : BackendId{}};
     }
     return {};
@@ -408,41 +560,34 @@ void BackendScreen::drawTablePage(Rectangle content, Rectangle list, Section sec
     DrawRectangleRounded(ui.list,0.04f,8,Color{255,252,253,255});
     DrawRectangleRoundedLinesEx(ui.list,0.04f,8,1.0f,kBorder);
     const auto tableUi = tableLayout(ui, section, table);
-    const float headerY = ui.list.y + 14.0f;
+    const float headerY = ui.list.y + 12.0f;
+    float columnX = tableUi.columnsX;
     for (std::size_t column = 0; column < table.headers.size(); ++column) {
-        const float columnX = tableColumnX(tableUi, column);
-        const float columnWidth = tableColumnWidth(tableUi, column);
-        BeginScissorMode(static_cast<int>(columnX), static_cast<int>(ui.list.y + 4.0f),
-                         std::max(1, static_cast<int>(columnWidth - 8.0f)), 32);
-        UITheme::drawText(table.headers[column].c_str(), static_cast<int>(columnX + 4.0f),
-                          static_cast<int>(headerY), 18, UITheme::strongText);
-        EndScissorMode();
+        const auto label = UITheme::ellipsize(table.headers[column], tableUi.widths[column] - 8.0f, 16);
+        UITheme::drawText(label.c_str(), static_cast<int>(columnX), static_cast<int>(headerY), 16, UITheme::strongText);
+        columnX += tableUi.widths[column];
     }
-    DrawLine(static_cast<int>(ui.list.x + 8.0f), static_cast<int>(ui.list.y + 42.0f),
-             static_cast<int>(ui.list.x + ui.list.width - 14.0f), static_cast<int>(ui.list.y + 42.0f), kBorder);
+    DrawLine(static_cast<int>(ui.list.x + 8.0f), static_cast<int>(ui.list.y + 36.0f),
+             static_cast<int>(ui.list.x + ui.list.width - 14.0f), static_cast<int>(ui.list.y + 36.0f), kBorder);
     const std::size_t maxOffset = rowCount > tableUi.visibleRows ? rowCount - tableUi.visibleRows : 0;
     const std::size_t first = std::min(scrollOffset_, maxOffset);
-    BeginScissorMode(static_cast<int>(tableUi.clip.x), static_cast<int>(tableUi.clip.y),
-                     static_cast<int>(tableUi.clip.width), static_cast<int>(tableUi.clip.height));
+    UITheme::beginClip(tableUi.clip);
     for (std::size_t visible = 0; visible < tableUi.visibleRows && first + visible < rowCount; ++visible) {
         const std::size_t source = first + visible;
-        const auto originalSource = sourceRows ? (*sourceRows)[source] : source;
-        const auto& rowData = table.rows[originalSource];
-        const auto& cells = rowData.cells;
-        const Rectangle row = tableRowBounds(ui, visible);
-        if ((!statisticsPage && hasSelection() && rowData.id == selected_) || CheckCollisionPointRec(GetMousePosition(), row))
-            DrawRectangleRounded(row,0.10f,5,kHover);
-        for (std::size_t column = 0; column < table.headers.size() && column < cells.size(); ++column) {
-            const float columnX = tableColumnX(tableUi, column);
-            const float columnWidth = tableColumnWidth(tableUi, column);
-            BeginScissorMode(static_cast<int>(columnX + 4.0f), static_cast<int>(row.y + 2.0f),
-                             std::max(1, static_cast<int>(columnWidth - 8.0f)), static_cast<int>(row.height - 4.0f));
-            UITheme::drawText(cells[column].c_str(), static_cast<int>(columnX + 4.0f),
-                              static_cast<int>(row.y + (row.height - 18.0f) * 0.5f), 18, kText);
-            EndScissorMode();
+        const auto& rowData = table.rows[sourceRows ? (*sourceRows)[source] : source];
+        const Rectangle row = tableRowBounds(tableUi, visible);
+        if ((hasSelection() && rowData.id == selected_) || CheckCollisionPointRec(GetMousePosition(), row))
+            DrawRectangleRounded(row, 0.10f, 5, kHover);
+        float x = tableUi.columnsX;
+        for (std::size_t column = 0; column < table.headers.size() && column < rowData.cells.size(); ++column) {
+            const auto value = UITheme::ellipsize(rowData.cells[column], tableUi.widths[column] - 8.0f, 16);
+            UITheme::drawText(value.c_str(), static_cast<int>(x), static_cast<int>(row.y + 10.0f), 16, kText);
+            x += tableUi.widths[column];
         }
     }
     EndScissorMode();
+    if (supportsRowDetails(section))
+        controlButton(RowDetails, rowDetailsButton(ui.list), "View details", false, hasSelection());
     if (rowCount > tableUi.visibleRows) {
         const Rectangle track{ui.list.x + ui.list.width - 8.0f, tableUi.clip.y, 3.0f, tableUi.clip.height};
         DrawRectangleRounded(track,0.5f,3,Color{239,224,230,255});
@@ -464,8 +609,8 @@ void BackendScreen::drawAlphabetPage(Rectangle list, const std::vector<AlphabetE
     DrawRectangleRoundedLinesEx(ui.list,0.04f,8,1.0f,kBorder);
     const auto gridRows = alphabetRows(rows, katakana);
     const auto alphabetUi = alphabetLayout(ui, gridRows.size());
-    button(alphabetUi.hiraganaTab, "Hiragana", !katakana);
-    button(alphabetUi.katakanaTab, "Katakana", katakana);
+    controlButton(Hiragana, alphabetUi.hiraganaTab, "Hiragana", !katakana);
+    controlButton(Katakana, alphabetUi.katakanaTab, "Katakana", katakana);
     const std::size_t maxOffset = gridRows.size() > alphabetUi.visibleRows ? gridRows.size() - alphabetUi.visibleRows : 0;
     const std::size_t first = std::min(scrollOffset, maxOffset);
     static const std::array<const char*, 5> columnLabels = {"a", "i", "u", "e", "o"};
@@ -514,29 +659,41 @@ void BackendScreen::drawAlphabetPage(Rectangle list, const std::vector<AlphabetE
 
 }
 
-void BackendScreen::drawActions(Rectangle content, Rectangle list, float actionX, float actionY, Section section,
+void BackendScreen::drawActions(Rectangle content, Rectangle helper, float actionX, float actionY, Section section,
                                 UserRole role, const std::string& message, bool messageError,
                                 const BackendActivityState& activity) const {
     const float x=actionX,y=actionY;
     drawStudyActions(section, x, y, activity);
     for (const auto& item : tableActions(section, role))
-        button(action(x, y + item.offset), item.label, item.primary, !item.needsTarget || hasSelection());
+        controlButton(actionControl(item.event), action(x, y + item.offset), item.label, item.primary, !item.needsTarget || hasSelection());
     if (section == Section::Packages) {
-        const Rectangle path{content.x+12,content.y+100,list.width,42};
-        UITheme::drawField(path,"Package folder",packagePath_,packagePathFocused_);
-        button({path.x,path.y+52,kActionButtonWidth,38},"Export package",true);
-        button({path.x+kActionButtonWidth+12,path.y+52,kActionButtonWidth,38},"Import package");
-        UITheme::drawWrapped("Export creates the package folder. Import requires resource_levels.txt and the related resource files.",static_cast<int>(path.x),static_cast<int>(path.y+106),static_cast<int>(list.width),14,kMuted,3);
+        const Rectangle path{content.x+12,content.y+100,content.width-24,42};
+        packageFolder_.draw(path, "Package folder", focus_, PackagePath, PackageBrowse, !modalOpen());
+        controlButton(Export, {path.x,path.y+52,kActionButtonWidth,38},"Export package",true);
+        controlButton(Import, {path.x+kActionButtonWidth+12,path.y+52,kActionButtonWidth,38},"Import package");
+        UITheme::drawWrapped("Export creates the package folder. Import requires resource_levels.txt and the related resource files.",static_cast<int>(path.x),static_cast<int>(path.y+106),static_cast<int>(helper.width),14,kMuted);
     }
-    if(!message.empty())UITheme::drawStatusBanner(
-        {content.x+12.0f,content.y+content.height-52.0f,list.width,40.0f},message,messageError);
     if (formOpen_) drawForm(section, messageError ? message : std::string{});
-    if(deleteConfirm_||importConfirm_){
-        DrawRectangle(0,0,GetScreenWidth(),GetScreenHeight(),Color{46,31,38,150});const Rectangle d=confirmDialog();
+    if (confirmation_) {
+        const auto& dialog = *confirmation_;
+        const auto type = dialog.event.type;
+        const bool package = type == Event::REPLACE_PACKAGE;
+        const Rectangle d = confirmDialog(package);
+        DrawRectangle(0,0,GetScreenWidth(),GetScreenHeight(),Color{46,31,38,150});
         DrawRectangleRounded(d,0.05f,10,RAYWHITE);DrawRectangleRoundedLinesEx(d,0.05f,10,1.5f,kBorder);
-        UITheme::drawText(importConfirm_?"Import this package?":"Delete this record?",static_cast<int>(d.x+24),static_cast<int>(d.y+24),20,kText);
-        UITheme::drawWrapped(importConfirm_?"The package will be merged into current data.":"This action cannot be undone.",static_cast<int>(d.x+24),static_cast<int>(d.y+66),static_cast<int>(d.width-48),15,kMuted,2);
-        button(confirmYes(),importConfirm_?"Import":"Delete",true);button(confirmNo(),"Cancel");
+        const int left = static_cast<int>(d.x + 24);
+        const int width = static_cast<int>(d.width - 48);
+        UITheme::drawText(dialog.title.c_str(), left, static_cast<int>(d.y + 24), 20, kText);
+        if (package) {
+            UITheme::drawWrapped("Destination: " + dialog.event.text, left, static_cast<int>(d.y + 64),
+                                 width, 15, kText, 6);
+        }
+        UITheme::drawWrapped(dialog.message, left, static_cast<int>(d.y + (package ? 198 : 66)), width,
+                             15, kMuted, package ? 4 : 3);
+        const char* label = type == Event::IMPORT_PACKAGE ? "Import" :
+                            type == Event::DELETE_ROW ? "Delete" : "Confirm";
+        UITheme::drawButton(confirmYes(d), label, true, true, false, modalFocus_.on(0));
+        UITheme::drawButton(confirmNo(d), "Cancel", false, true, false, modalFocus_.on(1));
     }
 }
 
@@ -545,37 +702,58 @@ void BackendScreen::draw(Section section, UserRole role, const std::vector<Alpha
                          bool messageError,
                          const BackendActivityState& activity) const {
     const bool statisticsPage = section == Section::Statistics;
-    const BackendUiLayout baseUi=layout();
-    const BackendUiLayout ui=statisticsPage ? statisticsLayout(baseUi) : baseUi;
+    const BackendUiLayout ui = layout(section, message);
     DrawRectangleRounded(ui.content,0.035f,12,RAYWHITE);
     DrawRectangleRoundedLinesEx(ui.content,0.035f,12,1.0f,kBorder);
     UITheme::drawText(sectionTitle(role, section),static_cast<int>(ui.content.x+12),static_cast<int>(ui.content.y+12),22,kText);
-    button(ui.refresh,"Refresh");
+    controlButton(Refresh, ui.refresh, "Refresh");
     const bool tableView = isTableSection(section);
     const bool accountsTable = section == Section::Accounts;
     const bool filterAccounts = accountsTable && accountRoleFilter_ != 0;
     const auto sourceRows = filterAccounts ? accountRows(table, accountRoleFilter_) : std::vector<std::size_t>{};
     const bool alphabet = section == Section::Alphabet;
-    const bool importExport = section == Section::Packages;
     const bool reviewPage = section == Section::Review;
     const bool quizPage = section == Section::Quiz;
     if (statisticsPage) drawStatisticsCards(ui.content, activity);
-    const char* helper = statisticsPage ? "Review your resource totals and past quiz attempts." :
-                         reviewPage ? "Review your saved favorites one card at a time." :
-                         quizPage ? "Choose a JLPT level with active questions to begin." :
-                         alphabet ? "Choose Hiragana or Katakana, then select a kana." :
-                         importExport ? "Choose a package folder, then export or import." :
-                         "Select an entry to act on it. Data is loaded from your account.";
-    UITheme::drawText(helper,static_cast<int>(ui.content.x+12),static_cast<int>(ui.content.y+44),15,kMuted);
+    const char* helper = sectionHelp(section);
+    if (quizPage && activity.quiz)
+        helper = activity.quiz->submitted ? "Scroll to read each question and its explanation."
+                                          : "Scroll to read the full question and all four choices.";
+    UITheme::drawWrapped(helper, static_cast<int>(ui.helper.x), static_cast<int>(ui.helper.y),
+                         static_cast<int>(ui.helper.width), 15, kMuted);
     if (accountsTable) {
         static const char* filters[] = {"All roles", "Admin", "Learner"};
         const std::string label = std::string("Role: ") + filters[accountRoleFilter_];
-        button(accountRoleFilterBounds(ui), label.c_str());
+        controlButton(Roles, accountRoleFilterBounds(ui), label.c_str());
     }
     if (reviewPage) drawReviewPage(ui.list, activity, reviewDetailsScrollOffset_);
-    else if (quizPage) drawQuizPage(ui.list, activity, quizQuestionIndex_, scrollOffset_);
+    else if (quizPage) drawQuizPage(ui.list, activity);
     else if (tableView) drawTablePage(ui.content, ui.list, section, table,
                                       filterAccounts ? &sourceRows : nullptr, statisticsPage);
     else if (alphabet) drawAlphabetPage(ui.list, entries, alphabetKatakana_, alphabetScrollOffset_);
-    drawActions(ui.content, ui.list, ui.actionX, ui.actionY, section, role, message, messageError, activity);
+    if (!modalOpen() && focus_.on(Rows)) UITheme::drawFocus(ui.list);
+    if (!formOpen_) UITheme::drawStatusBanner(ui.banner, message, messageError, bannerOffset_);
+    drawActions(ui.content, ui.helper, ui.actionX, ui.actionY, section, role, message, messageError, activity);
+    if (rowDetailsOpen_) drawRowDetails(table);
+}
+
+void BackendScreen::drawRowDetails(const BackendTableData& table) const {
+    const Rectangle panel = rowDetailsDialog();
+    const Rectangle viewport = rowDetailsViewport(panel);
+    const auto fields = rowDetails(table, selected_, viewport);
+    const float height = rowDetailsHeight(fields);
+    const float offset = std::min(rowDetailsOffset_, std::max(0.0f, height - viewport.height));
+    DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), Color{46,31,38,150});
+    DrawRectangleRounded(panel, 0.05f, 10, RAYWHITE);
+    DrawRectangleRoundedLinesEx(panel, 0.05f, 10, 1.5f, kBorder);
+    UITheme::drawText("Record details", static_cast<int>(viewport.x), static_cast<int>(panel.y + 24), 22, kText);
+    UITheme::beginClip(viewport);
+    float y = viewport.y - offset;
+    for (const auto& field : fields) {
+        field.draw(static_cast<int>(viewport.x + 4.0f), static_cast<int>(y), kText);
+        y += field.height() + 12.0f;
+    }
+    EndScissorMode();
+    UITheme::drawScrollbar(viewport, height, offset);
+    UITheme::drawButton(rowDetailsClose(panel), "Close", true, true, false, modalFocus_.on(0));
 }

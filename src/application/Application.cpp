@@ -7,7 +7,6 @@
 #include "algorithms/MergeSort.h"
 #include <algorithm>
 #include <filesystem>
-#include <iterator>
 #include <random>
 #include <stdexcept>
 #include <string_view>
@@ -16,24 +15,6 @@
 namespace {
 Status failure(BackendError code, std::string message) {
     return {code, SaveState::UNCHANGED, std::move(message)};
-}
-std::string trimSearchQuery(std::string_view query) {
-    constexpr std::string_view spaces[] = {" ", "\t", u8"\u00a0", u8"\u3000"};
-    while (!query.empty()) {
-        const auto space = std::find_if(std::begin(spaces), std::end(spaces), [&](auto candidate) {
-            return query.substr(0, candidate.size()) == candidate;
-        });
-        if (space == std::end(spaces)) break;
-        query.remove_prefix(space->size());
-    }
-    while (!query.empty()) {
-        const auto space = std::find_if(std::begin(spaces), std::end(spaces), [&](auto candidate) {
-            return query.size() >= candidate.size() && query.substr(query.size() - candidate.size()) == candidate;
-        });
-        if (space == std::end(spaces)) break;
-        query.remove_suffix(space->size());
-    }
-    return std::string(query);
 }
 AccountSummary summary(const User& u) {
     return {u.getId(), u.getUsername(), u.getRole(), u.getStatus()};
@@ -80,7 +61,6 @@ struct Application::Impl {
     FileStorage storage;
     ApplicationService service{data, users, favorites, quizzes, storage};
     std::mt19937 engine;
-    std::string folder;
     bool ready = false;
 
     explicit Impl(std::uint32_t seed) : engine(seed) {}
@@ -93,21 +73,22 @@ struct Application::Impl {
     Status persist() {
         if (!data.dirty()) return {};
         std::string error;
-        if (service.save(folder, error)) return {BackendError::NONE, SaveState::SAVED, {}};
+        if (service.save(error)) return {BackendError::NONE, SaveState::SAVED, {}};
         return {BackendError::NONE, SaveState::PENDING, std::move(error)};
     }
-    Status prepareSearch(SearchOptions& options, bool replay = false) const {
+    Status prepareSearch(SearchOptions& options, bool legacy = false) const {
+        const auto trimmed = trimSearchQuery(options.query);
+        options.query.assign(trimmed);
         try {
             validateTxtField(options.query, "query", false);
         } catch (const std::invalid_argument& e) {
             return failure(BackendError::INVALID_INPUT, e.what());
         }
-        options.query = trimSearchQuery(options.query);
         if ((options.type && (*options.type < ResourceType::VOCABULARY || *options.type > ResourceType::KANJI)) ||
             options.sort < SearchSort::RELEVANCE || options.sort > SearchSort::TERM_DESC ||
             (options.levelId && !data.findLevel(*options.levelId)))
             return failure(BackendError::INVALID_INPUT, "invalid search filters");
-        if (replay && ResourceId::isValid(options.query))
+        if (legacy && ResourceId::isValid(options.query))
             options.exactId = data.findResource(ResourceId(options.query)) != nullptr;
         if (options.exactId && !options.query.empty() && !ResourceId::isValid(options.query))
             return failure(BackendError::INVALID_INPUT, "Invalid resource ID. Use an ID such as R001.");
@@ -117,7 +98,7 @@ struct Application::Impl {
         auto rows = resources.search(options);
         Status status;
         if (!options.query.empty()) {
-            if (histories.record(options.query, status.message)) status = persist();
+            if (histories.record(options, status.message)) status = persist();
         }
         return {std::move(status), std::move(rows)};
     }
@@ -150,42 +131,33 @@ Status Application::initialize(const std::string& folder, const std::string& nam
     if (loaded()) return failure(BackendError::INVALID_STATE, "backend already loaded");
     try {
         if (folder.empty()) return failure(BackendError::INVALID_INPUT, "empty folder");
-        const auto inputFolder = pathFromUtf8(folder);
-        if (std::filesystem::exists(inputFolder) && !std::filesystem::is_empty(inputFolder))
-            return failure(BackendError::REJECTED, "initialize requires an empty directory");
         DataStore staged;
         staged.users.emplace_back(UserId("U001"), name, password, UserRole::ADMIN, UserStatus::ACTIVE);
         staged.rebuildIndexes();
-        impl_->folder = pathToUtf8(std::filesystem::absolute(inputFolder));
-        staged.dirtyTables = StoreTable::ALL;
-        impl_->data.swap(staged);
+        if (!impl_->service.initialize(folder, staged))
+            return failure(BackendError::REJECTED, "initialize requires an empty directory");
         impl_->ready = true;
         return impl_->persist();
     } catch (const std::invalid_argument& e) {
         return failure(BackendError::INVALID_INPUT, e.what());
     } catch (const CredentialError& e) {
         return failure(BackendError::IO_ERROR, e.what());
-    } catch (const std::filesystem::filesystem_error& e) {
+    } catch (const std::runtime_error& e) {
         return failure(BackendError::IO_ERROR, e.what());
     }
 }
 Status Application::load(const std::string& folder, UnsavedPolicy unsaved) {
     if (dirty() && unsaved != UnsavedPolicy::DISCARD)
         return failure(BackendError::UNSAVED_CHANGES, "save or explicitly discard changes");
-    if (folder.empty() || (unsaved != UnsavedPolicy::REJECT && unsaved != UnsavedPolicy::DISCARD))
+    if (folder.empty()) return failure(BackendError::INVALID_INPUT, "empty data directory path");
+    if (unsaved != UnsavedPolicy::REJECT && unsaved != UnsavedPolicy::DISCARD)
         return failure(BackendError::INVALID_INPUT, "invalid load arguments");
-    try {
-        const auto path = pathFromUtf8(folder);
-        std::string resolved = pathToUtf8(path.is_absolute() ? path : std::filesystem::absolute(path));
-        std::string error;
-        if (!impl_->service.load(resolved, error, unsaved == UnsavedPolicy::DISCARD))
-            return failure(BackendError::IO_ERROR, std::move(error));
-        impl_->folder.swap(resolved);
-        impl_->ready = true;
-        return {};
-    } catch (const std::filesystem::filesystem_error& e) {
-        return failure(BackendError::IO_ERROR, e.what());
-    }
+    std::string error;
+    bool empty = false;
+    if (!impl_->service.load(folder, error, unsaved == UnsavedPolicy::DISCARD, empty))
+        return failure(empty ? BackendError::EMPTY_DATA_DIRECTORY : BackendError::IO_ERROR, std::move(error));
+    impl_->ready = true;
+    return {};
 }
 Status Application::retrySave() {
     if (!loaded()) return failure(BackendError::NOT_LOADED, "load first");
@@ -245,6 +217,11 @@ Status Application::setAccountStatus(const UserId& id, UserStatus state) {
 Status Application::resetPassword(const UserId& id, const std::string& password) {
     return impl_->change(true, [&](std::string& e) { return impl_->users.resetPassword(id, password, e); });
 }
+Status Application::changePassword(const std::string& currentPassword, const std::string& newPassword) {
+    return impl_->change(false, [&](std::string& error) {
+        return impl_->users.changePassword(currentPassword, newPassword, error);
+    });
+}
 
 Result<std::vector<Level>> Application::levels() const {
     auto status = impl_->guard();
@@ -299,11 +276,10 @@ Result<std::vector<SearchHistory>> Application::history() const {
 Result<SearchReplay> Application::searchAgain(const HistoryId& id) {
     auto status = impl_->guard();
     if (!status.ok()) return {status, {}};
-    auto query = impl_->histories.queryFor(id);
-    if (!query) return {failure(BackendError::NOT_FOUND, "history missing for current account"), {}};
-    SearchOptions options;
-    options.query = std::move(*query);
-    status = impl_->prepareSearch(options, true);
+    const auto* entry = impl_->histories.find(id);
+    if (!entry) return {failure(BackendError::NOT_FOUND, "history missing for current account"), {}};
+    auto options = entry->getOptions();
+    status = impl_->prepareSearch(options, !entry->hasSearchOptions());
     if (!status.ok()) return {status, {}};
     auto result = impl_->submitPreparedSearch(options);
     return {std::move(result.status), SearchReplay{std::move(options), std::move(*result.value)}};
@@ -445,18 +421,31 @@ Result<std::vector<QuizAttempt>> Application::attempts() const {
 Status Application::importPackage(const std::string& folder) {
     return impl_->change(true, [&](std::string& error) { return impl_->service.importPackage(folder, error); });
 }
-Status Application::exportPackage(const std::string& folder) const {
+Result<PackageExportPlan> Application::inspectPackageExport(const std::string& folder) const {
     auto status = impl_->guard(true);
-    if (!status.ok()) return status;
+    if (!status.ok()) return {std::move(status), {}};
     try {
-        if (folder.empty()) return failure(BackendError::INVALID_INPUT, "empty export folder");
-        if (pathsOverlap(folder, impl_->folder)) return failure(BackendError::REJECTED, "export folder overlaps active data directory");
-        std::string error;
-        if (!impl_->service.exportPackage(folder, error)) return failure(BackendError::IO_ERROR, std::move(error));
-        return {};
+        if (folder.empty()) return {failure(BackendError::INVALID_INPUT, "empty export folder"), {}};
+        if (impl_->service.overlaps(folder))
+            return {failure(BackendError::REJECTED, "export folder overlaps active data directory"), {}};
+        const auto path = std::filesystem::absolute(pathFromUtf8(folder));
+        return {{}, PackageExportPlan{pathToUtf8(path), impl_->storage.existingPackageFiles(path)}};
     } catch (const std::filesystem::filesystem_error& e) {
-        return failure(BackendError::IO_ERROR, e.what());
+        return {failure(BackendError::IO_ERROR, e.what()), {}};
     }
+}
+
+Status Application::exportPackage(const std::string& folder,
+                                  const std::vector<std::string>& approvedFiles) const {
+    const auto plan = inspectPackageExport(folder);
+    if (!plan.value) return plan.status;
+    for (const auto& file : plan.value->existingFiles)
+        if (std::find(approvedFiles.begin(), approvedFiles.end(), file) == approvedFiles.end())
+            return failure(BackendError::REJECTED, "Export destination changed. Review the files and export again.");
+    std::string error;
+    if (!impl_->storage.savePackage(plan.value->folder, impl_->data, error, &approvedFiles))
+        return failure(BackendError::IO_ERROR, std::move(error));
+    return {};
 }
 
 Result<ResourceId> Application::createVocabulary(const VocabularyInput& input) {

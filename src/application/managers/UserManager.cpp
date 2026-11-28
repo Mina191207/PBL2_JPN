@@ -106,8 +106,26 @@ bool UserManager::resetPassword(const UserId& id, const std::string& password, s
         error = "user not found";
         return false;
     }
+    return replacePassword(data_.users[it->second], password, error);
+}
+
+bool UserManager::changePassword(const std::string& currentPassword, const std::string& newPassword,
+                                 std::string& error) {
+    const auto* current = currentUser();
+    if (!current) {
+        error = "login required";
+        return false;
+    }
+    if (!current->checkPassword(currentPassword)) {
+        error = "Current password is incorrect.";
+        return false;
+    }
+    return replacePassword(data_.users[data_.userById.at(current->getId().getId())], newPassword, error);
+}
+
+bool UserManager::replacePassword(User& user, const std::string& password, std::string& error) {
     try {
-        data_.users[it->second].resetPassword(password);
+        user.resetPassword(password);
     } catch (const std::invalid_argument& e) {
         error = e.what();
         return false;
